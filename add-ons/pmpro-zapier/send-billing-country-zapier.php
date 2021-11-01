@@ -1,15 +1,11 @@
----
-layout: snippet
-title: Send Billing Country to Zapier
-description: Sends the Billing Country field to Zapier on the Added and Updated Order actions
-collection: add-ons, pmpro-zapier
-category: custom-fields
----
-
 <?php
-
 /**
- * This recipe will send the Billing country through to Zapier for added and updated order actions.
+ * Send the billing country through to Zapier for added and updated order actions.
+ * 
+ * title: Send Billing Country to Zapier
+ * layout: snippet
+ * collection: add-ons, pmpro-zapier
+ * category: custom-fields
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
