@@ -12,7 +12,6 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
 function my_pmpro_invoice_company_name() {
 
 	// Get user meta
