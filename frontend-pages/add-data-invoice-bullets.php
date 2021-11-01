@@ -1,15 +1,11 @@
----
-layout: snippet
-title: Add Data to Invoice Bullets
-description: Adds information to the bottom of an invoice in the unordered list.
-collection: frontend-pages
-category: invoices
----
-
 <?php
-
 /**
- * This recipe will add a Company name to the bottom of the invoice. 
+ * Add company custom field to the bottom of the invoice page.
+ *
+ * title: Add Data to Invoice Bullets
+ * layout: snippet
+ * collection: frontend-pages
+ * category: invoices
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
