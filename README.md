@@ -17,3 +17,21 @@ A few of the benefits of this collection will be:
 5. In the mean time, you can provide customers with your own Gist URL of the snippet.
 6. After PR is approved, the snippet will be merged.
 7. Now the snippet is ready for inclusion on our site!
+
+## Header Layout for snippets
+Please include the following header format when submitting a snippet
+```
+/**
+ * Describe what the snippet does in one setence. (i.e. Add a checkbox to the checkout page.)
+ * 
+ * title: Add custom field to checkout
+ * layout: snippet-example
+ * collection: frontend-pages
+ * category: custom-fields
+ * 
+ * You can add this recipe to your site by creating a custom plugin
+ * or using the Code Snippets plugin available for free in the WordPress repository.
+ * Read this companion article for step-by-step directions on either method.
+ * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ */
+```
