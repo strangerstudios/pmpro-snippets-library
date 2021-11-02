@@ -11,12 +11,12 @@ A few of the benefits of this collection will be:
 
 ## Submitting new snippets or changes
 
-2. Just go to the folder (or create a new path) for where you want to add/change a snippet.
-3. Create a fork and submit Pull Fequest with your snippet work.
-4. The PR will be code reviewed.
-5. In the mean time, you can provide customers with your own Gist URL of the snippet.
-6. After PR is approved, the snippet will be merged.
-7. Now the snippet is ready for inclusion on our site!
+1. Just go to the folder (or create a new path) for where you want to add/change a snippet.
+2. Create a fork and submit Pull Fequest with your snippet work.
+3. The PR will be code reviewed.
+4. In the mean time, you can provide customers with your own Gist URL of the snippet.
+5. After PR is approved, the snippet will be merged.
+6. Now the snippet is ready for inclusion on our site!
 
 ## Header Layout for snippets
 Please include the following header format when submitting a snippet
