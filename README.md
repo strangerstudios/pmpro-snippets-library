@@ -22,7 +22,7 @@ A few of the benefits of this collection will be:
 Please include the following header format when submitting a snippet
 ```
 /**
- * Describe what the snippet does in one setence. (i.e. Add a checkbox to the checkout page.)
+ * Describe what the snippet does in one sentence. (i.e. Add a checkbox to the checkout page.)
  * 
  * title: Add custom field to checkout
  * layout: snippet-example
