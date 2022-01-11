@@ -4,7 +4,7 @@
  * 
  * title: Adjust Fee to Stranger Studios When Using Stripe Connect
  * layout: snippet
- * collection: payment-gateways/stripe
+ * collection: payment-gateways, stripe
  * category: fee
  * 
  * You can add this recipe to your site by creating a custom plugin
