@@ -9,7 +9,7 @@
  * 
  * title: Generate a Unique Member Number for Display on Membership Account, Confirmation Email and More
  * layout: snippet
- * collection: front-end-pages
+ * collection: frontend-pages
  * category: membership-number
  * 
  * You can add this recipe to your site by creating a custom plugin
