@@ -46,8 +46,8 @@ function my_pmpro_registration_checks( $value ) {
         //yup, don't let them checkout
         if ( $already ) {
             global $pmpro_msg, $pmpro_msgt;
-            $pmpro_msg = "You have already used up your trial membership. Please select a full membership to checkout.";
-            $pmpro_msgt = "pmpro_error";
+            $pmpro_msg = 'You have already used up your trial membership. Please select a full membership to checkout.';
+            $pmpro_msgt = 'pmpro_error';
             
             $value = false;
         }
@@ -55,7 +55,7 @@ function my_pmpro_registration_checks( $value ) {
     
     return $value;
 }
-add_filter( "pmpro_registration_checks", "my_pmpro_registration_checks" );
+add_filter( 'pmpro_registration_checks', 'my_pmpro_registration_checks' );
 
 //swap the expiration text if the user has used the trial
 function my_pmpro_level_expiration_text( $text, $level ) {
