@@ -22,7 +22,7 @@ function my_pmpro_invoice_company_name() {
 	// Add if meta is available
 	if ( ! empty( $company ) ) {
 	?>
-	<li><strong>Company:</strong> <?php echo $company; ?></li>
+		<li><strong>Company:</strong> <?php echo $company; ?></li>
 	<?php
 	}
 }

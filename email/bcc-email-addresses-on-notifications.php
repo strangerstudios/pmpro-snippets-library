@@ -1,7 +1,6 @@
 <?php
 /**
  * BCC Additional Email Addresses on Member or Admin Notifications
- * 
  * This will allow you to BCC additional email addresses for member and admin notifications.
  * 
  * Ensure line 25 is changed to your preferred BCC email address
@@ -19,12 +18,11 @@
 
 function my_pmpro_email_headers_admin_emails( $headers, $email ) {
 
-    //bcc emails already going to admin_email
-    if( strpos( $email->template, "_admin" ) !== false ) {
-        //add bcc
-        $headers[] = "Bcc:" . "otheremail@domain.com";      
+    //BCC emails already going to admin_email
+    if ( strpos( $email->template, '_admin' ) !== false ) {
+        $headers[] = 'Bcc:' . 'otheremail@domain.com';      
     } 
  
     return $headers;
 }
-add_filter( "pmpro_email_headers", "my_pmpro_email_headers_admin_emails", 10, 2 );
+add_filter( 'pmpro_email_headers', 'my_pmpro_email_headers_admin_emails', 10, 2 );

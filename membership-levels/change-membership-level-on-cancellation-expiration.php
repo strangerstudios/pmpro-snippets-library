@@ -16,13 +16,6 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-/**
- * [pmpro_after_change_membership_level_default_level description]
- *
- * @param  [type] $level_id [description]
- * @param  [type] $user_id  [description]
- * @return [type]           [description]
- */
 function pmpro_after_change_membership_level_default_level( $level_id, $user_id ) {
     
     // if we see this global set, then another gist is planning to give the user their level back

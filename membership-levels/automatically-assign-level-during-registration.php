@@ -19,7 +19,7 @@
  */
 
 //Disables the pmpro redirect to levels page when user tries to register
-add_filter( "pmpro_login_redirect", "__return_false" );
+add_filter( 'pmpro_login_redirect', '__return_false' );
 
 function my_pmpro_default_registration_level ( $user_id ) {
 
@@ -27,4 +27,4 @@ function my_pmpro_default_registration_level ( $user_id ) {
 	pmpro_changeMembershipLevel( 1, $user_id );
 
 }
-add_action( "user_register", "my_pmpro_default_registration_level" );
+add_action( 'user_register', 'my_pmpro_default_registration_level' );
