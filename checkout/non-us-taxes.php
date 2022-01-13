@@ -62,7 +62,7 @@ function customtax_region_tax_check() {
 		if ( ! empty( $_REQUEST['taxregion'] ) ) {
 			add_filter( 'pmpro_tax', 'customtax_pmpro_tax', 10, 3 );
         }
-	} else if( ! empty( $_SESSION['taxregion'] ) ) {
+	} elseif ( ! empty( $_SESSION['taxregion'] ) ) {
 		//add the filter
 		add_filter( 'pmpro_tax', 'customtax_pmpro_tax', 10, 3 );
 	} else {
