@@ -15,8 +15,8 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 function my_pmpro_refund_reason_after_order_settings( $order ) {
+	// This is a new order.
 	if ( empty( $order->id ) ) {
-		// This is a new order.
 		return;
 	}
 
@@ -52,10 +52,9 @@ add_action( 'pmpro_after_order_settings', 'my_pmpro_refund_reason_after_order_se
  * Save Refund Reason to Order Meta.
  */
 function my_pmpro_refund_reason_updated_order( $order ) {
-	// Save extra fields.
-	if ( is_admin() && $_REQUEST['page'] === 'pmpro-orders' && ! empty( $_REQUEST['save'] ) ) {
+	if ( is_admin() && ! empty( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pmpro-orders' && ! empty( $_REQUEST['save'] ) ) {
 		if ( isset( $_REQUEST['pmpro_refund_reason'] ) ) {
-			update_pmpro_membership_order_meta( $order->id, 'pmpro_refund_reason', ( $_REQUEST['pmpro_refund_reason'] ) );
+			update_pmpro_membership_order_meta( $order->id, 'pmpro_refund_reason', sanitize_text_field( $_REQUEST['pmpro_refund_reason'] ) );
 		}
 	}
 }
