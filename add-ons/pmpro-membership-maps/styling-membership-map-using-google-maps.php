@@ -5,6 +5,11 @@
  *
  * Snazzy Maps also offers a directory of Google Map styles:
  * https://snazzymaps.com/explore
+ * 
+ * title: Styles for Membership Maps
+ * layout: snippet-example
+ * collection: pmpro-membership-maps
+ * category: styling, JSON, maps
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
