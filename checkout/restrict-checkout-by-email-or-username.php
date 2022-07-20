@@ -1,8 +1,15 @@
 <?php
 /**
  * Restrict level signups by email address or username.
+ *
+ * title: Restrict level signups by email address or username.
+ * layout: snippet
+ * collection: checkout
+ * category: registration-check
+ *
  * This code snippet replaces the functionality from the Register Helper add on.
  * Make sure you are running PMPro 2.9+ and have the RH add on deactivated.
+ *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
