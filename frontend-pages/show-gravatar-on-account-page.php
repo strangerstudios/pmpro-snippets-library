@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Show a link to Gravatar and an avatar preview on the Profile section of the Membership Account page.
  *
  * title: Show Gravatar on Membership Account Page
