@@ -47,7 +47,7 @@ function my_pmpro_mailchimp_listsubscribe_field_shipping( $fields, $user ) {
 		'SSTATE'     => ( isset( $_REQUEST['sstate'] ) ) ? sanitize_text_field( $_REQUEST['sstate'] ) : get_user_meta( $user->ID, 'sstate', true ),
 		'SZIPCODE'   => ( isset( $_REQUEST['szipcode'] ) ) ? sanitize_text_field( $_REQUEST['szipcode'] ) : get_user_meta( $user->ID, 'szipcode', true ),
 		'SPHONE'     => ( isset( $_REQUEST['sphone'] ) ) ? sanitize_text_field( $_REQUEST['sphone'] ) : get_user_meta( $user->ID, 'sphone', true ),
-		'SCOUNTRY'   => ( isset( $_REQUEST['scountry'] ) ) ? sanitize_text_field( $_REQUEST['scountry'] ) : get_user_meta( $user->ID, 'scountry', true )c header.
+		'SCOUNTRY'   => ( isset( $_REQUEST['scountry'] ) ) ? sanitize_text_field( $_REQUEST['scountry'] ) : get_user_meta( $user->ID, 'scountry', true )
 	);
 
 	$fields = array_merge( $fields, $new_fields );
