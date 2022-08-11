@@ -1,12 +1,12 @@
 <?php
 /**
- * This recipe will add billing fields to the checkout. Useful for payment gateways
+ * This recipe will add billing fields to the checkout page. Useful for payment gateways
  * that don't have the option to display billing fields.
  *
  * title: Add billing fields to checkout.
  * layout: snippet
  * collection: checkout
- * category: billing fields
+ * category: billing-fields, register-helper, custom-fields
  *
  * You can add this recipe to your site by creating a custom plugin
 * or using the Code Snippets plugin available for free in the WordPress repository.
