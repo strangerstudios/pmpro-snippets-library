@@ -1,18 +1,19 @@
-<?php //do not copy
+<?php
 
 /**
  * Add billing fields to the Add Member from Admin Add On page
+ *
+ * title: Add custom fields to Add Member from Admin Add On
+ * layout: snippet
+ * collection: pmpro-add-member-admin
+ * category: custom-fields, admin
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
- *
  */
 
-/*
- * Adds address fields to the Add Member from Admin page
- */
 function my_pmpro_add_member_add_address_fields( $user, $user_id ) {
 	?>
 	<tr id="address">
