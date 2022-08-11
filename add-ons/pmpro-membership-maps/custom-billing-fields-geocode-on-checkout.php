@@ -3,9 +3,9 @@
  * This recipe will geocode the custom billing fields we've created during checkout.
  *
  * title: Add custom field to checkout
- * layout: snippet-example
- * collection: checkout
- * category: custom-fields, maps
+ * layout: snippet
+ * collection: pmpro-membership-maps
+ * category: custom-fields, maps, checkout
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
