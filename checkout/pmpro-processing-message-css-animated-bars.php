@@ -2,11 +2,11 @@
 /**
  * Display an animated CSS Loader instead of "Processing..." on checkout.
  *
-title: Display animated loading (progress) bars on PMPro Checkout when submitting.
-layout: snippet
-collection: Checkout
-category: pmpro_processing_message
-
+ * title: Display animated loading (progress) bars on PMPro Checkout when submitting.
+ * layout: snippet
+ * collection: checkout
+ * category: checkout, ui, css
+ *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
