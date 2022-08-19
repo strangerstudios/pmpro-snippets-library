@@ -16,7 +16,7 @@
  * Add our user fields: company, referral code, and budget.
  * This callback fires during the init action hook.
  */
-function my_pmprorh_init() {
+function my_pmpro_add_user_fields() {
 	// Don't break if PMPro is out of date or not loaded.
 	if ( ! function_exists( 'pmpro_add_user_field' ) ) {
 		return false;
@@ -88,4 +88,4 @@ function my_pmprorh_init() {
 
 	// That's it. See the PMPro User Fields docs for more information.
 }
-add_action( 'init', 'my_pmprorh_init' );
+add_action( 'init', 'my_pmpro_add_user_fields' );
