@@ -39,8 +39,9 @@ function my_pmpro_add_user_fields() {
 			'class'		=> 'company',		// custom class
 			'profile'	=> true,			// show in user profile
 			'required'	=> true,			// make this field required
-			'levels'	=> array(1,2)		// require level 1 or 2 for this field
-		)
+			'levels'	=> array(1,2),		// require level 1 or 2 for this field
+		    'memberslistcsv' => true        // include in CSV export
+        )
 	);
 	
 	/*
@@ -53,8 +54,9 @@ function my_pmpro_add_user_fields() {
 		'text',								// type of field
 		array(
 			'label'		=> 'Referral Code',	// custom field label
-			'profile'	=> 'only_admin'		// only show in profile for admins
-		)
+			'profile'	=> 'only_admin',	// only show in profile for admins
+		    'memberslistcsv' => true        // include in CSV export
+        )
 	);
 	
 	/*
@@ -62,11 +64,12 @@ function my_pmpro_add_user_fields() {
 		An array of options define the possible selections.
 	*/
 	$fields[] = new PMPro_Field(
-		'budget',				// input name and user meta key
-		'select',				// type of field
+		'budget',				      // input name and user meta key
+		'select',				      // type of field
 		array(
-			'options' => array(	// <option> elements for select field
-				'' => '',		// blank option
+			'memberslistcsv' => true, // include in CSV export
+            'options' => array(	      // <option> elements for select field
+				'' => '',		      // blank option
 				'lessthan2000'	=> '&lt; $2,000',
 				'2000to5000'	=> '$2,000-$5,000',
 				'5000to10000'	=> '$5,000-$10,000',
