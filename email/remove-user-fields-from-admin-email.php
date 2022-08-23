@@ -3,7 +3,7 @@
  * Remove user fields automatically added to admin checkout emails.
  * 
  * title: Remove user fields automatically added to admin checkout emails.
- * collection: user-fields
+ * collection: email
  * category: custom-fields
  * 
  * You can add this recipe to your site by creating a custom plugin
