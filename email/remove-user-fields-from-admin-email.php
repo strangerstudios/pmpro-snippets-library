@@ -15,4 +15,4 @@
 function my_pmpro_remove_user_fields_from_admin_emails() {
 	remove_filter( 'pmpro_email_filter', 'pmpro_add_user_fields_to_email', 10, 2);	
 }
-add_action( 'init', 'my_pmpro_remove_user_fields_from_admin_emails' );
+add_action( 'init', 'my_pmpro_remove_user_fields_from_admin_emails', 11 );
