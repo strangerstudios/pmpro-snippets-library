@@ -27,15 +27,15 @@ function my_pmpro_add_referral_source_conditional_user_field() {
 		'how_hear',
 		'select',
 		array(
-			'label'				=> 'How did you hear about us?',
-			'profile'			=> 'admins',
+			'label'			=> 'How did you hear about us?',
+			'profile'		=> 'admins',
 			'memberslistcsv'	=> true,
-			'options'			=> array(
-									'Twitter',
-									'Facebook',
-									'A Friend',
-									'Other',
-								)
+			'options'		=> array(
+							'Twitter',
+							'Facebook',
+							'A Friend',
+							'Other',
+						)
 		)
 	);
 	*/
