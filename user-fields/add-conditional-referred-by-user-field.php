@@ -21,6 +21,25 @@ function my_pmpro_add_referral_source_conditional_user_field() {
 	// Store our field settings in an array.
 	$fields = array();
 	
+	// The how_hear dropdown. If it wasn't added via settings, use this code to add.
+	/*
+	$fields[] = new PMPro_Field(
+		'how_hear',
+		'select',
+		array(
+			'label'				=> 'How did you hear about us?',
+			'profile'			=> 'admins',
+			'memberslistcsv'	=> true,
+			'options'			=> array(
+									'Twitter',
+									'Facebook',
+									'A Friend',
+									'Other',
+								)
+		)
+	);
+	*/
+	
 	// The conditional field that only shows if the field name 'how_hear' is set to 'other'.
 	$fields[] = new PMPro_Field(
 		'how_hear_referrer',
