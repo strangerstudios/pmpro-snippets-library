@@ -27,6 +27,11 @@ function my_redirect_nonmembers() {
 		return;
 	}
 	
+	// Ignore admins.
+	if ( current_user_can( 'manage_options' ) ) {
+		return;
+	}
+	
 	// Update this array.
 	$not_allowed = array(
 		"/members/",
