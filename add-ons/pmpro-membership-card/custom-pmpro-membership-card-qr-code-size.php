@@ -4,7 +4,7 @@
  *
  * title: Adjust size of QR code on Membership Card
  * layout: snippet
- * collection: misc
+ * collection: add-ons, pmpro-membership-card
  * category: qr-code
  *
  * You can add this recipe to your site by creating a custom plugin
