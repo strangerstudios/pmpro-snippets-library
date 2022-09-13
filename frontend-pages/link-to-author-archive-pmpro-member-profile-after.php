@@ -4,7 +4,7 @@
 
  * title: Link to profile user's author oist archive.
  * layout: snippet
- * collection: admin-pages
+ * collection: frontend-pages
  * category: author-post
  *
  * You can add this recipe to your site by creating a custom plugin
