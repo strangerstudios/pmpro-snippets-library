@@ -4,8 +4,8 @@
  *
  * title: Show list of child account on parent's profile
  * layout: snippet
- * collection: add-ons, pmpro-sponsored/group members
- * category: list-child-accounts
+ * collection: add-ons, pmpro-sponsored-members
+ * category: frontend-pages
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -23,7 +23,7 @@ function show_sponsored_child_accounts_pmpro_member_profile_after( $pu ) {
 		array(
 			'include' => $sponsored_ids,
 			'orderby' => 'name',
-			'order'   => 'ASC'
+			'order'   => 'ASC',
 		)
 	);
 
@@ -31,7 +31,7 @@ function show_sponsored_child_accounts_pmpro_member_profile_after( $pu ) {
 	if ( ! empty( $sponsored_members ) ) {
 		echo '<strong>Sponsored Members</strong>';
 		echo '<ul>';
-		foreach( $sponsored_members as $sponsored_member ) {
+		foreach ( $sponsored_members as $sponsored_member ) {
 			echo '<li>' . esc_html( $sponsored_member->data->display_name ) . '</li>';
 		}
 		echo '</ul>';
