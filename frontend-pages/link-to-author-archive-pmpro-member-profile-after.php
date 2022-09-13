@@ -2,7 +2,7 @@
 /*
  * Show a link to the profile user's author post archive on the Member Profile page.
 
- * title: Link to profile user's author oist archive.
+ * title: Link to profile user's author list archive.
  * layout: snippet
  * collection: frontend-pages
  * category: author-post
