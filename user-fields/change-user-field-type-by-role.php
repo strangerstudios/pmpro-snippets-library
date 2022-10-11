@@ -24,8 +24,9 @@ function my_pmpro_change_user_field_type_by_role() {
 	// Default to the readonly field type.
 	$field_type = 'readonly';
 
-	// Swap field type if user is administrator role.
+	// We only want to check for logged in users.
 	if ( is_user_logged_in() ) {
+		// Swap field type if user is administrator role.
 		if ( current_user_can( 'manage_options' ) ) {
 			$field_type = 'text';
 		}
@@ -44,7 +45,7 @@ function my_pmpro_change_user_field_type_by_role() {
 	// Add a field group to put our fields into.
 	pmpro_add_field_group( 'Member Details' );
 
-	//add the fields into a new checkout_boxes are of the checkout page
+	// Add the fields into a new field group.
 	foreach ( $fields as $field ) {
 		pmpro_add_user_field(
 			'Member Details',
