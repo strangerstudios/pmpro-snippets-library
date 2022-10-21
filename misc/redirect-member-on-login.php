@@ -1,3 +1,4 @@
+<?php
 /**
  * Redirect members to a specific page when logging in.
  * 
