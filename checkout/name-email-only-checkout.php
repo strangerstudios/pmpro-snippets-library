@@ -45,6 +45,23 @@ function simple_checkout_unset_required_user_fields( $pmpro_required_user_fields
 add_filter( 'pmpro_required_user_fields', 'simple_checkout_unset_required_user_fields', 10, 2 );
 
 /**
+ * Don't require the billing fields either.
+ */
+function simple_checkout_unset_required_billing_fields( $pmpro_required_billing_fields ) {
+	unset( $pmpro_required_billing_fields['bfirstname'] );
+	unset( $pmpro_required_billing_fields['blastname'] );
+	unset( $pmpro_required_billing_fields['baddress1'] );
+	unset( $pmpro_required_billing_fields['bcity'] );
+	unset( $pmpro_required_billing_fields['bstate'] );
+	unset( $pmpro_required_billing_fields['bzipcode'] );
+	unset( $pmpro_required_billing_fields['bcountry'] );
+	unset( $pmpro_required_billing_fields['bphone'] );
+	
+	return $pmpro_required_billing_fields;
+}
+add_filter( 'pmpro_required_billing_fields', 'simple_checkout_unset_required_billing_fields' );
+
+/**
  * Add the required User Fields
  */
 function simple_checkout_name_email_only_signup_pmpro_init() {
@@ -61,7 +78,7 @@ function simple_checkout_name_email_only_signup_pmpro_init() {
 	// Store our field settings in an array.
 	$fields = array();
 	$fields[] = new PMPro_Field(
-		'bfirstname',
+		'first_name',
 		'text',
 		array(
 			'label' => 'First Name',
@@ -70,7 +87,7 @@ function simple_checkout_name_email_only_signup_pmpro_init() {
 		)
 	);
 	$fields[] = new PMPro_Field(
-		'blastname',
+		'last_name',
 		'text',
 		array(
 			'label' => 'Last Name',
