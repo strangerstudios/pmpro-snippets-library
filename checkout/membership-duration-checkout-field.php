@@ -64,7 +64,7 @@ add_action( 'init', 'my_pmpro_add_level_duration_field_to_checkout' );
  */
 function my_pmpro_checkout_level_adjust_membership_duration_and_price( $level ) {
 	// Get the value of the membership_duration field from the submission.
-    $duration = isset( $_REQUEST['membership_duration'] ) ? $_REQUEST['membership_duration'] : '';
+    $duration = isset( $_REQUEST['membership_duration'] ) ? sanitize_text_field( $_REQUEST['membership_duration'] ) : '';
 
 	// Bail if no duration is set.
 	if ( empty( $duration ) ) {
