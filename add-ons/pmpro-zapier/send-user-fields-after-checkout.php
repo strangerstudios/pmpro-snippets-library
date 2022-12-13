@@ -1,6 +1,7 @@
 <?php
 /**
  * Send custom field data to Zapier using the "After Checkout Trigger".
+ * Learn more at https://www.paidmembershipspro.com/send-user-fields-zapier-after-membership-checkout/
  * 
  * title: Send User Fields After Checkout Zapier.
  * layout: snippet
