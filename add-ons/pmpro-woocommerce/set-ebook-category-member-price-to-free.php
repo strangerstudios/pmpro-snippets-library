@@ -1,6 +1,7 @@
 <?php
 /**
  * This recipe sets all products in the Ebooks category to free for logged in members.
+ * Learn more at https://www.paidmembershipspro.com/woocommerce-specific-category-free-for-members/
  *
  * title: Set products in Ebook category to free for members only.
  * layout: snippet
