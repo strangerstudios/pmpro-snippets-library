@@ -1,9 +1,11 @@
 <?php
 /**
- * This will add billing fields to the administrative user profile edit page for administrators
- * and on the frontend PMPro user Edit Profile page for members.
+ * Add default billing fields to the user profile edit page for admins and frontend edit profile for members.
  *
- * This code recipe requires Paid Memberships Pro version 2.9.0 or higher.
+ * title: Add billing fields to user profile edit page.
+ * layout: snippet
+ * collection: user-fields
+ * category: custom-fields
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -11,13 +13,12 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 function add_billing_fields_to_user_profile_edit() {
+	global $pmpro_countries;
 
 	// Require PMPro and PMPro Register Helper
 	if ( ! defined( 'PMPRO_VERSION' ) || version_compare( PMPRO_VERSION, '2.9.0', '<' ) ) {
 		return;
 	}
-
-	global $pmpro_countries;
 
 	// Define the fields
 	$fields = array();
@@ -36,8 +37,18 @@ function add_billing_fields_to_user_profile_edit() {
 	);
 
 	foreach ( $address_fields as $name => $label ) {
-		$options = 'pmpro_bcountry' === $name ? $pmpro_countries : array();
-		$type    = 'pmpro_bcountry' === $name ? 'select' : 'text';
+		// $options = 'pmpro_bcountry' === $name ? $pmpro_countries : array();
+		// $type    = 'pmpro_bcountry' === $name ? 'select' : 'text';
+
+		if ( $name === 'pmpro_bcountry' ) {
+			if ( ! empty( $pmpro_countries ) ) {
+				$options = $pmpro_countries;
+				$type    = 'select';
+			} else {
+				$options = array();
+				$type    = 'text';
+			}	
+		}
 
 		$fields[] = new PMProRH_Field(
 			$name,
