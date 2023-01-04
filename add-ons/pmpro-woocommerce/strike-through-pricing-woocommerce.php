@@ -1,7 +1,16 @@
 <?php
 /**
- * This will add strike through pricing if the membership pricing is available for currrent user viewing Woo store.
- * Add this code to your PMPro Customizations Plugin - https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ * Add strike through pricing if the membership pricing is available for currrent user viewing Woo store.
+ * 
+ * title: Strike through pricing WooCommerce
+ * layout: snippet
+ * collection: add-ons, pmpro-woocommerce
+ * category: woocommerce, pricing, UI
+ * 
+ * You can add this recipe to your site by creating a custom plugin
+ * or using the Code Snippets plugin available for free in the WordPress repository.
+ * Read this companion article for step-by-step directions on either method.
+ * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
 function my_pmprowoo_strike_prices( $price, $product ) {
