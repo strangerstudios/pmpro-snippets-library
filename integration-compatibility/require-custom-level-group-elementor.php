@@ -1,6 +1,7 @@
 <?php
 /**
  * Create a group of membership levels to protect Elementor content with fewer settings and less need for future updates.
+ * Learn more at https://www.paidmembershipspro.com/group-levels-elementor/
  *
  * title: Group membership levels to more easily protect content in Elementor.
  * layout: snippet
