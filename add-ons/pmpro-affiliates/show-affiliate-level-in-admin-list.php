@@ -18,7 +18,7 @@
  * Add table header to the Affiliates admin page for "Level"
  */
 function my_pmpro_affiliate_extra_cols_header_level() {
-	echo '<td>Level</td>';
+	echo '<th>Level</th>';
 }
 add_action( 'pmpro_affiliate_extra_cols_header', 'my_pmpro_affiliate_extra_cols_header_level' );
 
