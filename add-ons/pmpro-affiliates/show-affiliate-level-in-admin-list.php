@@ -2,6 +2,7 @@
 /**
  * Add a column to show the active membership level for the affiliate on the
  * Memberships > Affiliates list in the WordPress admin.
+ * Learn more at https://www.paidmembershipspro.com/lightweight-affiliates-add-column/
  *
  * title: Show Affiliate's Membership Level on Admin Page
  * layout: snippet
