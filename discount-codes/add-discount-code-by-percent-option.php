@@ -1,6 +1,6 @@
 <?php
 /**
- * This recipe will add a the option to add percentage to your discount code. This is visible on the
+ * This recipe will add a the option to add percentage discount to your discount code. This is visible on the
  * Discount Codes page for admin reference.
  *
  * title: Add Percentage option to discount codes
