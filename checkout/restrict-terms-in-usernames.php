@@ -2,6 +2,7 @@
 /**
  * Exclude specific terms from usernames during membership checkout.
  * Edit line 44 to set your unique list of terms to block.
+ * Learn more at www.paidmembershipspro.com/restrict-words-username
  *
  * title: Exclude specific terms from usernames during membership checkout.
  * layout: snippet
