@@ -1,3 +1,4 @@
+<?php
 /**
  * Tease the membership price when viewing a WooCommerce product as a non-member.
  * 
