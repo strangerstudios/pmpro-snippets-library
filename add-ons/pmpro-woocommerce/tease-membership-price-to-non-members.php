@@ -19,7 +19,7 @@ function my_pmprowoo_tease_membership_price() {
 	 * If we get here, they aren't a member and they don't have a level in their cart.
 	 * Show the price for level ID 1. Change this for your needs.
 	 */
-    $level_id = 1;
+        $level_id = 1;
 
 	// Quitely exit if PMPro isn't active.
 	if ( ! defined( 'PMPRO_DIR' ) ) {
