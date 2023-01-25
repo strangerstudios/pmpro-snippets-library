@@ -1,6 +1,7 @@
 <?php
 /**
  * Tease the membership price when viewing a WooCommerce product as a non-member.
+ * Learn more at https://www.paidmembershipspro.com/tease-price-woocommerce/
  * 
  * title: Tease membership product price to non-members.
  * layout: snippet-example
