@@ -15,11 +15,11 @@
 
 function my_pmpro_confirmation_url( $rurl, $user_id, $pmpro_level ) {
 
-	if ( 1 === $pmpro_level->id ) {
+	if ( '1' === $pmpro_level->id ) {
 		$rurl = 'http://example.com/page_1';
-	} elseif ( 2 === $pmpro_level->id ) {
+	} elseif ( '2' === $pmpro_level->id ) {
 		$rurl = 'http://example.com/page_2';
-	} elseif ( 3 === $pmpro_level->id ) {
+	} elseif ( '3' === $pmpro_level->id ) {
 		$rurl = 'http://example.com/page_3';
 	}
 
