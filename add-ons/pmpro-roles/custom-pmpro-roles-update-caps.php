@@ -30,4 +30,4 @@ function custom_pmpro_roles_update_caps() {
 	$role->add_cap( 'edit_posts', true );
 	$role->add_cap( 'read', true );
 }
-add_action( 'wp', 'custom_pmpro_roles_update_caps' );
+add_action( 'init', 'custom_pmpro_roles_update_caps' );
