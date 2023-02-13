@@ -21,7 +21,7 @@
 
 	$sale_price = $product->get_sale_price();
 
-	if( empty( $sale_price ) ) {
+	if (  ! $product->is_on_sale() ) {
 		//Its not on sale, so we can discount it
 		return $discount_price;
 	}
