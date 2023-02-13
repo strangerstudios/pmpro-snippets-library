@@ -19,7 +19,6 @@
 
  function mypmpro_discount_sales( $discount_price, $lowest_price_level, $price, $product ) {
 
-	$regular_price = $product->get_regular_price();
 	$sale_price = $product->get_sale_price();
 
 	if( empty( $sale_price ) ) {
