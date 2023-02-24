@@ -1,6 +1,7 @@
 <?php
 /*
  * Update the capabilities for a level-generated role when using Paid Memberships Pro and the Roles for Membership Levels Add On.
+ * Learn more at https://www.paidmembershipspro.com/update-role-capabilities/
  *
  * title: Update level-generated role capabilities with PMPro and Roles Add On
  * layout: snippet
