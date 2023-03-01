@@ -18,9 +18,9 @@
 /**
  * Adds custom user fields to the email admins receive when approving the member.
  *
- * @param array $data              Email template variables.
+ * @param array   $data   Email template variables.
  * @param WP_User $member The user whose status was changed.
- * @param WP_User $admin     The admin user who the email is being sent to.
+ * @param WP_User $admin  The admin user who the email is being sent to.
  *
  * @return array
  */
