@@ -2,7 +2,7 @@
 /**
  * Add custom user fields to the email admins receive when approving the member.
  * Create User Fields inside Paid Memberships Pro first, then update/duplicate
- * line 19 with your field names.
+ * line 28 with your field names.
  *
  * title: Add custom user fields to Approvals emails for admins.
  * layout: snippet
