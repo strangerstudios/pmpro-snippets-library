@@ -15,6 +15,15 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
+/**
+ * Adds custom user fields to the email admins receive when approving the member.
+ *
+ * @param array $data              Email template variables.
+ * @param WP_User $member The user whose status was changed.
+ * @param WP_User $admin     The admin user who the email is being sent to.
+ *
+ * @return array
+ */
 function my_pmpro_add_user_fields_to_admin_approval_emails( $data, $member, $admin ) {
     $data['company'] = $member->company; // Update/duplicate this line for your user field names.
     return $data;
