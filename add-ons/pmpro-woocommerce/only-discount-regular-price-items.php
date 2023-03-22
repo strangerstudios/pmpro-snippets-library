@@ -4,7 +4,7 @@
  * when using the Woocommerce Add On. 
  * All other products will be discounted as expected.
  * 
- * Learn more at https://www.paidmembershipspro.com/woocommerce-specific-category-free-for-members/
+ * Learn more at https://www.paidmembershipspro.com/woo-products-sale/
  *
  * title: Only discounts regular priced items, excludes any items that are on sale
  * layout: snippet
