@@ -2,6 +2,8 @@
 /**
  * Example of how to add links to the Member Links list on the Membership Account page.
  *
+ * Learn More at: https://www.paidmembershipspro.com/add-links-membership-level-membership-account-page-links-section/
+ * 
  * title: Add Links to Members links on Members Account Page 
  * layout: snippet
  * collection: frontend-pages
