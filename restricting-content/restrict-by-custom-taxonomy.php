@@ -1,7 +1,7 @@
 <?php
 /**
  * Require Membership to View Certain Taxonomy Terms
- * E.g., the example code here locks down a "members" tag.
+ * E.g., the example code here locks down posts in the custom taxonomy 'dietary_requirements' with the 'Keto' term.
  * Note we hook in on priority 15 to run after other filters.
  *
  * title: Require Membership to View Certain Taxonomy Terms
@@ -20,26 +20,21 @@ function my_require_membership_for_terms( $hasaccess, $post, $user, $post_levels
 		return $hasaccess;
 	}
 	
-	// Make sure we have a user to check.
-	if ( empty( $user ) || empty( $user->ID ) ) {
-		return $hasaccess;
-	}
-	
 	// First array's keys are taxonomy names.
 	// Second array's keys are term slugs.
 	// Second array's values are arrays of level IDs.
 	$term_levels = array(
-		'post_tag' => array(
-			'members' => array( 1, 2, 3 ),
+		'dietary_requirement' => array(
+			'Keto' => array( 1, 2 ),
 		),
 	);
-	
-	foreach( $term_levels as $taxonomy => $terms ) {
+
+	foreach ( $term_levels as $taxonomy => $terms ) {
 		foreach( $terms as $term => $level_ids ) {
-			if( has_term( $term, $taxonomy, $post ) ) {
+			if ( has_term( $term, $taxonomy, $post ) ) {
 				// Post has term, lock it down.
 				$hasaccess = false;
-				if( pmpro_hasMembershipLevel( $level_ids, $user->ID ) ) {
+				if ( pmpro_hasMembershipLevel( $level_ids, $user->ID ) ) {
 					// User has level, unlock it again.
 					$hasaccess = true;	// Give access.
 					break 2;			// Break both for loops.
