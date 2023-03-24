@@ -3,6 +3,7 @@
  * Require Membership to View Certain Taxonomy Terms
  * E.g., the example code here locks down posts in the custom taxonomy 'dietary_requirements' with the 'Keto' term.
  * Note we hook in on priority 15 to run after other filters.
+ * Learn more at https://www.paidmembershipspro.com/restrict-by-taxonomy/
  *
  * title: Require Membership to View Certain Taxonomy Terms
  * layout: snippet
