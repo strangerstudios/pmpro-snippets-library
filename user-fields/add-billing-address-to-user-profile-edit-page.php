@@ -67,8 +67,8 @@ function add_billing_fields_to_user_profile_edit() {
 				'profile'         => 'only',
 				'options'         => $options,
 				'addmember'       => true,
-				'required'        => true, // comment this out to make the fields optional.
-				'html_attributes' => array( 'required' => 'required' ), // comment this out to make the fields optional.
+				'required'        => $required, // comment this out to make the fields optional.
+				'html_attributes' => $html_attributes, // comment this out to make the fields optional.
 			)
 		);
 	}
