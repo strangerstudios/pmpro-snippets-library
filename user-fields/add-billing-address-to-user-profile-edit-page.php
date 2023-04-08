@@ -15,6 +15,9 @@
 function add_billing_fields_to_user_profile_edit() {
 	global $pmpro_countries;
 
+	// Should we make the address fields required?
+	$is_required = false; // Set to true to add HTML required attribute.
+
 	// Require PMPro 2.9 or higher.
 	if ( ! defined( 'PMPRO_VERSION' ) || version_compare( PMPRO_VERSION, '2.9.0', '<' ) ) {
 		return;
@@ -44,6 +47,15 @@ function add_billing_fields_to_user_profile_edit() {
 		} else {
 			$options = array();
 			$type    = 'text';
+		}
+
+		// Add HTML5 required attribute.
+		if ( $is_required && 'pmpro_baddress2' !== $name ) {
+			$required        = true;
+			$html_attributes = array( 'required' => 'required' );
+		} else {
+			$required        = false;
+			$html_attributes = '';
 		}
 
 		$fields[] = new PMPro_Field(
