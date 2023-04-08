@@ -1,4 +1,18 @@
 <?php
+/**
+ * Example of adding a custom callback function for a user field created with code.
+ *
+ * title: Example add custom callback save function for a user field.
+ * layout: snippet-example
+ * collection: user-fields
+ * category: custom-fields
+ *
+ * You can add this recipe to your site by creating a custom plugin
+ * or using the Code Snippets plugin available for free in the WordPress repository.
+ * Read this companion article for step-by-step directions on either method.
+ * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ */
+
 // Create a registration form field with a custom callback
 function my_pmpro_user_field_init_example_save_function() {
 	// Don't break if PMPro is out of date or not loaded.
