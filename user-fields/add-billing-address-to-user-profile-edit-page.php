@@ -46,7 +46,7 @@ function add_billing_fields_to_user_profile_edit() {
 			$type    = 'text';
 		}
 
-		$fields[] = new PMProRH_Field(
+		$fields[] = new PMPro_Field(
 			$name,
 			$type,
 			array(
