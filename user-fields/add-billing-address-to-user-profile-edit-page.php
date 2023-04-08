@@ -15,7 +15,7 @@
 function add_billing_fields_to_user_profile_edit() {
 	global $pmpro_countries;
 
-	// Require PMPro and PMPro Register Helper
+	// Require PMPro 2.9 or higher.
 	if ( ! defined( 'PMPRO_VERSION' ) || version_compare( PMPRO_VERSION, '2.9.0', '<' ) ) {
 		return;
 	}
