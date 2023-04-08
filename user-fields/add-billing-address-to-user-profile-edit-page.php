@@ -38,13 +38,13 @@ function add_billing_fields_to_user_profile_edit() {
 
 	foreach ( $address_fields as $name => $label ) {
 		// Set the field type and options based on the field name.
-		if ( $name === 'pmpro_bcountry' ) {
+		if ( 'pmpro_bcountry' === $name ) {
 				$options = $pmpro_countries;
 				$type    = 'select';
-			} else {
-				$options = array();
-				$type    = 'text';
-			}
+		} else {
+			$options = array();
+			$type    = 'text';
+		}
 
 		$fields[] = new PMProRH_Field(
 			$name,
