@@ -1,4 +1,4 @@
-<?php // do not copy this line
+<?php
 /**
  * Example of how to add links to the Member Links list on the Membership Account page.
  *
