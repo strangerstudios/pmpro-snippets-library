@@ -2,6 +2,10 @@
 /**
  * Add a Terms & Conditions checkbox on checkout with a link to either a media file, e.g. PDF, or page.
  *
+ * For a CSS example to enhance the appearance of the checkbox and link, 
+ * see this companion gist to get started:
+ * @link https://gist.github.com/ipokkel/47d227e4bb160b26f594c26f5ee0e83a#file-terms-and-conditions-css
+ *
  * title: Terms Of Service As A Link Only
  * layout: snippet
  * collection: checkout
