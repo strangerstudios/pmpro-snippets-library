@@ -13,28 +13,27 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
-add_action( 'pmpro_mailchimp_listsubscribe_fields', 'my_pmpro_mailchimp_listsubscribe_fields', 10, 2 );
-
-function my_pmpro_mailchimp_listsubscribe_fields( $fields, $user ) {
+function my_pmpro_mailchimp_add_enddate_to_merge_fields( $fields, $user ) {
 	// Get user level
 	$level = pmpro_getMembershipLevelForUser( $user->ID );
-	// Declare variable and set default
-	$expiration_date = 'N/A';
+	$expiration_date = 'Never';
+
 	// Update variable value if level has an expiration date
 	if ( ! empty( $level->enddate ) ) {
-		$expiration_date = date( 'd/m/Y', $level->enddate );
+		$expiration_date = date( get_option( 'date_format' ), $level->enddate );
 	}
+	
 	// Create new ENDDATE field
 	$new_fields = array(
 		'ENDDATE' => $expiration_date,
-	//	'FNAME' => $user->first_name, // uncomment and edit if you need to send other fields to Mailchimp
 	);
+
 	// join existing fields with new fields
 	$fields = array_merge( $fields, $new_fields );
 
 	return $fields;
 }
+add_action( 'pmpro_mailchimp_listsubscribe_fields', 'my_pmpro_mailchimp_add_enddate_to_merge_fields', 10, 2 );
 
 /*
 	(Optional) Tell PMPro MailChimp to always synchronize user profile updates. By default it only synchronizes if the user's email has changed.
