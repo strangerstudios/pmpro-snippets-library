@@ -1,7 +1,7 @@
 <?php 
+
 /**
- *  Redirect member to home page when they're logging out.
- *
+ *  Redirect members and non-members on logout to specified pages
  * title: Redirect member on logout
  * layout: snippet
  * collection: misc
@@ -12,11 +12,18 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmpro_redirect_member_on_logout( $user_id ) {
-	// Redirect active members that belong to level IDs 1, 2, or 3 to the home page on logout. Adjust this array accordingly.
-	if ( function_exists( 'pmpro_hasMembershipLevel' ) && pmpro_hasMembershipLevel( array( '1', '2', '3' ), $user_id ) ) {
-		wp_safe_redirect( home_url() );
-		exit;
+
+function my_pmpro_redirect_members_on_logout( $user_id ) {
+	if ( function_exists( 'pmpro_hasMembershipLevel' ) ) {
+		// Redirect users with membership level 1 to /level-1 page
+		if ( pmpro_hasMembershipLevel( 1, $user_id ) ) {
+			wp_redirect( '/level-1' );
+			exit;
+		} else {
+			// Redirect non-members and members with other levels to /other-levels page.
+			wp_redirect( '/other-levels' );
+			exit;
+		}
 	}
 }
-add_action( 'wp_logout', 'my_pmpro_redirect_member_on_logout', 10, 1 );
+add_action( 'wp_logout', 'my_pmpro_redirect_members_on_logout' );
