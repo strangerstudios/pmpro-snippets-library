@@ -2,7 +2,9 @@
 /**
  * Change Membership Level on Expiration Only
  * Users who manually cancel are cancelled immediately, but users who expire are given a grace period.)
-
+ *
+ * SET level to be assigned on line 34
+ * 
  * title: Change Membership Level on Expiration Only
  * layout: snippet
  * collection: membership-levels
