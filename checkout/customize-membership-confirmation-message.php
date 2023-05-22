@@ -12,19 +12,9 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
-
-// remove the default confirmation text
-remove_filter( 'pmpro_confirmation_message', 'pmpro_pmpro_confirmation_message' );
-
-// add new confirmation text
 function my_pmpro_confirmation_message( $message ) {
-
-	$message = '';
-
-	$message .= '<p>This is a new confirmation message.</p>';
+	$message = '<p>This is a new confirmation message.</p>';
 
 	return $message;
-
 }
-add_filter( 'pmpro_confirmation_message', 'my_pmpro_confirmation_message', 10, 1 );
+add_filter( 'pmpro_confirmation_message', 'my_pmpro_confirmation_message', 15, 1 );
