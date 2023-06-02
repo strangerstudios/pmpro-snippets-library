@@ -2,6 +2,7 @@
 /**
  * Add a renew_url link to the membership_expiring email data.
  * Add renew_url as the redirect_to querystring parameter to login_url.
+ * Learn more at https://www.paidmembershipspro.com/expiring-emails-renewal-links/
  *
  * Example of using these email variables in the body of the membership_expiring email template:
  *
