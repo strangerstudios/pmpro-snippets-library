@@ -12,7 +12,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function pmpro_elementor_allow_access_for_admins( $access, $element, $restricted_levels ) {
+function my_pmpro_elementor_allow_access_for_admins( $access, $element, $restricted_levels ) {
 	// If user is an admin allow access.
 	if ( current_user_can( 'manage_options' ) ) {
 		$access = true;
@@ -20,4 +20,4 @@ function pmpro_elementor_allow_access_for_admins( $access, $element, $restricted
 
 	return $access;
 }
-add_filter( 'pmpro_elementor_has_access', 'pmpro_elementor_allow_access_for_admins', 10, 3 );
+add_filter( 'pmpro_elementor_has_access', 'my_pmpro_elementor_allow_access_for_admins', 10, 3 );
