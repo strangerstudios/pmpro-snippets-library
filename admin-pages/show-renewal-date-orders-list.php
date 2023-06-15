@@ -16,28 +16,39 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function my_pmpro_renewal_date_orders_extra_cols_header( $order_ids ) {
-	echo '<td>Renewal Date</td>';
+ function mypmpro_renewal_date_column_header( $columns ){
+
+	$columns['renewal_date'] = 'Renewal Date';
+
+    return $columns;
+
 }
-add_action( 'pmpro_orders_extra_cols_header', 'my_pmpro_renewal_date_orders_extra_cols_header' );
+add_filter( 'pmpro_manage_orderslist_columns',  'mypmpro_renewal_date_column_header', 10, 1 );
 
-function my_pmpro_renewal_date_orders_extra_cols_body( $order ) {
-	if ( empty( $order->id ) && empty( $order->subscription_transaction_id ) ) {
-		echo '<td>&#8212;</td>';
-	} elseif ( $order->status == 'cancelled' ) {
-		echo '<td>&#8212;</td>';
-	} else {
-		// Get the membership level for the last order.
-		$level = $order->getMembershipLevel();
+function mypmpro_renewal_date_column_body($column_name, $item ) {
+	
+	if( $column_name == 'renewal_date' ) {
 
-		if ( ! empty( $level ) && ! empty( $level->id ) && ! empty( $level->cycle_number ) ) {
-			// Next Payment Date
-			$nextdate = strtotime( '+' . $level->cycle_number . ' ' . $level->cycle_period, $order->getTimestamp() );
-			echo '<td>' . date_i18n( get_option( 'date_format' ), $nextdate ) . '</td>';
+		$order = new MemberOrder( $item );
+		
+		if ( empty( $order->id ) && empty( $order->subscription_transaction_id ) ) {
+			echo '&#8212;';
+		} elseif ( $order->status == 'cancelled' ) {
+			echo '&#8212;';
 		} else {
-			// no order or level found, or level was not recurring
-			echo '<td>&#8212;</td>';
+			// Get the membership level for the last order.
+			$level = $order->getMembershipLevel();
+		
+			if ( ! empty( $level ) && ! empty( $level->id ) && ! empty( $level->cycle_number ) ) {
+				// Next Payment Date
+				$nextdate = strtotime( '+' . $level->cycle_number . ' ' . $level->cycle_period, $order->getTimestamp() );
+				echo date_i18n( get_option( 'date_format' ), $nextdate );
+			} else {
+				// no order or level found, or level was not recurring
+				echo '&#8212;';
+			}
 		}
 	}
+
 }
-add_action( 'pmpro_orders_extra_cols_body', 'my_pmpro_renewal_date_orders_extra_cols_body' );
+add_action( 'pmpro_manage_orderlist_custom_column' , 'mypmpro_renewal_date_column_body', 10, 2 );
