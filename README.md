@@ -30,6 +30,7 @@ Please include the following header format when submitting a snippet
  * layout: snippet-example
  * collection: frontend-pages
  * category: custom-fields
+ * link: https://www.paidmembershipspro.com/link-to-post-if-available/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
