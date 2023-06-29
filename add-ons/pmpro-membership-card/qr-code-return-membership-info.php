@@ -1,6 +1,7 @@
 <?php
 /*
  * Returns membership information when scanning the QR Code on member's Membership Card.
+ * Learn more at https://www.paidmembershipspro.com/membership-qr-code/
  *
  * title: Return membership information on Membership Card QR Code
  * layout: snippet
