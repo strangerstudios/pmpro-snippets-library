@@ -42,7 +42,7 @@ function pmpro_level_groups_pmpro_checkout_boxes() {
 
 			// Show options for these levels. ?>
 			<div id="pmpro_level_options" class="pmpro_checkout">
-				<h3><span class="pmpro_checkout-h3-name"><?php esc_attr_e( 'Select a payment plan.', 'paid-memberships-pro' ); ?></span></h3>
+				<h2><span class="pmpro_checkout-h2-name"><?php esc_attr_e( 'Select a Payment Plan', 'paid-memberships-pro' ); ?></span></h2>
 				<div class="pmpro_checkout-fields">
 					<div class="pmpro_checkout-field pmpro_checkout-field-radio">
 						<?php
