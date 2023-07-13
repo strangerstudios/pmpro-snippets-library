@@ -46,10 +46,17 @@
 	}
 
 	// Create a sponsor code for the user.
-	$pmprosm_values = pmprosm_getValuesByMainLevel( $user_level->id );
-  // TODO: Change 'max_seats' to 'seats' if needed. Depends on your Sponsored Members setup.
-	pmprosm_createSponsorCode( $user->ID, $user_level->id, $pmprosm_values['max_seats'] );
-	update_user_meta( $user->ID, 'pmprosm_seats', $pmprosm_values['max_seats'] );
+	$pmprosm_values = pmprosm_getValuesByMainLevel( $sponsoring_level );
+	if ( ! empty( $pmprosm_values['max_seats' ) {
+		$seats = $pmprosm_values['max_seats'];
+	} elseif (! empty( $pmprosm_values['seats'] ) {
+		$seats = $pmprosm_values['seats'];
+	} else {
+		// No seats specified.
+		return;
+	}
+	pmprosm_createSponsorCode( $user->ID, $user_level->id, $seats );
+	update_user_meta( $user->ID, 'pmprosm_seats', $seats );
 }
 
 add_action( 'wp_login', 'my_pmprosm_create_sponsor_code_if_needed', 10, 2 );
