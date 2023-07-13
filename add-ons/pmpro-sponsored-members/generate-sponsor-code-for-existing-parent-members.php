@@ -26,8 +26,16 @@
 		return;
 	}
 
-	// Make sure that the level is a sponsoring level.
-	if ( ! pmprosm_isMainLevel( $user_level->id ) ) {
+	// Check if there is a sponsoring level.
+	$sponsoring_level = false;
+	foreach ( $user_levels as $user_level ) {
+		if ( pmprosm_isMainLevel( $user_level->id ) ) {
+			$sponsoring_level = $user_level->id;
+			break;
+		}
+	}
+
+	if ( empty( $sponsoring_level ) ) {
 		return;
 	}
 
