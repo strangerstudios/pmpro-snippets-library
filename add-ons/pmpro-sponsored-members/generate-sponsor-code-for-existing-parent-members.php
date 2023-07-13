@@ -16,7 +16,7 @@
  */
 
  function my_pmprosm_create_sponsor_code_if_needed( $user_login, $user ) {
-	if ( ! function_exists( 'pmpro_getMembershipLevelForUser' ) || ! function_exists( 'pmprosm_isMainLevel' ) ) {
+	if ( ! function_exists( 'pmpro_getMembershipLevelsForUser' ) || ! function_exists( 'pmprosm_isMainLevel' ) ) {
 		return;
 	}
 	 
