@@ -21,8 +21,8 @@
 	}
 	 
 	// Get the user's membership level.
-	$user_level = pmpro_getMembershipLevelForUser( $user->ID );
-	if ( empty( $user_level ) ) {
+	$user_levels = pmpro_getMembershipLevelsForUser( $user->ID );
+	if ( empty( $user_levels ) ) {
 		return;
 	}
 
