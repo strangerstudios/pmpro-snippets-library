@@ -55,7 +55,7 @@
 		// No seats specified.
 		return;
 	}
-	pmprosm_createSponsorCode( $user->ID, $user_level->id, $seats );
+	pmprosm_createSponsorCode( $user->ID, $sponsoring_level, $seats );
 	update_user_meta( $user->ID, 'pmprosm_seats', $seats );
 }
 
