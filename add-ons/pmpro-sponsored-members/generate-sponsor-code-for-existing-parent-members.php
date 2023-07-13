@@ -47,9 +47,9 @@
 
 	// Create a sponsor code for the user.
 	$pmprosm_values = pmprosm_getValuesByMainLevel( $sponsoring_level );
-	if ( ! empty( $pmprosm_values['max_seats' ) {
+	if ( ! empty( $pmprosm_values['max_seats' ) ) {
 		$seats = $pmprosm_values['max_seats'];
-	} elseif (! empty( $pmprosm_values['seats'] ) {
+	} elseif (! empty( $pmprosm_values['seats'] ) ) {
 		$seats = $pmprosm_values['seats'];
 	} else {
 		// No seats specified.
