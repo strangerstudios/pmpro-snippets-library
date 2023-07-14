@@ -3,6 +3,7 @@
 /**
  * When a user logs in, check if they have a sponsoring level but don't have
  * a sponsor code. If this is the case, create one.
+ * Learn more at https://www.paidmembershipspro.com/generate-sponsor-code/
  *
  * title: Generate sponsor code for existing members on a parent membership level
  * layout: snippet
