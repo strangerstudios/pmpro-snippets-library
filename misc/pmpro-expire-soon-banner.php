@@ -52,7 +52,7 @@ function pmpro_show_banner_renewal_message() {
 		return;
 	}
 
-	$enddates = array();
+	$expiring = array();
 
 	foreach( $levels as $level ) {
 
@@ -61,6 +61,10 @@ function pmpro_show_banner_renewal_message() {
 			$expiring[$level->enddate] = $level;
 		}
 		
+	}
+
+	if ( empty( $expiring ) ) {
+		return;
 	}
 
 	//Order by level that is expiring soonest
