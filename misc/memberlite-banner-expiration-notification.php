@@ -1,6 +1,7 @@
 <?php
 /**
  * Show an expiring soon banner - Memberlite
+ * Learn more at https://www.paidmembershipspro.com/notification-banner-upcoming-membership-expiration/
  *
  * title: Display a renewal reminder notification banner at the top of your website for members whose membership
  * layout: snippet
