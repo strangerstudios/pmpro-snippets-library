@@ -15,7 +15,10 @@
 function add_billing_fields_to_user_profile_edit() {
 	global $pmpro_countries;
 
-	// Require PMPro and PMPro Register Helper
+	// Should we make the address fields required?
+	$is_required = false; // Set to true to add HTML required attribute.
+
+	// Require PMPro 2.9 or higher.
 	if ( ! defined( 'PMPRO_VERSION' ) || version_compare( PMPRO_VERSION, '2.9.0', '<' ) ) {
 		return;
 	}
@@ -38,15 +41,24 @@ function add_billing_fields_to_user_profile_edit() {
 
 	foreach ( $address_fields as $name => $label ) {
 		// Set the field type and options based on the field name.
-		if ( $name === 'pmpro_bcountry' ) {
+		if ( 'pmpro_bcountry' === $name ) {
 				$options = $pmpro_countries;
 				$type    = 'select';
-			} else {
-				$options = array();
-				$type    = 'text';
-			}
+		} else {
+			$options = array();
+			$type    = 'text';
+		}
 
-		$fields[] = new PMProRH_Field(
+		// Add HTML5 required attribute.
+		if ( $is_required && 'pmpro_baddress2' !== $name ) {
+			$required        = true;
+			$html_attributes = array( 'required' => 'required' );
+		} else {
+			$required        = false;
+			$html_attributes = '';
+		}
+
+		$fields[] = new PMPro_Field(
 			$name,
 			$type,
 			array(
@@ -55,8 +67,8 @@ function add_billing_fields_to_user_profile_edit() {
 				'profile'         => 'only',
 				'options'         => $options,
 				'addmember'       => true,
-				'required'        => true, // comment this out to make the fields optional.
-				'html_attributes' => array( 'required' => 'required' ), // comment this out to make the fields optional.
+				'required'        => $required, // comment this out to make the fields optional.
+				'html_attributes' => $html_attributes, // comment this out to make the fields optional.
 			)
 		);
 	}
