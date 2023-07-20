@@ -45,19 +45,19 @@ The snippet folder should match the primary function or feature of the code. For
 
 Choose the folder/collection that your snippet integrates with directly, and use the category as a backup.
 
-- add-ons: Anything related to an Add On. Create a subfolder for the Add On that exactly matches the Add On's folder name/slug.
-- admin-pages: Snippets that modify the core PMPro plugin's admin area under Memberships > Settings.
-- blocks-shortcodes: Snippets that adjust core PMPro block functionality or shortcode functionality OR snippets that add new custom block or shortcode features.
-- checkout: Snippets that modify the checkout page and checkout process, including registration checks, checkout requirements, or additional functionality that is triggered during checkout.
-- discount-codes: Snippets that modify how discount codes function on the frontend and for the user.
-- email: Snippets that adjust how emails are sent, the email contents, adding additional emails, etc.
-- frontend-pages: Snippets that modify how the frontend pages appear and the contents on the frontend pages.
-- import-export: Snippets that adjust default export features of the members list, orders list, and reports. (propose to rename to export only? We don't support import in core PMPro. Should those go in Add Ons?)
-- integration-compatibility: Basic snippets that integrate core PMPro with other plugins to resolve issues or bridge functionality.
-- localization: Snippets related to translating the core PMPro plugin's terms to other languages or using translation functions to change core plugin language (i.e. "Membership" > "Subscription").
-- membership-levels: Functionality that changes how membership levels are assigned to users, cancellation behavior, expiration behavior, etc. This should not include snippets that adjust the Memberships > Settings > Membership Levels admin screens or features.
-- misc: This collection is temporary, for all snippets that don't belong into any created collections. The idea is to move the snippets once we plan out our file structure.
-- orders: Functionality that hooks into order updates, creation, changes, etc.
-- payment-gateways: Anything that modifies or extends default payment gateway functionality. Create a subfolder for each gateway that exactly matches the gateway folder name in core PMPro. (Should this include gateway Add Ons or place those in Add Ons > Gateway Folder?)
-- restricting-content: Snippets specifically related to how PMPro handles content restrictions, including behavior like default messages, redirection, extending for CPTs, etc.
-- user-fields: Snippets that modify or extend the behavior of core PMPro user fields.
+- **add-ons**: Anything related to an Add On. Create a subfolder for the Add On that exactly matches the Add On's folder name/slug.
+- **admin-pages**: Snippets that modify the core PMPro plugin's admin area under Memberships > Settings.
+- **blocks-shortcodes**: Snippets that adjust core PMPro block functionality or shortcode functionality OR snippets that add new custom block or shortcode features.
+- **checkout**: Snippets that modify the checkout page and checkout process, including registration checks, checkout requirements, or additional functionality that is triggered during checkout.
+- **discount-codes**: Snippets that modify how discount codes function on the frontend and for the user.
+- **email**: Snippets that adjust how emails are sent, the email contents, adding additional emails, etc.
+- **frontend-pages**: Snippets that modify how the frontend pages appear and the contents on the frontend pages.
+- **export**: Snippets that adjust default export features of the members list, orders list, and reports.
+- **integration-compatibility**: Basic snippets that integrate core PMPro with other plugins to resolve issues or bridge functionality.
+- **localization**: Snippets related to translating the core PMPro plugin's terms to other languages or using translation functions to change core plugin language (i.e. "Membership" > "Subscription").
+- **membership-levels**: Functionality that changes how membership levels are assigned to users, cancellation behavior, expiration behavior, etc. This should not include snippets that adjust the Memberships > Settings > Membership Levels admin screens or features.
+- **misc**: This collection is temporary, for all snippets that don't belong into any created collections. The idea is to move the snippets once we plan out our file structure.
+- **orders**: Functionality that hooks into order updates, creation, changes, etc.
+- **payment-gateways**: Anything that modifies or extends default payment gateway functionality. Create a subfolder for each gateway that exactly matches the gateway folder name in core PMPro. This includes any Add On gateways that aren't bundled into PMPro core.
+- **restricting-content**: Snippets specifically related to how PMPro handles content restrictions, including behavior like default messages, redirection, extending for CPTs, etc.
+- **user-fields**: Snippets that modify or extend the behavior of core PMPro user fields.
