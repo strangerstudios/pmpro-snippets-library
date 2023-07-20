@@ -14,7 +14,7 @@
  */
 
  function my_pmpro_add_ga4_ecommerce() {
-	global $pmpro_pages;
+	global $pmpro_pages, $pmpro_currency;
 
 	// Build an array of events.
 	$gtag_config_events_push = array();
@@ -43,7 +43,7 @@
 		foreach ( $our_levels_to_track as $pmpro_level ) {
 			// Set the ecommerce dataLayer script.
 			$gtag_config_ecommerce_data = array();
-			$gtag_config_ecommerce_data['currency'] = "USD";
+			$gtag_config_ecommerce_data['currency'] = $pmpro_currency;
 			$gtag_config_ecommerce_data['value'] = $pmpro_level->initial_payment;
 
 			// Build an array of Product Data.
@@ -72,7 +72,7 @@
 
 		// Set the ecommerce dataLayer script.
 		$gtag_config_ecommerce_data = array();
-		$gtag_config_ecommerce_data['currency'] = "USD";
+		$gtag_config_ecommerce_data['currency'] = $pmpro_currency;
 		$gtag_config_ecommerce_data['value'] = $pmpro_level->initial_payment;
 		
 		// Build an array of Product Data.
@@ -115,7 +115,7 @@
 			if ( ! empty( $pmpro_invoice->tax ) ) {
 				$gtag_config_ecommerce_data['tax'] = $pmpro_invoice->tax;
 			}
-			$gtag_config_ecommerce_data['currency'] = "USD";
+			$gtag_config_ecommerce_data['currency'] = $pmpro_currency;
 			if ( $pmpro_invoice->getDiscountCode() ) {
 				$gtag_config_ecommerce_data['coupon'] = $pmpro_invoice->discount_code->code;
 			}
