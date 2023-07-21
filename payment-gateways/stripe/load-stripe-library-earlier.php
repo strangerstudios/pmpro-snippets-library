@@ -3,6 +3,7 @@
 /**
  * An updated version of the load Stripe Library version code earlier than other third-party plugins
  * This should work with PMPro Version 2.10 and above
+ * Learn more at https://www.paidmembershipspro.com/fix-library-conflict/
  *
  * title: Load Stripe Library Earlier
  * layout: snippet
