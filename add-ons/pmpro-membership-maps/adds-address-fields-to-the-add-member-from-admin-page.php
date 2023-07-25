@@ -38,7 +38,7 @@ function my_pmpro_add_member_add_address_fields( $user, $user_id ) {
 add_action( 'pmpro_add_member_fields', 'my_pmpro_add_member_add_address_fields', 10, 2 );
 
 // Handle the geocoding on the custom fields from my_pmpro_add-member_add_address_fields function.
-function mypmpro_add_member_addon_geocode_addresses( $user_id, $user ) {
+function my_pmpro_add_member_addon_geocode_addresses( $user_id, $user ) {
 
 	if ( ! function_exists( 'pmpromm_geocode_address' ) ) {
 		return;
@@ -59,4 +59,4 @@ function mypmpro_add_member_addon_geocode_addresses( $user_id, $user ) {
 	}
 
 }
-add_action( 'pmpro_add_member_added', 'mypmpro_add_member_addon_geocode_addresses', 10, 2 );
+add_action( 'pmpro_add_member_added', 'my_pmpro_add_member_addon_geocode_addresses', 10, 2 );

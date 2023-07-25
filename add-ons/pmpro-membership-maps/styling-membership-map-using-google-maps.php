@@ -17,7 +17,7 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  *
  */
-function mypmpro_membership_map_styles( $styles, $map_id ){
+function my_pmpro_membership_map_styles( $styles, $map_id ){
 
 	return '[
 	  {
@@ -207,4 +207,4 @@ function mypmpro_membership_map_styles( $styles, $map_id ){
 	]';
 
 }
-add_filter( 'pmpromm_map_styles', 'mypmpro_membership_map_styles', 10, 2 );
+add_filter( 'pmpromm_map_styles', 'my_pmpro_membership_map_styles', 10, 2 );

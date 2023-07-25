@@ -13,13 +13,13 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function mypmpromm_checkout_override() {
+function my_pmpromm_checkout_override() {
 	// Remove this hook otherwise we'll geocode the billing address instead
 	remove_action( 'pmpro_after_checkout', 'pmpromm_after_checkout', 10, 2 );
 }
-add_action( 'init', 'mypmpromm_checkout_override' );
+add_action( 'init', 'my_pmpromm_checkout_override' );
 
-function mypmpromm_custom_billing_fields_checkout( $user_id, $morder ) {
+function my_pmpromm_custom_billing_fields_checkout( $user_id, $morder ) {
 
 	// Requires PMPro Membrship Maps and PMPro Shipping Add On Active
 	if ( ! function_exists( 'pmpromm_geocode_address' ) ) {
@@ -52,4 +52,4 @@ function mypmpromm_custom_billing_fields_checkout( $user_id, $morder ) {
 	}
 
 }
-add_action( 'pmpro_after_checkout', 'mypmpromm_custom_billing_fields_checkout', 10, 2 );
+add_action( 'pmpro_after_checkout', 'my_pmpromm_custom_billing_fields_checkout', 10, 2 );

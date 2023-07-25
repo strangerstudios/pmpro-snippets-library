@@ -13,7 +13,7 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function mypmpromm_save_profile_billing_fields( $user_id ) {
+function my_pmpromm_save_profile_billing_fields( $user_id ) {
 
 	if ( ! function_exists( 'pmpromm_geocode_address' ) ) {
 		return;
@@ -40,4 +40,4 @@ function mypmpromm_save_profile_billing_fields( $user_id ) {
 	}
 
 }
-add_action( 'profile_update', 'mypmpromm_save_profile_billing_fields' );
+add_action( 'profile_update', 'my_pmpromm_save_profile_billing_fields' );
