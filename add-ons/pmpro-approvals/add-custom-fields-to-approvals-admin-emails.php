@@ -26,7 +26,8 @@
  * @return array
  */
 function my_pmpro_add_user_fields_to_admin_approval_emails( $data, $member, $admin ) {
-    $data['company'] = $member->company; // Update/duplicate this line for your user field names.
+	// Try to get it from the $_REQUEST first, then default to user meta value.
+    $data['company'] = ! empty( $_REQUEST['company'] ) ? sanitize_text_field( $_REQUEST['company'] ) : $member->company;
     return $data;
 }
 add_filter( 'pmpro_approvals_admin_approved_email_data', 'my_pmpro_add_user_fields_to_admin_approval_emails', 10, 3 );
