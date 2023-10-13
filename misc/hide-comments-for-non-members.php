@@ -35,3 +35,4 @@
  	$pmpro_comments_non_member_text = str_replace( __( 'This content is', 'pmpro-comments' ), __( 'Comments are', 'pmpro-comments' ), $pmpro_comments_non_member_text );
 
  	echo wp_kses_post( $pmpro_comments_non_member_text );
+ }
