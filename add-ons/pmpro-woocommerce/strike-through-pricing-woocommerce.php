@@ -43,7 +43,7 @@ function my_pmprowoo_strike_prices( $price, $product ) {
 		}
 
 		// only show this to members and if the price isn't already the same as regular price.
-		if ( isset( $level_id ) && intval($price) !== intval($regular_price) ) {
+		if ( isset( $level_id ) && $price !== $regular_price ) {
 			$formatted_price = '<del>' . wc_price( $regular_price ) . '</del> ';
 		}
 
