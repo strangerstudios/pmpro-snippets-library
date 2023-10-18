@@ -53,22 +53,16 @@ function mypmpro_save_discount_code_note() {
 }
 add_action( 'admin_init', 'mypmpro_save_discount_code_note' );
 
-function mypmpro_discount_page_header( $columns ) {
- 
-	$columns['discount_description'] = 'Description';
+function mypmpro_discount_page_header( $codes ) {
 
-	return $columns;
- 
+	echo '<th>Description</th>';
+
 }
-add_filter( 'pmpro_manage_discountcodes_columns', 'mypmpro_discount_page_header', 10, 1 );
- 
-function mypmpro_discount_page_column( $column_name, $code_id ) {
+add_action( 'pmpro_discountcodes_extra_cols_header', 'mypmpro_discount_page_header', 10, 1 );
 
-	if( $column_name == 'discount_description' ) {
+function mypmpro_discount_page_column( $code ) {
 
-		echo get_option( 'discount_code_description_' . $code_id );
+	echo '<td>' . get_option( 'discount_code_description_' . $code->id ) . '</td>';
 
-	}
- 
 }
-add_action( 'pmpro_manage_discount_code_list_custom_column', 'mypmpro_discount_page_column', 10, 2 );
+add_action( 'pmpro_discountcodes_extra_cols_body', 'mypmpro_discount_page_column', 10, 1 );
