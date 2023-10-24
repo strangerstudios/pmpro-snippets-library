@@ -1,8 +1,8 @@
 <?php
 /**
  * Automatically apply a discount code to Paid Memberships Pro checkout.
- * 
- * Adjust the discount code that should apply to all checkouts.
+ *
+ * Learn more at https://www.paidmembershipspro.com/automatic-discount-code/
  * 
  * title: Automatically apply discount code at checkout
  * layout: snippet-example
