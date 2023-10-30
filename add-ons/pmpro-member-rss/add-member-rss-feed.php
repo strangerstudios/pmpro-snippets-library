@@ -7,7 +7,7 @@
  *
  * title: Create your own member RSS feed
  * layout: snippet
- * collection: misc
+ * collection: add-ons, pmpro-member-rss
  * category: rss, rss-feed
  *
  * You can add this recipe to your site by creating a custom plugin
@@ -17,12 +17,11 @@
  */
 
 function my_pmpromrss_feeds( $feeds ) {
-
-    //recent posts by current user
+    // Recent posts by current user.
     global $current_user;
     $feeds['My Recent Posts'] = pmpromrss_url( home_url( '/author/' . $current_user->user_login . '/feed/' ) );
 
-    //recent posts from "members" category
+    // Recent posts from "members" category.
     $feeds['Members Feed'] = pmpromrss_url( home_url( '/category/members/feed' ) );
 
     return $feeds;
