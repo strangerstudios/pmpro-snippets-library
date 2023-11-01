@@ -16,17 +16,13 @@
 function my_pmprowoo_strike_prices( $price, $product ) {
 	global $pmprowoo_member_discounts, $current_user;
 
-	// Let's not adjust things while in the admin area.
-	if ( is_admin() ) {
+	// Let's not do this in the admin area, if PMPro is not active, or if the user does not have a membership level.
+	if ( is_admin() || ! function_exists( 'pmpro_hasMembershipLevel' ) || ! pmpro_hasMembershipLevel() ) {
 		return $price;
 	}
 
 	$formatted_price = ''; // Define the new variable.
 	$level_id = $current_user->membership_level->id;
-
-	if ( empty( $level_id ) ) {
-		return $price;
-	}
 
 	// get pricing for simple product
 	if ( $product->is_type( 'simple' ) ) {
