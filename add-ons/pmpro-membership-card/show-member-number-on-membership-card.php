@@ -2,6 +2,9 @@
 /*
  * Show a member number on the membership card for Paid Memberships Pro.
  *
+ * This is an extension of the Membership Number snippet here:
+ * https://github.com/strangerstudios/pmpro-snippets-library/blob/1b7724c13775d45574fd0f9772b41100193f7f91/frontend-pages/generate-unique-membership-number.php
+ *
  * title: Show a member number on the membership card for Paid Memberships Pro.
  * layout: snippet
  * collection: add-ons, pmpro-membership-card
