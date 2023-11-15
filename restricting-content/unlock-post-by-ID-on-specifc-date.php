@@ -1,6 +1,7 @@
 <?php
 /**
  * Filter to only allow access to a protected post by post ID after a specific calendar date.
+ * Learn more at: https://www.paidmembershipspro.com/unlock-content-specific-dates/
  *
  * Update the $posts_in_series_with_dates array with your post IDs => date (formatted as YYYY-MM-DD).
  *
