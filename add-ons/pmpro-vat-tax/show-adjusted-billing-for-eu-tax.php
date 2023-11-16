@@ -1,6 +1,7 @@
 <?php
 /** 
  * Updates the level cost text based on the Country selected when using the VAT Tax Add On.
+ * Learn more at: https://www.paidmembershipspro.com/update-level-cost-checkout-based-vat/
  *
  * title: Updates the level cost text based on the Country selected when using the VAT Tax Add On.
  * layout: snippet
