@@ -1,6 +1,7 @@
 <?php
 /**
  * Redirect the empty category or tag archive to levels page when all posts are hidden from searches and archives.
+ * Learn more at https://www.paidmembershipspro.com/redirect-empty-category-or-tag-archive-when-members-only-content/
  *
  * title: Redirect the empty category or tag archive to levels page when posts are hidden.
  * layout: snippet
