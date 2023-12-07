@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: add-ons
  * category: pmpro-courses
+ * link: https://www.paidmembershipspro.com/remove-lesson-list/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
