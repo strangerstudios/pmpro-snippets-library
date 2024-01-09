@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-zapier
  * category: pmpro-group-accounts
+ * link: https://www.paidmembershipspro.com/how-to-send-your-sponsored-or-group-members-discount-code-to-zapier/
  *
  * This runs on the "After Checkout" trigger. 
  * Requires Group Accounts Add On - https://www.paidmembershipspro.com/add-ons/group-accounts/
