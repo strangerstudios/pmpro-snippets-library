@@ -22,7 +22,7 @@
  * 
  */
 function show_group_account_child_pmpro_member_profile_after( $pu ) {
-	// Bail if pmpro groups account Add On isn't active.adad
+	// Bail if pmpro groups account Add On isn't active.
 	if ( ! class_exists( 'PMProGroupAcct_Group' ) ) {
 		return;
 	}
