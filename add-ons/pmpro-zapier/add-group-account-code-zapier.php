@@ -24,7 +24,7 @@
 		return;
 	}
  
-	$group_code = $_REQUEST['pmprogroupacct_group_code'];
+	$group_code = sanitize_text_field( $_REQUEST['pmprogroupacct_group_code'] );
  
 	if ( ! empty( $group_code ) ) {
 		$data['pmpro_group_code'] = $group_code;
