@@ -17,11 +17,12 @@
 /**
  * Remove category from the default dimensions array.
  *
- * @param array $dimensions The default dimensions.
- * @return bool $return true if the page is the custom page, false otherwise.
+ * @param array $dimensions The default dimensions array.
+ * @return array $dimensions The customized dimensions array.
  */
 function my_pmproga4_default_custom_dimension( $dimensions ) {
-	$dimensions =  array ('post_type' => '',  'author' => '');
+	// Remove the category dimension. Change the unset dimensiion as needed.
+	unset( $dimension['category'] );
 	return $dimensions;
 }
 
