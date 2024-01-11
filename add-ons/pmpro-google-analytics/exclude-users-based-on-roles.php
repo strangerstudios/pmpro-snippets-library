@@ -19,10 +19,14 @@
  * @return bool true if user has the roles and false otherwise.
  */
 function my_custom_dont_track_function() {
+	//The roles to hide. Change as needed.
+	$roles_to_hide = array( 'editor', 'author' );
+	//Get the current user
 	$current_user = wp_get_current_user();
-	$roles = ( array ) $current_user->caps;
-	//change the roles here as needed.
-	return array_key_exists( 'editor', $roles )  || array_key_exists( 'author', $roles );
+	//Get current user roles.
+	$roles = ( array ) $current_user->roles;
+
+	return !empty( array_intersect($roles, $roles_to_hide) );
 }
 
 add_filter( 'pmproga4_dont_track', 'my_custom_dont_track_function' );
