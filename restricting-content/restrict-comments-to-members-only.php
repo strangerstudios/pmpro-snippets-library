@@ -18,10 +18,8 @@
  * PMPro by default restricts comments in restricted posts to the relevant membership level. 
  */
 function my_pmpro_hide_comments_on_open_posts( $comments ) {
-	global $post;
-
 	// Restrict comments to only logged-in members that have any active membership level.
-	if ( ! pmpro_hasMembershipLevel() ) {
+	if ( function_exists( 'pmpro_hasMembershipLevel' ) && ! pmpro_hasMembershipLevel() ) {
 		$comments = array();
 		add_action( 'comment_form_before', 'pmpro_non_member_text_before_comment_form' );
 	} 
