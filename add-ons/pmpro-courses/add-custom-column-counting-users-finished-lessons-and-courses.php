@@ -82,7 +82,7 @@ function count_users_completed_lesson( $lesson_id, $course_id ) {
     $query = $wpdb->prepare(
         "SELECT COUNT(user_id) FROM {$wpdb->usermeta} WHERE meta_key = 'pmpro_courses_progress_" . esc_sql( $course_id ). "'" .
         " AND meta_value LIKE %s",
-        '%' . $lesson_id . ';b:1%'
+        '%i:' . $lesson_id . ';b:1%'
     );
 
     $ret =  $wpdb->get_var($query);
