@@ -2,7 +2,7 @@
 /**
  * Change Membership Level on Cancellation or Expiration
  *
- * Change the Level ID on line 39 to the level you want members to have assigned
+ * Change the Level ID on line 30 to the level you want members to have assigned
  * to them after cancellation or expiration.
  *
  * title: Change Membership Level on Cancellation or Expiration
