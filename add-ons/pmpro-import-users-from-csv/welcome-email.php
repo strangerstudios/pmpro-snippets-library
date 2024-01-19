@@ -13,27 +13,32 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function my_pmproiufcsv_email( $user_id ) {
+function my_pmproiucsv_send_welcome_email( $user_id ) {
 
-    if ( ! function_exists( 'pmproiufcsv_is_iu_post_user_import' ) ) {
-        return;
-    }
-    global $pmproiufcsv_email;
+	// If PMPro isn't defined, bail.
+	if ( ! defined( 'PMPRO_VERSION' ) ) {
+		return;
+	}
 
-    wp_cache_delete( $user_id, 'users' );
-    
-    $sitename = get_bloginfo( 'sitename' );
-    $user     = get_userdata( $user_id );
+	wp_cache_delete( $user_id, 'users' );
 
-    //look for a membership level
-    $membership_id = $user->import_membership_id;
+	$sitename = get_bloginfo( 'sitename' );
+	$user     = get_userdata( $user_id );
 
-    // get level object
-    $level = pmpro_getLevel( $membership_id );
+	// look for a membership level
+	$membership_id = $user->import_membership_id;
 
-    $pmproiufcsv_email = array(
-        'subject' => sprintf( 'Welcome to %s', $sitename ), //email subject, "Welcome to Sitename"
-        'body'    => '<p>Your welcome email body text will go here.</p><p>Site: ' . $sitename . ' (' . site_url() . ')<br />Your login name: ' . $user->user_login . '<br />Membership Level: ' . $level->name . '</p>',        //email body
-    );
+	// get level object
+	$level = pmpro_getLevel( $membership_id );
+
+    $my_email = new PMProEmail();
+
+    $my_email->email    = $user->user_email; // who to send the email to - send to user that is checking out.
+    $my_email->subject  = sprintf( 'Welcome to %s', $sitename ); // email subject, "Welcome to Sitename"
+    $my_email->template = 'Welcome Email'; // custom name of email template.
+    $my_email->body     = '<p>Your welcome email body text will go here.</p><p>Site: ' . $sitename . ' (' . site_url() . ')<br />Your login name: ' . $user->user_login . '<br />Membership Level: ' . $level->name . '</p>';
+
+    $my_email->sendEmail();
+
 }
-add_action( 'is_iu_post_user_import', 'my_pmproiufcsv_email' );
+add_action( 'pmproiucsv_post_user_import', 'my_pmproiucsv_send_welcome_email' );
