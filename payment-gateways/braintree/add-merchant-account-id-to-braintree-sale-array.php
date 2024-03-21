@@ -17,5 +17,6 @@ function my_pmpro_braintree_transaction_sale_array( $braintree_sale_array ) {
 	$braintree_sale_array['merchantAccountId'] = 'your_merchant_account_id';
 	return $braintree_sale_array;
 }
- add_filter( 'pmpro_braintree_transaction_sale_array', 'my_pmpro_braintree_transaction_sale_array' );
+add_filter( 'pmpro_braintree_transaction_sale_array', 'my_pmpro_braintree_transaction_sale_array' );
+add_filter( 'pmpro_braintree_subscription_create_array', 'my_pmpro_braintree_transaction_sale_array' );
 
