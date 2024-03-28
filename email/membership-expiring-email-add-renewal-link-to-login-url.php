@@ -29,7 +29,7 @@ function my_pmpro_membership_expiring_email_add_renewal_link_to_login_url( $data
 	if ( 'membership_expiring' === $email->template && ! empty( $data['membership_id'] ) ) {
 
 		// Construct link to checkout page for the membership level that is expiring.
-		$checkout_page = pmpro_url( 'checkout', '?level=' . $data['membership_id'], 'https' );
+		$checkout_page = pmpro_url( 'checkout', '?pmpro_level=' . $data['membership_id'], 'https' );
 
 		// Set the renew_url to the checkout page.
 		$data['renew_url'] = $checkout_page;
