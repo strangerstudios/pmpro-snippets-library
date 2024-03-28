@@ -19,11 +19,11 @@ function my_pmpro_non_member_text_filter( $text ) {
 	$level_ids = $access[1];
 
 	if ( is_array( $level_ids ) && in_array( 2, $level_ids ) ) {
-		$text = '<h4>This page requires a Bronze Account of higher.</h4><p><a href="/membership-checkout/?level=2">Upgrade Now »</a></p>';
+		$text = '<h4>This page requires a Bronze Account of higher.</h4><p><a href="/membership-checkout/?pmpro_level=2">Upgrade Now »</a></p>';
 	} elseif ( is_array( $level_ids ) && in_array( 3, $level_ids ) ) {
-		$text = '<h4>This page requires a Silver Account or higher.</h4><p><a href="/membership-checkout/?level=3">Upgrade Now »</a></p>';
+		$text = '<h4>This page requires a Silver Account or higher.</h4><p><a href="/membership-checkout/?pmpro_level=3">Upgrade Now »</a></p>';
 	} else {
-		$text = '<h4>This page requires a Gold Account or higher.</h4><p><a href="/membership-checkout/?level=4">Upgrade Now »</a></p>';
+		$text = '<h4>This page requires a Gold Account or higher.</h4><p><a href="/membership-checkout/?pmpro_level=4">Upgrade Now »</a></p>';
 	}
 
 	return $text;
