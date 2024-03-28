@@ -78,7 +78,7 @@ function memberlite_show_banner_renewal_message(){
 		return;
 	}
 
-	$message = 'Your ' . $expiring_level->name . ' membership will expire soon. <a href="' . pmpro_url( "checkout", "?level=" . $expiring_level->id ) . '"> Click here to renew membership.</a>';
+	$message = 'Your ' . $expiring_level->name . ' membership will expire soon. <a href="' . pmpro_url( "checkout", "?pmpro_level=" . $expiring_level->id ) . '"> Click here to renew membership.</a>';
 
 	echo '<div class="pmpro_banner_renewal_wrapper banner banner_secondary"><h4> ' . $message . ' </h4></div>';
 
