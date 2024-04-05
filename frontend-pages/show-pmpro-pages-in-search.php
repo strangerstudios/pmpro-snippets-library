@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: frontend-pages
  * category: search
+ * link: https://www.paidmembershipspro.com/show-in-search/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
