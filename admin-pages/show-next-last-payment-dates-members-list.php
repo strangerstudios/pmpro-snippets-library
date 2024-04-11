@@ -2,10 +2,6 @@
 /**
  * Show the member's last payment date and next payment date on the Members list and Members CSV export.
  *
- * Note that "last payment" value will get the last order in "success", "cancelled", or "" status. (Oddly enough, cancelled here means that the membership was cancelled, not the order.)
- *
- * The "next payment" value is an estimate based on the billing cycle of the subscription and the last order date. It may be off from the actual recurring date set at the gateway, especially if the subscription was updated at the gateway.
- *
  * title: Show next and last payment date on the Members list and Members CSV export.
  * layout: snippet
  * collection: admin-pages
@@ -24,9 +20,9 @@
  * @return array
  */
 function my_pmpro_add_memberslist_col_payment_dates( $columns ) {
-    $columns[ 'last-payment' ] = 'Last Payment';
-    $columns[ 'next-payment' ] = 'Next Payment';
-    return $columns;
+	$columns[ 'last_payment_date' ] = 'Last Payment';
+	$columns[ 'next_payment_date' ] = 'Next Payment';
+	return $columns;
 }
 add_filter( 'pmpro_manage_memberslist_columns', 'my_pmpro_add_memberslist_col_payment_dates' );
 
@@ -35,61 +31,81 @@ add_filter( 'pmpro_manage_memberslist_columns', 'my_pmpro_add_memberslist_col_pa
  *
  * @param  string $colname column being filled.
  * @param  string $user_id to get information for.
+ * @param  array  $item The membership data being shown.
  */
-function my_pmpro_fill_memberslist_col_payment_dates( $colname, $user_id ) {
-    if ( 'last-payment' === $colname ) {
-        $order = new MemberOrder();
-        $order->getLastMemberOrder( $user_id, array( 'success', 'cancelled', '' ) );
+function my_pmpro_fill_memberslist_col_payment_dates( $colname, $user_id, $item ) {
+	if ( 'last_payment_date' === $colname ) {
+		$last_order = new MemberOrder();
+		$last_order->getLastMemberOrder( $user_id, array( 'success', 'refunded' ), $item['membership_id'] );
 
-        if ( ! empty( $order ) && ! empty( $order->id ) ) {
-            echo date( get_option('date_format'), $order->timestamp );
-        } else {
-            echo 'N/A';
-        }
-    }
+		if ( ! empty( $last_order ) && ! empty( $last_order->id ) ) {
+			echo esc_html( sprintf(
+				// translators: %1$s is the date and %2$s is the time.
+				__( '%1$s at %2$s', 'pmpro-customizations' ),
+				date( get_option('date_format'), $last_order->timestamp ),
+				date( get_option('time_format'), $last_order->timestamp )
+			) );
+		} else {
+			echo 'N/A';
+		}
+	}
 
-    if ( 'next-payment' === $colname ) {
-        $next = pmpro_next_payment( $user_id, array( 'success', 'cancelled', '' ), 'date_format' ); 
-        if ( $next ) {
-            echo $next;
-        } else {
-            echo 'N/A';
-        }
-    }
+	if ( 'next_payment_date' === $colname ) {
+		// Get the subscription.
+		$subscriptions =  PMPro_Subscription::get_subscriptions_for_user( $user_id, $item['membership_id'] );
+
+		// Return early if there are no subscriptions.
+		if ( empty( $subscriptions ) ) {
+			echo 'N/A';
+			return;
+		}
+
+		// Show the next payment date if the subscription is active.
+		$subscription = $subscriptions[0];
+		$next_payment_date = $subscriptions[0]->get_next_payment_date( get_option( 'date_format' ) );
+		$next_payment_time = $subscriptions[0]->get_next_payment_date( get_option( 'time_format' ) );
+		if ( ! empty( $next_payment_date ) ) {
+			echo esc_html( sprintf(
+				// translators: %1$s is the date and %2$s is the time.
+				__( '%1$s at %2$s', 'pmpro-customizations' ),
+				esc_html( $next_payment_date ),
+				esc_html( $next_payment_time )
+			) );
+		} else {
+			echo 'N/A';
+		}
+	}
 }
-add_filter( 'pmpro_manage_memberslist_custom_column', 'my_pmpro_fill_memberslist_col_payment_dates', 10, 2 );
+add_filter( 'pmpro_manage_memberslist_custom_column', 'my_pmpro_fill_memberslist_col_payment_dates', 10, 3 );
 
 /**
- * Adds "Last Payment" and "Next Payment" columns to Members List CSV export.
+ * Adds "last_payment_date" column to Members List CSV export.
+ * Note: PMPro v3.0+ already includes "next_payment_date" in the CSV export.
  *
  */
 function my_pmpro_members_list_csv_extra_columns_payment_dates( $columns ) {
-    $columns[ 'last_payment' ] = 'my_extra_column_last_payment';
-    $columns[ 'next_payment' ] = 'my_extra_column_next_payment';
+	$columns[ 'last_payment_date' ] = 'my_extra_column_last_payment_date';
 
-    return $columns;
+	return $columns;
 }
 add_filter( 'pmpro_members_list_csv_extra_columns', 'my_pmpro_members_list_csv_extra_columns_payment_dates', 10);
 
 /**
- * Populate the "last_payment" column of the Members List CSV export.
+ * Populate the "last_payment_date" column of the Members List CSV export.
  *
  */
-function my_extra_column_last_payment( $user ) {
-    $order = new MemberOrder();
-    $order->getLastMemberOrder( $user->ID, array( 'success', 'cancelled', '' ) );
+function my_extra_column_last_payment_date( $user ) {
+	// Get the last order.
+	$last_order = new MemberOrder();
+	$last_order->getLastMemberOrder( $user->ID, array( 'success', 'refunded' ), $user->membership_id );
 
-    if ( ! empty( $order ) && ! empty( $order->id ) ) {
-        return date( get_option('date_format'), $order->timestamp );
-    } else {
-        return '';
-    }
-}
+	// Use the core filter to get date format for exports.
+	$dateformat = apply_filters( 'pmpro_memberslist_csv_dateformat', 'Y-m-d' );
 
-/**
- * Populate the "next_payment" column of the Members List CSV export.
- *
- */
-function my_extra_column_next_payment( $user ) {
-    return pmpro_next_payment( $user->ID, array( 'success', 'cancelled', '' ), 'date_format' );
+	// Show the last payment date if the order exists and was not free.
+	if ( ! empty( $last_order ) && ! empty( $last_order->id ) && $last_order->total > 0 ) {
+		return date_i18n( $dateformat, $last_order->timestamp );
+	} else {
+		return '';
+	}
 }
