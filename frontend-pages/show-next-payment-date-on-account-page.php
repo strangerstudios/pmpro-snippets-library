@@ -14,6 +14,11 @@
  */
 
 function my_pmpro_next_payment_date_pmpro_membership_expiration_text( $text, $level, $user, $show_time ) {
+	// Return early if we're not on the site's frontend.
+	if ( is_admin() ) {
+		return $text;
+	}
+
 	// Return early if the level has an expiration date.
 	if ( ! empty( $level->expiration_number ) ) {
 		return $text;
