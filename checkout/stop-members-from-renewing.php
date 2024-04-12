@@ -25,11 +25,19 @@ function stop_members_from_renewing( $okay ) {
 		return $okay;
 	}
 
+	// Get the level at checkout
+	$checkout_level = isset( $_REQUEST['level'] ) ? $_REQUEST['level'] : null;
+	if ( empty( $checkout_level ) && function_exists( 'pmpro_getLevelAtCheckout' ) && ! empty( pmpro_getLevelAtCheckout() ) ) {
+		$checkout_level = pmpro_getLevelAtCheckout();
+		$checkout_level = $checkout_level->id;
+	}
+
 	// Check if the user's current membership level is the same for checking out.
-	if ( pmpro_hasMembershipLevel( $_REQUEST['level'] ) ) {
+	if ( ! empty( $checkout_level ) && pmpro_hasMembershipLevel( $checkout_level ) ) {
 		$okay = false;
 		pmpro_setMessage( 'This is your current membership level. Please select a different membership level.', 'pmpro_error' );
 	}
+
 	return $okay;
 
 }
