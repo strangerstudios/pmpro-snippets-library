@@ -32,7 +32,7 @@ function my_pmpro_next_payment_date_orders_column_body( $column_name, $item ) {
 		}
 
 		// Get the subscription.
-		$subscription = PMPro_Subscription::get_subscription_from_subscription_transaction_id( $order->subscription_transaction_id, $order->gateway, $order->gateway_environment );
+		$subscription = $order->get_subscription();
 
 		// Return early if there are no subscriptions.
 		if ( empty( $subscription ) ) {
