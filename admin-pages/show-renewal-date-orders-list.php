@@ -1,11 +1,9 @@
 
 <?php
 /**
- * Show the renewal date for the order on the Memberships > Orders page in the WordPress admin.
+ * Show the next payment date for the order's subscription on the Memberships > Orders page in the WordPress admin.
  *
- * Note that the "renewal date" value is an estimate based on the billing cycle of the subscription and the last order date. It may be off from the actual recurring date set at the gateway, especially if the subscription was updated at the gateway.
- *
- * title: Show renewal date on the Orders list in the WordPress admin.
+ * title: Show next payment date for the subscription on the Orders list in the WordPress admin.
  * layout: snippet
  * collection: admin-pages
  * category: admin
@@ -16,39 +14,45 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
- function mypmpro_renewal_date_column_header( $columns ){
-
-	$columns['renewal_date'] = 'Renewal Date';
+function my_pmpro_next_payment_date_orders_column_header( $columns ) {
+	$columns['next_payment_date'] = 'Next Payment Date';
 
     return $columns;
-
 }
-add_filter( 'pmpro_manage_orderslist_columns',  'mypmpro_renewal_date_column_header', 10, 1 );
+add_filter( 'pmpro_manage_orderslist_columns',  'my_pmpro_next_payment_date_orders_column_header', 10, 1 );
 
-function mypmpro_renewal_date_column_body($column_name, $item ) {
-	
-	if( $column_name == 'renewal_date' ) {
-
+function my_pmpro_next_payment_date_orders_column_body( $column_name, $item ) {
+	if ( $column_name == 'next_payment_date' ) {
+		// Get the order.
 		$order = new MemberOrder( $item );
-		
+
+		// Return early if the order is not a subscription.
 		if ( empty( $order->id ) && empty( $order->subscription_transaction_id ) ) {
 			echo '&#8212;';
-		} elseif ( $order->status == 'cancelled' ) {
-			echo '&#8212;';
+		}
+
+		// Get the subscription.
+		$subscription = $order->get_subscription();
+
+		// Return early if there are no subscriptions.
+		if ( empty( $subscription ) ) {
+			echo 'N/A';
+			return;
+		}
+
+		// Show the next payment date if the subscription is active.
+		$next_payment_date = $subscription->get_next_payment_date( get_option( 'date_format' ) );
+		$next_payment_time = $subscription->get_next_payment_date( get_option( 'time_format' ) );
+		if ( ! empty( $next_payment_date ) ) {
+			echo esc_html( sprintf(
+				// translators: %1$s is the date and %2$s is the time.
+				__( '%1$s at %2$s', 'pmpro-customizations' ),
+				esc_html( $next_payment_date ),
+				esc_html( $next_payment_time )
+			) );
 		} else {
-			// Get the membership level for the last order.
-			$level = $order->getMembershipLevel();
-		
-			if ( ! empty( $level ) && ! empty( $level->id ) && ! empty( $level->cycle_number ) ) {
-				// Next Payment Date
-				$nextdate = strtotime( '+' . $level->cycle_number . ' ' . $level->cycle_period, $order->getTimestamp() );
-				echo date_i18n( get_option( 'date_format' ), $nextdate );
-			} else {
-				// no order or level found, or level was not recurring
-				echo '&#8212;';
-			}
+			echo 'N/A';
 		}
 	}
-
 }
-add_action( 'pmpro_manage_orderlist_custom_column' , 'mypmpro_renewal_date_column_body', 10, 2 );
+add_action( 'pmpro_manage_orderlist_custom_column' , 'my_pmpro_next_payment_date_orders_column_body', 10, 2 );
