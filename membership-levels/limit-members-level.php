@@ -57,23 +57,16 @@ add_action( 'pmpro_membership_level_after_other_settings', 'my_pmpro_limit_membe
 function my_pmpro_limit_members_pmpro_registration_checks( $value ) {
 	global $wpdb;
 	
-	// Default to level passed in via URL.
-	if ( empty( $level_id ) && ! empty( $_REQUEST['pmpro_level'] ) ) {
-		$level_id = intval( $_REQUEST['pmpro_level'] );
-	}
+	// Get the level at checkout.
+	$pmpro_level = pmpro_getLevelAtCheckout();
 
-	// If we don't have a level, check the legacy 'level' request parameter.
-	if ( empty( $level_id ) && ! empty( $_REQUEST['level'] ) ) {
-		$level_id = intval( $_REQUEST['level'] );
-	}
-
-	// If we still don't have a level, return.
-	if ( empty( $level_id ) ) {
+	// If we don't have a level, return.
+	if ( empty( $pmpro_level->id ) ) {
 		return $value;
 	}
 
 	// Get the maximum number of members allowed in this level.
-	$pmpro_level_member_limit = get_pmpro_membership_level_meta( $level_id, 'pmpro_level_member_limit', true );
+	$pmpro_level_member_limit = get_pmpro_membership_level_meta( $pmpro_level->id, 'pmpro_level_member_limit', true );
 
 	// Return early if the limit is not set.
 	if ( empty( $pmpro_level_member_limit ) ) {
@@ -99,13 +92,12 @@ add_filter( 'pmpro_registration_checks', 'my_pmpro_limit_members_pmpro_registrat
  * Show '0 of X spots available.' on membership checkout page if a limit is set.
  */
 function my_pmpro_show_spots_available( ) {
-	global $pmpro_level;
 
-	// Get the level ID.
-	$level_id = intval( $pmpro_level->id );
+	// Get the level.
+	$pmpro_level = pmpro_getLevelAtCheckout();
 
 	// Get the maximum number of members allowed in this level.
-	$pmpro_level_member_limit = get_pmpro_membership_level_meta( $level_id, 'pmpro_level_member_limit', true );
+	$pmpro_level_member_limit = get_pmpro_membership_level_meta( $pmpro_level->id, 'pmpro_level_member_limit', true );
 
 	// Return early if the limit is not set.
 	if ( empty( $pmpro_level_member_limit ) ) {
@@ -113,7 +105,7 @@ function my_pmpro_show_spots_available( ) {
 	}
 	
 	// Get the count of members in this level.
-	$member_count = my_pmpro_get_active_members_in_level( $level_id );
+	$member_count = my_pmpro_get_active_members_in_level( $pmpro_level->id );
 
 	// Show the spots claimed.
 	echo '<p class="my-pmpro-spots-claimed">';
@@ -142,7 +134,7 @@ add_action( 'pmpro_checkout_after_level_cost', 'my_pmpro_show_spots_available' )
  * Redirect away from checkout if the limit is reached.
  */
 function my_pmpro_template_redirect_no_spots_available() {
-	global $pmpro_pages, $pmpro_level;
+	global $pmpro_pages;
 
 	// Return early if we are not on a PMPro page.
 	if ( empty( $pmpro_pages ) ) {
@@ -154,11 +146,11 @@ function my_pmpro_template_redirect_no_spots_available() {
 		return;
 	}
 
-	// Get the level ID.
-	$level_id = intval( $pmpro_level->id );
+	// Get the level.
+	$pmpro_level = pmpro_getLevelAtCheckout();
 
 	// Get the maximum number of members allowed in this level.
-	$pmpro_level_member_limit = get_pmpro_membership_level_meta( $level_id, 'pmpro_level_member_limit', true );
+	$pmpro_level_member_limit = get_pmpro_membership_level_meta( $pmpro_level->id, 'pmpro_level_member_limit', true );
 
 	// Return early if the limit is not set.
 	if ( empty( $pmpro_level_member_limit ) ) {
@@ -166,7 +158,7 @@ function my_pmpro_template_redirect_no_spots_available() {
 	}
 
 	// Get the count of members in this level.
-	$member_count = my_pmpro_get_active_members_in_level( $level_id );
+	$member_count = my_pmpro_get_active_members_in_level( $pmpro_level->id );
 
 	// Redirect away from checkout if the limit is reached.
 	if ( $pmpro_level_member_limit > 0 && $member_count >= $pmpro_level_member_limit ) {
