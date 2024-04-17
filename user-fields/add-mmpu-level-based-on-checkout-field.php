@@ -20,10 +20,10 @@ function my_pmpro_mmpu_add_level_via_field_at_checkout() {
 	if ( ! function_exists( 'pmpro_add_user_field' ) ) {
 		return false;
 	} 
-
+ 
 	// Store our field settings in an array.
 	$fields = array();
-
+ 
 	// Define the fields.
 	$fields[] = new PMPro_Field(
 		'include_level_2',
@@ -34,10 +34,10 @@ function my_pmpro_mmpu_add_level_via_field_at_checkout() {
 			'profile'   => true,
 		)
 	);
-
+ 
 	// Add a field group to put our fields into.
 	pmpro_add_field_group( 'Additional Options' );
-
+ 
 	// Add the fields into a new area of the checkout page
 	foreach ( $fields as $field ) {
 		pmpro_add_user_field(
@@ -47,20 +47,16 @@ function my_pmpro_mmpu_add_level_via_field_at_checkout() {
 	}
 }
 add_action( 'init', 'my_pmpro_mmpu_add_level_via_field_at_checkout' );
-
+ 
 /**
  * Give users an extra level based on a profile field selected at checkout or on profile page.
  */
 function my_pmpro_mmpu_add_level_field_save_function( $user_id, $field_name, $value ) {	
-	// Make sure MMPU is active.
-	if ( ! defined( 'PMPROMMPU_VER' ) ) {
-		return;
-	}
-
+	
 	// Check field and give user level if appropriate.
 	if ( $field_name == 'include_level_2' ) {
 		if ( $value == 1 ) {
-			pmprommpu_addMembershipLevel( 2, $user_id );
+			pmpro_changeMembershipLevel( 2, $user_id );
 			update_user_meta( $user_id, 'include_level_2', 1 );
 		} else {
 			pmpro_cancelMembershipLevel( 2, $user_id );
