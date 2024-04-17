@@ -14,17 +14,13 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmpro_apply_discount_code() {
-	// Check if we're on the checkout page without a discount code already set.
-	if ( empty( $_REQUEST['level'] ) || ! empty( $_REQUEST['discount_code'] ) ) {
-		return;
+function my_pmpro_apply_discount_code( $discount_code, $level_id ) {
+	$code = '4A54F5BFC7'; //Change code here. Hint: Use a discount code for all levels to automatically apply it.
+	if ( pmpro_checkDiscountcode( $code, $level_id ) ) {
+		return $code;
 	}
 
-	$code = 'SE217EA4DA7'; //Change code here. Hint: Use a discount code for all levels to automatically apply it.
-
-	if ( pmpro_checkDiscountCode( $code, $_REQUEST['level'] ) ) {
-		$_REQUEST['discount_code'] = $code;
-	}
-
+	return $discount_code;
 }
-add_action( 'init', 'my_pmpro_apply_discount_code' );
+
+add_filter( 'pmpro_default_discount_code',  'my_pmpro_apply_discount_code', 10, 2 );
