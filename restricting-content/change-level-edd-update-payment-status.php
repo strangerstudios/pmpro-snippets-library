@@ -1,5 +1,15 @@
 <?php
 /**
+ * title: Assign a membership level to members when purchasing an EDD product.
+ * layout: snippet
+ * collection: restricting-content
+ * category: content, restriction, Edd purchase
+ *
+ * You can add this recipe to your site by creating a custom plugin
+ * or using the Code Snippets plugin available for free in the WordPress repository.
+ * Read this companion article for step-by-step directions on either method.
+ * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ * 
  * This recipe will allow you to assign a membership level to members when purchasing an EDD product.
  * You can do this one of two ways:
  *
@@ -25,18 +35,6 @@
 			'enddate' 		=> '2021-12-31' // string (date)
  		),
  	);
- *
- */
- *
- * title: Assign a membership level to members when purchasing an EDD product.
- * layout: snippet
- * collection: restricting-content
- * category: content, restriction, Edd purchase
- *
- * You can add this recipe to your site by creating a custom plugin
- * or using the Code Snippets plugin available for free in the WordPress repository.
- * Read this companion article for step-by-step directions on either method.
- * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
  function my_pmpro_change_level_edd_update_payment_status( $payment_id, $new_status, $old_status ) {
