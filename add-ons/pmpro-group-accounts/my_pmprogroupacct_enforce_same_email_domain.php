@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Restrict group child checkout to email domain of group leader.
  * 
