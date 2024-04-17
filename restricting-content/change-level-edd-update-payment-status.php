@@ -32,7 +32,7 @@
 			'trial_amount' 		=> '0', // float (string)
 			'trial_limit' 		=> '0', // integer
 			'startdate' 		=> current_time( 'mysql' ), // string (date)
-			'enddate' 		=> '2021-12-31' // string (date)
+			'enddate' 		=> '2025-12-31' // string (date)
  		),
  	);
  */
