@@ -14,9 +14,8 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmpro_default_discount_code( $discount_code, $level_id ) {
-	//Modify the code below as needed.
-	$code = '4A54F5BFC7';
+function my_pmpro_apply_discount_code( $discount_code, $level_id ) {
+	$code = '4A54F5BFC7'; //Change code here. Hint: Use a discount code for all levels to automatically apply it.
 	if ( pmpro_checkDiscountcode( $code, $level_id ) ) {
 		return $code;
 	}
@@ -24,6 +23,4 @@ function my_pmpro_default_discount_code( $discount_code, $level_id ) {
 	return $discount_code;
 }
 
-add_filter( 'pmpro_default_discount_code',  'my_pmpro_default_discount_code', 10, 2 );
-
-
+add_filter( 'pmpro_default_discount_code',  'my_pmpro_apply_discount_code', 10, 2 );
