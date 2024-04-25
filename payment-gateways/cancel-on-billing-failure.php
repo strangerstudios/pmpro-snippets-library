@@ -24,6 +24,6 @@
 function my_pmpro_subscription_payment_failed($order)
 {
 	//cancel the membership
-	pmpro_changeMembershipLevel(0, $order->user_id);		
+	pmpro_cancelMembershipLevel( $order->membership_id, $order->user_id );
 }
 add_action("pmpro_subscription_payment_failed", "my_pmpro_subscription_payment_failed");
