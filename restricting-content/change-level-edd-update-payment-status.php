@@ -49,7 +49,7 @@
 
  	$user_id = $payment_meta['user_info']['id'];
 
- 	if ( $new_status == 'publish' ) {
+ 	if ( $new_status == 'publish' || $new_status == 'complete' ) {
  		// Order is complete.
  		foreach ( $payment_meta['cart_details'] as $key => $item ) {
  			if ( ! empty( $product_levels[$item['id']] ) ) {
