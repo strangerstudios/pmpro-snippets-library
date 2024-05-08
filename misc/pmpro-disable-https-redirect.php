@@ -27,10 +27,10 @@ Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
 
-function pmpro_dhr_init(){
+function my_pmpro_disable_https_redirect(){
     
     remove_action( 'wp', 'pmpro_besecure', 2 );
 	remove_action( 'login_init', 'pmpro_besecure', 2 );
 
 }
-add_action( "init", "pmpro_dhr_init", 20 );
+add_action( "init", "my_pmpro_disable_https_redirect", 20 );
