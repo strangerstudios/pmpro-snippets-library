@@ -57,7 +57,7 @@ add_action( 'pmpro_discountcodes_extra_cols_header', 'mypmpro_discount_page_head
 
 function mypmpro_discount_page_column_restrict( $code ){
 
-	if( get_option( 'discount_code_restriction_'.$code->id ) !== "" ){
+	if( ! empty( get_option( 'discount_code_restriction_'.$code->id ) ) ){
 		echo "<td>Yes</td>";
 	} else {
 		echo "<td>No</td>";
