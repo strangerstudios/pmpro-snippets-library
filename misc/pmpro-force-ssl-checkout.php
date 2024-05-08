@@ -1,8 +1,8 @@
 <?php
 /**
- * Force SSL on the Checkout Page
+ * Force SSL on every page. Especially helpful at checkout.
  *
- * title: Force SSL on the Checkout Page
+ * title: Force SSL on every page
  * layout: snippet
  * collection: misc
  * category: checkout, ssl
