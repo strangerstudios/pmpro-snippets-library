@@ -3,7 +3,7 @@
  * When LPV grants access to a post, show a banner with the number of views remaining.
  *
  * title: Display a countdown banner for the Limit Post Views Add On.
- * layout:snippet
+ * layout: snippet
  * category: limit post views, banner
  * link: https://www.paidmembershipspro.com/improve-the-user-experience-and-increase-signups-when-using-the-limit-post-views-add-on/
  *
