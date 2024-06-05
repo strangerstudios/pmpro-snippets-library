@@ -21,19 +21,16 @@
  * @return array $return The customized dimensions array.
  */
 function my_pmproga4_default_custom_dimension( $dimensions ) {
-	//Change the post ID to the ID of your unique post
-	$my_unique_id = 287;
-	if ( is_single( $my_unique_id ) ) {
-		//Get the WP_Post object itself
-		$my_unique_post = get_post( $my_unique_id );
-		//Get the tag from the post
-		$posttags = get_the_tags( $my_unique_post );
-
-		//Use wp_list_pluck to get an array of tag names
-		$tag_names = wp_list_pluck( $posttags, 'name' );
-		$dimensions['tags'] = $tag_names;
+	if ( is_single( ) ) {
+		// Get the post tags.
+		$post_tags = get_the_tags();
+		
+		if ( ! empty( $post_tags ) ) {
+			// Use wp_list_pluck to get an array of tag names.
+			$tag_names = wp_list_pluck( $post_tags, 'name' );
+			$dimensions['tags'] = implode( ',', $tag_names );
+		}
 	}
 	return $dimensions;
 }
-
 add_filter( 'pmproga4_default_custom_dimension', 'my_pmproga4_default_custom_dimension' );
