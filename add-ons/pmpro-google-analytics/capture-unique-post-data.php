@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-google-analytics
  * category: dimensions
- * link: TBD
+ * link: https://www.paidmembershipspro.com/unique-post-data-ga/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
