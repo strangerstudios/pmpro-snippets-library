@@ -50,11 +50,12 @@ function mypmpro_create_affiliate( $name = '', $username = '' ) {
 	$code = pmpro_affiliates_getNewCode();
 
 	$trackingcode = '';
+	$commissionrate = '.1'; // Change the commission rate .1 is 10%
 	$cookiedays   = '30'; // Change number of days the cookie should be valid for
 	$enabled      = true;
 
-	$sqlQuery = "INSERT INTO $wpdb->pmpro_affiliates (code, name, affiliateuser, trackingcode, cookiedays, enabled) VALUES('" . esc_sql( $code ) . "', '" . esc_sql( $name ) . "', '" . esc_sql( $username ) . "', '" . esc_sql( $trackingcode ) . "', '" . intval( $cookiedays ) . "', '" . esc_sql( $enabled ) . "')";
-
+	$sqlQuery = "INSERT INTO $wpdb->pmpro_affiliates (code, name, affiliateuser, trackingcode, cookiedays, commissionrate, enabled) VALUES('" . esc_sql( $code ) . "', '" . esc_sql( $name ) . "', '" . esc_sql( $username ) . "', '" . esc_sql( $trackingcode ) . "', '" . intval( $cookiedays ) . "', '" . floatval( $commissionrate )  . "', '" . esc_sql( $enabled ) . "')";
+	
 	if ( $wpdb->query( $sqlQuery ) !== false ) {
 		echo 'Affiliate Created Successfully - ' . $username . '<br/>';
 	} else {
