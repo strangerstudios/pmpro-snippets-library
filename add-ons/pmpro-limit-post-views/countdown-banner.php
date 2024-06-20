@@ -19,7 +19,7 @@
  * @param string  $notification_js JavaScript to run when LPV grants access to a post.
  * @param int     $views_remaining Number of views remaining.
  */
-function my_pmprolpv_allow_view_js_countdown_banner( $notification_js, $views_remaining ) {
+function my_pmprolpv_allow_view_js_countdown_banner( $notification_js, $views_remaining, $level_views, $level_period ) {
 	$f = new NumberFormatter('en', NumberFormatter::SPELLOUT);
 	$formatted_views = $f->format($views_remaining);
 	$article_text = ($views_remaining == 1) ? 'article' : 'articles';
@@ -29,17 +29,19 @@ function my_pmprolpv_allow_view_js_countdown_banner( $notification_js, $views_re
 	return "
 		jQuery(document).ready(function($) {
 			var banner = $('<div></div>').css({
-				'background': '#d4f1df',
+				'background': 'linear-gradient(to right, rgb( 0, 0, 0 ), rgb( 90, 90, 90 ) )',
 				'bottom': '0',
-				'font-size': '2.5rem',
+				'box-shadow': '0 1px 10px rgba(0, 0, 0, 0.6)',
+				'color': '#FFF',
+				'font-size': '20px',
 				'left': '0',
-				'padding': '1em',
 				'position': 'fixed',
+				'text-align': 'center',
 				'width': '100%'
-			}).html('You have <span style=\"color: #B00000;\">{$formatted_views}</span> free {$article_text} remaining. <a href=\"{$login_url}\" title=\"Log in\">Log in</a> or <a href=\"{$subscribe_url}\" title=\"Subscribe now\">Subscribe</a> now for unlimited online access.');
+			}).html('<div style=\"padding: 40px; 20px;\">You have <strong style=\"background-color: #B00000; border-radius: 5px; display: inline-block; padding: 0 4px;\">{$formatted_views}</strong> free {$article_text} remaining this {$level_period}. <a href=\"{$login_url}\" title=\"Log in\" style=\"border-bottom: 1px dotted #CCC; color: #FFF; font-weight: bold; text-decoration: none;\">Log in</a> or <a href=\"{$subscribe_url}\" title=\"Subscribe now\" style=\"border-bottom: 1px dotted #CCC; color: #FFF; font-weight: bold; text-decoration: none;\">Subscribe now</a> for unlimited access.</div>');
 
 			$('body').append(banner);
 		});
 	";
 }
-add_filter( 'pmprolpv_allow_view_js', 'my_pmprolpv_allow_view_js_countdown_banner', 10, 2 );
+add_filter( 'pmprolpv_allow_view_js', 'my_pmprolpv_allow_view_js_countdown_banner', 10, 4 );

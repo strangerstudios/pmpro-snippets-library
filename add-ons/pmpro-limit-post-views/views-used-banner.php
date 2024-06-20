@@ -28,31 +28,43 @@ function my_pmprolpv_allow_view_js_views_used_banner( $notification_js, $views_r
 	return "
 		jQuery(document).ready(function($) {
 			var banner = $('<div></div>').addClass('banner banner_action').css({
-				'position': 'fixed',
+				'background': 'linear-gradient(to right, rgb( 0, 0, 0 ), rgb( 90, 90, 90 ) )',
 				'bottom': '0',
+				'box-shadow': '0 1px 10px rgba(0, 0, 0, 0.6)',
 				'color': '#FFF',
-				'font-size': '2.5rem',
+				'font-size': '20px',
 				'left': '0',
 				'width': '100%',
-				'background': '#FB9B30',
+				'position': 'fixed',
 			});
 
 			var viewsInfo = $('<div></div>').css({
 				'display': 'inline-block',
-				'margin-right': '1em',
-				'padding': '1em',
-				'background': '#925D19'
+				'font-weight': '700',
+				'margin-right': '40px',
+				'padding': '40px',
+				'background': '#B00000',
 			}).text('{$views_used}/{$level_views}');
 
 			var loginLink = $('<a></a>').attr({
 				'href': '{$login_url}',
 				'title': 'Log in'
-			}).css('color', '#FFF').text('Log in');
+			}).css({
+				'border-bottom': '1px dotted #CCC',
+				'color': '#FFF',
+				'font-weight': '700',
+				'text-decoration': 'none',
+			}).text('Log in');
 
 			var subscribeLink = $('<a></a>').attr({
 				'href': '{$subscribe_url}',
 				'title': 'Subscribe now'
-			}).css('color', '#FFF').text('subscribe now');
+			}).css({
+				'border-bottom': '1px dotted #CCC',
+				'color': '#FFF',
+				'font-weight': '700',
+				'text-decoration': 'none',
+			}).text('Subscribe now');
 
 			banner.append(viewsInfo).append(loginLink).append(' or ').append(subscribeLink).append(' for unlimited online access.');
 			$('body').append(banner);
