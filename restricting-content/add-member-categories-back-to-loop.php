@@ -48,5 +48,5 @@ function my_pmpro_category_filter( $query ) {
 $filterqueries = pmpro_getOption( 'filterqueries' );
 
 if( ! empty( $filterqueries ) ){
-	add_filter( 'pre_get_posts', 'my_pmpro_category_filter' );
+	add_filter( 'pre_get_posts', 'my_pmpro_category_filter', 15 );
 }
