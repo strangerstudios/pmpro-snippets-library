@@ -16,15 +16,15 @@
 * Read this companion article for step-by-step directions on either method.
 * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
 */
+function my_pmpro_disable_member_emails($recipient, $email) {
+	$user      = get_user_by('login', $email->data['user_login']);
+	$levels    = pmpro_getMembershipLevelsForUser( $user->ID );
+	$level_ids = empty( $levels ) ? array() : wp_list_pluck( $levels, 'id' );
 
- function my_pmpro_disable_member_emails($recipient, $email)
- {
-     $user = get_user_by('login', $email->data['user_login']);
-     $level = pmpro_getMembershipLevelForUser($user->ID);
+	if ( in_array( '1', $level_ids ) ) {
+		return null;
+	}
      
-     if(!empty($level) && !empty($level->id) && $level->id == 1) //disable emails to level 1 only
-           $recipient = NULL;	
-     
-     return $recipient;
+	return $recipient;
  }
- add_filter("pmpro_email_recipient", "my_pmpro_disable_member_emails", 10, 2);
+ add_filter( 'pmpro_email_recipient', 'my_pmpro_disable_member_emails', 10, 2 );
