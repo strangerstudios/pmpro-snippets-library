@@ -16,25 +16,24 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
 function my_pmpro_members_only_woocommerce_shop() {
-	global $current_user;
-    if (
-        ( 
-			! is_user_logged_in() || 
-			( is_user_logged_in() && 
-			( function_exists( 'pmpro_hasMembershipLevel') && !pmpro_hasMembershipLevel( array( 1,2 ), $current_user->ID ) ) 
-			) 
-		)
-        && 
-		(
-			function_exists( 'is_woocommerce') && 
-			( is_woocommerce() || is_cart() || is_checkout() ) 
-		)
-    ) {
-        wp_redirect( pmpro_url( 'levels' ) );
-        exit;
-    }
-}
+	// Make sure WooCommerce is installed.
+	if ( ! function_exists( 'is_woocommerce') ) {
+		return;
+	}
 
+	// If we're not on the WC cart or checkout page, we don't want to redirect.
+	if ( ! ( is_woocommerce() || is_cart() || is_checkout() ) ) {
+		return;
+	}
+
+	// If the user has one of the specified membership levels, we don't want to redirect.
+	if ( pmpro_hasMembershipLevel( array( 1, 2 ) ) ) {
+		return;
+	}
+
+	// The user doesn't have the specified membership levels. Redirect them to the levels page.
+	wp_redirect( pmpro_url( 'levels' ) );
+    exit;
+}
 add_action( 'template_redirect', 'my_pmpro_members_only_woocommerce_shop' );
