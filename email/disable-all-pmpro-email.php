@@ -17,10 +17,7 @@
 */
 
 
-function my_pmpro_disable_all_email($recipient, $email)
-{
-    //if($email->template == "invoice")   //use this to check for a certain template
-    $recipient = NULL;
-    return $recipient;
+function my_pmpro_disable_all_email( $recipient, $email ) {
+    return null;
 }
 add_filter("pmpro_email_recipient", "my_pmpro_disable_all_email", 10, 2);
