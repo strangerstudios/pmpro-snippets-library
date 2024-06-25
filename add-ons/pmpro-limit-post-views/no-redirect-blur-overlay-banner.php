@@ -22,6 +22,16 @@ function my_pmprolpv_deny_view_js_signup_banner( $restriction_js, $level_views, 
 	$login_url = wp_login_url( get_permalink() );
 	$subscribe_url = pmpro_url( 'levels' );
 
+	ob_start();
+	?>
+	<div style="padding: 40px; 20px;">
+		<p style="margin-left: auto; margin-right: auto; max-width: 800px;">You have used all your free views this <?php echo esc_html( $level_period );?>. Become a member today to get unlimited access to this post and hundreds more.</p>
+		<p style="margin-top: 25px;"><a href="<?php echo esc_url( $subscribe_url );?>" title="Subscribe now" style="background-color: #B00000; border-radius: 10px; color: #FFF; display: inline-block; font-size: 24px; font-weight: bold; padding: 10px 20px; text-decoration: none;">Subscribe Now</a></p>
+		<p style="font-size: 16px;">Already a member? <a href="<?php echo esc_url( $login_url ); ?>" title="Log in" style="border-bottom: 1px dotted #CCC; color: #FFF; font-weight: bold; text-decoration: none;">Log in here</a>.</p>
+	</div>
+	<?php
+	$banner_content = ob_get_clean();
+
 	return "
 		jQuery(document).ready(function($) {
 			var blurLayer = $('<div></div>').css({
@@ -48,7 +58,7 @@ function my_pmprolpv_deny_view_js_signup_banner( $restriction_js, $level_views, 
 		        'transform': 'translate(0px, -50vh)',
 				'width': '100%',
 				'z-index': '9999'
-			}).html('<div style=\"padding: 40px; 20px;\"><p style=\"margin-left: auto; margin-right: auto; max-width: 800px;\">You have used all your free views this {$level_period}. Become a member today to get unlimited access to this post and hundreds more.</p><p style=\"margin-top: 25px;\"><a href=\"{$subscribe_url}\" title=\"Subscribe now\" style=\"background-color: #B00000; border-radius: 10px; color: #FFF; display: inline-block; font-size: 24px; font-weight: bold; padding: 10px 20px; text-decoration: none;\">Subscribe Now</a></p><p style=\"font-size: 16px;\">Already a member? <a href=\"{$login_url}\" title=\"Log in\" style=\"border-bottom: 1px dotted #CCC; color: #FFF; font-weight: bold; text-decoration: none;\">Log in here</a>.</p></div>');
+			}).html(" . wp_json_encode( $banner_content ) . ");
 
 			$('body').append(blurLayer).append(banner);
 			$('body').css({
