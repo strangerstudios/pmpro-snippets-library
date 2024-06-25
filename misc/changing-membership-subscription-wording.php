@@ -25,29 +25,22 @@
  * @return string                  the result of the text transformation
  */
 function my_gettext_membership( $output_text, $input_text, $domain ) {
-
-	if ( ! is_admin() && 'paid-memberships-pro' === $domain ) {
-
+	if ( ! is_admin() && ( 'paid-memberships-pro' === $domain || strpos( $domain, 'pmpro-' ) !== false ) ) {
 		$output_text = str_replace( 'Membership Level', 'Subscription', $output_text );
 		$output_text = str_replace( 'membership level', 'subscription', $output_text );
 		$output_text = str_replace( 'membership', 'subscription', $output_text );
 		$output_text = str_replace( 'Membership', 'Subscription', $output_text );
-
 	}
-
 	return $output_text;
-
 }
 add_filter( 'gettext', 'my_gettext_membership', 10, 3 );
 
 // Support _n calls.
 function my_ngettext_membership( $output_text, $single, $plural, $number, $domain ) {
-
 	if ( $number == 1 ) {
 		return my_gettext_membership( $output_text, $single, $domain );
 	} else {
 		return my_gettext_membership( $output_text, $plural, $domain );
 	}
-
 }
 add_filter( 'ngettext', 'my_ngettext_membership', 10, 5 );

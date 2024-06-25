@@ -2,7 +2,7 @@
 /**
  * Assign a membership level to a user during the registration process.
  *
- * Change the Level ID on line 24 to your chosen default level.
+ * Change the Level ID on line 27 to your chosen default level.
  *
  * Note: This approach will not process any membership subscription payments.
  * It will only work if your default membership level is free.
