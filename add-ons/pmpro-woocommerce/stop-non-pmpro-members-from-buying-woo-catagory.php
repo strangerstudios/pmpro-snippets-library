@@ -19,7 +19,7 @@
  function stop_non_pmpro_members_from_buying_woo( $is_purchasable, $product ) {
 
 	// Check if the user has an active membership level.
-	if( pmpro_hasMembershipLevel() ) {
+	if ( pmpro_hasMembershipLevel() ) {
 		return $is_purchasable;
 	}
 
@@ -30,7 +30,7 @@
 		'category-3' // Change to your category slugs or remove if not needed
 	);
 
-	if( has_term( $restricted_category_slugs, 'product_cat', $product->id ) ) {
+	if ( has_term( $restricted_category_slugs, 'product_cat', $product->id ) ) {
 		$is_purchasable = false;
 	}
 
