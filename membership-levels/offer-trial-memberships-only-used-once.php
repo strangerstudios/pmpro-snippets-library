@@ -39,7 +39,7 @@ function my_pmpro_registration_checks( $value ) {
 
 	$level = pmpro_getLevelAtCheckout();
     
-    $level_id = $level->id;
+    	$level_id = $level->id;
 
 	if ( $current_user->ID ) {
 		// check if the current user has already used the trial level
