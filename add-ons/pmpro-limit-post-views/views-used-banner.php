@@ -22,8 +22,8 @@
  */
 function my_pmprolpv_allow_view_js_views_used_banner( $notification_js, $views_remaining, $level_views ) {
 	$views_used = $level_views - $views_remaining;
-	$login_url = wp_login_url( get_permalink() );
-	$subscribe_url = pmpro_url( 'levels' );
+	$login_url = esc_url( wp_login_url( get_permalink() ) );
+	$subscribe_url = esc_url( pmpro_url( 'levels' ) );
 
 	return "
 		jQuery(document).ready(function($) {
