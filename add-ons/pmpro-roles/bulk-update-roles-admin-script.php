@@ -21,10 +21,9 @@
  * EXAMPLE -  http://yoursite.com/wp-admin/?updateroles=1
  */
  
- function bulk_update_roles_for_member_levels() {
+function bulk_update_roles_for_member_levels() {
+	global $wpdb;
 	if ( ! empty( $_REQUEST[ 'updateroles' ] ) && current_user_can( 'manage_options' )) {
-
-        global $wpdb;
 
         $level_id = intval( $_REQUEST['updateroles'] );
 
@@ -36,6 +35,12 @@
             echo "no members found for level ID (" . $level_id . ")";
             exit;
         }
+
+		// PMPro Roles Add On not installed, bail.
+		if ( ! class_exists( 'PMPro_Roles' ) ) {
+			echo "Paid Memberships Pro - Roles Add On not installed. Please install and try again.";
+			exit;
+		}
         
         $role = new PMPro_Roles();
         foreach( $results as $users ) {
@@ -56,7 +61,7 @@
 
         }
 
-        echo 'Script Finished';
+        echo 'Script Finished.';
         exit;
   
 	}
