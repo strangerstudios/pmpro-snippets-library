@@ -26,6 +26,12 @@ function my_pmprolpv_allow_view_js_countdown_banner( $notification_js, $views_re
 	$login_url = wp_login_url( get_permalink() );
 	$subscribe_url = pmpro_url( 'levels' );
 
+	ob_start();
+	?>
+	<div style="padding: 40px; 20px;">You have <strong style="background-color: #B00000; border-radius: 5px; display: inline-block; padding: 0 4px;"><?php esc_html($formatted_views); ?></strong> free <?php esc_html( $article_text );?> remaining this <?php esc_html( $level_period ); ?> <a href="<?php echo esc_url( $login_url ); ?>" title="Log in" style="border-bottom: 1px dotted #CCC; color: #FFF; font-weight: bold; text-decoration: none;">Log in</a> or <a href="<?php echo esc_url( $subscribe_url ); ?>" title="Subscribe now" style="border-bottom: 1px dotted #CCC; color: #FFF; font-weight: bold; text-decoration: none;">Subscribe now</a> for unlimited access.</div>
+	<?php
+	$banner_content = ob_get_clean();
+
 	return "
 		jQuery(document).ready(function($) {
 			var banner = $('<div></div>').css({
@@ -38,7 +44,7 @@ function my_pmprolpv_allow_view_js_countdown_banner( $notification_js, $views_re
 				'position': 'fixed',
 				'text-align': 'center',
 				'width': '100%'
-			}).html('<div style=\"padding: 40px; 20px;\">You have <strong style=\"background-color: #B00000; border-radius: 5px; display: inline-block; padding: 0 4px;\">{$formatted_views}</strong> free {$article_text} remaining this {$level_period}. <a href=\"{$login_url}\" title=\"Log in\" style=\"border-bottom: 1px dotted #CCC; color: #FFF; font-weight: bold; text-decoration: none;\">Log in</a> or <a href=\"{$subscribe_url}\" title=\"Subscribe now\" style=\"border-bottom: 1px dotted #CCC; color: #FFF; font-weight: bold; text-decoration: none;\">Subscribe now</a> for unlimited access.</div>');
+			}).html(" . wp_json_encode( $banner_content ) . ");
 
 			$('body').append(banner);
 		});
