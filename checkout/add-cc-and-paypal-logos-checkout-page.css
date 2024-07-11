@@ -1,0 +1,59 @@
+
+/**
+ *Add Credit Cards and PayPal Logos to Membership Checkout
+ *
+ * title: Add Credit Cards and PayPal Logos to Membership Checkout
+ * layout: snippet
+ * collection: checkout
+ * category: css, logos
+ * url: https://www.paidmembershipspro.com/add-credit-card-and-paypal-logos-to-checkout/
+ * 
+ * This custom CSS can be placed in a stylesheet for
+ * PMPro Customizations or pasted directly into the 
+ * Appearance > Customize > Additional CSS field. 
+ * You can also include this CSS in your child theme’s style.css file.
+ * Do not place custom CSS in any file in a theme that gets 
+ * regularly updated or you will lose your code.
+ */
+
+ /* CSS Document */
+#pmpro_payment_method span a {
+	background-position: left bottom;
+	background-size: contain;
+	background-repeat: no-repeat; 
+	display: inline-block;
+	margin-left: 1%;
+	max-width: 300px;
+	padding-bottom: 60px;
+	text-align: left;
+	width: 90%;
+}
+#pmpro_payment_method span.gateway_paypalexpress {
+	margin: 2em 0 0 0;
+}
+#pmpro_payment_method span.gateway_authorizenet a, 
+#pmpro_payment_method span.gateway_braintree a,
+#pmpro_payment_method span.gateway_cybersource a,
+#pmpro_payment_method span.gateway_paypal a,
+#pmpro_payment_method span.gateway_stripe a, 
+#pmpro_payment_method span.gateway_twocheckout a {
+	background-image: url(images/pay-with-credit-cards.png);
+}
+#pmpro_payment_method span.gateway_paypalexpress a {
+	background-image: url(images/pay-with-paypal.png);
+}
+@media (min-width: 769px) {
+	#pmpro_payment_method .pmpro_checkout-fields {
+		column-gap: 2em;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		width: 100%;
+	}
+	#pmpro_payment_method span {
+		flex: 1;
+	}
+	#pmpro_payment_method span.gateway_paypalexpress {
+		margin-top: 0;
+	}
+}
