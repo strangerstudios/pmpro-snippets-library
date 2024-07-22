@@ -1,0 +1,51 @@
+
+/**
+ * Add credit card and PayPal logos to Membership Checkout using the Add PayPal Express Add On and another onsite gateway
+ *
+ * title: Add Credit Cards and PayPal Logos to Membership Checkout
+ * layout: snippet
+ * collection: checkout
+ * category: css, logos
+ * url: https://www.paidmembershipspro.com/add-credit-card-and-paypal-logos-to-checkout/
+ * 
+ * This custom CSS can be placed in a stylesheet for
+ * PMPro Customizations or pasted directly into the 
+ * Appearance > Customize > Additional CSS field. 
+ * You can also include this CSS in your child theme’s style.css file.
+ * Do not place custom CSS in any file in a theme that gets 
+ * regularly updated or you will lose your code.
+ */
+
+/* CSS Document */
+#pmpro_payment_method .pmpro_form_field-radio-items {
+	display: grid;
+	grid-template-columns: 3fr 2fr;
+	grid-gap: var(--pmpro--base--spacing--large)
+}
+
+.pmpro-checkout .gateway_authorizenet .pmpro_form_label,
+.pmpro-checkout .gateway_braintree .pmpro_form_label,
+.pmpro-checkout .gateway_paypal .pmpro_form_label,
+.pmpro-checkout .gateway_stripe  .pmpro_form_label {
+	background-image: url(images/pay-with-credit-cards.png);
+	background-position: left bottom;
+	background-size: 250px auto;
+	background-repeat: no-repeat;
+	padding-bottom: 45px;
+}
+
+.pmpro-checkout .gateway_paypalexpress .pmpro_form_label {
+	background-image: url(images/pay-with-paypal.png);
+	background-position: left bottom;
+	background-size: contain;
+	background-repeat: no-repeat;
+	padding-bottom: 40px;
+}
+
+@media only screen and (max-width: 767px) {
+	#pmpro_payment_method .pmpro_form_field-radio-items {
+		display: flex;
+		flex-direction: column;
+		gap: var(--pmpro--base--spacing--large);
+	}
+}
