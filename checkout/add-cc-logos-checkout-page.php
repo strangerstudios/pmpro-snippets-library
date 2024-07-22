@@ -15,13 +15,23 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-
- function pmpro_add_my_logos_to_checkout(){
+function my_pmpro_add_cc_logos_to_checkout() {
 	global $pmpro_level;
 
-	if ( ! pmpro_isLevelFree( $pmpro_level ) ){
-		echo '<h2>Accepted Credit Cards</h2>';
-		echo '<img alt="Credit card logos for Visa, Mastercard, Discover, and American Express" style="max-width: 300px;" src="' . plugins_url( '/images/pay-with-credit-cards.png', __FILE__ ) .'" />';
+	// Only show the credit card logos if the level is not free.
+	if ( pmpro_isLevelFree( $pmpro_level ) ) {
+		return;
 	}
+
+	// Display the credit card logos.
+	?>
+	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card' ) ); ?>">
+		<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_title pmpro_font-large' ) ); ?>">Accepted Credit Cards</h2>
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
+			<p>We accept Visa, Mastercard, Discover, and American Express.</p>
+			<p><img alt="Credit card logos for Visa, Mastercard, Discover, and American Express" style="max-width: 300px;" src="<?php echo esc_url( plugins_url( '/images/pay-with-credit-cards.png', __FILE__ ) ); ?>"></p>
+		</div> <!-- end pmpro_card_content -->
+	</div> <!-- end pmpro_card -->
+	<?php
 }
-add_action( 'pmpro_checkout_before_submit_button', 'pmpro_add_my_logos_to_checkout', 10 );
+add_action( 'pmpro_checkout_after_billing_fields', 'my_pmpro_add_cc_logos_to_checkout', 10 );

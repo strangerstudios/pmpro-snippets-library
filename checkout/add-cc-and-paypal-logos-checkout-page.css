@@ -1,6 +1,6 @@
 
 /**
- *Add Credit Cards and PayPal Logos to Membership Checkout
+ * Add credit card and PayPal logos to Membership Checkout using the Add PayPal Express Add On and another onsite gateway
  *
  * title: Add Credit Cards and PayPal Logos to Membership Checkout
  * layout: snippet
@@ -16,44 +16,36 @@
  * regularly updated or you will lose your code.
  */
 
- /* CSS Document */
-#pmpro_payment_method span a {
+/* CSS Document */
+#pmpro_payment_method .pmpro_form_field-radio-items {
+	display: grid;
+	grid-template-columns: 3fr 2fr;
+	grid-gap: var(--pmpro--base--spacing--large)
+}
+
+.pmpro-checkout .gateway_authorizenet .pmpro_form_label,
+.pmpro-checkout .gateway_braintree .pmpro_form_label,
+.pmpro-checkout .gateway_paypal .pmpro_form_label,
+.pmpro-checkout .gateway_stripe  .pmpro_form_label {
+	background-image: url(images/pay-with-credit-cards.png);
+	background-position: left bottom;
+	background-size: 250px auto;
+	background-repeat: no-repeat;
+	padding-bottom: 45px;
+}
+
+.pmpro-checkout .gateway_paypalexpress .pmpro_form_label {
+	background-image: url(images/pay-with-paypal.png);
 	background-position: left bottom;
 	background-size: contain;
-	background-repeat: no-repeat; 
-	display: inline-block;
-	margin-left: 1%;
-	max-width: 300px;
-	padding-bottom: 60px;
-	text-align: left;
-	width: 90%;
+	background-repeat: no-repeat;
+	padding-bottom: 40px;
 }
-#pmpro_payment_method span.gateway_paypalexpress {
-	margin: 2em 0 0 0;
-}
-#pmpro_payment_method span.gateway_authorizenet a, 
-#pmpro_payment_method span.gateway_braintree a,
-#pmpro_payment_method span.gateway_cybersource a,
-#pmpro_payment_method span.gateway_paypal a,
-#pmpro_payment_method span.gateway_stripe a, 
-#pmpro_payment_method span.gateway_twocheckout a {
-	background-image: url(images/pay-with-credit-cards.png);
-}
-#pmpro_payment_method span.gateway_paypalexpress a {
-	background-image: url(images/pay-with-paypal.png);
-}
-@media (min-width: 769px) {
-	#pmpro_payment_method .pmpro_checkout-fields {
-		column-gap: 2em;
+
+@media only screen and (max-width: 767px) {
+	#pmpro_payment_method .pmpro_form_field-radio-items {
 		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		width: 100%;
-	}
-	#pmpro_payment_method span {
-		flex: 1;
-	}
-	#pmpro_payment_method span.gateway_paypalexpress {
-		margin-top: 0;
+		flex-direction: column;
+		gap: var(--pmpro--base--spacing--large);
 	}
 }
