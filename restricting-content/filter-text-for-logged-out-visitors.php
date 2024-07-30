@@ -1,5 +1,7 @@
 <?php
 /**
+ * Note: This recipe is using a deprecated filter. Please use the pmpro_no_access_message_body instead.
+ *
  * Filter the restricted message shown to logged-out visitors.
  *
  * title: Filter the teaser message text for logged-out visitors.
