@@ -43,7 +43,7 @@ function my_pmpro_checkout_level_extend_memberships( $level ) {
 				if ( pmpro_get_group_id_for_level( $my_level->id ) != $group_id ) {
 					continue;
 				}
-var_dump( $my_level );
+
 				// If we made it this far, the user is going to lose this level after checkout. Does it have an expiration date?
 				if ( empty( $my_level->enddate ) ) {
 					continue;
