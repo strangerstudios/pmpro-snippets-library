@@ -13,7 +13,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function pmpro_category_no_results() {
+function pmpro_category_no_results_redirect() {
 	if ( is_category() || is_tax() ) {
 		global $wp_query;
         	if ( $wp_query->found_posts === 0 ) {
