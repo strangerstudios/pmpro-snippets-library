@@ -18,13 +18,6 @@
 
 function pmpro_after_change_membership_level_default_level( $level_id, $user_id ) {
 
-	// if we see this global set, then another gist is planning to give the user their level back
-	global $pmpro_next_payment_timestamp;
-
-	if ( ! empty( $pmpro_next_payment_timestamp ) ) {
-		return;
-	}
-
 	if ( $level_id == 0 ) {
 		// cancelling, give them level 1 instead
 		pmpro_changeMembershipLevel( 1, $user_id );
