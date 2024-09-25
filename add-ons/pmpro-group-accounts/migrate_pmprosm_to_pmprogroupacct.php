@@ -20,6 +20,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-group-accounts
  * category: migrate, sponsored members, group accounts
+ * link: https://www.paidmembershipspro.com/migrate-sponsored-members-to-group-accounts/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
