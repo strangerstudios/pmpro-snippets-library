@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Allow PMPro Series to take new post types, such as a Custom Post Type.
  *
@@ -14,11 +13,9 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
- 
- function my_pmpro_add_post_type_to_series( $post_types ) {
+function my_pmpro_add_post_type_to_series( $post_types ) {
 	$post_types[] = 'my_cpt_name';
 
 	return $post_types;
 }
-
 add_filter( 'pmpros_post_types', 'my_pmpro_add_post_type_to_series', 10, 1 );
