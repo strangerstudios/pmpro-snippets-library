@@ -4,6 +4,7 @@
  * Run order creation checks before user creation at chekcout.
  * This prevents WP users from being created if there are issues in the checkout form.
  * Note that orders will still be created before the payment step even if the payment then fails.
+ * Requires Paid Memberships Pro V3.2+ 
  * 
  * title: Prevent User Creation When There Are Issues in the Checkout Form
  * layout: snippet
