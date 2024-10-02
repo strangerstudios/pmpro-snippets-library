@@ -4,7 +4,7 @@
  *
  * title: Add Level Name to Membership Checkout Attribute for SEO
  * layout: snippet
- * collection: misc
+ * collection: frontend-pages
  * category: seo
  * url: https://www.paidmembershipspro.com/add-level-name-to-membership-checkout-page-title-for-seo/
  *

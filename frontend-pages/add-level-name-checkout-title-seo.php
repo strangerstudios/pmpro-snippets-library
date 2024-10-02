@@ -4,7 +4,7 @@
  *
  * title: Add Level Name to the_title() Output on Membership Checkout Page for SEO
  * layout: snippet
- * collection: checkout
+ * collection: frontend-pages
  * category: seo
  * url: https://www.paidmembershipspro.com/add-level-name-to-membership-checkout-page-title-for-seo/
  *
