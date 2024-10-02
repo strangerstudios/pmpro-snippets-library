@@ -1,5 +1,5 @@
 <?php
-/** 
+/**
  * Make sure authors can always see their own posts.
  *
  * title: Author can see their own post even if not member.
@@ -13,11 +13,11 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
- function pmpro_has_membership_access_filter_for_authors($hasaccess, $mypost, $myuser, $post_membership_levels) {
-	if($mypost->post_author == $myuser->ID)
+function my_pmpro_has_membership_access_filter_for_authors( $hasaccess, $mypost, $myuser, $post_membership_levels ) {
+	if ( $mypost->post_author == $myuser->ID ) {
 		$hasaccess = true;
-	
+	}
+
 	return $hasaccess;
 }
-add_filter('pmpro_has_membership_access_filter', 'pmpro_has_membership_access_filter_for_authors', 30, 4);
+add_filter( 'pmpro_has_membership_access_filter', 'my_pmpro_has_membership_access_filter_for_authors', 30, 4 );
