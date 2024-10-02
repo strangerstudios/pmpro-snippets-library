@@ -3,6 +3,9 @@
  * Returns membership information when scanning the QR Code on member's Membership Card.
  * Learn more at https://www.paidmembershipspro.com/membership-qr-code/
  *
+ * Set your shortcode to [pmpro_membership_card qr_code='true' qr_data='other'] 
+ * for this filter to take effect.
+ *
  * title: Return membership information on Membership Card QR Code
  * layout: snippet
  * collection: add-ons, pmpro-membership-card
