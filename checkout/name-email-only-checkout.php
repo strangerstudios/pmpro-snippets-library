@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: user fields
+ * link: https://www.paidmembershipspro.com/reduce-form-fields-at-checkout/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -30,6 +31,7 @@ function simple_checkout_remove_billing_address_fields( $include ) {
 	return false;
 }
 add_filter( 'pmpro_include_billing_address_fields', 'simple_checkout_remove_billing_address_fields' );
+
 
 /**
  * Don't require some Account Information fields
@@ -60,6 +62,21 @@ function simple_checkout_unset_required_billing_fields( $pmpro_required_billing_
 	return $pmpro_required_billing_fields;
 }
 add_filter( 'pmpro_required_billing_fields', 'simple_checkout_unset_required_billing_fields' );
+
+/**
+ * Auto-generate a username from the email address at checkout, but only on the PMPro checkout page.
+ */
+function simple_checkout_generate_username( $username ) {
+    // Only run if we're on the PMPro checkout page
+    if ( function_exists( 'pmpro_is_checkout' ) && pmpro_is_checkout() ) {
+        if ( empty( $username ) && isset( $_REQUEST['bemail'] ) ) {
+            $username = sanitize_user( current( explode( '@', $_REQUEST['bemail'] ) ) );
+        }
+    }
+    return $username;
+}
+add_filter( 'pre_user_login', 'simple_checkout_generate_username' );
+
 
 /**
  * Add the required User Fields
