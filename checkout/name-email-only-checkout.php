@@ -70,7 +70,15 @@ function simple_checkout_generate_username( $username ) {
     // Only run if we're on the PMPro checkout page
     if ( function_exists( 'pmpro_is_checkout' ) && pmpro_is_checkout() ) {
         if ( empty( $username ) && isset( $_REQUEST['bemail'] ) ) {
-            $username = sanitize_user( current( explode( '@', $_REQUEST['bemail'] ) ) );
+            
+			$email_username = explode( '@', $_REQUEST['bemail'] );
+			
+			// While the username exists, let's add a random number to the end of it.
+			while ( username_exists( $email_username[0] ) ) {
+				$email_username[0] .= random_int( 0, 99999 );
+			}
+
+			$username = sanitize_text_field( $email_username[0] );
         }
     }
     return $username;
