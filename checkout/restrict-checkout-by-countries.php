@@ -14,7 +14,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_init() {
+function pmpro_restricted_checkout_by_country_init() {
 	global $restricted_countries;
 
 	// Specify country restrictions per level. Array keys are level IDs, values are arrays of country codes.
@@ -23,9 +23,9 @@ function my_init() {
 		2 => array( 'IT' ),
 	);
 }
-add_action( 'init', 'my_init' );
+add_action( 'init', 'pmpro_restricted_checkout_by_country_init' );
 
-function my_pmpro_registration_checks( $value ) {
+function pmpro_registration_check_restricted_by_country( $value ) {
 	global $restricted_countries, $pmpro_msg, $pmpro_msgt;
 
 	$country = isset( $_REQUEST['bcountry'] ) ? sanitize_text_field( $_REQUEST['bcountry'] ) : '';
@@ -48,9 +48,9 @@ function my_pmpro_registration_checks( $value ) {
 
 	return $value;
 }
-add_filter( 'pmpro_registration_checks', 'my_pmpro_registration_checks' );
+add_filter( 'pmpro_registration_checks', 'pmpro_registration_check_restricted_by_country' );
 
-function my_pmpro_level_expiration_text( $text, $level ) {
+function pmpro_level_expiration_text_restricted_by_country( $text, $level ) {
 	global $restricted_countries, $pmpro_countries;
 
 	if ( array_key_exists( $level->id, $restricted_countries ) ) {
@@ -65,4 +65,4 @@ function my_pmpro_level_expiration_text( $text, $level ) {
 
 	return $text;
 }
-add_filter( 'pmpro_level_expiration_text', 'my_pmpro_level_expiration_text', 10, 2 );
+add_filter( 'pmpro_level_expiration_text', 'pmpro_level_expiration_text_restricted_by_country', 10, 2 );
