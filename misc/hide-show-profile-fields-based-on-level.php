@@ -13,34 +13,34 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function my_pmpro_member_profile_fields( $fields, $user ) {
+function my_pmpro_hide_show_profile_elements( $elements, $user ) {
 
-	$premium_fields = array( 'user_url', 'facebook', 'twitter', 'linkedin', 'instagram' );
-	$premium_levels = array( 1, 2, 5, 6 );
+	$premium_elements = array( 'user_url', 'facebook', 'twitter', 'linkedin', 'instagram' );
+	$premium_levels   = array( 1, 2, 5, 6 );
 
-	if ( ! empty( $fields ) && ! pmpro_hasMembershipLevel( $premium_levels, $user->ID ) ) {
+	if ( ! empty( $elements ) && ! pmpro_hasMembershipLevel( $premium_levels, $user->ID ) ) {
 
-		$new_fields = array();
+		$new_elements = array();
 
-		foreach ( $fields as $key => $field ) {
+		foreach ( $elements as $key => $element ) {
 
 			$include = true;
 
-			foreach ( $premium_fields as $pfield ) {
-				if ( ! isset( $field[1] ) || $field[1] == $pfield ) {
+			foreach ( $premium_elements as $premium_element ) {
+				if ( ! isset( $element[1] ) || $element[1] == $premium_element ) {
 					$include = false;
 					break;
 				}
 			}
 
 			if ( $include ) {
-				$new_fields[] = $field;
+				$new_elements[] = $element;
 			}
 		}
 
-		$fields = $new_fields;
+		$elements = $new_elements;
 	}
 
-	return $fields;
+	return $elements;
 }
-add_filter( 'pmpro_member_profile_fields', 'my_pmpro_member_profile_fields', 10, 2 );
+add_filter( 'pmpro_member_profile_elements', 'my_pmpro_hide_show_profile_elements', 10, 2 );
