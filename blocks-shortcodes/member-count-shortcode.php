@@ -2,7 +2,6 @@
 
 /**
  * This recipe will create a [pmpro_member_count] shortcode, that will display the number of members in a specific level with a specific status.
-
  * title: Add a shortcode that counts members. Support passing different statuses
  * layout: snippet
  * collection: block-shortcodes
@@ -16,61 +15,63 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
- /**
+/**
  *
- *  @param $attrs An array of attributes ( status, level, justnumber)
+ * @param $attrs An array of attributes ( status, level, justnumber)
  */
 
 function pmpro_member_count_shortcode( $attrs = null ) {
-    global $wpdb;
-    $attrs = shortcode_atts(
-        array(
-            'status' => 'active',
-            'levels' => null,
-            'justnumber' => false,
-        ),
-        $attrs
-    );
-	
-    $statuses = array_map('trim', explode(',', $attrs['status']));
+	global $wpdb;
+	$attrs = shortcode_atts(
+		array(
+			'status'     => 'active',
+			'levels'     => null,
+			'justnumber' => false,
+		),
+		$attrs
+	);
 
-    if (! is_array($statuses) && ! empty($attrs['status']) ) {
+	$statuses = array_map( 'trim', explode( ',', $attrs['status'] ) );
 
-        $statuses = array($attrs['status']);
-    }
+	if ( ! is_array( $statuses ) && ! empty( $attrs['status'] ) ) {
 
-    $sql = "SELECT COUNT(*)
+		$statuses = array( $attrs['status'] );
+	}
+
+	$sql = "SELECT COUNT(*)
             FROM {$wpdb->pmpro_memberships_users}
-            WHERE `status` IN ('" . implode("', '", $statuses) . "')";
+            WHERE `status` IN ('" . implode( "', '", $statuses ) . "')";
 
 
-    if (! empty($attrs['levels'])) {
-        $sql .= "
-            AND `membership_id` = " . intval($attrs['levels']);
-    }
+	if ( ! empty( $attrs['levels'] ) ) {
+		$sql .= "
+            AND `membership_id` = " . intval( $attrs['levels'] );
+	}
 
-    $member_count = $wpdb->get_var($sql);
+	$member_count = $wpdb->get_var( $sql );
 
-    if (!is_wp_error($member_count)) {
+	if ( ! is_wp_error( $member_count ) ) {
 
-        if (! empty($attrs['levels'])) {
+		if ( ! empty( $attrs['levels'] ) ) {
 
-            $l = pmpro_getLevel($attrs['levels']);
-            if(!empty($attrs['justnumber']))
-                return $member_count;
-            else
-                return sprintf( __( "This site has %d %s members", "pmpromsc" ), $member_count, $l->name );
+			$l = pmpro_getLevel( $attrs['levels'] );
+			if ( ! empty( $attrs['justnumber'] ) ) {
+				return $member_count;
+			} else {
+				return sprintf( __( "This site has %d %s members", "pmpromsc" ), $member_count, $l->name );
+			}
 
-        } else {
-            if(!empty($attrs['justnumber']))
-                return $member_count;
-            else
-                return sprintf( __( "This site has %d members", "pmpromsc" ), $member_count );
-        }
-    } else {
+		} else {
+			if ( ! empty( $attrs['justnumber'] ) ) {
+				return $member_count;
+			} else {
+				return sprintf( __( "This site has %d members", "pmpromsc" ), $member_count );
+			}
+		}
+	} else {
 
-        return sprintf( __( "Error while processing request: %s", "pmpromsc" ), $wpdb->print_error() );
-    }
+		return sprintf( __( "Error while processing request: %s", "pmpromsc" ), $wpdb->print_error() );
+	}
 }
 
-add_shortcode('pmpro_member_count', 'pmpro_member_count_shortcode');
+add_shortcode( 'pmpro_member_count', 'pmpro_member_count_shortcode' );
