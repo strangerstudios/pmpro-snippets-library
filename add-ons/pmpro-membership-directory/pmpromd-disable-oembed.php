@@ -1,8 +1,11 @@
 <?php
 /**
- * Remove embeds on the PMPro Member Directory pages.
+ * Turn embeddable links into clickable links (do not render oEmbeds) on the Member Directory.
+ * Update line 19 with the field name you want to disable oEmbed for.
+ * Update line 20 with the link display type you want to use.
+ * Link types include "embedded" (default), "clickable_link", "clickable_label", or '' for plain text.
  *
- * title: Disable oEmbed on Member Directory
+ * title: Disable oEmbed on Member Directory and Profile Pages
  * layout: snippet
  * collection: pmpro-member-directory
  * category: directory, embeds, oembed, clickable, links
@@ -13,22 +16,10 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-// Remove the oembed functionality.
-add_filter( 'pmpromd_try_oembed_url', '__return_false' );
-
-// Add a clickable link to field names defined in the $clickable_fields array.
-function my_pmpromd_make_clickable( $value, $original_value, $field_name ) {
-
-	/**
-	 * Set fields that should have a clickable link here,
-	 * e.g. 'user_url', 'website_url', 'user_facebook', etc.
-	 */
-	$clickable_fields = array( 'user_url' );
-
-	if ( ! empty( $clickable_fields ) && in_array( $field_name, $clickable_fields, true ) ) {
-		$value = make_clickable( $value );
+function my_pmpro_field_value_link_display_type( $link_display_type, $value, $field ) {
+	if ( isset( $field->name ) && $field->name === 'youtube_video' ) {
+		return 'clickable_link';
 	}
-
-	return $value;
+	return $link_display_type;
 }
-add_filter( 'pmpromd_format_profile_field', 'my_pmpromd_make_clickable', 10, 3 );
+add_filter( 'pmpro_field_value_link_display_type', 'my_pmpro_field_value_link_display_type', 10, 3 );
