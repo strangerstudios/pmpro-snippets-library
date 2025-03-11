@@ -15,7 +15,7 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
- function my_memberlite_show_banner_renewal_message() {
+function my_memberlite_show_banner_renewal_message() {
 	global $pmpro_pages;
 
 	// Bail early if PMPro is not active.
