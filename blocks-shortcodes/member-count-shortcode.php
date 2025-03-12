@@ -26,7 +26,7 @@ function pmpro_member_count_shortcode( $attrs = null ) {
 	$attrs = shortcode_atts(
 		array(
 			'status'     => 'active',
-			'levels'     => null,
+			'level'      => null,
 			'justnumber' => false,
 		),
 		$attrs
@@ -43,15 +43,15 @@ function pmpro_member_count_shortcode( $attrs = null ) {
 	$sql = "SELECT COUNT(*) FROM {$wpdb->pmpro_memberships_users} WHERE `status` IN ('" . implode( "', '", $statuses ) . "')";
 
 	// Process levels
-	if ( ! empty( $attrs['levels'] ) ) {
-		$levels = array_map( 'intval', explode( ',', $attrs['levels'] ) );
+	if ( ! empty( $attrs['level'] ) ) {
+		$levels = array_map( 'intval', explode( ',', $attrs['level'] ) );
 		$sql    .= " AND `membership_id` IN (" . implode( ',', $levels ) . ")";
 	}
 
 	$member_count = $wpdb->get_var( $sql );
 
 	if ( ! is_wp_error( $member_count ) ) {
-		if ( ! empty( $attrs['levels'] ) ) {
+		if ( ! empty( $attrs['level'] ) ) {
 			if ( ! empty( $attrs['justnumber'] ) ) {
 				return $member_count;
 			} else {
