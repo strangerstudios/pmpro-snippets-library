@@ -3,7 +3,7 @@
  * BCC Additional Email Addresses on Member or Admin Notifications
  * This will allow you to BCC additional email addresses for member and admin notifications.
  *
- * Ensure line 23 is changed to your preferred BCC email address
+ * Ensure line 24 is changed to your preferred BCC email address
  *
  * title: BCC Additional Email Addresses on Member or Admin Notifications
  * layout: snippet
