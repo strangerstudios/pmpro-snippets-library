@@ -27,4 +27,4 @@ function my_pmpro_membership_post_membership_expiry( $user_id, $level_id ) {
 		delete_user_meta( $user_id, 'grace_level' );
 	}
 }
-add_action('pmpro_membership_post_membership_expiry', 'my_pmpro_membership_post_membership_expiry', 10, 2);
+add_action( 'pmpro_membership_post_membership_expiry', 'my_pmpro_membership_post_membership_expiry', 10, 2 );
