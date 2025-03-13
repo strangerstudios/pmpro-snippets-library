@@ -19,8 +19,8 @@ function my_pmpro_hide_bp_fields( $field_value ) {
 	global $current_user;
 	
 	// Make sure PMPro is installed and available, if not bail.
-	if ( ! function_exists( 'pmpro_getMembershipLevelForUser' ) ) {
-    	return $field_value;
+    if ( ! function_exists( 'pmpro_getMembershipLevelForUser' ) ) {
+        return $field_value;
     }
 	
 	// Allow users viewing their own profile regardlress of status.
