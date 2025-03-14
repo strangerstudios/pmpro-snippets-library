@@ -5,8 +5,8 @@
  * title: Add Multiple Required Consent Boxes at Checkout
  * layout: snippet
  * collection: checkout
- * category: tos, levels
- * link:https://www.paidmembershipspro.com/show-different-terms-service-checkout-based-membership-level/
+ * category: tos
+ *
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
