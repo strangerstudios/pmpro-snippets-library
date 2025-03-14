@@ -19,11 +19,11 @@ function my_pmpro_limit_logins_simultaneous_logins_based_on_level( $num ) {
 	}
 
 	if ( pmpro_hasMembershipLevel( '1' ) ) {
-		$num = 1;
+		$num = 3;
 	}
 
 	if ( pmpro_hasMembershipLevel( '2' ) ) {
-		$num = 999;
+		$num = 5;
 	}
 
 	return $num;
