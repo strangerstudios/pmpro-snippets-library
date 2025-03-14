@@ -16,19 +16,19 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
  // Record when users gain the trial level.
- function one_time_trial_save_trial_level_used( $level_id, $user_id ) {
+function my_pmpro_one_time_trial_save_trial_level_used( $level_id, $user_id ) {
 	// Set this to the ID of your trial level.
-	$trial_level_id = 2; // Membership Level ID
+	$trial_level_id = 1; // Membership Level ID
 
 	if ( $level_id == $trial_level_id ) {
 		// Add user meta to record that the user has received their one-time trial.
 		update_user_meta( $user_id, 'pmpro_trial_level_used', $trial_level_id );
 	}
 }
-add_action( 'pmpro_after_change_membership_level', 'one_time_trial_save_trial_level_used', 10, 2 );
+add_action( 'pmpro_after_change_membership_level', 'my_pmpro_one_time_trial_save_trial_level_used', 10, 2 );
 
 // Show the user's trial meta setting for admins on the Edit Profile page.
-function one_time_trial_show_trial_level_used( $user ) {
+function my_pmpro_one_time_trial_show_trial_level_used( $user ) {
 	if ( current_user_can( 'edit_users' ) ) { ?>
 		<h3>One-Time Trial</h3>
 		<table class="form-table">
@@ -38,7 +38,7 @@ function one_time_trial_show_trial_level_used( $user ) {
 					<td>
 						<?php
 							$already = get_user_meta( $user->ID, 'pmpro_trial_level_used', true );
-						if ( ! empty( $already ) && $already == '2' ) {
+						if ( ! empty( $already ) && $already == '1' ) {
 							echo 'Trial period has been claimed.';
 						} else {
 							echo 'Trial period not claimed.';
@@ -51,15 +51,15 @@ function one_time_trial_show_trial_level_used( $user ) {
 		<?php
 	}
 }
-add_action( 'show_user_profile', 'one_time_trial_show_trial_level_used' );
-add_action( 'edit_user_profile', 'one_time_trial_show_trial_level_used' );
+add_action( 'show_user_profile', 'my_pmpro_one_time_trial_show_trial_level_used' );
+add_action( 'edit_user_profile', 'my_pmpro_one_time_trial_show_trial_level_used' );
 
 // Check if the user has received their one-time trial at checkout.
 function one_time_trial_delay_pmpro_registration_checks() {
 	global $current_user;
 
 	//set this to the id of your trial level
-	$trial_level_id = 2; // Membership Level ID
+	$trial_level_id = 9; // Membership Level ID
 	$level_at_checkout = pmpro_getLevelAtCheckout();
 	//Bail if no level is selected.
 	if ( empty( $level_at_checkout ) ) {
@@ -86,7 +86,7 @@ function one_time_trial_delay_pmpro_registration_checks() {
 add_filter( 'init', 'one_time_trial_delay_pmpro_registration_checks' );
 
 // Filter the price on the levels page to remove one-time trial.
-function one_time_trial_delay_pmpro_level_cost_text( $cost, $level ) {
+function my_pmpro_one_time_trial_delay_pmpro_level_cost_text( $cost, $level ) {
 	global $current_user, $pmpro_pages;
 
 	// Not logged in?
@@ -105,10 +105,10 @@ function one_time_trial_delay_pmpro_level_cost_text( $cost, $level ) {
 
 	return $cost;
 }
-add_filter( 'pmpro_level_cost_text', 'one_time_trial_delay_pmpro_level_cost_text', 15, 2 );
+add_filter( 'pmpro_level_cost_text', 'my_pmpro_one_time_trial_delay_pmpro_level_cost_text', 15, 2 );
 
 // Filter the price at checkout to charge the billing ammount immediately.
-function one_time_trial_delay_pmpro_checkout_level( $level ) {
+function my_pmpro_one_time_trial_delay_pmpro_checkout_level( $level ) {
 	global $current_user, $discount_code, $wpdb;
 
 	// Not logged in?
@@ -131,4 +131,4 @@ function one_time_trial_delay_pmpro_checkout_level( $level ) {
 
 	return $level;
 }
-add_filter( 'pmpro_checkout_level', 'one_time_trial_delay_pmpro_checkout_level', 5 );
+add_filter( 'pmpro_checkout_level', 'my_pmpro_one_time_trial_delay_pmpro_checkout_level', 5 );
