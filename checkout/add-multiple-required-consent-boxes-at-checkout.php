@@ -1,8 +1,8 @@
 <?php
 /**
- * Show a Different “Terms of Service” at Checkout Based on Membership Level
+ * Add additional required consent boxes at checkout and log all agreements to the consent log.
  * 
- * title: Show a Different TOS at Checkout Based on Membership Level
+ * title: Add Multiple Required Consent Boxes at Checkout
  * layout: snippet
  * collection: checkout
  * category: tos, levels
