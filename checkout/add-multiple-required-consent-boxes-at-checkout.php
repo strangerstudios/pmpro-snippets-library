@@ -37,7 +37,7 @@ function pmpro_show_multiple_tos_at_checkout() {
 		return;
 	}
 
-	echo '<fieldset id="pmpro_tos_fields" class="' . esc_attr( pmpro_get_element_class( 'pmpro_form_fieldset', 'pmpro_tos_fields' ) ) . '">';
+	echo '<fieldset id="pmpro_additional_tos_fields" class="' . esc_attr( pmpro_get_element_class( 'pmpro_form_fieldset', 'pmpro_additional_tos_fields' ) ) . '">';
 	echo '<div class="' . esc_attr( pmpro_get_element_class( 'pmpro_form_fields' ) ) . '">';
 
 	foreach ( $tos_pages as $page_id ) {
