@@ -21,16 +21,16 @@ function my_pmpromd_get_display_value_mask_phone_field( $value, $element, $pu, $
 
 	if ( ! pmpro_hasMembershipLevel() && $element === 'phone' ) {
 		// Remove any non-digit characters to count only numeric digits.
-		$numeric_value = preg_replace('/\D/', '', $value);
-		$length = strlen($numeric_value);
+		$numeric_value = preg_replace( '/\D/', '', $value );
+		$length = strlen( $numeric_value );
 
 		// If the number is longer than 4 digits, mask all but the last 4.
 		if ( $length > 4 ) {
 			$maskLength = $length - 4;
-			$masked_number = str_repeat('*', $maskLength) . substr($numeric_value, -4);
+			$masked_number = str_repeat( '*', $maskLength ) . substr( $numeric_value, -4 );
 		} else {
 			// For short numbers, mask all digits.
-			$masked_number = str_repeat('*', $length);
+			$masked_number = str_repeat( '*', $length );
 		}
 
 		return $masked_number;
