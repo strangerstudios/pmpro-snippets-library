@@ -23,7 +23,7 @@ add_action( 'init', 'custom_add_my_account_endpoint' );
 
 function custom_my_account_content() {
     // Directly output the shortcode without wrapping it in another 'woocommerce-MyAccount-content' div
-    echo do_shortcode('[pmpro_account sections="membership,invoices"]');
+    echo do_shortcode('[pmpro_account sections="membership"]');
 }
 add_action('woocommerce_account_my-membership_endpoint', 'custom_my_account_content');
 
