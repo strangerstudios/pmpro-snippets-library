@@ -19,23 +19,23 @@ function my_load_css_for_level_checkout() {
 
 	if ( empty( $pmpro_pages ) || ! function_exists( 'pmpro_getLevelAtCheckout' ) ) {
 		return;
-	} else {
-		$level    = pmpro_getLevelAtCheckout(); // Get level at checkout.
-		$level_id = intval( $level->id ); // Get level ID.
+	}
 
-		if ( is_page( $pmpro_pages['checkout'] ) && $level_id === 1 ) {
-			?>
-			<style type="text/css">
-			#other_discount_code_p {
-				display: none;
-			}
+	$level    = pmpro_getLevelAtCheckout(); // Get level at checkout.
+	$level_id = intval( $level->id ); // Get level ID.
 
-			#other_discount_code_tr {
-				display: table-row !important;
-			}
-			</style>
-			<?php
+	if ( is_page( $pmpro_pages['checkout'] ) && $level_id === 1 ) {
+		?>
+		<style type="text/css">
+		#other_discount_code_p {
+			display: none;
 		}
+
+		#other_discount_code_tr {
+			display: table-row !important;
+		}
+		</style>
+		<?php
 	}
 
 }
