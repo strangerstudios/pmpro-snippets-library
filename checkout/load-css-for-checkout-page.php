@@ -27,13 +27,8 @@ function my_load_css_for_level_checkout() {
 	if ( is_page( $pmpro_pages['checkout'] ) && $level_id === 1 ) {
 		?>
 		<style type="text/css">
-		#other_discount_code_p {
-			display: none;
-		}
-
-		#other_discount_code_tr {
-			display: table-row !important;
-		}
+		#other_discount_code_p { display: none; }
+		#other_discount_code_tr { display: table-row !important; }
 		</style>
 		<?php
 	}
