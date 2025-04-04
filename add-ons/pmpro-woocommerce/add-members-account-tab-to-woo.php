@@ -7,8 +7,8 @@
  * title: Add a PMPro Members Account Page tab to the WooCommerce Account Page Navigation
  * layout: snippet
  * collection: add-ons
- * category: pmpro-woocommerce, account-page
- * link: 
+ * category: pmpro-woocommerce, account-page, woocommerce
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -26,7 +26,6 @@ function custom_my_account_content() {
     echo do_shortcode('[pmpro_account sections="membership"]');
 }
 add_action('woocommerce_account_my-membership_endpoint', 'custom_my_account_content');
-
 
 function custom_my_account_menu_items( $items ) {
     $items['my-membership'] = 'My Membership'; // Change this text as needed
