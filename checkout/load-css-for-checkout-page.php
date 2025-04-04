@@ -8,7 +8,7 @@
  * category: css
  *
  * Change the level value to the relevant level ID you want to apply this CSS code to.
- * 
+ *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
@@ -17,11 +17,18 @@
 function my_load_css_for_level_checkout() {
 	global $pmpro_pages;
 
-	if ( is_page( $pmpro_pages['checkout'] ) && isset( $_REQUEST['level'] ) == '1' ) {
+	if ( empty( $pmpro_pages ) || ! function_exists( 'pmpro_getLevelAtCheckout' ) ) {
+		return;
+	}
+
+	$level    = pmpro_getLevelAtCheckout(); // Get level at checkout.
+	$level_id = intval( $level->id ); // Get level ID.
+
+	if ( is_page( $pmpro_pages['checkout'] ) && $level_id === 1 ) {
 		?>
 		<style type="text/css">
-			#other_discount_code_p {display: none;}
-			#other_discount_code_tr {display: table-row !important;}
+		#other_discount_code_p { display: none; }
+		#other_discount_code_tr { display: table-row !important; }
 		</style>
 		<?php
 	}
