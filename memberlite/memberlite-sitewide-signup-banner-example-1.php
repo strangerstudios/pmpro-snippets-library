@@ -15,7 +15,7 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
- function my_memberlite_before_footer_upgrade_1() {
+function my_memberlite_before_footer_upgrade_1() {
 	global $post;
 	$memberlite_banner_bottom = get_post_meta( $post->ID, '_memberlite_banner_bottom', true );
 	if( ( ! is_user_logged_in() || pmpro_hasMembershipLevel( 1 ) ) && empty( $memberlite_banner_bottom ) ) {
