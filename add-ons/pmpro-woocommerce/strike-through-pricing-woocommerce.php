@@ -64,3 +64,36 @@ function my_pmprowoo_strike_prices( $price, $product ) {
 	return $price;
 }
 add_filter( 'woocommerce_get_price_html', 'my_pmprowoo_strike_prices', 10, 2 );
+
+/**
+ * Show the same strikethrough values on the cart page
+ */
+function my_pmprowoo_strike_cart_price( $price, $cart_item, $cart_item_key ) {
+	global $pmprowoo_member_discounts, $current_user;
+
+	if ( ! function_exists( 'pmpro_hasMembershipLevel' ) || ! pmpro_hasMembershipLevel() ) {
+		return $price;
+	}
+
+	$product = $cart_item['data'];
+	$level_id = $current_user->membership_level->id;
+
+	if ( $product->is_type( 'simple' ) ) {
+		$regular_price = get_post_meta( $product->get_id(), '_regular_price', true );
+		$sale_price    = get_post_meta( $product->get_id(), '_sale_price', true );
+
+		if ( ! empty( $sale_price ) ) {
+			$regular_price = $sale_price;
+			$member_price  = pmprowoo_get_membership_price( $regular_price, $product );
+		} else {
+			$member_price = pmprowoo_get_membership_price( $regular_price, $product );
+		}
+
+		if ( isset( $level_id ) && floatval($member_price) !== floatval($regular_price) ) {
+			$price = '<del>' . wc_price( $regular_price ) . '</del> ' . wc_price( $member_price );
+		}
+	}
+
+	return $price;
+}
+add_filter( 'woocommerce_cart_item_price', 'my_pmprowoo_strike_cart_price', 10, 3 );
