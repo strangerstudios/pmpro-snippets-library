@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-woocommerce
  * category: woocommerce, pricing, UI
+ * link: https://www.paidmembershipspro.com/strike-through-pricing-woocommerce/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
