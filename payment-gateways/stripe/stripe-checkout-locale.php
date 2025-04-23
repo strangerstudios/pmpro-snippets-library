@@ -20,8 +20,7 @@ function my_pmpro_stripe_checkout_parameters_user_locale( $params, $order, $cust
 	$wp_locale = get_user_locale( $order->user_id ); // defaults to site locale if user has no locale set.
 
 	// Convert WordPress locale to Stripe locale.
-	$stripe_locale    = strtolower( substr( $wp_locale, 0, 2 ) ); // Example: convert 'pl_PL' to 'pl'.
-	$params['locale'] = $stripe_locale; // Add the locale as a Stripe Checkout parameter.
+	$params['locale'] = strtolower( substr( $wp_locale, 0, 2 ) ); // Example: convert 'pl_PL' to 'pl'.
 	return $params;
 }
-add_filter('pmpro_stripe_checkout_session_parameters', 'my_pmpro_stripe_checkout_parameters_user_locale', 10, 3);
+add_filter( 'pmpro_stripe_checkout_session_parameters', 'my_pmpro_stripe_checkout_parameters_user_locale', 10, 3 );
