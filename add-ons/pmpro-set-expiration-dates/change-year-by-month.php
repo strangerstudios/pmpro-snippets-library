@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-set-expiration-dates
  * category: expiration date
- * link: 
+ * link: TBD
  * 
  * Automatically adjust Y1-xx-xx to be Y2-xx-xx if the current month is set.
  * Change line 35 for the month to change to next year.
@@ -29,7 +29,7 @@ function my_pmpro_programmatically_change_set_expiration_date( $raw_date ) {
 	$month = (int) $todays_date->format('n');
 	
 	/**
-	 * Check if the month is October or later and update the Expiration Date to be 1 year later.
+	 * Check if the month is October (month number 10) or later and update the Expiration Date to be 1 year later.
 	 * This will keep the month and day in tact.
 	 */
 	if ( $month >= 10 ) {
