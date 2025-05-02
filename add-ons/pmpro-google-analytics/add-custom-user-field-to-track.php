@@ -5,7 +5,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-google-analytics
  * category: users, custom user fields
- * link: TBD
+ * link: https://www.paidmembershipspro.com/track-pmpro-user-fields-google-analytics/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
