@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: tos
+ * link: https://www.paidmembershipspro.com/multiple-consent-checkboxes-checkout/
  *
  * 
  * You can add this recipe to your site by creating a custom plugin
