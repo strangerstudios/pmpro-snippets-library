@@ -1,3 +1,4 @@
+<?php
 /**
  * Restrict discount code usage based on the logged in user's email address
  *
