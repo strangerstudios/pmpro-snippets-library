@@ -41,7 +41,7 @@ class My_PMPro_Directory_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		// If we're not on a page with a PMPro directory, return.
 		global $post;
-		if ( ! is_a( $post, 'WP_Post' ) || ! has_shortcode( $post->post_content, 'pmpro_member_directory' ) ) {
+		if ( ! is_a( $post, 'WP_Post' ) || ( ! has_shortcode( $post->post_content, 'pmpro_member_directory' ) && ! has_block( 'pmpro-member-directory/directory', $post->post_content ) ) ) {
 			return;
 		}
 		?>
@@ -89,12 +89,12 @@ class My_PMPro_Directory_Widget extends WP_Widget {
  * Check $_REQUEST for parameters from the widget. Filter member results here
  */
 function mypmpro_result_distance_filter( $theusers ) {
-	
-	if( !function_exists( 'pmpromm_geocode_address' ) ){
+
+	if ( ! function_exists( 'pmpromm_geocode_address' ) ) {
 		return $theusers;
 	}
 
-	if( empty( $_REQUEST['location'] ) || empty( $_REQUEST['distance'] ) ){
+	if ( empty( $_REQUEST['location'] ) || empty( $_REQUEST['distance'] ) ) {
 		return $theusers;
 	}
 
@@ -106,20 +106,23 @@ function mypmpro_result_distance_filter( $theusers ) {
 	);
 
 	$coordinates = pmpromm_geocode_address( $member_address );
-
+	
 	$filtered_members = array();
-
-	if( is_array( $coordinates ) ){
-		foreach( $theusers as $key => $user ){
+	if ( is_array( $coordinates ) ) {
+		foreach ( $theusers as $key => $user ) {
 
 			$user_id = intval( $user->ID );
-			
-			$lat = get_user_meta( $user_id, 'pmpro_lat', true );
-			$lng = get_user_meta( $user_id, 'pmpro_lng', true );
+			$member_address = get_user_meta( $user_id, 'pmpromm_pin_location', true );
 
-			if( !empty( $lat ) && !empty( $lng ) ){
-				$distance = mypmpromm_calculate_distance( $coordinates['lat'], $coordinates['lng'], $lat, $lng, 'm' );
+			// If the user doesn't have a location, let's see if there's an old value available.
+			if ( empty( $member_address['latitude'] ) || empty( $member_address['longitude'] ) ) {
+				$member_address = array();
+				$member_address['latitude'] = get_user_meta( $user_id, 'pmpro_lat', true ) ?? '';
+				$member_address['longitude'] = get_user_meta( $user_id, 'pmpro_lng', true ) ?? '';
+			}
 
+			if ( ! empty( $member_address['latitude'] ) && ! empty( $member_address['longitude'] ) ) {
+				$distance = mypmpromm_calculate_distance( $coordinates['lat'], $coordinates['lng'], $member_address['latitude'], $member_address['longitude'], 'm' );
 				if( $distance <= $_REQUEST['distance'] ){
 					$filtered_members[] = $user;
 				}
@@ -132,7 +135,6 @@ function mypmpro_result_distance_filter( $theusers ) {
 	}
 
 	return $theusers;
-
 }
 add_filter( 'pmpromd_user_directory_results', 'mypmpro_result_distance_filter', 10, 9 );
 
@@ -141,11 +143,11 @@ add_filter( 'pmpromd_user_directory_results', 'mypmpro_result_distance_filter', 
  */
 function mypmpro_marker_result_distance_filter( $markers ){
 
-	if( !function_exists( 'pmpromm_geocode_address' ) ){
+	if ( ! function_exists( 'pmpromm_geocode_address' ) ) {
 		return $markers;
 	}
 
-	if( empty( $_REQUEST['location'] ) || empty( $_REQUEST['distance'] ) ){
+	if ( empty( $_REQUEST['location'] ) || empty( $_REQUEST['distance'] ) ) {
 		return $markers;
 	}
 
@@ -160,24 +162,20 @@ function mypmpro_marker_result_distance_filter( $markers ){
 
 	$filtered_members = array();
 
-	if( is_array( $coordinates ) ){
+	if ( is_array( $coordinates ) ) {
 
-		foreach( $markers as $key => $marker ){
+		foreach ( $markers as $key => $marker ) {
+			if ( ! empty( $marker['marker_meta'] ) ) {
+				$lat =  ! empty( $marker['marker_meta']['lat'] ) ? $marker['marker_meta']['lat'] : '';
+				$lng = ! empty( $marker['marker_meta']['lng'] ) ? $marker['marker_meta']['lng'] : '';
 
-			if( !empty( $marker['marker_meta'] ) ){
-				$lat = ( !empty( $marker['marker_meta']['lat'] ) ) ? $marker['marker_meta']['lat'] : '';
-				$lng = ( !empty( $marker['marker_meta']['lng'] ) ) ? $marker['marker_meta']['lng'] : '';
-
-				if( !empty( $lat ) && !empty( $lng ) ){
+				if ( ! empty( $lat ) && ! empty( $lng ) ) {
 					$distance = mypmpromm_calculate_distance( $coordinates['lat'], $coordinates['lng'], $lat, $lng, 'm' );
-
-					if( $distance <= $_REQUEST['distance'] ){
+					if ( $distance <= $_REQUEST['distance'] ) {
 						$filtered_members[] = $marker;
 					}
 				}
-
 			}
-
 		}
 		
 		return $filtered_members;
@@ -185,7 +183,6 @@ function mypmpro_marker_result_distance_filter( $markers ){
 	}
 
 	return $markers;
-
 }
 add_filter( 'pmpromm_return_markers_array', 'mypmpro_marker_result_distance_filter', 10, 1 );
 
@@ -217,7 +214,7 @@ function mypmpromm_calculate_distance( $lat1, $lon1, $lat2, $lon2, $unit ){
 
 	$theta = $lon1 - $lon2;
 
-	$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+	$dist = sin( deg2rad( $lat1 ) ) * sin( deg2rad( $lat2 ) ) +  cos( deg2rad( $lat1 ) ) * cos( deg2rad( $lat2 ) ) * cos( deg2rad( $theta ) );
 
 	$dist = acos($dist);
 	$dist = rad2deg($dist);
@@ -225,10 +222,9 @@ function mypmpromm_calculate_distance( $lat1, $lon1, $lat2, $lon2, $unit ){
 
 	$unit = strtoupper($unit);
 
-	if ($unit == "km") {
-		return ($miles * 1.609344);
+	if ( $unit == "km" ) {
+		return ( $miles * 1.609344 );
 	} else {
 		return $miles;
 	}
-
 }
