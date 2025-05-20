@@ -21,9 +21,9 @@
  * @return array $dimensions The customized dimensions array.
  */
 function my_pmproga4_default_custom_dimension( $dimensions ) {
-	// Remove the category dimension. Change the unset dimensiion as needed.
-	unset( $dimension['category'] );
+	// Remove the category dimension. Change the unset dimensions as needed.
+	unset( $dimensions['category'] );
+	
 	return $dimensions;
 }
-
 add_filter( 'pmproga4_default_custom_dimension', 'my_pmproga4_default_custom_dimension' );
