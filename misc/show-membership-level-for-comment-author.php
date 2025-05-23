@@ -17,16 +17,16 @@
 
 function my_comment_author_show_membership_level( $author_text, $comment_ID ) {
 	$email = get_comment_author_email( $comment_ID );
-	if( empty( $email ) ) {
+	if ( empty( $email ) ) {
 		return $author_text;
 	}
 
 	$user = get_user_by( 'email', $email );
-	if( empty( $user ) ) {
+	if ( empty( $user ) ) {
 		return $author_text;
 	}
 
-	if( function_exists( 'pmpro_hasMembershipLevel' ) && pmpro_hasMembershipLevel( NULL, $user->ID ) ) {
+	if ( function_exists( 'pmpro_hasMembershipLevel' ) && pmpro_hasMembershipLevel( NULL, $user->ID ) ) {
 		$level = pmpro_getMembershipLevelForUser( $user->ID );
 		$author_text = $author_text . ' (' . $level->name . ')';
 	}
