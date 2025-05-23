@@ -7,7 +7,7 @@
  *
  * title: Show Membership Level in Comment Author Line
  * layout: snippet
- * collection: admin-pages
+ * collection: misc
  * category: comments
  * link: https://www.paidmembershipspro.com/show-a-members-level-name-in-post-comments/
  *
