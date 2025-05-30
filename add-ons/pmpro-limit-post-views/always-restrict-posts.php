@@ -5,6 +5,7 @@
  * title: Prevent the Limit Post Views Add On From Granting Free Access to Specific Posts
  * layout: snippet
  * category: limit post views, banner
+ * link: https://www.paidmembershipspro.com/override-limit-post-views/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
