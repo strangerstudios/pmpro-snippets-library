@@ -1,7 +1,6 @@
 <?php
 /**
  * Change Membership Level on Expiration Only
- * Users who manually cancel are cancelled immediately, but users who expire are given a grace period.
  * 
  * title: Change Membership Level on Expiration Only
  * layout: snippet
@@ -13,9 +12,13 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
- function my_pmpro_set_default_level_only_when_expiring( $user_id, $level_id ) {
+function my_pmpro_set_default_level_only_when_expiring( $user_id, $level_id ) {
+	global $pmpro_next_payment_timestamp;
 
-	pmpro_changeMembershipLevel( 1, $user_id ); // Change this to the level ID you want to give expired members.
+	// Only change the level if there is no future payment scheduled.
+	if ( empty( $pmpro_next_payment_timestamp ) ) {
+		pmpro_changeMembershipLevel( 1, $user_id ); // Change this to the level ID you want to give expired members.
+	}
 
 	return $user_id;
 }
