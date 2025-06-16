@@ -1,6 +1,7 @@
 <?php
 /**
  * Change Membership Level on Expiration Only
+ * Users who manually cancel are cancelled immediately
  * 
  * title: Change Membership Level on Expiration Only
  * layout: snippet
