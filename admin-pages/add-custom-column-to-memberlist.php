@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Adds a custom column to the Members List and shows user meta data in the column.

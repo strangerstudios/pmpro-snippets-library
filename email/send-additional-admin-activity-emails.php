@@ -24,4 +24,5 @@ function my_pmpro_send_additional_admin_activity_emails() {
 		$admin_activity_email->sendAdminActivity( 'week', 'example2@email.com' );
 	}
 }
-add_action( 'pmpro_cron_admin_activity_email', 'my_pmpro_send_additional_admin_activity_emails', 12 );
+add_action( 'pmpro_schedule_daily', 'my_pmpro_send_additional_admin_activity_emails' ); // PMPro versions with Action Scheduler
+add_action( 'pmpro_cron_admin_activity_email', 'my_pmpro_send_additional_admin_activity_emails', 12 ); // PMPro versions before Action Scheduler

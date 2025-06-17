@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: restricting-content
  * category: content, restriction, admin-access, comments
- * link: TBD
+ * link: https://www.paidmembershipspro.com/restricting-comments-on-public-posts-to-members-only/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
