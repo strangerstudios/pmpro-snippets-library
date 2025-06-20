@@ -1,7 +1,6 @@
 <?php
 /**
- * Remove subscription delay for current or past members. 
- * This code stores data when a user checks out for a level. 
+ * Remove subscription delay for logged-in current or past members. 
  * If that user tries to check out for the same level, the Subscription Delay is removed. 
  * The user is instead charged for their first subscription payment at checkout.
  *
