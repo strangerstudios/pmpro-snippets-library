@@ -1,10 +1,10 @@
 <?php
 /**
- * Hide or Show Fields on Member Profiles based on Membership Level
+ * Allow weak passwords on the PMPro "Change Password" and "Password Reset" pages
  *
- * Requires Paid Membershps Pro v2.3.3+
+ * Requires Paid Memberships Pro v2.3.3+
  *
- * title: Hide or Show Fields on Member Profiles based on Membership Level
+ * title: Allow weak passwords during password reset or profile updates
  * layout: snippet
  * collection: misc
  * category: profile
