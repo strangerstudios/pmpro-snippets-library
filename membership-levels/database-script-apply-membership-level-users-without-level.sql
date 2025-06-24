@@ -13,8 +13,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
 **/
-INSERT INTO wp_pmpro_memberships_users 
-  (user_id, membership_id, code_id, initial_payment, billing_amount, cycle_number, cycle_period, billing_limit, trial_amount, trial_limit, status, startdate, enddate)
+INSERT INTO wp_pmpro_memberships_users (user_id, membership_id, code_id, initial_payment, billing_amount, cycle_number, cycle_period, billing_limit, trial_amount, trial_limit, status, startdate, enddate)
 SELECT
   u.ID,           -- ID from wp_users table
   1,              -- id of the level to give users
