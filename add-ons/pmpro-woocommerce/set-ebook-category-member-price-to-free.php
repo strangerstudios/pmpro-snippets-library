@@ -38,6 +38,7 @@ function my_pmprowoo_get_membership_price_ebooks_category( $discount_price, $lev
 		$discount_price = 0;
 	}
 
+	// Return the discounted price.
 	return $discount_price;
 }
 add_filter( 'pmprowoo_get_membership_price', 'my_pmprowoo_get_membership_price_ebooks_category', 10, 4 );
