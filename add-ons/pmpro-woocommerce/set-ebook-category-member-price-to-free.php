@@ -16,26 +16,28 @@
  */
 
 function my_pmprowoo_get_membership_price_ebooks_category( $discount_price, $level_id, $original_price, $product ) {
+	// Get all membership levels for the current user and extract their IDs into an array.
+	$user_levels = pmpro_getMembershipLevelsForUser( get_current_user_id() );
+	$level_ids   = ! empty( $user_levels ) && is_array( $user_levels ) ? wp_list_pluck( $user_levels, 'id' ) : array();
+
 	// Return early if the user does not have a membership level.
-	// Adjust this or add additional checks to require a specific membership level.
-	if ( empty( $level_id ) ) {
+	if ( empty( $level_ids ) ) {
 		return $discount_price;
 	}
 
-	// Use this code to check a specific level the user has (or is buying) level 1.
-	// if ( $level_id != 1 ) {
-	//	return $discount_price;
+	// Uncomment to require a specific membership level.
+	// if ( ! in_array( 1, $level_ids ) ) {
+	// 	return $discount_price;
 	// }
 
 	// Set array of categories that are "free". Add additional category slugs as needed.
 	$free_product_cats = array( 'ebooks' );
 
-	// Check if the product is in the Ebook category and set price to 0 for all members.
+	// Check if the product is in the free categories
 	if ( has_term( $free_product_cats, 'product_cat', $product->get_id() ) ) {
 		$discount_price = 0;
 	}
 
-	// Return the discounted price.
 	return $discount_price;
 }
 add_filter( 'pmprowoo_get_membership_price', 'my_pmprowoo_get_membership_price_ebooks_category', 10, 4 );
