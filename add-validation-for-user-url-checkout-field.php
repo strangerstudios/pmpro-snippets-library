@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: user fields
- * link: tbd
+ * link: TBD
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -19,7 +19,7 @@ function my_pmpro_check_valid_urls( $pmpro_continue_registration ) {
 	}
 
 	$url_fields = array(
-		'user_url'        => 'Website', // replace user_url with the name of your field and Website with your field label
+		'user_url' => 'Website', // replace user_url with the name of your field and Website with your field label
 	);
 
 	$error_messages = array();
@@ -42,5 +42,4 @@ function my_pmpro_check_valid_urls( $pmpro_continue_registration ) {
 
 	return $pmpro_continue_registration;
 }
-
 add_filter( 'pmpro_registration_checks', 'my_pmpro_check_valid_urls' );
