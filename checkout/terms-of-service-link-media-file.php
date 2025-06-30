@@ -1,7 +1,6 @@
 <?php
 /**
- * Use this snippet to set a specific post ID—such as one linking to a PDF or other Media Library file—
- * as the Terms of Service agreement shown at checkout.
+ * Set a specific post or media upload item ID to link to a PDF attachment or image as the Terms of Service agreement shown at checkout.
  *
  * title: Link Terms of Service Using PDF or Media Library File rather then a page.
  * layout: snippet
