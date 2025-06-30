@@ -8,6 +8,7 @@
  * layout: snippet
  * collection: misc
  * category: profile
+ * link: https://www.paidmembershipspro.com/allow-members-use-weak-passwords/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
