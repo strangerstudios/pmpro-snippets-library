@@ -70,7 +70,7 @@ function pmpro_courses_with_lessons_shortcode( $atts ) {
 
 		echo '<div class="pmpro-course-row">';
 		echo '<div class="pmpro-course-title"><a href="' . esc_url( get_permalink( $course->ID ) ) . '">' . esc_html( get_the_title( $course->ID ) ) . '</div>';
-		echo '<div class="pmpro-course-lessons">' . esc_html( $lesson_count ) . ' lesson' . ( $lesson_count !== 1 ? 's' : '' ) . '</div></a>';
+		echo '<div class="pmpro-course-lessons">' . esc_html( $lesson_count ) . ' ' . ( $lesson_count !== 1 ? 'lessons' : 'lesson' ) . '</a></div>';
 		echo '</div>';
 	}
 
