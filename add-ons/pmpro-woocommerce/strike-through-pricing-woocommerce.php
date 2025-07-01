@@ -13,85 +13,107 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
 function my_pmprowoo_strike_prices( $price, $product ) {
 	global $pmprowoo_member_discounts, $current_user;
 
-	// Let's not do this in the admin area, if PMPro is not active, or if the user does not have a membership level.
-	if ( is_admin() || ! function_exists( 'pmpro_hasMembershipLevel' ) || ! pmpro_hasMembershipLevel() ) {
+	if (
+		is_admin() ||
+		! function_exists( 'pmpro_hasMembershipLevel' ) ||
+		! pmpro_hasMembershipLevel()
+	) {
 		return $price;
 	}
 
-	$formatted_price = ''; // Define the new variable.
-	$level_id = $current_user->membership_level->id;
+	$level_id = isset( $current_user->membership_level->id ) ? $current_user->membership_level->id : null;
 
-	// get pricing for simple product
+	// Handle Simple Products.
 	if ( $product->is_type( 'simple' ) ) {
-		// get normal non-member price.
-		$regular_price = get_post_meta( $product->get_id(), '_regular_price', true );
-		$sale_price    = get_post_meta( $product->get_id(), '_sale_price', true );
+		$regular_price = $product->get_regular_price();
+		$sale_price    = $product->get_sale_price();
+		$base_price    = ! empty( $sale_price ) ? $sale_price : $regular_price;
+		$member_price  = pmprowoo_get_membership_price( $base_price, $product );
 
-		// Get the membership price, this checks if the product has level pricing etc.
-		if ( ! empty( $sale_price ) ) {
-			$regular_price = $sale_price;
-			$price         = pmprowoo_get_membership_price( $regular_price, $product );
+		if ( isset( $level_id ) && floatval( $member_price ) !== floatval( $regular_price ) ) {
+			$price = '<del>' . wc_price( $regular_price ) . '</del> ' . wc_price( $member_price );
 		} else {
-			$price = pmprowoo_get_membership_price( $regular_price, $product );
+			$price = wc_price( $member_price );
 		}
-
-		// only show this to members and if the price isn't already the same as regular price.
-		if ( isset( $level_id ) && floatval($price) !== floatval($regular_price) ) {
-			$formatted_price = '<del>' . wc_price( $regular_price ) . '</del> ';
-		}
-
-		$formatted_price .= wc_price( $price );
-		// update price variable so we can return it later.
-		$price = $formatted_price;
 	}
 
-	// get pricing for variable products.
+	// Handle Variable Products.
 	if ( $product->is_type( 'variable' ) ) {
-		$prices        = $product->get_variation_prices( true );
-		$min_price     = current( $prices['price'] );
-		$max_price     = end( $prices['price'] );
-		$regular_range = wc_format_price_range( $min_price, $max_price );
-		if ( isset( $level_id ) && ! empty( $pmprowoo_member_discounts ) && ! empty( $pmprowoo_member_discounts[ $level_id ] ) ) {
-			$formatted_price = '<del>' . $regular_range . '</del> ';
+		$regular_prices = array();
+		$member_prices  = array();
+
+		foreach ( $product->get_children() as $child_id ) {
+			$variation = wc_get_product( $child_id );
+
+			if ( ! $variation instanceof WC_Product || ! $variation->is_purchasable() ) {
+				continue;
+			}
+
+			$regular_price = $variation->get_regular_price();
+
+			if ( empty( $regular_price ) ) {
+				continue;
+			}
+
+			$member_price = pmprowoo_get_membership_price( $regular_price, $variation );
+
+			$regular_prices[] = floatval( $regular_price );
+			$member_prices[]  = floatval( $member_price );
 		}
-		$formatted_price .= $price;
-		$price            = $formatted_price;
+
+		if ( ! empty( $regular_prices ) && ! empty( $member_prices ) ) {
+			$min_reg = min( $regular_prices );
+			$max_reg = max( $regular_prices );
+			$min_mem = min( $member_prices );
+			$max_mem = max( $member_prices );
+
+			$regular_range = wc_format_price_range( $min_reg, $max_reg );
+			$member_range  = wc_format_price_range( $min_mem, $max_mem );
+
+			if ( $regular_range !== $member_range ) {
+				$price = '<del>' . $regular_range . '</del> ' . $member_range;
+			} else {
+				$price = $member_range;
+			}
+		}
 	}
 
 	return $price;
 }
 add_filter( 'woocommerce_get_price_html', 'my_pmprowoo_strike_prices', 10, 2 );
+add_filter( 'woocommerce_variation_price_html', 'my_pmprowoo_strike_prices', 10, 2 );
 
 /**
- * Show the same strikethrough values on the cart page
+ * Show the same strike-through pricing in the WooCommerce cart.
  */
 function my_pmprowoo_strike_cart_price( $price, $cart_item, $cart_item_key ) {
-	global $pmprowoo_member_discounts, $current_user;
+	global $current_user;
 
-	if ( ! function_exists( 'pmpro_hasMembershipLevel' ) || ! pmpro_hasMembershipLevel() ) {
+	if (
+		! function_exists( 'pmpro_hasMembershipLevel' ) ||
+		! pmpro_hasMembershipLevel()
+	) {
 		return $price;
 	}
 
-	$product = $cart_item['data'];
-	$level_id = $current_user->membership_level->id;
+	$product  = $cart_item['data'];
+	$level_id = isset( $current_user->membership_level->id ) ? $current_user->membership_level->id : null;
 
-	if ( $product->is_type( 'simple' ) ) {
-		$regular_price = get_post_meta( $product->get_id(), '_regular_price', true );
-		$sale_price    = get_post_meta( $product->get_id(), '_sale_price', true );
+	if ( empty( $level_id ) ) {
+		return $price;
+	}
 
-		if ( ! empty( $sale_price ) ) {
-			$regular_price = $sale_price;
-			$member_price  = pmprowoo_get_membership_price( $regular_price, $product );
-		} else {
-			$member_price = pmprowoo_get_membership_price( $regular_price, $product );
-		}
+	if ( $product->is_type( 'simple' ) || $product->is_type( 'variation' ) ) {
+		$regular_price = $product->get_regular_price();
+		$member_price  = pmprowoo_get_membership_price( $regular_price, $product );
 
-		if ( isset( $level_id ) && floatval($member_price) !== floatval($regular_price) ) {
+		if ( floatval( $member_price ) !== floatval( $regular_price ) ) {
 			$price = '<del>' . wc_price( $regular_price ) . '</del> ' . wc_price( $member_price );
+		} else {
+			$price = wc_price( $member_price );
 		}
 	}
 
