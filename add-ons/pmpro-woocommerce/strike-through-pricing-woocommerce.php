@@ -109,7 +109,7 @@ add_filter( 'woocommerce_get_price_html', 'my_pmprowoo_strike_prices', 10, 2 );
  * Show the same strikethrough values on the cart page
  */
 function my_pmprowoo_strike_cart_price( $price, $cart_item, $cart_item_key ) {
-	global $pmprowoo_member_discounts, $current_user;
+	global $current_user;
 
 	if ( ! function_exists( 'pmpro_hasMembershipLevel' ) || ! pmpro_hasMembershipLevel() ) {
 		return $price;
@@ -124,15 +124,12 @@ function my_pmprowoo_strike_cart_price( $price, $cart_item, $cart_item_key ) {
 	}
 
 	if ( $product->is_type( 'simple' ) || $product->is_type( 'variation' ) ) {
-		$regular_price = $product->get_regular_price();
-		$sale_price    = $product->get_sale_price();
-
 		// Get the membership price and calculate the discount. 
-		$default_price = ! empty( $sale_price ) ? $sale_price : $regular_price;
-		$member_price = pmprowoo_get_membership_price( $default_price, $product );
+		$regular_price = ! empty( $product->get_sale_price() ) ? $product->get_sale_price() : $product->get_regular_price();
+		$member_price = pmprowoo_get_membership_price( $regular_price, $product );
 
-		if ( isset( $level_id ) && floatval($member_price) !== floatval($default_price) ) {
-			$price = '<del>' . wc_price( $default_price ) . '</del> ' . wc_price( $member_price );
+		if ( isset( $level_id ) && floatval( $member_price ) !== floatval( $regular_price ) ) {
+			$price = '<del>' . wc_price( $regular_price ) . '</del> ' . wc_price( $member_price );
 		}
 	}
 
