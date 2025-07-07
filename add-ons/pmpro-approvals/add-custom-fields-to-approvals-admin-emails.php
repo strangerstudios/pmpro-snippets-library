@@ -2,13 +2,14 @@
 /**
  * Add custom user fields to the email admins receive when approving the member.
  * Create User Fields inside Paid Memberships Pro first, then update/duplicate
- * line 28 with your field names.
+ * line 31 with your field names.
  * Learn more at www.paidmembershipspro.com/approval-email-user-fields
  *
  * title: Add custom user fields to Approvals emails for admins.
  * layout: snippet
  * collection: add-ons
  * category: pmpro-approvals
+ * link: https://www.paidmembershipspro.com/approval-email-user-fields/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
