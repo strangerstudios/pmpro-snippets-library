@@ -19,7 +19,7 @@ function my_pmpro_change_recurring_emails( $emails ) {
   // Remove the email that is sent 7 days before subscription payment.
   unset( $emails[7] );
   
-  // Send a reminder email to be sent 14 days before the subscription payment.
+  // Change to 14 to send a reminder email to how many days before the subscription payment.
   // The email template to be used is 'membership_recurring'.
   $emails[14] = 'membership_recurring';
   
