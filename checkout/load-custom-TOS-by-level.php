@@ -29,7 +29,13 @@ function my_option_pmpro_tospage( $tospage ) {
 
 	// If the level at checkout is 1, use the specific TOS page.
 	if ( ! empty( $level ) && $level->id == 1 ) {
-		$tospage = 27; // Page ID for Level 1 TOS.
+		// Page ID for Level 1 TOS.
+		$custom_tospage_id = 27; // Change this to the ID of your custom TOS page.
+
+		// Check if the custom TOS page is a valid, published page.
+		if ( get_post_status( $custom_tospage_id ) === 'publish' ) {
+			$tospage = $custom_tospage_id;
+		}
 	}
 
 	// For all other levels, we don't do anything and return the default TOS page ID.
