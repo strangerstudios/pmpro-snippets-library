@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: discount-codes
  * category: custom-fields, description
+ * link: https://www.paidmembershipspro.com/discount-code-description-field/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -33,7 +34,7 @@ function mypmpro_discount_code_notes_field( $edit ) {
 		</table>
 		<?php
 	} else {
-		echo 'You will need to save your discount code before you can enter a description';
+		echo '<span style="font-size: 16px; font-weight: bold; color: darkred;">You will need to save your discount code before you can enter a description</span>';
 	}
 
 }
