@@ -24,10 +24,10 @@ function my_pmpro_series_limit_posts_shown( $post_list, $series_object ) {
 	$posts_to_display = array();
 
 	foreach ( $post_list as $sp ) {
-		$posts_to_display[] = $sp;
 		if ( max( 0, $member_days ) < $sp->delay ) {
 			break;
 		}
+		$posts_to_display[] = $sp;		
 	}
 	
 	return $posts_to_display;
