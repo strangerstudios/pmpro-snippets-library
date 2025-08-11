@@ -90,7 +90,7 @@ function my_pmpro_renew_or_change_payment_method_checkout_level( $level ) {
 	);
 
 	// If they have a last subscription, set the billing amount.
-	// Optionally remove this line if you want to ignory legacy subscription pricing.
+	// Optionally remove this line if you want to ignore legacy subscription pricing.
 	if ( ! empty( $last_subscription ) ) {
 		$level->billing_amount = $last_subscription->get_billing_amount();
 	}
