@@ -129,7 +129,7 @@ function my_pmpro_renew_or_change_payment_method_level_cost_text( $cost, $level 
 	}
 
 	// Ok, we can adjust the cost text.
-	$cost .= 'Your first subscription payment will be processed on ' . date_i18n( get_option( 'date_format' ), $subscription_start_date ) . '.';
+	$cost .= ' Your first subscription payment will be processed on ' . date_i18n( get_option( 'date_format' ), $subscription_start_date ) . '.';
 
 	return $cost;
 }
