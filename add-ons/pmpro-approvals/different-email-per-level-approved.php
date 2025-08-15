@@ -4,7 +4,7 @@
  *
  * Note that this does not support email templates. Subject & Body should be updated in the code.
  *
- *
+ * link: https://www.paidmembershipspro.com/approval-emails-by-membership-level/
  * title: Send a different 'Application Approved' email based on the member's level.
  * layout: snippet
  * collection: add-ons
