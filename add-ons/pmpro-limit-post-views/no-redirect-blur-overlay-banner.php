@@ -18,8 +18,8 @@
  * @param int    $level_views    Number of views allowed for the user's level.
  * @param string $level_period   Period for the user's level.
  */
-function my_pmprolpv_deny_view_js_signup_banner( $restriction_js, $level_views, $level_period ) {
-	$login_url = wp_login_url( get_permalink() );
+function my_pmprolpv_deny_view_js_signup_banner( $restriction_js, $level_views, $level_period, $post ) {
+	$login_url = wp_login_url( get_permalink( $post->ID ) );
 	$subscribe_url = pmpro_url( 'levels' );
 
 	ob_start();
@@ -68,4 +68,4 @@ function my_pmprolpv_deny_view_js_signup_banner( $restriction_js, $level_views, 
 		});
 	";
 }
-add_filter( 'pmprolpv_deny_view_js', 'my_pmprolpv_deny_view_js_signup_banner', 10, 3 );
+add_filter( 'pmprolpv_deny_view_js', 'my_pmprolpv_deny_view_js_signup_banner', 10, 4 );

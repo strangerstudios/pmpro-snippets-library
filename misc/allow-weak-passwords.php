@@ -1,7 +1,7 @@
 <?php
 /**
  * Allow weak passwords on the PMPro "Change Password" and "Password Reset" pages
- *
+ * Learn more at https://www.paidmembershipspro.com/allow-weak-passwords/
  * Requires Paid Memberships Pro v2.3.3+
  *
  * title: Allow weak passwords during password reset or profile updates
