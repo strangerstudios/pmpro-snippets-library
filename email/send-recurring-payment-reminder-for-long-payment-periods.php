@@ -26,6 +26,7 @@ function my_pmpro_only_send_recurring_email_for_long_payment_periods( $send_emai
 			'status' => 'success',
 		)
 	);
+	
 	if ( ! empty( $recent_orders ) ) {
 		$recent_order = $recent_orders[0];
 
