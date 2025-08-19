@@ -22,4 +22,4 @@ function my_memberlite_remove_banner_image_blog_homepage() {
 		remove_filter( 'memberlite_get_banner_image', 'memberlite_maybe_get_custom_banner_image', 10 );
 	}
 }
-add_action( 'template_redirect', 'my_memberlite_remove_banner_image_blog_homepage' );
+add_action( 'wp', 'my_memberlite_remove_banner_image_blog_homepage' );
