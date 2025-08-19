@@ -7,7 +7,7 @@
  * layout: snippet
  * collection: memberlite
  * category: display, featured image
- * link: tbd
+ * link: TBD
  * 
  * This recipe prevents the Memberlite theme from replacing the banner image on the homepage
  * with the custom level banner image set for membership levels.
@@ -17,11 +17,9 @@
  * Read this companion article for step-by-step directions on either method:
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
-function my_memberliteconditionally_remove_memberlite_banner_image() {
+function my_memberlite_remove_banner_image_blog_homepage() {
 	if ( is_home() ) {
 		remove_filter( 'memberlite_get_banner_image', 'memberlite_maybe_get_custom_banner_image', 10 );
 	}
 }
-add_action( 'template_redirect', 'my_memberliteconditionally_remove_memberlite_banner_image' );
-
+add_action( 'template_redirect', 'my_memberlite_remove_banner_image_blog_homepage' );
