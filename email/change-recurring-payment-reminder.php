@@ -23,4 +23,4 @@ function my_pmpro_change_recurring_emails( $emails ) {
 	$emails[14] = 'membership_recurring';
 	return $emails;
 }
-  add_filter( 'pmpro_upcoming_recurring_payment_reminder', 'my_pmpro_change_recurring_emails', 10, 1 );
+add_filter( 'pmpro_upcoming_recurring_payment_reminder', 'my_pmpro_change_recurring_emails', 10, 1 );
