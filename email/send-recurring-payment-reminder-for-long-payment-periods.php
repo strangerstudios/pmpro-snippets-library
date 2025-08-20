@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: email
  * category: recurring reminders, emails
- * link: https://www.paidmembershipspro.com/adjust-recurring-payment-reminder-email-interval-template/
+ * link: https://www.paidmembershipspro.com/recurring-payment-reminder-emails/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
