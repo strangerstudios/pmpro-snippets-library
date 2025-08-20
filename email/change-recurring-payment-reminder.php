@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: email
  * category: recurring reminder, emails
- * link: https://www.paidmembershipspro.com/notify-members-of-upcoming-recurring-payment-automatic-renewal-for-membership/
+ * link: https://www.paidmembershipspro.com/recurring-payment-reminder-emails/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
