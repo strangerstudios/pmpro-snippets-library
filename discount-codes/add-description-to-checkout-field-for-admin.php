@@ -34,7 +34,7 @@ function mypmpro_discount_code_notes_field( $edit ) {
 		</table>
 		<?php
 	} else {
-		echo '<span style="font-size: 16px; font-weight: bold; color: darkred;">You will need to save your discount code before you can enter a description</span>';
+		echo '<div class="pmpro_message pmpro_alert">You will need to save your discount code before you can enter a description</div>';
 	}
 
 }
