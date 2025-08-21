@@ -56,7 +56,7 @@ class My_PMPro_Directory_Widget extends WP_Widget {
 						 * Set up values to filter for. 
 						 * You can change the distance steps to yur preference here
 						 */
-						$colors = array(
+						$distance_options = array(
 							'5'  => '5 miles',
 							'10'  => '10 miles',
 							'15'  => '15 miles',
@@ -64,7 +64,7 @@ class My_PMPro_Directory_Widget extends WP_Widget {
 							'25' => '25 miles',
 							'50'   => '50 miles',
 						);
-						foreach ( $colors as $key => $value ) {
+						foreach ( $distance_options as $key => $value ) {
 							// Check if this value should default to be checked.
 							$checked_modifier = '';
 							$selected_distance = isset( $_REQUEST['distance'] ) ? $_REQUEST['distance'] : '';
