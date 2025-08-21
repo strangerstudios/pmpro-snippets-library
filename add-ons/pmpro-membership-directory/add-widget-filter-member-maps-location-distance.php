@@ -1,13 +1,12 @@
 <?php
 /**
- * This recipe will add a widget to the member directory where users can filter
- * members based on location and distance. 
- * Requires PMPro Membership Directory > v1.0 + PMPro Membership Maps Add Ons
- *
+ * This recipe will add a widget to the member directory where users can filter members based on location and distance. 
+ * Requires PMPro Membership Directory v2.1+
+ * 
  * title: Filter members based on location and distance in member directory
  * layout: snippet
- * collection: pmpro-membership-maps
- * category: maps, directory
+ * collection: pmpro-membership-directory
+ * category: directory, maps, widget
  * link: https://www.paidmembershipspro.com/filter-members-based-on-their-location/
  *
  * You can add this recipe to your site by creating a custom plugin
@@ -15,12 +14,12 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
+ 
 /**
  * Set up widget
  */
 class My_PMPro_Directory_Widget extends WP_Widget {
-
+ 
 	/**
 	 * Sets up the widget
 	 */
@@ -31,7 +30,7 @@ class My_PMPro_Directory_Widget extends WP_Widget {
 			array( 'description' => 'Filter the PMPro Member Directory' )
 		);
 	}
-
+ 
 	/**
 	 * Code that runs on the frontend.
 	 *
@@ -68,9 +67,9 @@ class My_PMPro_Directory_Widget extends WP_Widget {
 						foreach ( $colors as $key => $value ) {
 							// Check if this value should default to be checked.
 							$checked_modifier = '';
-              $selected_distance = isset( $_REQUEST['distance'] ) ? $_REQUEST['distance'] : '';
-  if ( $selected_distance === $key ) {
-              $checked_modifier = ' selected';
+							$selected_distance = isset( $_REQUEST['distance'] ) ? $_REQUEST['distance'] : '';
+							if ( $selected_distance === $key ) {
+								$checked_modifier = ' selected';
 							}
 							// Add checkbox.
 							echo '<option value="' . $key . '"' . $checked_modifier . '>' . $value . '</option>';
@@ -82,15 +81,15 @@ class My_PMPro_Directory_Widget extends WP_Widget {
 		</aside>
 		<?php
 	}
-
 }
-
+ 
 /**
  * Check $_REQUEST for parameters from the widget. Filter member results here
  */
 function mypmpro_result_distance_filter( $theusers ) {
 
-	if ( ! function_exists( 'pmpromm_geocode_address' ) ) {
+	// Make sure the customer is on the latest version of Member Directory and avoid fatal errors.
+	if ( ! function_exists( 'pmpromd_geocode_map_address' ) ) {
 		return $theusers;
 	}
 
@@ -104,88 +103,40 @@ function mypmpro_result_distance_filter( $theusers ) {
 		'state' 	=> '',
 		'zip' 		=> ''
 	);
-
-	$coordinates = pmpromm_geocode_address( $member_address );
+ 
+	$coordinates = pmpromd_geocode_map_address( $member_address );
 	
 	$filtered_members = array();
 	if ( is_array( $coordinates ) ) {
 		foreach ( $theusers as $key => $user ) {
-
+ 
 			$user_id = intval( $user->ID );
-			$member_address = get_user_meta( $user_id, 'pmpromm_pin_location', true );
-
+			$member_address = pmpromd_get_member_address( $user_id );
+			
 			// If the user doesn't have a location, let's see if there's an old value available.
 			if ( empty( $member_address['latitude'] ) || empty( $member_address['longitude'] ) ) {
 				$member_address = array();
 				$member_address['latitude'] = get_user_meta( $user_id, 'pmpro_lat', true ) ?? '';
 				$member_address['longitude'] = get_user_meta( $user_id, 'pmpro_lng', true ) ?? '';
 			}
-
+ 
 			if ( ! empty( $member_address['latitude'] ) && ! empty( $member_address['longitude'] ) ) {
-				$distance = mypmpromm_calculate_distance( $coordinates['lat'], $coordinates['lng'], $member_address['latitude'], $member_address['longitude'], 'm' );
+				$distance = my_pmpromd_calculate_distance( $coordinates['lat'], $coordinates['lng'], $member_address['latitude'], $member_address['longitude'], 'm' );
 				if( $distance <= $_REQUEST['distance'] ){
 					$filtered_members[] = $user;
 				}
-
+ 
 			}
 		}
 		
 		return $filtered_members;
-
+ 
 	}
-
+ 
 	return $theusers;
 }
 add_filter( 'pmpromd_user_directory_results', 'mypmpro_result_distance_filter', 10, 9 );
-
-/**
- * Check $_REQUEST for parameters from the widget. Filter marker results here
- */
-function mypmpro_marker_result_distance_filter( $markers ){
-
-	if ( ! function_exists( 'pmpromm_geocode_address' ) ) {
-		return $markers;
-	}
-
-	if ( empty( $_REQUEST['location'] ) || empty( $_REQUEST['distance'] ) ) {
-		return $markers;
-	}
-
-	$member_address = array(
-		'street' 	=> urldecode( $_REQUEST['location'] ),
-		'city' 		=> '',
-		'state' 	=> '',
-		'zip' 		=> ''
-	);
-
-	$coordinates = pmpromm_geocode_address( $member_address );
-
-	$filtered_members = array();
-
-	if ( is_array( $coordinates ) ) {
-
-		foreach ( $markers as $key => $marker ) {
-			if ( ! empty( $marker['marker_meta'] ) ) {
-				$lat =  ! empty( $marker['marker_meta']['lat'] ) ? $marker['marker_meta']['lat'] : '';
-				$lng = ! empty( $marker['marker_meta']['lng'] ) ? $marker['marker_meta']['lng'] : '';
-
-				if ( ! empty( $lat ) && ! empty( $lng ) ) {
-					$distance = mypmpromm_calculate_distance( $coordinates['lat'], $coordinates['lng'], $lat, $lng, 'm' );
-					if ( $distance <= $_REQUEST['distance'] ) {
-						$filtered_members[] = $marker;
-					}
-				}
-			}
-		}
-		
-		return $filtered_members;
-
-	}
-
-	return $markers;
-}
-add_filter( 'pmpromm_return_markers_array', 'mypmpro_marker_result_distance_filter', 10, 1 );
-
+ 
 /**
  * Registers widget.
  */
@@ -193,7 +144,7 @@ function my_pmpro_register_directory_widget() {
 	register_widget( 'My_PMPro_Directory_Widget' );
 }
 add_action( 'widgets_init', 'my_pmpro_register_directory_widget' );
-
+ 
 /**
  * Remember filters being used while using "Next" and "Previous" buttons.
  *
@@ -201,27 +152,31 @@ add_action( 'widgets_init', 'my_pmpro_register_directory_widget' );
  */
 function my_pmpromd_pagination_url_filter_directory( $query_args ) {
 	$directory_filters = array( 'location', 'distance' );
+
 	foreach ( $directory_filters as $directory_filter ) {
 		if ( ! empty( $_REQUEST[ $directory_filter ] ) ) {
-        		$query_args[ $directory_filter ] =  $_REQUEST[ $directory_filter ];
-    		}
+			$query_args[ $directory_filter ] =  $_REQUEST[ $directory_filter ];
+		}
 	}
 	return $query_args;
 }
 add_filter( 'pmpromd_pagination_url', 'my_pmpromd_pagination_url_filter_directory' );
 
-function mypmpromm_calculate_distance( $lat1, $lon1, $lat2, $lon2, $unit ){
+/**
+ * Helper function to calculate a distance between 2 points using latitude and longitude.
+ */
+function my_pmpromd_calculate_distance( $lat1, $lon1, $lat2, $lon2, $unit ){
 
 	$theta = $lon1 - $lon2;
-
+ 
 	$dist = sin( deg2rad( $lat1 ) ) * sin( deg2rad( $lat2 ) ) +  cos( deg2rad( $lat1 ) ) * cos( deg2rad( $lat2 ) ) * cos( deg2rad( $theta ) );
-
+ 
 	$dist = acos($dist);
 	$dist = rad2deg($dist);
 	$miles = $dist * 60 * 1.1515;
-
+ 
 	$unit = strtoupper($unit);
-
+ 
 	if ( $unit == "km" ) {
 		return ( $miles * 1.609344 );
 	} else {
