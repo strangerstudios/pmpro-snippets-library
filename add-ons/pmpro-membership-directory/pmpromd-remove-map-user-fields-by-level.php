@@ -36,6 +36,7 @@ function my_limit_pmpromd_fields_by_level( $field, $where ) {
 	// Add 'levels' attribute to the targeted fields.
 	if ( in_array( $field->name, $directory_fields, true ) ) {
 		$field->levels = $allowed_levels;
+		//$field->profile = 'only';
 	}
 
 	return $field;
