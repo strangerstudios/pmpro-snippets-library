@@ -69,12 +69,12 @@ function my_pmpro_add_user_fields() {
     );
 
     // Add a field group to put our fields into
-    pmpro_add_field_group( 'My Profile Picture' );
+    pmpro_add_field_group( 'profile-picture', 'Profile Picture' );
 
     // Add all of our fields into that group
     foreach ( $fields as $field ) {
         pmpro_add_user_field(
-            'My Profile Picture',     // Which group to add to
+            'profile-picture',      // Which group to add to
             $field                  // PMPro_Field object
         );
     }
