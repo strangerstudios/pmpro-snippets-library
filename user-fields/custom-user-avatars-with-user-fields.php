@@ -8,6 +8,7 @@
  * layout: snippet
  * collection: user-fields
  * category: user-avatars
+ * link: https://www.paidmembershipspro.com/custom-user-avatars-member-profile-edit-page/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
