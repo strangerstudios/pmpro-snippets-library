@@ -2,10 +2,11 @@
 /**
  * Only show the Member Directory fields at checkout and on profile for specific membership levels.
  *
- * title: 
+ * title: Remove Membership Map and Directory Opt-Out Fields For Specific Levels
  * layout: snippet
  * collection: pmpro-member-directory
  * category: directory, user fields
+ * link: https://www.paidmembershipspro.com/remove-directory-map-fields-by-level/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
