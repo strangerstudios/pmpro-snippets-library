@@ -10,6 +10,7 @@
  * layout: snippet-example
  * collection: pmpro-member-directory
  * category: styling, JSON, maps
+ * link: https://www.paidmembershipspro.com/style-your-membership-map/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
