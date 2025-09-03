@@ -13,15 +13,14 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmpro_remove_no_access_message_from_homepage( $text ) {
+function my_pmpro_remove_no_access_message_from_homepage( $no_access_message_html ) {
 	// Check if we are on the homepage.
 	if ( is_front_page() || is_home() ) {
 		// Return an empty string.
 		return '';
 	}
 
-	// Otherwise, return the default no access message.
-	return $text;
+	// Otherwise, return the default no access message html.
+	return $no_access_message_html;
 }
-add_filter( 'pmpro_non_member_text_filter', 'my_pmpro_remove_no_access_message_from_homepage', 10, 1 );
-add_filter( 'pmpro_not_logged_in_text_filter', 'my_pmpro_remove_no_access_message_from_homepage', 10, 1 );
+add_filter( 'pmpro_no_access_message_html', 'my_pmpro_remove_no_access_message_from_homepage', 10, 1 );
