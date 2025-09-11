@@ -1,7 +1,6 @@
 <?php
 /**
- * Do not return the post thumbnail (featured image) on restricted content 
- * when viewed by a non-member.
+ * Do not return the post thumbnail (featured image) on restricted content when viewed by a non-member.
  *
  * title: Hide a Post’s Featured Image From Non-Members
  * layout: snippet
@@ -14,8 +13,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
-function hide_post_thumbnail_on_restricted_content( $html, $post_id, $post_image_id ) {
+function my_pmpro_hide_post_thumbnail_on_restricted_content( $html, $post_id, $post_image_id ) {
 	if ( function_exists( 'pmpro_has_membership_access' ) ) {
 
 		// Check if the user has access to the post.
@@ -27,4 +25,4 @@ function hide_post_thumbnail_on_restricted_content( $html, $post_id, $post_image
 	}
 	return $html;
 }
-add_filter( 'post_thumbnail_html', 'hide_post_thumbnail_on_restricted_content', 10, 3 );
+add_filter( 'post_thumbnail_html', 'my_pmpro_hide_post_thumbnail_on_restricted_content', 10, 3 );
