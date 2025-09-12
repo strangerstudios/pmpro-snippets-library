@@ -26,6 +26,8 @@ function my_gettext_pmproap_changes( $translated_text, $text, $domain ) {
 			$translated_text = 'Your custom text. %s';
 		} elseif ( $text == 'Click here to checkout' ) {
 			$translated_text = 'Your custom text. ';
+		} elseif ( $text == 'Click Here to Check Out' ) {
+			$translated_text = 'Your custom text. ';	
 		} elseif ( $text == 'Click here to choose a membership level.' ) {
 			$translated_text = 'Your custom text.';
 		} elseif ( $text == 'Choose a Membership Level' ) {
