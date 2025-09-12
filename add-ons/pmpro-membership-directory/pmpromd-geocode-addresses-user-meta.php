@@ -2,7 +2,7 @@
 /**
  * Geocodes member addresses based on user meta
  * 
- * Run /wp-admin/?pmpromm_process_users=true to run the script.
+ * Run /wp-admin/?pmpromd_process_users=true to run the script.
  * 
  * Note that the Google Maps Geocode API has a daily limit of 2 000 requests.
  * 
@@ -19,16 +19,16 @@
  *
  */
 
-function mypmpromm_batch_process_addresses_override_users(){
+function mypmpromd_batch_process_addresses_override_users(){
 
-	if( !empty( $_REQUEST['pmpromm_process_users'] ) ){
-		mypmpromm_batch_process_addresses_users();
+	if( !empty( $_REQUEST['pmpromd_process_users'] ) ){
+		mypmpromd_batch_process_addresses_users();
 	}
 
 }
-add_action( 'admin_init', 'mypmpromm_batch_process_addresses_override_users' );
+add_action( 'admin_init', 'mypmpromd_batch_process_addresses_override_users' );
 
-function mypmpromm_batch_process_addresses_users(){
+function mypmpromd_batch_process_addresses_users(){
 
 	global $wpdb;
 
@@ -74,14 +74,14 @@ function mypmpromm_batch_process_addresses_users(){
 				$member_address['latitude'] = $coordinates['lat'];
 				$member_address['longitude'] = $coordinates['lng'];
 				
-				update_user_meta( $result->user_id, 'pmpromd_pin_location', $member_address );
+				update_user_meta( $result->ID, 'pmpromd_pin_location', $member_address );
 
-				update_user_meta( $result->user_id, 'pmpromd_map_optin', true );
-				update_user_meta( $result->user_id, 'pmpromd_street_name', $member_address['street'] );
-				update_user_meta( $result->user_id, 'pmpromd_city', $member_address['city'] );
-				update_user_meta( $result->user_id, 'pmpromd_state', $member_address['state'] );
-				update_user_meta( $result->user_id, 'pmpromd_zip', $member_address['zip'] );
-				update_user_meta( $result->user_id, 'pmpromd_country', $member_address['country'] );
+				update_user_meta( $result->ID, 'pmpromd_map_optin', true );
+				update_user_meta( $result->ID, 'pmpromd_street_name', $member_address['street'] );
+				update_user_meta( $result->ID, 'pmpromd_city', $member_address['city'] );
+				update_user_meta( $result->ID, 'pmpromd_state', $member_address['state'] );
+				update_user_meta( $result->ID, 'pmpromd_zip', $member_address['zip'] );
+				update_user_meta( $result->ID, 'pmpromd_country', $member_address['country'] );
 
 			}   
 		} else if( function_exists( 'pmpromm_geocode_address' ) ) {
@@ -89,8 +89,8 @@ function mypmpromm_batch_process_addresses_users(){
 			$coordinates = pmpromm_geocode_address( $member_address );
 			//Geocode was successful, add to user meta
 			if( is_array( $coordinates ) ){
-				update_user_meta( intval( $result->user_id ), 'pmpro_lat', $coordinates['lat'] );
-				update_user_meta( intval( $result->user_id ), 'pmpro_lng', $coordinates['lng'] );
+				update_user_meta( intval( $result->ID ), 'pmpro_lat', $coordinates['lat'] );
+				update_user_meta( intval( $result->ID ), 'pmpro_lng', $coordinates['lng'] );
 			}
 			
 		}

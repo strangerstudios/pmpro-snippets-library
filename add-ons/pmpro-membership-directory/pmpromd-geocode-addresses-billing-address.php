@@ -2,7 +2,7 @@
 /**
  * Geocodes member addresses based on billing address fields in order meta
  * 
- * Run /wp-admin/?pmpromm_process_users=true to run the script.
+ * Run /wp-admin/?pmpromd_process=true to run the script.
  * 
  * Change line 36 to increase batch sizes. Note that the Google Maps Geocode API
  * has a daily limit of 2 000 requests.
@@ -20,16 +20,16 @@
  *
  */
 
-function mypmpromm_batch_process_addresses_override(){
+function mypmpromd_batch_process_addresses_override(){
 
-	if( !empty( $_REQUEST['pmpromm_process'] ) ){
-		mypmpromm_batch_process_addresses();
+	if( !empty( $_REQUEST['pmpromd_process'] ) ){
+		mypmpromd_batch_process_addresses();
 	}
 
 }
-add_action( 'admin_init', 'mypmpromm_batch_process_addresses_override' );
+add_action( 'admin_init', 'mypmpromd_batch_process_addresses_override' );
 
-function mypmpromm_batch_process_addresses(){
+function mypmpromd_batch_process_addresses(){
 
 	global $wpdb;
 
