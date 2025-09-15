@@ -21,7 +21,7 @@
  */
 function mypmpromd_batch_process_addresses_override(){
 
-	if ( ! empty( $_REQUEST['pmpromd_process'] ) && current_user_can( 'manage_options' )) {
+	if ( ! empty( $_REQUEST['pmpromd_process'] ) && current_user_can( 'manage_options' ) ) {
 		mypmpromd_batch_process_addresses();
 	}
 
