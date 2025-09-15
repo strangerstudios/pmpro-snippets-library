@@ -13,9 +13,9 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmproz_send_admin_change_email_after_add_member( $user_id, $level_id ){
+function my_pmproz_after_add_member_send_admin_change_email( $user_id, $level_id ){
 	$user = get_userdata( $user_id );
 	$pmpro_email = new PMProEmail();
 	$pmpro_email->sendAdminChangeEmail( $user );
 }
-add_action( 'pmproz_after_add_member', 'my_pmproz_send_admin_change_email_after_add_member', 10, 2 );
+add_action( 'pmproz_after_add_member', 'my_pmproz_after_add_member_send_admin_change_email', 10, 2 );
