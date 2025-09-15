@@ -16,43 +16,37 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
+function my_pmpro_create_user_fields_with_code(){
 
-//Create the custom field
-function my_pmprorh_init(){
-	//don't break if Register Helper is not loaded
-	if(!function_exists( 'pmprorh_add_registration_field' )) {
-		return false;
-	}
-
-	$fields[] = new PMProRH_Field(
+	$fields[] = new PMPro_Field(
 		'graduation_year',						// input name, will also be used as meta key
 		'textarea',							// type of field
 		array(
-			'label'		=> 'Graduation Year'	,
+			'label'		=> 'Graduation Year',
 			'profile' => true,
 			'required' => true
 		)
 	);
 
-	//add the fields into a new checkout_boxes are of the checkout page
-	foreach($fields as $field)
-		pmprorh_add_registration_field(
-			'checkout_boxes',				// location on checkout page
-			$field						// PMProRH_Field object
+	// Add a field group to put our fields into.
+	pmpro_add_field_group( 'Graduation Details' );
+ 
+	// Add all of our fields into that group.
+	foreach ( $fields as $field ) {
+		pmpro_add_user_field(
+			'Graduation Details',	// Which group to add to.
+			$field					// PMPro_Field object
 		);
-	//that's it. see the PMPro Register Helper readme for more information and examples.
+	}
 }
-add_action( 'init', 'my_pmprorh_init' );
+add_action( 'init', 'my_pmpro_create_user_fields_with_code' );
 
 //Now display the Graduation Year field on the membership card.
-function my_pmpro_add_rh_fields_after_member_card( $pmpro_membership_card_user, $print_sizes, $qr_code, $qr_data ){
-
+function my_pmpro_add_user_fields_after_member_card( $pmpro_membership_card_user, $print_sizes, $qr_code, $qr_data ){
 	$graduation_year = get_user_meta( $pmpro_membership_card_user->ID, 'graduation_year', true );
 
-	if( $graduation_year !== "" ){
-		echo "<p>Graduation Year: ".$graduation_year."</p>"; 
-		//Wrapping content in <p> tags will help with consistent spacing
+	if ( $graduation_year !== "" ) {
+		echo "<p>Graduation Year: " . $graduation_year . "</p>"; 
 	}
-	
 }
-add_action( 'pmpro_membership_card_after_card', 'my_pmpro_add_rh_fields_after_member_card', 10, 4 );
+add_action( 'pmpro_membership_card_after_card', 'my_pmpro_add_user_fields_after_member_card', 10, 4 );
