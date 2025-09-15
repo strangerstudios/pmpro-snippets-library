@@ -14,11 +14,8 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
- 
 function my_pmpro_custom_user_registration_changes( $userdata ) {
-
 	$userdata['user_login'] = str_replace( ' ', '_', strtolower( $userdata['user_login'] ) );
-
 	return $userdata;
 }
 add_filter( 'pmpro_checkout_new_user_array', 'my_pmpro_custom_user_registration_changes', 10, 1 );
