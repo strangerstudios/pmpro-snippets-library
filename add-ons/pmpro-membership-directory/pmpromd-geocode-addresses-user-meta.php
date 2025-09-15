@@ -18,41 +18,39 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  *
  */
-
 function mypmpromd_batch_process_addresses_override_users(){
 
-	if( !empty( $_REQUEST['pmpromd_process_users'] ) ){
+	if ( ! empty( $_REQUEST['pmpromd_process_users'] ) && current_user_can( 'manage_options' ) ) {
 		mypmpromd_batch_process_addresses_users();
 	}
 
 }
 add_action( 'admin_init', 'mypmpromd_batch_process_addresses_override_users' );
 
+// Helper function to batch process user addresses.
 function mypmpromd_batch_process_addresses_users(){
-
-	global $wpdb;
-
-	//Original Membership Maps API key option
-	$api_key = get_option( 'pmpro_pmpromm_api_key' );
-
-	if( empty( $api_key ) ) {
-		//New Member Directory API key option
-		$api_key = get_option( 'pmpro_pmpromd_maps_api_key' );
-	}
-
-	if( empty( $api_key ) ) {
+	
+	// Get maps API key
+	$api_key = get_option( 'pmpro_pmpromd_maps_api_key' );
+	
+	if ( empty( $api_key ) ) {
 		//No API key found, exit
 		exit('No API key found');
 	}
 
 	$users = get_users();
 
-	if( empty( $users ) ){
+	if ( empty( $users ) ) {
 		//No users found, exit
 		exit( 'No users found' );
 	}
 	
-	foreach( $users as $result ){
+	foreach ( $users as $result ) {
+
+		// Skip any users that may already have updated pmpro member directory user field data. Remove this check if you want to reprocess all users regardless of existing data.
+		if ( ! empty( get_user_meta( $result->ID, 'pmpromd_street_name', true ) ) ) {
+			continue;
+		}
 
 		$member_address = array(
 			'street' 	=> get_user_meta( $result->ID, 'pmpro_baddress1', true ).' '.get_user_meta( $result->ID, 'pmpro_baddress2', true ),
@@ -62,13 +60,13 @@ function mypmpromd_batch_process_addresses_users(){
 			'zip' 		=> get_user_meta( $result->ID, 'pmpro_bzipcode', true )
 		);
 		
-		if( function_exists( 'pmpromd_geocode_map_address' ) ) {
+		if ( function_exists( 'pmpromd_geocode_map_address' ) ) {
 			//New version of Member Directory active 2.1+, use its geocode function
 			$coordinates = pmpromd_geocode_map_address( $member_address );
 			
 			//Geocode was successful, add to user meta                
-			if( is_array( $coordinates ) ){
-				
+			if ( is_array( $coordinates ) ) {
+
 				$member_address['optin'] = true;
 				
 				$member_address['latitude'] = $coordinates['lat'];
@@ -84,7 +82,7 @@ function mypmpromd_batch_process_addresses_users(){
 				update_user_meta( $result->ID, 'pmpromd_country', $member_address['country'] );
 
 			}   
-		} else if( function_exists( 'pmpromm_geocode_address' ) ) {
+		} elseif ( function_exists( 'pmpromm_geocode_address' ) ) {
 			//Use older geocode function from Membership Maps
 			$coordinates = pmpromm_geocode_address( $member_address );
 			//Geocode was successful, add to user meta
@@ -96,7 +94,5 @@ function mypmpromd_batch_process_addresses_users(){
 		}
 		
 	}
-
 	exit('End');
-	
 }

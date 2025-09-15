@@ -3,8 +3,8 @@
  * Geocodes member addresses based on billing address fields in order meta
  * 
  * Run /wp-admin/?pmpromd_process=true to run the script.
- * 
- * Change line 36 to increase batch sizes. Note that the Google Maps Geocode API
+ *
+ * Change the value of $batch_size to increase or decrease batch sizes. Note that the Google Maps Geocode API
  * has a daily limit of 2 000 requests.
  * 
  * title: Geocode member addresses based on billing address fields in order meta
@@ -19,33 +19,28 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  *
  */
-
 function mypmpromd_batch_process_addresses_override(){
 
-	if( !empty( $_REQUEST['pmpromd_process'] ) ){
+	if ( ! empty( $_REQUEST['pmpromd_process'] ) && current_user_can( 'manage_options' )) {
 		mypmpromd_batch_process_addresses();
 	}
 
 }
 add_action( 'admin_init', 'mypmpromd_batch_process_addresses_override' );
 
+// Helper function to batch process member addresses.
 function mypmpromd_batch_process_addresses(){
 
 	global $wpdb;
 
 	$batch_size = 30; //Number of members to geocode at a time
 
-	//Original Membership Maps API key option
-	$api_key = get_option( 'pmpro_pmpromm_api_key' );
-
-	if( empty( $api_key ) ) {
-		//New Member Directory API key option
-		$api_key = get_option( 'pmpro_pmpromd_maps_api_key' );
-	}
-
-	if( empty( $api_key ) ) {
-		//No API key found, exit
-		exit('No API key found');
+	// Get the Google Maps API key.
+	$api_key = get_option( 'pmpro_pmpromd_maps_api_key' );
+	
+	//No API key found, exit
+	if ( empty( $api_key ) ) {
+		exit( 'No API key found' );
 	}   
 
 	$sql = "
@@ -66,11 +61,11 @@ function mypmpromd_batch_process_addresses(){
 
 	$results = $wpdb->get_results( $sql );
 
-	if( !$results ) {
-		exit('No members found to process');
+	if ( ! $results ) {
+		exit( 'No members found to process' );
 	}
 
-	foreach( $results as $result ){
+	foreach ( $results as $result ) {
 
 		$member_address = array(
 			'street' 	=> $result->billing_street,
@@ -80,15 +75,14 @@ function mypmpromd_batch_process_addresses(){
 			'zip' 		=> $result->billing_zip
 		);
 
-		if( function_exists( 'pmpromd_geocode_map_address' ) ) {
-			//New version of Member Directory active 2.1+, use its geocode function
+		//New version of Member Directory active 2.1+, use its geocode function
+		if ( function_exists( 'pmpromd_geocode_map_address' ) ) {
 			$coordinates = pmpromd_geocode_map_address( $member_address );
-			
-			//Geocode was successful, add to user meta                
-			if( is_array( $coordinates ) ){
+
+			//Geocode was successful, add to user meta
+			if ( is_array( $coordinates ) ) {
 				
-				$member_address['optin'] = true;
-				
+				$member_address['optin'] = true;	
 				$member_address['latitude'] = $coordinates['lat'];
 				$member_address['longitude'] = $coordinates['lng'];
 				
@@ -101,21 +95,16 @@ function mypmpromd_batch_process_addresses(){
 				update_user_meta( $result->user_id, 'pmpromd_zip', $member_address['zip'] );
 				update_user_meta( $result->user_id, 'pmpromd_country', $member_address['country'] );
 
-			}   
-		} else if( function_exists( 'pmpromm_geocode_address' ) ) {
-			//Use older geocode function from Membership Maps
+			}
+		} elseif ( function_exists( 'pmpromm_geocode_address' ) ) {
+			//Use older geocode function from Membership Maps, if there is address data, let's use it.
 			$coordinates = pmpromm_geocode_address( $member_address );
-			//Geocode was successful, add to user meta
-			if( is_array( $coordinates ) ){
+			if ( is_array( $coordinates ) ) {
 				update_user_meta( intval( $result->user_id ), 'pmpro_lat', $coordinates['lat'] );
 				update_user_meta( intval( $result->user_id ), 'pmpro_lng', $coordinates['lng'] );
 			}
 			
 		}
-		
-
 	}
-
-	exit('End');
-	
+	exit( 'End' );
 }
