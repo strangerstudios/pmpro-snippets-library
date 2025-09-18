@@ -3,7 +3,7 @@
  * BCC Admin Notifications Based on Membership Level
  * 
  * Change line 25 to the level you want to make this change too.
- * Change line 26 Change email address for your BSS
+ * Change line 26 Change email address for your BCC address
  *
  * title: BCC Admin Notifications Based on Membership Level
  * layout: snippet
@@ -17,13 +17,16 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
- function my_pmpro_email_headers( $headers, $email ) {
+function my_pmpro_email_headers( $headers, $email ) {
 	// Set default BCC address to the site admin email.
 	$admin_email = get_bloginfo( 'admin_email' );
 
 	// Override BCC address for specific membership level.
 	if ( intval( $email->data['membership_id'] ) === 5 ) {
 		$admin_email = 'someemail@email.com';
+
+		// Example: send to multiple emails (comma-separated list).
+		// $admin_email = 'first@email.com, second@email.com, third@email.com';
 	}
 
 	// Add BCC only if the email isn't already going to the admin.
