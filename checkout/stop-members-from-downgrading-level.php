@@ -1,23 +1,27 @@
 <?php
 /**
  * Define a level hierarchy and stop members from downgrading their membership level
- *
  * This recipe is not compatible with sites that allow multiple memberships per user
  *
  * title: Stop members downgrading their membership level
  * layout: snippet
  * collection: checkout
  * category: registration-check
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
 function my_pmpro_tiered_levels_prevent_downgrade( $okay ) {
 	// Bail early if something else isn't okay.
 	if ( ! $okay ) {
+		return $okay;
+	}
+
+	// User isn't logged in, let's assume things are okay.
+	if ( ! is_user_logged_in() ) {
 		return $okay;
 	}
 
@@ -37,7 +41,7 @@ function my_pmpro_tiered_levels_prevent_downgrade( $okay ) {
 	$checkout_level_id = $checkout_level->id;
 
 	// bail if renewal 
-	if( $checkout_level_id === $member_level_id ) {
+	if ( $checkout_level_id === $member_level_id ) {
 		return $okay;
 	}
 
@@ -52,7 +56,7 @@ function my_pmpro_tiered_levels_prevent_downgrade( $okay ) {
 	}
 
 	// are they checking out for a lower level?
-	if( $member_level_rank > $checkout_level_rank ) {
+	if ( $member_level_rank > $checkout_level_rank ) {
 		$okay = false;
 		// show an error message on checkout page
 		pmpro_setMessage( 'You are not allowed to checkout for this membership level.', 'pmpro_error' );
