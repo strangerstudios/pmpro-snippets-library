@@ -23,19 +23,18 @@ function add_my_cred_to_pmpro_checkout( $user_id, $morder ) {
 		return;
 	}
 
-	// Get the user's level and expiration date.
-	$level = pmpro_getMembershipLevelForUser( $user_id );
-	$level_expiration = $level->enddate;
+	// Get the level associated with this checkout.
+	$level = $morder->getMembershipLevel();
 
-	// Add these lines to give points to recurring members only.
-	if ( ! empty( $level->enddate ) ) {
-		return;
-	}
+	// Uncomment these lines to give points for recurring membership checkouts only.
+	// if ( ! pmpro_isLevelRecurring( $level ) ) {
+	//  return;
+	// }
 
     $points = 10; // default to 10 points. If level ID is blank 10 points would be awarded.
     $reference = 'Successful Membership Payment';
-    $entry = 'Paid Memberships Pro - level: ' . $level->ID;
-    switch( $level->ID ) {
+    $entry = 'Paid Memberships Pro - level: ' . $level->id;
+    switch( $level->id ) {
         case 1:
             $points = 20;
             break;
