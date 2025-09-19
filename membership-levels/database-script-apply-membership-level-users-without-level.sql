@@ -8,10 +8,10 @@
  * category: levels, sql
  * link: https://www.paidmembershipspro.com/database-script-apply-membership-level-users-without-level/
  *
- * You can add this recipe to your site by creating a custom plugin
- * or using the Code Snippets plugin available for free in the WordPress repository.
- * Read this companion article for step-by-step directions on either method.
- * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ * This is a database query.
+ * Back up your database before running this query so you can restore if needed.
+ * Change the membership_id (currently 1) to the ID of the level you want to assign, and adjust the start and end dates as needed. Use NULL for enddate if there is no expiration.
+ * Run the query in phpMyAdmin, Adminer, or the MySQL command line. You can run the SELECT portion by itself first to preview which users will be affected before inserting.
 **/
 INSERT INTO wp_pmpro_memberships_users (user_id, membership_id, code_id, initial_payment, billing_amount, cycle_number, cycle_period, billing_limit, trial_amount, trial_limit, status, startdate, enddate)
 SELECT
