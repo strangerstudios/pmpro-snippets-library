@@ -10,6 +10,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-membership-directory
  * category: directory, cf7
+ * link: https://www.paidmembershipspro.com/how-to-show-a-dynamic-contact-member-form-on-your-directory-profile-pages/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

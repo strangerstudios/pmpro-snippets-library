@@ -4,7 +4,7 @@
  *
  * title: Geocode custom billing fields upon saving profile
  * layout: snippet
- * collection: pmpro-membership-maps
+ * collection: pmpro-membership-directory
  * category: custom-fields, maps, profile
  * link: https://www.paidmembershipspro.com/adding-billing-field-support-for-membership-maps/
  *
@@ -14,9 +14,9 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function my_pmpromm_save_profile_billing_fields( $user_id ) {
+function my_pmpromd_geocode_profile_billing_fields( $user_id ) {
 
-	if ( ! function_exists( 'pmpromm_geocode_address' ) ) {
+	if ( ! function_exists( 'pmpromd_geocode_address' ) ) {
 		return;
 	}
 
@@ -33,7 +33,7 @@ function my_pmpromm_save_profile_billing_fields( $user_id ) {
 		'zip'    => $pmpro_bzipcode,
 	);
 
-	$coordinates = pmpromm_geocode_address( $member_address );
+	$coordinates = pmpromd_geocode_address( $member_address );
 
 	if ( is_array( $coordinates ) ) {
 		update_user_meta( $user_id, 'pmpro_lat', $coordinates['lat'] );
@@ -41,4 +41,4 @@ function my_pmpromm_save_profile_billing_fields( $user_id ) {
 	}
 
 }
-add_action( 'profile_update', 'my_pmpromm_save_profile_billing_fields' );
+add_action( 'profile_update', 'my_pmpromd_geocode_profile_billing_fields' );

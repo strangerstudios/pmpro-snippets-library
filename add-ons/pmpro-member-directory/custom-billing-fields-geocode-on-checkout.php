@@ -4,7 +4,7 @@
  *
  * title: Add custom field to checkout
  * layout: snippet
- * collection: pmpro-membership-maps
+ * collection: pmpro-member-directory
  * category: custom-fields, maps, checkout
  * link: https://www.paidmembershipspro.com/adding-billing-field-support-for-membership-maps/
  *
@@ -14,16 +14,15 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function my_pmpromm_checkout_override() {
-	// Remove this hook otherwise we'll geocode the billing address instead
-	remove_action( 'pmpro_after_checkout', 'pmpromm_after_checkout', 10, 2 );
+function my_pmpromd_checkout_override() {
+	remove_action( 'pmpro_after_checkout', 'pmpromd_map_process_map_address_after_checkout', 10, 2 );
 }
-add_action( 'init', 'my_pmpromm_checkout_override' );
+add_action( 'init', 'my_pmpromd_checkout_override' );
 
-function my_pmpromm_custom_billing_fields_checkout( $user_id, $morder ) {
+function my_pmpromd_custom_billing_fields_checkout( $user_id, $morder ) {
 
-	// Requires PMPro Membrship Maps and PMPro Shipping Add On Active
-	if ( ! function_exists( 'pmpromm_geocode_address' ) ) {
+	// Make sure PMPro Member Directory is active.
+	if ( ! function_exists( 'pmpromd_geocode_address' ) ) {
 		return;
 	}
 
@@ -42,7 +41,7 @@ function my_pmpromm_custom_billing_fields_checkout( $user_id, $morder ) {
 			'zip'    => $szipcode,
 		);
 
-		$coordinates = pmpromm_geocode_address( $member_address );
+		$coordinates = pmpromd_geocode_address( $member_address );
 
 		if ( is_array( $coordinates ) ) {
 			if ( ! empty( $coordinates['lat'] ) && ! empty( $coordinates['lng'] ) ) {
@@ -53,4 +52,4 @@ function my_pmpromm_custom_billing_fields_checkout( $user_id, $morder ) {
 	}
 
 }
-add_action( 'pmpro_after_checkout', 'my_pmpromm_custom_billing_fields_checkout', 10, 2 );
+add_action( 'pmpro_after_checkout', 'my_pmpromd_custom_billing_fields_checkout', 10, 2 );

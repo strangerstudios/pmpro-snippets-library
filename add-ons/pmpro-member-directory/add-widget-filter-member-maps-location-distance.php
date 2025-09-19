@@ -7,7 +7,7 @@
  * layout: snippet
  * collection: pmpro-membership-directory
  * category: directory, maps, widget
- * link: https://www.paidmembershipspro.com/filter-members-based-on-their-location/
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

@@ -5,8 +5,9 @@
  * 
  * title: Override Geocoding API key
  * layout: snippet-example
- * collection: add-ons, pmpro-membership-maps
+ * collection: pmpro-member-directory
  * category: geocoding, google-maps
+ * link: TBD
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -20,4 +21,4 @@ function my_pmpro_override_geocoding_api_key( $key ){
 	return $key;
 
 }
-add_filter( 'pmpromm_geocoding_api_key', 'my_pmpro_override_geocoding_api_key', 10, 1 );
+add_filter( 'pmpromd_maps_geocoding_api_key', 'my_pmpro_override_geocoding_api_key', 10, 1 );
