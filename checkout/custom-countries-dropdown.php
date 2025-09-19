@@ -8,7 +8,7 @@
  * category: registration-check
  * link: TBD
  *
- * This code snippet modifies the list of countries shown at checkout,
+ * This code snippet replaces the list of countries shown at checkout,
  * allowing you to limit signups to specific countries.
  *
  * The filtered country list also applies to other areas where
