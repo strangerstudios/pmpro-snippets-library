@@ -13,7 +13,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function hide_old_posts_from_members( $hasaccess, $thepost, $theuser, $post_membership_levels ) {
+function my_pmpro_hide_old_posts_from_members( $hasaccess, $thepost, $theuser, $post_membership_levels ) {
 	global $wpdb;
 	// If PMPro says false already, return false.
 	if ( ! $hasaccess ) {
@@ -38,13 +38,13 @@ function hide_old_posts_from_members( $hasaccess, $thepost, $theuser, $post_memb
 		return true;
 	} else {
 		// In this case we want to also tweak the message shown.
-		add_filter( 'pmpro_no_access_message_body', 'swap_old_posts_member_text' );
+		add_filter( 'pmpro_no_access_message_body', 'my_pmpro_swap_old_posts_member_text' );
 		return false;
 	}
 }
-add_filter( 'pmpro_has_membership_access_filter', 'hide_old_posts_from_members', 10, 4 );
+add_filter( 'pmpro_has_membership_access_filter', 'my_pmpro_hide_old_posts_from_members', 10, 4 );
 
-function swap_old_posts_member_text( $s ) {
+function my_pmpro_swap_old_posts_member_text( $s ) {
 	$s = 'This content was published before your membership started.';
 	return $s;
 }
