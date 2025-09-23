@@ -20,7 +20,7 @@
  * Read this companion article for step-by-step directions on either method:
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function pmproc_custom_countries( $pmpro_countries ) {
+function my_pmpro_custom_countries_list( $pmpro_countries ) {
     // Create a list of countries you would like to show.
     // Refer to the full list of country codes here:
     // https://github.com/strangerstudios/paid-memberships-pro/blob/dev/includes/countries.php
@@ -34,4 +34,4 @@ function pmproc_custom_countries( $pmpro_countries ) {
     asort( $pmpro_countries );
     return $pmpro_countries;
 }
-add_filter( 'pmpro_countries', 'pmproc_custom_countries', 11 );
+add_filter( 'pmpro_countries', 'my_pmpro_custom_countries_list', 11 );
