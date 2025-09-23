@@ -1,11 +1,11 @@
 <?php
 /**
- * Customize the list of available countries at checkout
+ * Customize the list of available countries.
  *
  * title: Customize the list of available countries at checkout
  * layout: snippet
- * collection: checkout
- * category: registration-check
+ * collection: misc
+ * category: countries
  * link: TBD
  *
  * This code snippet replaces the list of countries shown at checkout,
