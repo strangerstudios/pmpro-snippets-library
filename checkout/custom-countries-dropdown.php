@@ -20,8 +20,6 @@
  * Read this companion article for step-by-step directions on either method:
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
-// Copy everything below into your custom plugin or Code Snippets plugin.
 function pmproc_custom_countries( $pmpro_countries ) {
     // Create a list of countries you would like to show.
     // Refer to the full list of country codes here:
