@@ -4,8 +4,8 @@
  *
  * title: Offer a Membership Level for a Limited Time
  * layout: snippet
- * collection: membership-levels
- * category: checkout, registration-check
+ * collection: checkout
+ * category: checkout, membership-levels, registration-check
  * link: https://www.paidmembershipspro.com/offer-a-membership-level-for-a-limited-time/
  *
  * You can add this recipe to your site by creating a custom plugin
@@ -16,7 +16,7 @@
 
 global $pmproml_end_date, $pmproml_limited_level_id;
 $pmproml_limited_level_id = 1; // change to the ID of the limited-time membership level.
-$pmproml_end_date         = '2024/12/31'; // change to the date registration ends, in YYYY/MM/DD format.
+$pmproml_end_date         = '2026/12/31'; // change to the date registration ends, in YYYY/MM/DD format.
 
 /**
  * Prevent registration and stop new signups if checking out after the registration end date.
