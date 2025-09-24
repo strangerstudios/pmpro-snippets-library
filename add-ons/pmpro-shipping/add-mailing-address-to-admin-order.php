@@ -18,22 +18,36 @@
  */
 
 function my_pmpro_add_mailing_address_to_admin_order_view( $order ) {
+	$user_id  = $order->user_id;
+	$firstname = get_user_meta( $user_id, 'pmpro_sfirstname', true );
+	$lastname  = get_user_meta( $user_id, 'pmpro_slastname', true );
+	$address1  = get_user_meta( $user_id, 'pmpro_saddress1', true );
+	$address2  = get_user_meta( $user_id, 'pmpro_saddress2', true );
+	$city      = get_user_meta( $user_id, 'pmpro_scity', true );
+	$state     = get_user_meta( $user_id, 'pmpro_sstate', true );
+	$zip       = get_user_meta( $user_id, 'pmpro_szipcode', true );
+	$country   = get_user_meta( $user_id, 'pmpro_scountry', true );
 
-		$user_id = $order->user_id;
-
-		$firstname = get_user_meta($user_id, "pmpro_sfirstname", true);
-		$lastname = get_user_meta($user_id, "pmpro_slastname", true);	
-		$address1 = get_user_meta($user_id, "pmpro_saddress1", true);
-		$address2 = get_user_meta($user_id, "pmpro_saddress2", true);
-		$city = get_user_meta($user_id, "pmpro_scity", true);
-		$state = get_user_meta($user_id, "pmpro_sstate", true );
-		$zip = get_user_meta($user_id, "pmpro_szipcode", true );		
-		$country = get_user_meta($user_id, "pmpro_scountry", true );
-?>
-		<tr>
-		<th><strong>Mailing Address:</strong></th>
-		<td><?php echo $firstname . ' ' . $lastname . ', ' . $address1 . ', ' . $address2 . ', ' . $city . ', ' . $state . ', ' . $zip . ', ' . $country; ?></td>
-		</tr>
-<?php
+	// Build a single address string with commas.
+	$mailing_address = implode(
+		', ',
+		array_filter(
+			array(
+				$firstname . ' ' . $lastname,
+				$address1,
+				$address2,
+				$city,
+				$state,
+				$zip,
+				$country,
+			)
+		)
+	);
+	?>
+	<tr>
+		<th><strong><?php esc_html_e( 'Mailing Address:', 'paid-memberships-pro' ); ?></strong></th>
+		<td><?php echo esc_html( $mailing_address ); ?></td>
+	</tr>
+	<?php
 }
 add_action( 'pmpro_after_order_settings', 'my_pmpro_add_mailing_address_to_admin_order_view' );
