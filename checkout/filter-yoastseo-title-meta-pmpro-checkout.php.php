@@ -15,6 +15,7 @@
  */
 
 // Update line 21 below to your preferred dynamic page title.
+// you can remove one of the functions if you don't want to use it.
 function my_pmpro_filter_wpseo_title($title) {
 	global $pmpro_pages, $pmpro_level;
 	if ( is_page( $pmpro_pages['checkout'] ) ) {
