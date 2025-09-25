@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: countries
- * link: TBD
+ * link: https://www.paidmembershipspro.com/customize-country-dropdown/
  *
  * This code snippet replaces the list of countries shown at checkout,
  * allowing you to limit signups to specific countries.
