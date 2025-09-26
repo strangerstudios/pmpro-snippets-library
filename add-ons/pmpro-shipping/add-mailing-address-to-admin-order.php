@@ -27,22 +27,10 @@ function my_pmpro_add_mailing_address_to_admin_order_view( $order ) {
 	$state     = get_user_meta( $user_id, 'pmpro_sstate', true );
 	$zip       = get_user_meta( $user_id, 'pmpro_szipcode', true );
 	$country   = get_user_meta( $user_id, 'pmpro_scountry', true );
+	$phone     = get_user_meta( $user_id, 'pmpro_sphone', true );
 
-	// Build a single address string with commas.
-	$mailing_address = implode(
-		', ',
-		array_filter(
-			array(
-				$firstname . ' ' . $lastname,
-				$address1,
-				$address2,
-				$city,
-				$state,
-				$zip,
-				$country,
-			)
-		)
-	);
+	// Format the mailing address for output.
+	$mailing_address = $firstname . ' ' . $lastname . ', ' . $address1 . ', ' . $address2 . ', ' . $city . ', ' . $state . ', ' . $zip . ', ' . $country . ', ' . $phone;
 	?>
 	<tr>
 		<th><strong><?php esc_html_e( 'Mailing Address:', 'paid-memberships-pro' ); ?></strong></th>
