@@ -13,27 +13,20 @@
  * Read this companion article for step-by-step directions on either method:
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
-// Update line 21 below to your preferred dynamic page title.
-// you can remove one of the functions if you don't want to use it.
 function my_pmpro_filter_wpseo_title($title) {
 	global $pmpro_pages, $pmpro_level;
 	if ( is_page( $pmpro_pages['checkout'] ) ) {
-		$title = $pmpro_level->name . ': Complete Your Membership Checkout';
+		$title = $pmpro_level->name . ': Complete Your Membership Checkout'; // Update this value to tweak the title.
 	}
 	return $title;
 }
 add_filter( 'wpseo_title', 'my_pmpro_filter_wpseo_title' );
 
-// Update line 19 below to your preferred dynamic page description.
-function my_pmpro_filter_wpseo_metadesc($description) {
+function my_pmpro_filter_wpseo_metadesc( $description ) {
 	global $pmpro_pages, $pmpro_level;
 	if ( is_page( $pmpro_pages['checkout'] ) ) {
-		$description = $pmpro_level->description;
+		$description = $pmpro_level->description; // Update this value to tweak the description.
 	}
 	return $description;
 }
 add_filter( 'wpseo_metadesc', 'my_pmpro_filter_wpseo_metadesc' );
-
-
-
