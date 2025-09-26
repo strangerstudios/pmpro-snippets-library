@@ -15,9 +15,7 @@
  * Read this companion article for step-by-step directions on either method:
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-// change line 26 to the timeframe you want to allow access.
-
-function open_new_posts_to_non_members( $hasaccess, $thepost, $theuser, $post_membership_levels ) {
+function my_pmpro_open_new_posts_to_non_members( $hasaccess, $thepost, $theuser, $post_membership_levels ) {
 	// If PMPro already allows access, respect that and return.
 	if ( $hasaccess ) {
 		return $hasaccess;
@@ -34,4 +32,4 @@ function open_new_posts_to_non_members( $hasaccess, $thepost, $theuser, $post_me
 
 	return $hasaccess;
 }
-add_filter( 'pmpro_has_membership_access_filter', 'open_new_posts_to_non_members', 10, 4 );
+add_filter( 'pmpro_has_membership_access_filter', 'my_pmpro_open_new_posts_to_non_members', 10, 4 );
