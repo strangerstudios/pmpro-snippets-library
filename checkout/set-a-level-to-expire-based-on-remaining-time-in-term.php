@@ -28,7 +28,6 @@ function my_pmpro_add_term_user_field() {
 		'terms',   // Input name and user meta key.
 		'select',  // Type of field.
 		array(
-			'label'         => 'Term',        // Field label.
 			'levels'        => array( 1, 2 ), // Only show on these membership levels.
 			'showmainlabel' => false,         // Hide field label. We'll use the field group label.
 			'options'       => array(         // <option> elements for select field.
