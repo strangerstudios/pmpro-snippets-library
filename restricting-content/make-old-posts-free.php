@@ -1,5 +1,4 @@
 <?php
-<?php
 /**
  * Make any post older than 18 months available for free to all visitors.
  * This is useful for sites that want to release archived content publicly
@@ -16,8 +15,7 @@
  * Read this companion article for step-by-step directions on either method:
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
- 
-//change line 33 to your timefram.
+ function my_pmpro_make_old_posts_free($hasaccess, $post, $user, $post_membership_levels) {
 	// If they already have access, respect that and return.
 	if ( $hasaccess ) {
 		return $hasaccess;
@@ -36,4 +34,4 @@
 
 	return $hasaccess;
 }
-add_filter( 'pmpro_has_membership_access_filter', 'make_old_posts_free', 10, 4 );
+add_filter( 'pmpro_has_membership_access_filter', 'my_pmpro_make_old_posts_free', 10, 4 );
