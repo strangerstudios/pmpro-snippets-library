@@ -4,7 +4,7 @@
  *
  * title: Filter the Membership Checkout Title and Meta Description using Yoast SEO
  * layout: snippet
- * collection: checkout
+ * collection: frontend-pages
  * category: seo, title, meta
  * link: https://www.paidmembershipspro.com/filter-membership-checkout-page-title-meta-description-using-yoast-seo/
  *
