@@ -17,26 +17,27 @@
  */
 // Filter the saved or updated User Avatar meta field value and add the image to the Media Library.
 function my_updated_user_avatar_user_meta( $meta_id, $user_id, $meta_key, $meta_value ) {
-    if ( 'user_avatar' === $meta_key ) {
-        $filename = $meta_value['fullpath'];
-        $filetype = wp_check_filetype( basename( $filename ), null );
-        $attachment = array(
-            'post_mime_type' => $filetype['type'],
-            'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $filename ) ),
-            'post_status'    => 'inherit',
-        );
-        $attach_id = wp_insert_attachment( $attachment, $filename );
-        require_once ABSPATH . 'wp-admin/includes/image.php';
-        $attach_data = wp_generate_attachment_metadata( $attach_id, $filename );
-        wp_update_attachment_metadata( $attach_id, $attach_data );
-        update_user_meta( $user_id, 'wp_user_avatar', $attach_id );
-    }
+	if ( 'user_avatar' === $meta_key ) {
+		$filename = $meta_value['fullpath'];
+		$filetype = wp_check_filetype( basename( $filename ), null );
+		$attachment = array(
+			'post_mime_type' => $filetype['type'],
+			'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $filename ) ),
+			'post_status'    => 'inherit',
+		);
+		$attach_id = wp_insert_attachment( $attachment, $filename );
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		$attach_data = wp_generate_attachment_metadata( $attach_id, $filename );
+		wp_update_attachment_metadata( $attach_id, $attach_data );
+		update_user_meta( $user_id, 'wp_user_avatar', $attach_id );
+	}
 }
 add_action( 'added_user_meta', 'my_updated_user_avatar_user_meta', 10, 4 );
 add_action( 'updated_user_meta', 'my_updated_user_avatar_user_meta', 10, 4 );
 
 // Short circuit get_avatar function to return our local avatar early if available.
 function my_user_avatar_filter( $avatar, $id_or_email, $args ) {
+
 	// Check the type of $id_or_email and get the user data accordingly.
 	if ( is_numeric( $id_or_email ) ) {
 		$my_user = get_user_by( 'id', $id_or_email );
@@ -48,51 +49,52 @@ function my_user_avatar_filter( $avatar, $id_or_email, $args ) {
 		$my_user = get_user_by( 'id', $id_or_email->user_id );
 	} elseif ( $id_or_email instanceof WP_Post ) {
 		$my_user = get_user_by( 'id', $id_or_email->post_author );
-	} else {
+	}
+
+	// Still no user found, let's bail.
+	if ( empty( $my_user ) ) {
 		return $avatar;
 	}
 
-	if ( ! empty( $my_user ) ) {
-		$avatar_id = get_user_meta( $my_user->ID, 'wp_user_avatar', true );
-		if ( ! empty( $avatar_id ) ) {
-			$avatar = wp_get_attachment_image_src( $avatar_id, array( $args['width'], $args['height'] ) );
-			$avatar = "<img alt='{$args['alt']}' src='{$avatar[0]}' class='avatar avatar-{$args['size']} photo' height='{$args['height']}' width='{$args['width']}' />";
-		}
+	$avatar_id = get_user_meta( $my_user->ID, 'wp_user_avatar', true );
+	if ( ! empty( $avatar_id ) ) {
+		$avatar = wp_get_attachment_image_src( $avatar_id, array( $args['width'], $args['height'] ) );
+		$avatar = "<img alt='{$args['alt']}' src='{$avatar[0]}' class='avatar avatar-{$args['size']} photo' height='{$args['height']}' width='{$args['width']}' />";
 	}
+	
 	return $avatar;
 }
 add_filter( 'pre_get_avatar', 'my_user_avatar_filter', 20, 3 );
 
 // Add the User Avatar field at checkout and on the profile edit forms.
 function my_pmpro_add_user_fields() {
-    if ( ! function_exists( 'pmpro_add_user_field' ) ) {
-        return false;
-    }
+	if ( ! function_exists( 'pmpro_add_user_field' ) ) {
+		return false;
+	}
 
-    // Define the field for avatar upload
-    $fields = array();
-    $fields[] = new PMPro_Field(
-        'user_avatar',              // input name and user meta key
-        'file',                     // type of field
-        array(
-            'label'         => 'My Photo',               // custom field label
-            'hint'          => 'Recommended size is 100px X 100px',
-            'profile'       => true,                   // show in user profile
-            'preview'       => true,                   // show a preview-sized version of the image
-            'allow_delete'  => true,                   // Allow user to see Delete option on Avatar
-        )
-    );
+	// Define the field for avatar upload
+	$fields = array();
+	$fields[] = new PMPro_Field(
+		'user_avatar',              // input name and user meta key
+		'file',                     // type of field
+		array(
+			'label'         => 'My Photo',               // custom field label
+			'hint'          => 'Recommended size is 100px X 100px',
+			'profile'       => true,                   // show in user profile
+			'preview'       => true,                   // show a preview-sized version of the image
+			'allow_delete'  => true,                   // Allow user to see Delete option on Avatar
+		)
+	);
 
-    // Add a field group to put our fields into
-    pmpro_add_field_group( 'profile-picture', 'Profile Picture' );
+	// Add a field group to put our fields into
+	pmpro_add_field_group( 'profile-picture', 'Profile Picture' );
 
-    // Add all of our fields into that group
-    foreach ( $fields as $field ) {
-        pmpro_add_user_field(
-            'profile-picture',      // Which group to add to
-            $field                  // PMPro_Field object
-        );
-    }
+	// Add all of our fields into that group
+	foreach ( $fields as $field ) {
+		pmpro_add_user_field(
+			'profile-picture',      // Which group to add to
+			$field                  // PMPro_Field object
+		);
+	}
 }
-
 add_action( 'init', 'my_pmpro_add_user_fields' );
