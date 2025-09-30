@@ -19,7 +19,7 @@ function hide_toolbar_for_custom_role( $hide ) {
 	// Update this line with your custom roles.
 	$roles_to_hide = array( 'pmpro_role_1', 'pmpro_role_2' );
 
-	if ( ! empty( array_intersect( $roles_to_hide, (array) $current_user->roles ) ) ) {
+	if ( ! empty( array_intersect( $roles_to_hide, $current_user->roles ) ) ) {
 		$hide = true;
 	}
 
