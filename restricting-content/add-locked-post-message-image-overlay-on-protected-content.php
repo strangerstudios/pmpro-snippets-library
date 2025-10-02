@@ -1,6 +1,7 @@
 <?php
 /**
- * Add a Locked Post Message Image Overlay on Protected Content
+ * Add a locked post message image overlay on protected content
+ * This snippet should be used in conjunction with the custom CSS on the doc link on line 10
  *
  * title: Add Locked Post Message Image Overlay On Protected Content
  * layout: snippet
