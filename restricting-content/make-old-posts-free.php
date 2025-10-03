@@ -1,10 +1,11 @@
 <?php
 /**
- * Make any post older than 18 months available for free to all visitors.
+ * Make older posts available for free to all visitors.
  * This is useful for sites that want to release archived content publicly
- * after a certain amount of time has passed.
+ * after a certain amount of time has passed. Adjust the timeframe in the code
+ * as needed (default: 18 months). (change line 32)
  *
- * title: Make Old Posts Free After 18 Months
+ * title: title: Make Old Posts Free After a Set Time
  * layout: snippet
  * collection: restricting-content
  * category: content, restriction
