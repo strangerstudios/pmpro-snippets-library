@@ -1,8 +1,8 @@
 <?php
 /**
- * Allow non-members to view restricted posts if they are less than 30 days old.
+ * Allow non-members to view restricted posts based on post age.
  * This is helpful if you want to make new content freely available for a limited time,
- * then require a membership to access after that timeframe.
+ * then require a membership to access after that timeframe. Update line 25 to your timeframe.
  *
  * title: Allow Non-Members to View Restricted Posts Based on Timeframe
  * layout: snippet
