@@ -1,0 +1,31 @@
+<?php
+/**
+ * This recipe will override the default start location with a specific location.
+ * By default, we'll use the first marker on the map's location as the starting point
+ *
+ * title: Override the Default Start Location with a Specific Location
+ * layout: snippet
+ * collection: pmpro-member-directory
+ * category: maps
+ *
+ * You can add this recipe to your site by creating a custom plugin
+ * or using the Code Snippets plugin available for free in the WordPress repository.
+ * Read this companion article for step-by-step directions on either method.
+ * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ */
+// Override the default map start coordinates for PMPro Map Display.
+function mypmromd_override_default_map_start( $coordinates, $map_id ) {
+	$coordinates = array(
+		'lat' => -34.397,
+		'lng' => 150.644,
+	);
+
+	return $coordinates;
+}
+add_filter( 'pmpromd_default_map_start', 'mypmromd_override_default_map_start', 10, 2 );
+
+// Override the default first marker behavior for PMPro Map Display.
+function mypmpromd_override_first_marker( $okay, $map_id ) {
+	return true;
+}
+add_filter( 'pmpromd_override_first_marker', 'mypmpromd_override_first_marker', 10, 2 );
