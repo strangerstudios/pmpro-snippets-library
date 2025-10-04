@@ -5,6 +5,7 @@
  * title: Add a conditional text field for referral name if a built-in select field named 'how_hear' is set to 'other'.
  * collection: user-fields
  * category: custom-fields
+ * link: https://www.paidmembershipspro.com/conditional-user-field-member-profile-checkout/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
