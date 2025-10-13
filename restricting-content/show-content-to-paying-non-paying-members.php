@@ -50,7 +50,7 @@ function my_hasPaid( $user_id = null, $level_id = null ) {
 }
 
 /*
-	Shortcode using the my_hasPaid function.
+	Shortcode attributes using the my_hasPaid function.
 	[haspaid]This will show up if the user has paid for any level.[/haspaid]
 	[haspaid paid='0']This will show up if the user has NOT paid for any level.[/haspaid]
 	[haspaid paid='1' level='1']This will show up if the user has paid for level 1 specifically.[/haspaid]
