@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: pmpro-member-directory
  * category: maps
+ * link: https://www.paidmembershipspro.com/overriding-the-pmpro-membership-map-default-starting-point/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
