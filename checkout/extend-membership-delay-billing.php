@@ -10,7 +10,7 @@
  * layout: snippet
  * collection: checkout
  * category: renewals
- * link: TBD
+ * link: https://www.paidmembershipspro.com/keep-existing-expiration-recurring-billing/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
