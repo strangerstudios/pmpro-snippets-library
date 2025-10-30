@@ -15,7 +15,7 @@
  */
 function mypmpromd_single_marker_content( $content, $member ) {
 
-	$graduation_year = get_user_meta( $member['ID'], 'graduation_year', true );
+	$graduation_year = get_user_meta( $member->ID, 'graduation_year', true );
 
 	$content .= '<p><strong>Graduation Year</strong> ' . $graduation_year . '</p>';
 
