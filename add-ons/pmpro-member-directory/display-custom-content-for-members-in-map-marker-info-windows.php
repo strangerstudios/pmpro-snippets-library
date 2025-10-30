@@ -17,7 +17,7 @@ function mypmpromd_single_marker_content_protected( $content, $member ) {
 
 	if ( pmpro_hasMembershipLevel( 1, 2 ) ) { // Change levels to your preference.
 
-		$graduation_year = get_user_meta( $member['ID'], 'graduation_year', true );
+		$graduation_year = get_user_meta( $member->ID, 'graduation_year', true );
 
 		$content .= '<p><strong>Graduation Year</strong> ' . $graduation_year . '</p>';
 
