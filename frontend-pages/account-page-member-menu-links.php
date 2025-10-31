@@ -14,7 +14,7 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function my_pmpro_member_links_top( ) {
+function my_pmpro_member_links_top() {
 	echo '<li><h3>Account Menu</h3>';
 	$pmpro_login_widget_menu_defaults = array(
 		'theme_location'  => 'pmpro-login-widget',
