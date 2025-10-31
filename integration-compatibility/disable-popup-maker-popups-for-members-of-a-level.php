@@ -14,9 +14,16 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 function my_pmpro_pum_popup_is_loadable( $is_loadable, $popup_id ) {
-	if ( $is_loadable && function_exists( 'pmpro_hasMembershipLevel' ) && pmpro_hasMembershipLevel( 1 ) ) {
+	// Bail if the popup is already disabled.
+	if ( ! $is_loadable ) {
+		return $is_loadable;
+	}
+
+	// Disable popups if current user is a member of level 1.
+	if ( function_exists( 'pmpro_hasMembershipLevel' ) && pmpro_hasMembershipLevel( 1 ) ) {
 		$is_loadable = false;
 	}
+
 	return $is_loadable;
 }
 add_filter( 'pum_popup_is_loadable', 'my_pmpro_pum_popup_is_loadable', 1000, 2 );
