@@ -2,6 +2,9 @@
 /**
  * Disable all Popup Maker popups if user has membership level 1.
  *
+ * Popup Maker is a plugin available in the WordPress.org Repo here: 
+ * https://wordpress.org/plugins/popup-maker/
+ *
  * title: Disable all Popup Maker popups if user has membership level 1.
  * layout: snippet
  * collection: integration-compatibility
