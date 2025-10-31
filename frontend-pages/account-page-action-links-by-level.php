@@ -14,8 +14,7 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function my_member_action_links( $pmpro_member_action_links, $level_id ) {
-	global $current_user;
+function my_pmpro_member_action_links( $pmpro_member_action_links, $level_id ) {
 	$new_pmpro_member_action_links = array();
 
 	// Always unset the 'change' and 'update-billing' links.
@@ -41,4 +40,4 @@ function my_member_action_links( $pmpro_member_action_links, $level_id ) {
 
 	return $pmpro_member_action_links;
 }
-add_filter( 'pmpro_member_action_links', 'my_member_action_links', 10, 2 );
+add_filter( 'pmpro_member_action_links', 'my_pmpro_member_action_links', 10, 2 );
