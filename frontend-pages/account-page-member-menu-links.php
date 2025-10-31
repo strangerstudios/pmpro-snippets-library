@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: frontend-pages
  * category: account-page
- * link: TBD
+ * link: https://www.paidmembershipspro.com/making-powerful-member-dashboard-membership-account-page/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
