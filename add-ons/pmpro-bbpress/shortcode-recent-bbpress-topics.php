@@ -4,9 +4,9 @@
  * Create a shortcode to display the most recent bbPress topics with linked titles, author name, and date.
  *
  * title: Shortcode to Display Recent bbPress Topics
- * layout: snippet-example
- * collection: shortcodes
- * category: bbpress
+ * layout: snippet
+ * collection: bbpress
+ * category: shortcode, bbpress
  * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin

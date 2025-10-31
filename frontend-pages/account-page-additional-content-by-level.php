@@ -3,7 +3,7 @@
  * Display additional custom field content on the Membership Account page cards for specific membership levels.
  *
  * title: Show Additional Content on Membership Account Cards by Level
- * layout: snippet-example
+ * layout: snippet
  * collection: frontend-pages
  * category: account-page
  * link: TBD

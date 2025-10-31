@@ -3,7 +3,7 @@
  * Add or remove action links from the Membership Account page based on the member’s level.
  *
  * title: Customize Account Page Action Links by Level
- * layout: snippet-example
+ * layout: snippet
  * collection: frontend-pages
  * category: account-page
  * link: TBD

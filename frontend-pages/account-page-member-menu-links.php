@@ -3,7 +3,7 @@
  * Add the Member Menu navigation to the Member Links section on the Account Page.
  *
  * title: Add Member Menu to Account Page Member Links
- * layout: snippet-example
+ * layout: snippet
  * collection: frontend-pages
  * category: account-page
  * link: TBD
