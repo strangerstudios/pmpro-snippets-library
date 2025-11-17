@@ -23,6 +23,11 @@ function my_pmpro_checkout_level_profile_start_date_from_expiration( $level ) {
 		return $level;
 	}
 
+	// Only proceed for logged-in users.
+	if ( ! is_user_logged_in() ) {
+		return $level;
+	}
+
 	$user_id       = get_current_user_id();
 	$current_level = pmpro_getMembershipLevelForUser( $user_id, $level->id );
 
@@ -38,27 +43,39 @@ function my_pmpro_checkout_level_profile_start_date_from_expiration( $level ) {
 			$level->initial_payment = 0;
 		}
 	}
+
 	return $level;
 }
 add_filter( 'pmpro_checkout_level', 'my_pmpro_checkout_level_profile_start_date_from_expiration', 15 );
 
-// Adjust the level cost text, to make it clear when the subscription will start.
+
+// Adjust the level cost text to show the subscription start date.
 function my_pmpro_checkout_cost_text_with_deferred_start( $cost_text, $level, $tags, $short ) {
-	// Only affect the front-end Checkout page.
+	// Only affect Checkout.
 	if ( function_exists( 'pmpro_is_checkout' ) && ! pmpro_is_checkout() ) {
 		return $cost_text;
 	}
 
-	// Must be a recurring level.
+	// Only for logged-in users.
+	if ( ! is_user_logged_in() ) {
+		return $cost_text;
+	}
+
+	// Must be recurring.
 	if ( ! pmpro_isLevelRecurring( $level ) ) {
 		return $cost_text;
 	}
-	
-	// Get the level cycle period and cycle number and convert it to a Y-m-d to compare with the profile_start_date
-	$level_expected_start_date = date( 'Y-m-d', strtotime( '+' . $level->cycle_number . ' ' . $level->cycle_period, current_time( 'timestamp', true ) ) );
-	if ( $level->profile_start_date <= $level_expected_start_date ) {
-		$cost_text .= ' Your subscription will start on ' . date( 'F j, Y', strtotime( $level->profile_start_date ) );
+
+	// If no profile_start_date was set, nothing to modify.
+	if ( empty( $level->profile_start_date ) ) {
+		return $cost_text;
 	}
+
+	// Always show the actual deferred start date.
+	$cost_text .= ' Your subscription will start on ' . date(
+		'F j, Y',
+		strtotime( $level->profile_start_date )
+	);
 
 	return $cost_text;
 }
