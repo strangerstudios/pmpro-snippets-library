@@ -13,12 +13,12 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmpro_donations_change_text( $change_text, $text, $domain ) {
-    switch ( $change_text ) {
+function my_pmpro_donations_change_text( $translated_text, $text, $domain ) {
+    switch ( $translated_text ) {
         case 'Make a Gift' :
-            $change_text = __( 'Your Replacement Text Here', 'pmpro-donations' ); //Replace the text in the brackets to adjust the "Make a Gift" wording shown.
+            $translated_text = __( 'Your Replacement Text Here', 'pmpro-donations' ); //Replace the text in the brackets to adjust the "Make a Gift" wording shown.
             break;
     }
-    return $change_text;
+    return $translated_text;
 }
 add_filter( 'gettext', 'my_pmpro_donations_change_text', 20, 3 );
