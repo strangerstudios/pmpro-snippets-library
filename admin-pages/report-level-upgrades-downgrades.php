@@ -44,17 +44,17 @@ function pmpro_report_changes_widget() {
 	<table class="widefat striped">
 		<thead>
 			<tr>
-				<th><?php _e('Name', 'pmpro-reports-changes'); ?></th>
-				<th><?php _e('Initial&nbsp;Level', 'pmpro-reports-changes'); ?></th>
-				<th><?php _e('Current&nbsp;Level', 'pmpro-reports-changes'); ?></th>
-				<th><?php _e('Count', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Name', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Initial Level', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Current Level', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Count', 'pmpro-reports-changes'); ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
 			global $wpdb, $pmpro_reports_level_changes;
 
-			foreach ($pmpro_reports_level_changes as $key => $pmpro_report_level_changes) {
+			foreach ( $pmpro_reports_level_changes as $key => $pmpro_report_level_changes ) {
 				$current_level = pmpro_getLevel($pmpro_report_level_changes[1]);
 				$initial_level = pmpro_getLevel($pmpro_report_level_changes[0]);
 
@@ -77,10 +77,10 @@ function pmpro_report_changes_widget() {
 				$changes_count = $wpdb->get_var($changes_count_query);
 				?>
 				<tr>
-					<th scope="row"><?php echo esc_html($key); ?></th>
-					<td><?php echo empty($initial_level) ? '-' : esc_html($initial_level->name); ?></td>
-					<td><?php echo esc_html($current_level->name); ?></td>
-					<td><strong><?php echo number_format_i18n($changes_count); ?></strong></td>
+					<th scope="row"><?php echo esc_html( $key ); ?></th>
+					<td><?php echo empty( $initial_level ) ? '-' : esc_html( $initial_level->name ); ?></td>
+					<td><?php echo esc_html( $current_level->name ); ?></td>
+					<td><strong><?php echo number_format_i18n( $changes_count ); ?></strong></td>
 				</tr>
 				<?php
 			}
@@ -99,22 +99,22 @@ function pmpro_report_changes_widget() {
  */
 function pmpro_report_changes_page() {
 	?>
-	<h1><?php _e('Membership Level Changes Report', 'pmpro-reports-changes'); ?></h1>
+	<h1><?php esc_html_e( 'Membership Level Changes Report', 'pmpro-reports-changes' ); ?></h1>
 
 	<table class="widefat striped">
 		<thead>
 			<tr>
-				<th><?php _e('Name', 'pmpro-reports-changes'); ?></th>
-				<th><?php _e('Initial&nbsp;Level', 'pmpro-reports-changes'); ?></th>
-				<th><?php _e('Current&nbsp;Level', 'pmpro-reports-changes'); ?></th>
-				<th><?php _e('Count', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Name', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Initial&nbsp;Level', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Current&nbsp;Level', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Count', 'pmpro-reports-changes'); ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
 			global $wpdb, $pmpro_reports_level_changes;
 
-			foreach ($pmpro_reports_level_changes as $key => $pmpro_report_level_changes) {
+			foreach ( $pmpro_reports_level_changes as $key => $pmpro_report_level_changes ) {
 				$current_level = pmpro_getLevel($pmpro_report_level_changes[1]);
 				$initial_level = pmpro_getLevel($pmpro_report_level_changes[0]);
 
@@ -134,13 +134,13 @@ function pmpro_report_changes_page() {
 					$current_level->id
 				);
 
-				$changes_count = $wpdb->get_var($changes_count_query);
+				$changes_count = $wpdb->get_var( $changes_count_query );
 				?>
 				<tr>
-					<th scope="row"><?php echo esc_html($key); ?></th>
-					<td><?php echo empty($initial_level) ? '-' : esc_html($initial_level->name); ?></td>
-					<td><?php echo esc_html($current_level->name); ?></td>
-					<td><strong><?php echo number_format_i18n($changes_count); ?></strong></td>
+					<th scope="row"><?php echo esc_html( $key ); ?></th>
+					<td><?php echo empty( $initial_level ) ? '-' : esc_html( $initial_level->name ); ?></td>
+					<td><?php echo esc_html( $current_level->name ); ?></td>
+					<td><strong><?php echo number_format_i18n( $changes_count ); ?></strong></td>
 				</tr>
 				<?php
 			}
