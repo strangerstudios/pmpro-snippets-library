@@ -17,7 +17,7 @@
  */
 function pmpro_make_profile_fields_required( &$errors, $update = null, &$user = null ) {
 	// Validate first name.
-	if ( empty( $user->first_name ) ) {
+	if ( empty( $_REQUEST['first_name'] ) ) {
 		$errors[] = 'Please enter a first name.';
 	}
 }
