@@ -15,14 +15,7 @@
  */
 
 // Override the default map start coordinates for a specific PMPro Map.
-function mypmpromd_override_first_marker( $override, $id ) {
-	if ( 'homepage-map' == $id ) {
-		$override = true;
-	}
-
-	return $override;
-}
-add_filter( 'pmpromd_override_first_marker', 'mypmpromd_override_first_marker', 10, 2 );
+add_filter( 'pmpromd_override_first_marker', '__return_true');
 
 // Override the default map start coordinates for a specific map.
 function mypmromd_override_default_map_start( $coordinates, $map_id ) {
