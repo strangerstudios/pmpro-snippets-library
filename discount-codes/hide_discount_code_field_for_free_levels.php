@@ -13,13 +13,13 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function hide_discount_code_field_for_free_levels($show)
-{
+function my_pmpro_hide_discount_code_field_for_free_levels( $show ) {
   global $pmpro_level;
   
-  if(function_exists('pmpro_isLevelFree') && pmpro_isLevelFree($pmpro_level))
+  if ( function_exists( 'pmpro_isLevelFree' ) && pmpro_isLevelFree( $pmpro_level ) ) {
     $show = false;
+  }
 
   return $show;
 }
-add_filter('pmpro_show_discount_code', 'hide_discount_code_field_for_free_levels');
+add_filter('pmpro_show_discount_code', 'my_pmpro_hide_discount_code_field_for_free_levels');
