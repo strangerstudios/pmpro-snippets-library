@@ -15,11 +15,7 @@
  */
 function my_redirect_after_logout_wp() {
 	// Redirect to site home page.
-	wp_safe_redirect( home_url() );
-
-	// Uncomment the line below and comment out line 18 above to redirect to a specified page 
-	// wp_safe_redirect( home_url( 'your-page-slug-here' ) ); // replace your-page-slug-here with the slug of your specific page
-
+	wp_safe_redirect( home_url() ); // Change to home_url( 'your-page-slug-here' ) to redirect to a specific page.
 	exit;
 }
 add_action( 'wp_logout', 'my_redirect_after_logout_wp' );
