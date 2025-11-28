@@ -13,15 +13,14 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function hide_discount_code_field_for_specific_levels($show)
-{
+function my_pmpro_hide_discount_code_field_for_specific_levels( $show ) {
   global $pmpro_level;
   
   // Change the array with your Level ID's  
-  if( in_array( $pmpro_level->id, array(1,2) ) )
-  {
+  if( in_array( $pmpro_level->id, array(1,2) ) ) {
 	  $show = false;
   }
+
   return $show;
 }
-add_filter('pmpro_show_discount_code', 'hide_discount_code_field_for_specific_levels');
+add_filter('pmpro_show_discount_code', 'my_pmpro_hide_discount_code_field_for_specific_levels');
