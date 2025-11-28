@@ -9,7 +9,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-strong-passwords
  * category: password
- * link: https://www.paidmembershipspro.com/add-ons/require-strong-passwords/
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
