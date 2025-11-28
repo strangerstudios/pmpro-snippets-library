@@ -13,10 +13,9 @@
  * Read this companion article for step-by-step directions on either method:
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
-function pmpro_early_renewal_discount_checkout_level($level) {
+function pmpro_early_renewal_discount_checkout_level( $level ) {
 	global $discount_code;
-	if (!empty($discount_code)) {
+	if ( ! empty( $discount_code ) ) {
 		return $level;
 	}
 
@@ -32,9 +31,9 @@ function pmpro_early_renewal_discount_checkout_level($level) {
 	);
 
 	// Only apply if the user already has the level.
-	if (pmpro_hasMembershipLevel($level->id) && isset($discounts[$level->id])) {
-		if (is_array($discounts[$level->id])) {
-			foreach ($discounts[$level->id] as $key => $value) {
+	if ( pmpro_hasMembershipLevel( $level->id ) && isset( $discounts[$level->id] ) ) {
+		if ( is_array( $discounts[$level->id] ) ) {
+			foreach ( $discounts[$level->id] as $key => $value ) {
 				$level->$key = $value;
 			}
 		} else {
@@ -44,17 +43,17 @@ function pmpro_early_renewal_discount_checkout_level($level) {
 
 	return $level;
 }
-add_filter('pmpro_checkout_level', 'pmpro_early_renewal_discount_checkout_level');
+add_filter( 'pmpro_checkout_level', 'pmpro_early_renewal_discount_checkout_level' );
 
 /*
  * Add "Early Renewal" message to price text on checkout
  */
-function pmpro_early_renewal_discount_cost_text($text, $level) {
+function pmpro_early_renewal_discount_cost_text( $text, $level ) {
 	// Only show the message if the user already has this level.
-	if (pmpro_hasMembershipLevel($level->id)) {
+	if ( pmpro_hasMembershipLevel( $level->id ) ) {
 		$text .= '<br><em>(Early renewal membership price applied)</em>';
 	}
 
 	return $text;
 }
-add_filter('pmpro_level_cost_text', 'pmpro_early_renewal_discount_cost_text', 10, 2);
+add_filter( 'pmpro_level_cost_text', 'pmpro_early_renewal_discount_cost_text', 10, 2 );
