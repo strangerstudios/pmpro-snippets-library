@@ -20,8 +20,6 @@ function my_pmpro_open_specified_new_posts_to_non_members( $hasaccess, $thepost,
 	// Set your post id's to unlock here
 	$posts_to_unlock = array( 2, 35, 155 );  // array elements must be integers and not strings
 
-	global $wpdb;
-
 	//if PMPro says true already, return true
 	if ( $hasaccess ) {
 		return $hasaccess;
