@@ -27,7 +27,7 @@ function my_pmpro_registration_checks_require_code_to_register( $pmpro_continue_
 		return false;
 	}
 
-	// To require a specific code, modify this conditional:
+	// To require a specific discount code, modify this conditional:
 	// if ( $pmpro_level->id == 1 && ( empty( $discount_code ) || trim( strtoupper( $discount_code ) ) !== 'REQUIRED_CODE' ) )
 
 	return $pmpro_continue_registration;
