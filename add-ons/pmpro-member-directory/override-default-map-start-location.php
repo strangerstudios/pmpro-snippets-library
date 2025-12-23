@@ -1,8 +1,8 @@
 <?php
 /**
- * This recipe will specify which map you would like to override the start point for.
+ * Override the starting location for the Membership Map
  *
- * title: Override the Default Start Location for a Specific Map
+ * title: Override the default start location for the Membership Map
  * layout: snippet
  * collection: pmpro-member-directory
  * category: maps
