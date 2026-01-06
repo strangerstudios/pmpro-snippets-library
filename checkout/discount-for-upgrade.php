@@ -3,7 +3,7 @@
  * Adjust the membership price at checkout for existing members upgrading to a specific level.
  *
  * title: Adjust Pricing for Existing Members Upgrading to a Level
- * layout: snippet-example
+ * layout: snippet
  * collection: checkout
  * category: pricing
  * link: https://www.paidmembershipspro.com/offer-members-a-discounted-rate-for-upgrading-to-a-new-level/
