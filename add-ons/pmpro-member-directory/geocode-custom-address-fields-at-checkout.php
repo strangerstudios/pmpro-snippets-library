@@ -52,39 +52,41 @@ function my_pmpromd_save_custom_address_marker_location_for_user( $user_id ) {
 		return;
 	}
 
-	// Let's see if the fields are set in the request and geocode the address passed in.
-	if ( ! empty( $_REQUEST['address_street_name'] ) ) {
+	// Let's see if the address field is present in the request and geocode the address passed in.
+	if ( array_key_exists( 'address_street_name', $_REQUEST ) ) {
+		if ( ! empty( $_REQUEST['address_street_name'] ) ) {
 
-		// Create an array of the member's address.
-		$member_address = array(
-			'street'  => ( ! empty( $_REQUEST['address_street_name'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_street_name'] ) ) : '',
-			'city'    => ( ! empty( $_REQUEST['address_city'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_city'] ) ) : '',
-			'state'   => ( ! empty( $_REQUEST['address_state'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_state'] ) ) : '',
-			'zip'     => ( ! empty( $_REQUEST['address_zip'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_zip'] ) ) : '',
-			'country' => ( ! empty( $_REQUEST['address_country'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_country'] ) ) : '',
-		);
+			// Create an array of the member's address.
+			$member_address = array(
+				'street'  => ( ! empty( $_REQUEST['address_street_name'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_street_name'] ) ) : '',
+				'city'    => ( ! empty( $_REQUEST['address_city'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_city'] ) ) : '',
+				'state'   => ( ! empty( $_REQUEST['address_state'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_state'] ) ) : '',
+				'zip'     => ( ! empty( $_REQUEST['address_zip'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_zip'] ) ) : '',
+				'country' => ( ! empty( $_REQUEST['address_country'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['address_country'] ) ) : '',
+			);
 
-		// Opt in the member for display on the map.
-		$member_address['optin'] = true;
+			// Opt in the member for display on the map.
+			$member_address['optin'] = true;
 
-		// Let's build the address array to geocode.
-		$coordinates = pmpromd_geocode_map_address( $member_address );
+			// Let's build the address array to geocode.
+			$coordinates = pmpromd_geocode_map_address( $member_address );
 
-		if ( is_array( $coordinates ) ) {
-			if ( ! empty( $coordinates['lat'] ) && ! empty( $coordinates['lng'] ) ) {
-				$member_address['latitude']  = $coordinates['lat'];
-				$member_address['longitude'] = $coordinates['lng'];
+			if ( is_array( $coordinates ) ) {
+				if ( ! empty( $coordinates['lat'] ) && ! empty( $coordinates['lng'] ) ) {
+					$member_address['latitude']  = $coordinates['lat'];
+					$member_address['longitude'] = $coordinates['lng'];
 
-				// Only add to user meta if the address has been geocoded.
-				update_user_meta( $user_id, 'pmpromd_pin_location', $member_address );
-			} else {
-				// Cleanup pin location.
-				delete_user_meta( $user_id, 'pmpromd_pin_location' );
+					// Only add to user meta if the address has been geocoded.
+					update_user_meta( $user_id, 'pmpromd_pin_location', $member_address );
+				} else {
+					// Cleanup pin location if the address could not be geocoded.
+					delete_user_meta( $user_id, 'pmpromd_pin_location' );
+				}
 			}
+		} else {
+			// Address field was submitted but left empty; cleanup pin location.
+			delete_user_meta( $user_id, 'pmpromd_pin_location' );
 		}
-	} else {
-		// Cleanup pin location.
-		delete_user_meta( $user_id, 'pmpromd_pin_location' );
 	}
 }
 
