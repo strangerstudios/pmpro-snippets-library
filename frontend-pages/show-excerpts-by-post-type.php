@@ -29,10 +29,10 @@ function my_pmpro_allow_excerpts_for_specific_post_types( $showexcerpts ) {
 
     // Edit this list to control which post types show excerpts.
     $allowed_post_types = array(
+        'movies', // Example of a custom post type slug called "movies".
         // 'post',
         // 'page',
-        // 'tribe_events',
-        // 'custom_post_type', // Add your custom post type slugs here.
+        // 'custom_post_type_slug', // Add your custom post type slugs here.
     );
 
     // Return true only for the post types listed above.
