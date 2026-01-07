@@ -102,9 +102,9 @@ add_action( 'pmpro_after_checkout', 'my_pmpromd_map_process_custom_map_address_a
 function my_pmpromd_geocode_custom_map_address_on_profile_update( $user_id ) {
 	my_pmpromd_save_custom_address_marker_location_for_user( $user_id );
 }
-add_action( 'pmpro_personal_options_update', 'my_pmpromd_geocode_custom_map_address_on_profile_update' );
-add_action( 'personal_options_update', 'my_pmpromd_geocode_custom_map_address_on_profile_update' );
-add_action( 'edit_user_profile_update', 'my_pmpromd_geocode_custom_map_address_on_profile_update' );
+add_action( 'pmpro_personal_options_update', 'my_pmpromd_geocode_custom_map_address_on_profile_update', 10 );
+add_action( 'personal_options_update', 'my_pmpromd_geocode_custom_map_address_on_profile_update', 10 );
+add_action( 'edit_user_profile_update', 'my_pmpromd_geocode_custom_map_address_on_profile_update', 10 );
 
 /**
  * Geocode the custom address fields when saved on the Member Edit panel.
