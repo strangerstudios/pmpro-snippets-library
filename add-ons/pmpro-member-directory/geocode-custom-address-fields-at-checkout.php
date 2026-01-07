@@ -1,6 +1,6 @@
 <?php
 /**
- * This recipe will geocode custom adress fields after checkout.
+ * This recipe will geocode custom address fields after checkout.
  *
  * title: How to Geocode Any Address Fields During Checkout
  * layout: snippet
