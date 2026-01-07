@@ -6,7 +6,7 @@
  * layout: snippetÍ
  * collection: add-ons
  * category: pmpro-woocommerce, woocommerce
- * link: TBD
+ * link: https://www.paidmembershipspro.com/exclude-certain-woocommerce-products-from-membership-discount/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
