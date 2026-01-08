@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: add-ons
  * category: pmpro-approvals
- * link: TBD
+ * link: https://www.paidmembershipspro.com/skip-approval-admin-added-members/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
