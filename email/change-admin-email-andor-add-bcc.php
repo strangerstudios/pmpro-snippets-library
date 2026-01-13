@@ -1,15 +1,12 @@
 <?php
 /**
- * BCC Admin Notifications Based on Membership Level
- * 
- * Change line 25 to the level you want to make this change too.
- * Change line 26 Change email address for your BCC address
+ * Change the PMPro Admin Email recipient and optionally add a BCC for all admin-related emails.
  *
- * title: BCC Admin Notifications Based on Membership Level
- * layout: snippet
- * collection: email
- * category: bcc
- * link: https://www.paidmembershipspro.com/bcc-additional-email-addresses-on-member-or-admin-notifications/
+ * title: Change Admin Email Recipient and Add BCC
+ * layout: snippet-example
+ * collection: email-notifications
+ * category: admin-emails
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -17,23 +14,34 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function my_pmpro_email_headers( $headers, $email ) {
-	// Set default BCC address to the site admin email.
-	$admin_email = get_bloginfo( 'admin_email' );
+/**
+ * SETTINGS
+ */
+define( 'MY_PMPRO_ADMIN_EMAIL_TO', 'memberadmin@someemail.co' ); // Set to the desired admin email recipient.
+// define( 'MY_PMPRO_ADMIN_EMAIL_BCC', 'bccaddress@someemail.co' ); // Uncomment and set to add a BCC address.
 
-	// Override BCC address for specific membership level.
-	if ( intval( $email->data['membership_id'] ) === 5 ) {
-		$admin_email = 'someemail@email.com';
-
-		// Example: send to multiple emails (comma-separated list).
-		// $admin_email = 'first@email.com, second@email.com, third@email.com';
+function my_pmpro_change_admin_email_recipients( $user_email, $email ) {
+	// Only target admin-related PMPro emails.
+	if ( strpos( $email->template, '_admin' ) === false ) {
+		return $user_email;
 	}
 
-	// Add BCC only if the email isn't already going to the admin.
-	if ( $email->email !== get_bloginfo( 'admin_email' ) ) {
-		$headers[] = 'Bcc: ' . $admin_email;
+	return MY_PMPRO_ADMIN_EMAIL_TO;
+}
+add_filter( 'pmpro_email_recipient', 'my_pmpro_change_admin_email_recipients', 10, 2 );
+
+function my_pmpro_add_admin_email_bcc( $headers, $email ) {
+	// Only target admin-related PMPro emails.
+	if ( strpos( $email->template, '_admin' ) === false ) {
+		return $headers;
 	}
 
+	// Skip if BCC is not defined.
+	if ( ! defined( 'MY_PMPRO_ADMIN_EMAIL_BCC' ) ) {
+		return $headers;
+	}
+
+	$headers[] = 'Bcc: ' . MY_PMPRO_ADMIN_EMAIL_BCC;
 	return $headers;
 }
-add_filter( 'pmpro_email_headers', 'my_pmpro_email_headers', 10, 2 );
+add_filter( 'pmpro_email_headers', 'my_pmpro_add_admin_email_bcc', 10, 2 );
