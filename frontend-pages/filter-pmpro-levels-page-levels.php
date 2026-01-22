@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: frontend-pages
  * category: levels, level-page
+ * https://www.paidmembershipspro.com/hide-free-levels-from-the-membership-levels-page/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
