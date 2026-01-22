@@ -14,31 +14,30 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 function my_first_last_display_name( $user_id, $morder ) {
-    
-    // Get user's first and last name.
-    $first_name = get_user_meta( $user_id, 'first_name', true );
-    $last_name = get_user_meta( $user_id, 'last_name', true );
-    
-    if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
-        $display_name = trim( $first_name . ' ' . $last_name );
-    } elseif ( ! empty( $first_name ) ) {
-    	$display_name = trim( $first_name );
-	} 
-	
+	// Get user's first and last name.
+	$first_name = get_user_meta( $user_id, 'first_name', true );
+	$last_name  = get_user_meta( $user_id, 'last_name', true );
+
+	if ( ! empty( $first_name ) && ! empty( $last_name ) ) {
+		$display_name = trim( $first_name . ' ' . $last_name );
+	} elseif ( ! empty( $first_name ) ) {
+		$display_name = trim( $first_name );
+	}
+
 	if ( ! empty( $display_name ) ) {
-		// Should set "display_name" as well as the BuddyPress Profile field name.    
+		// Should set "display_name" as well as the BuddyPress Profile field name.
 		$args = array(
-			'ID' => $user_id,
+			'ID'           => $user_id,
 			'display_name' => $display_name,
 		);
 
 		// Update WP user display name.
 		wp_update_user( $args );
-		
+
 		// Update the 'Name' xprofile Field (field ID 1).
 		if ( function_exists( 'xprofile_set_field_data' ) ) {
 			xprofile_set_field_data( 1, $user_id, $display_name );
 		}
 	}
 }
-add_action( 'pmpro_after_checkout', 'my_first_last_display_name', 20, 2);
+add_action( 'pmpro_after_checkout', 'my_first_last_display_name', 20, 2 );
