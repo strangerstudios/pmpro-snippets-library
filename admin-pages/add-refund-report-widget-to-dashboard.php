@@ -1,160 +1,196 @@
 <?php
-//Add the new "Refund Rate" report widget and page
+/**
+ * Add a new "Refund Rate" report widget and page to the PMPro Reports Dashboard.
+ *
+ * title: Add refund rate report widget and page to PMPro Reports Dashboard.
+ * layout: snippet
+ * collection: admin-pages
+ * category: admin, reports
+ * link: https://www.paidmembershipspro.com/refund-rate-report/
+ *
+ * You can add this recipe to your site by creating a custom plugin
+ * or using the Code Snippets plugin available for free in the WordPress repository.
+ * Read this companion article for step-by-step directions on either method.
+ * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ */
+/**
+Register the report
+*/
 global $pmpro_reports;
-$pmpro_reports['refunds'] = __('Refund Rate', 'pmpro-reports-refunds');
+$pmpro_reports['refunds'] = __( 'Refund Rate', 'pmpro-reports-refunds' );
 
-global $wpdb;
-
-//$refundsThisMonth = "SELECT COUNT(*) FROM wp_pmpro_membership_orders WHERE membership_id IN(6,20) AND total > 0 AND timestamp > '2016-01-01' AND status = 'refunded' ";
-
-//$refundRate = $refunds / $sales;
-
-//Show the report widget on the Memberships > Reports dashboard
-function pmpro_report_refunds_widget()
-{	
-	global $wpdb;
+/**
+ * Refund Rate widget on Memberships > Reports.
+ */
+function pmpro_report_refunds_widget() {
 	?>
-	<table class="wp-list-table widefat fixed striped">
-	<thead>
-		<tr>
-			<th scope="col">&nbsp;</th>
-			<th scope="col"><?php _e('Sales', 'pmpro'); ?></th>
-			<th scope="col"><?php _e('Refunds', 'pmpro'); ?></th>
-			<th scope="col"><?php _e('Refund Rate', 'pmpro'); ?></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<th><?php _e('This Month', 'pmpro'); ?></th>
-			<td><?php echo number_format_i18n(pmpro_getSales("this month")); ?></td>
-			<td><?php echo number_format_i18n(pmpro_getRefunds("this month")); ?></td>
-			<td>
-			<?php 
-				if(pmpro_getSales('this month') > 0)
-					echo sprintf("%.2f%%", (pmpro_getRefunds("this month") / pmpro_getSales("this month")) * 100); 
-				else
-					echo __('N/A', 'pmpro');
-			?>
-			</td>
-		</tr>
-		<tr>
-			<th><?php _e('This Year', 'pmpro'); ?></th>
-			<td><?php echo number_format_i18n(pmpro_getSales("this year")); ?></td>
-			<td><?php echo number_format_i18n(pmpro_getRefunds("this year")); ?></td>
-			<td>
-			<?php 
-				if(pmpro_getSales('this year') > 0)
-					echo sprintf("%.2f%%", (pmpro_getRefunds("this year") / pmpro_getSales("this year")) * 100);
-				else
-					echo __('N/A', 'pmpro');
-			?>	
-			</td>
-		</tr>
-			<th><?php _e('All Time', 'pmpro'); ?></th>
-			<td><?php echo number_format_i18n(pmpro_getSales("all time")); ?></td>
-			<td><?php echo number_format_i18n(pmpro_getRefunds("all time")); ?></td>
-			<td>
-			<?php 
-				if(pmpro_getSales('all time') > 0)
-					echo sprintf("%.2f%%", (pmpro_getRefunds("all time") / pmpro_getSales("all time")) * 100);
-				else
-					echo __('N/A', 'pmpro');
-			?>
-			</td>
-		</tr>
-	</tbody>
-	</table>
+	<span id="pmpro_report_refunds" class="pmpro_report-holder">
+
+		<table class="wp-list-table widefat fixed striped">
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th><?php _e( 'Sales', 'pmpro' ); ?></th>
+					<th><?php _e( 'Refunds', 'pmpro' ); ?></th>
+					<th><?php _e( 'Refund Rate', 'pmpro' ); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				$periods = array(
+					'this month' => __( 'This Month', 'pmpro' ),
+					'this year'  => __( 'This Year', 'pmpro' ),
+					'all time'   => __( 'All Time', 'pmpro' ),
+				);
+
+				foreach ( $periods as $period => $label ) :
+					$sales   = pmpro_getSales( $period );
+					$refunds = pmpro_getRefunds( $period );
+					?>
+					<tr>
+						<th><?php echo esc_html( $label ); ?></th>
+						<td><?php echo number_format_i18n( $sales ); ?></td>
+						<td><?php echo number_format_i18n( $refunds ); ?></td>
+						<td>
+							<?php
+							if ( $sales > 0 ) {
+								echo sprintf( '%.2f%%', ( $refunds / $sales ) * 100 );
+							} else {
+								_e( 'N/A', 'pmpro' );
+							}
+							?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+
+		<?php if ( function_exists( 'pmpro_report_refunds_page' ) ) { ?>
+			<p class="pmpro_report-button">
+				<a class="button button-primary"
+				   href="<?php echo esc_url( admin_url( 'admin.php?page=pmpro-reports&report=refunds' ) ); ?>">
+					<?php _e( 'Details', 'paid-memberships-pro' ); ?>
+				</a>
+			</p>
+		<?php } ?>
+
+	</span>
 	<?php
 }
 
-//Show the report on the Memberships > Reports > Refund Rate page
-function pmpro_report_refunds_page()
-{
-	global $wpdb;
+/**
+ * Refund Rate dedicated report page.
+ */
+function pmpro_report_refunds_page() {
 	?>
-	<div class="metabox-holder">
-		<h1><?php _e('Refund Rate', 'pmpro'); ?></h1>
+	<div class="wrap">
+		<h1><?php _e( 'Refund Rate', 'pmpro' ); ?></h1>
+
 		<table class="wp-list-table widefat fixed striped">
-		<thead>
-			<tr>
-				<th scope="col">&nbsp;</th>
-				<th scope="col"><?php _e('Sales', 'pmpro'); ?></th>
-				<th scope="col"><?php _e('Refunds', 'pmpro'); ?></th>
-				<th scope="col"><?php _e('Refund Rate', 'pmpro'); ?></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<th><?php _e('This Month', 'pmpro'); ?></th>
-				<td><?php echo number_format_i18n(pmpro_getSales("this month")); ?></td>
-				<td><?php echo number_format_i18n(pmpro_getRefunds("this month")); ?></td>
-				<td><?php echo sprintf("%.2f%%", (pmpro_getRefunds("this month") / pmpro_getSales("this month")) * 100); ?></td>
-			</tr>
-			<tr>
-				<th><?php _e('This Year', 'pmpro'); ?></th>
-				<td><?php echo number_format_i18n(pmpro_getSales("this year")); ?></td>
-				<td><?php echo number_format_i18n(pmpro_getRefunds("this year")); ?></td>
-				<td><?php echo sprintf("%.2f%%", (pmpro_getRefunds("this year") / pmpro_getSales("this year")) * 100); ?></td>
-			</tr>
-				<th><?php _e('All Time', 'pmpro'); ?></th>
-				<td><?php echo number_format_i18n(pmpro_getSales("all time")); ?></td>
-				<td><?php echo number_format_i18n(pmpro_getRefunds("all time")); ?></td>
-				<td><?php echo sprintf("%.2f%%", (pmpro_getRefunds("all time") / pmpro_getSales("all time")) * 100); ?></td>
-			</tr>
-		</tbody>
-		</table>	
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th><?php _e( 'Sales', 'pmpro' ); ?></th>
+					<th><?php _e( 'Refunds', 'pmpro' ); ?></th>
+					<th><?php _e( 'Refund Rate', 'pmpro' ); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				$periods = array(
+					'this month' => __( 'This Month', 'pmpro' ),
+					'this year'  => __( 'This Year', 'pmpro' ),
+					'all time'   => __( 'All Time', 'pmpro' ),
+				);
+
+				foreach ( $periods as $period => $label ) :
+					$sales   = pmpro_getSales( $period );
+					$refunds = pmpro_getRefunds( $period );
+					?>
+					<tr>
+						<th><?php echo esc_html( $label ); ?></th>
+						<td><?php echo number_format_i18n( $sales ); ?></td>
+						<td><?php echo number_format_i18n( $refunds ); ?></td>
+						<td>
+							<?php
+							if ( $sales > 0 ) {
+								echo sprintf( '%.2f%%', ( $refunds / $sales ) * 100 );
+							} else {
+								_e( 'N/A', 'pmpro' );
+							}
+							?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
 	</div>
 	<?php
 }
 
-//get refunds
-if(!function_exists('pmpro_getRefunds')) {
-	function pmpro_getRefunds($period, $levels = NULL)
-	{
-		//check for a transient
-		$cache = get_transient("pmpro_report_refunds");
-		if(!empty($cache) && !empty($cache[$period]) && !empty($cache[$period][$levels]))
-			return $cache[$period][$levels];
-			
-		//a refund is an order with status = 'refunded' with a total > 0
-		if($period == "today")
-			$startdate = date("Y-m-d", current_time('timestamp'));
-		elseif($period == "this month")
-			$startdate = date("Y-m", current_time('timestamp')) . "-01";
-		elseif($period == "this year")
-			$startdate = date("Y", current_time('timestamp')) . "-01-01";
-		else
-			$startdate = "";
-		
-		$gateway_environment = pmpro_getOption("gateway_environment");
-		
-		//build query
+/**
+ * Get refunded orders count for a period.
+ */
+if ( ! function_exists( 'pmpro_getRefunds' ) ) {
+	function pmpro_getRefunds( $period, $levels = null ) {
+
+		$cache = get_transient( 'pmpro_report_refunds' );
+		if ( isset( $cache[ $period ][ $levels ] ) ) {
+			return (int) $cache[ $period ][ $levels ];
+		}
+
+		// Determine start date.
+		switch ( $period ) {
+			case 'this month':
+				$startdate = date( 'Y-m-01', current_time( 'timestamp' ) );
+				break;
+			case 'this year':
+				$startdate = date( 'Y-01-01', current_time( 'timestamp' ) );
+				break;
+			default:
+				$startdate = '';
+				break;
+		}
+
 		global $wpdb;
-		$sqlQuery = "SELECT COUNT(*) FROM $wpdb->pmpro_membership_orders WHERE total > 0 AND status = 'refunded' AND timestamp >= '" . $startdate . "' AND gateway_environment = '" . esc_sql($gateway_environment) . "' ";
-		
-		//restrict by level
-		if(!empty($levels))
-			$sqlQuery .= "AND membership_id IN(" . $levels . ") ";
-		
-		$refunds = $wpdb->get_var($sqlQuery);
-		
-		//save in cache
-		if(!empty($cache) && !empty($cache[$period]))
-			$cache[$period][$levels] = $refunds;
-		elseif(!empty($cache))
-			$cache[$period] = array($levels => $refunds);
-		else
-			$cache = array($period => array($levels => $refunds));
-		
-		set_transient("pmpro_report_refunds", $cache, 3600*24);
-		
+		$gateway_environment = pmpro_getOption( 'gateway_environment' );
+
+		$sql = "
+			SELECT COUNT(*)
+			FROM {$wpdb->pmpro_membership_orders}
+			WHERE status = 'refunded'
+				AND total > 0
+				AND gateway_environment = %s
+		";
+
+		$params = array( $gateway_environment );
+
+		if ( ! empty( $startdate ) ) {
+			$sql .= " AND timestamp >= %s";
+			$params[] = $startdate;
+		}
+
+		if ( ! empty( $levels ) ) {
+			$sql .= " AND membership_id IN (" . esc_sql( $levels ) . ")";
+		}
+
+		$refunds = (int) $wpdb->get_var( $wpdb->prepare( $sql, $params ) );
+
+		// Cache results.
+		if ( ! is_array( $cache ) ) {
+			$cache = array();
+		}
+		$cache[ $period ][ $levels ] = $refunds;
+		set_transient( 'pmpro_report_refunds', $cache, DAY_IN_SECONDS );
+
 		return $refunds;
 	}
 }
 
-//delete transients when an order is updated
-function pmpro_report_refunds_delete_transient()
-{
-	delete_transient("pmpro_report_refunds");
+/**
+ * Clear refund report cache when orders change.
+ */
+function pmpro_report_refunds_delete_transient() {
+	delete_transient( 'pmpro_report_refunds' );
 }
-add_action("pmpro_updated_order", "pmpro_report_refunds_delete_transient");
+add_action( 'pmpro_updated_order', 'pmpro_report_refunds_delete_transient' );
