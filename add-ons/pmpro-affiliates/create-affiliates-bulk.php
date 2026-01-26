@@ -19,13 +19,17 @@
 function mypmpro_run_affiliate_creation() {
 
 	if ( isset( $_REQUEST['mypmpro_create_affiliates'] ) && function_exists( 'mypmpro_create_affiliate' ) ) {
+		
+		if ( ! function_exists( 'pmpro_affiliates_getNewCode' ) ) {
+			exit( 'Please activate the PMPro Affiliates Add On then run the script again.' );
+		}
 
+		// Get the level ID.
 		$level_id = isset( $_REQUEST['pmpro_level_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['pmpro_level_id'] ) ) : '';
 
 		// Bail if no level ID was provided.
 		if ( empty( $level_id ) ) {
-			echo 'To run this script, include a membership level ID in your URL.<br/> e.g. /wp-admin/?mypmpro_create_affiliates=true<strong>&pmpro_level_id=3</strong>';
-			exit();
+			exit( 'To run this script, include a membership level ID in your URL.<br/> e.g. /wp-admin/?mypmpro_create_affiliates=true<strong>&pmpro_level_id=3</strong>' );
 		}
 
 		// Bail if the level does not exist.
@@ -60,16 +64,14 @@ function mypmpro_run_affiliate_creation() {
 				mypmpro_create_affiliate( $user->display_name, $user->user_login );
 			}
 			exit( 'End' );
+		} else {
+			exit( 'No active members found for level ID ' . $level_id );
 		}
 	}
 }
 add_action( 'admin_init', 'mypmpro_run_affiliate_creation' );
 
 function mypmpro_create_affiliate( $name = '', $username = '' ) {
-
-	if ( ! function_exists( 'pmpro_affiliates_getNewCode' ) ) {
-		return;
-	}
 
 	global $wpdb;
 
