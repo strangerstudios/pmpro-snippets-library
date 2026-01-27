@@ -4,6 +4,8 @@
  *
  * This recipe creates a custom field using the PMPro Register Helper Add On and displays its value
  * on the Membership Card.
+ * 
+ * Requires Membership Card V2.0+
  *
  * title: Create and Display Custom Graduation Year Field on Membership Card
  * layout: snippet
@@ -42,11 +44,13 @@ function my_pmpro_create_user_fields_with_code(){
 add_action( 'init', 'my_pmpro_create_user_fields_with_code' );
 
 //Now display the Graduation Year field on the membership card.
-function my_pmpro_add_user_fields_after_member_card( $pmpro_membership_card_user, $print_sizes, $qr_code, $qr_data ){
+function my_pmpro_add_user_fields_after_member_card( $content, $pmpro_membership_card_user, $atts ) {
 	$graduation_year = get_user_meta( $pmpro_membership_card_user->ID, 'graduation_year', true );
 
 	if ( $graduation_year !== "" ) {
-		echo "<p>Graduation Year: " . $graduation_year . "</p>"; 
+		$content[] = "<strong>Graduation Year:</strong> " . $graduation_year; 
 	}
+	
+	return $content;
 }
-add_action( 'pmpro_membership_card_after_card', 'my_pmpro_add_user_fields_after_member_card', 10, 4 );
+add_action( 'pmpro_membership_card_right', 'my_pmpro_add_user_fields_after_member_card', 10, 3 );
