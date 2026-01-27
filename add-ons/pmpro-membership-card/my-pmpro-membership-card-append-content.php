@@ -13,7 +13,8 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmpro_add_avatar_after_member_card( $pmpro_membership_card_user, $print_sizes, $qr_code, $qr_data ) {
-	echo "<p>" . get_avatar( $pmpro_membership_card_user->user_email, 96 ) . "</p>"; //Wrapping content in <p> tags will help with consistent spacing
+function my_pmpro_add_avatar_after_member_card( $content, $pmpro_membership_card_user, $atts ) {
+	$content[] = "<p>" . get_avatar( $pmpro_membership_card_user->user_email, 96 ) . "</p>";
+	return $content;
 }
-add_action( 'pmpro_membership_card_after_card', 'my_pmpro_add_avatar_after_member_card', 10, 4 );
+add_filter( 'pmpro_membership_card_right', 'my_pmpro_add_avatar_after_member_card', 10, 3 );
