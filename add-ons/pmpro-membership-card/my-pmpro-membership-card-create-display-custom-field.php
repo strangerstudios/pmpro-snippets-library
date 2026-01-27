@@ -53,4 +53,4 @@ function my_pmpro_add_user_fields_after_member_card( $content, $pmpro_membership
 	
 	return $content;
 }
-add_action( 'pmpro_membership_card_right', 'my_pmpro_add_user_fields_after_member_card', 10, 3 );
+add_filter( 'pmpro_membership_card_right', 'my_pmpro_add_user_fields_after_member_card', 10, 3 );
