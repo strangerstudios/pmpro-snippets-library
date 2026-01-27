@@ -21,7 +21,7 @@
 function my_show_member_number_on_card( $content, $pmpro_membership_card_user, $atts ) {
  
 	if ( ! pmpro_hasMembershipLevel() || ! function_exists( 'generate_member_number' )) {
-		return;
+		return $content;
 	}
  
 	$member_id = get_user_meta( $pmpro_membership_card_user->ID, 'member_number', true );
