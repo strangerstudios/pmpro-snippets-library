@@ -25,7 +25,14 @@
  * @return string                  the result of the text transformation
  */
 function my_gettext_membership( $output_text, $input_text, $domain ) {
-	if ( ! is_admin() && ( 'paid-memberships-pro' === $domain || strpos( $domain, 'pmpro-' ) !== false ) ) {
+
+	// Don't tweak any wording in the admin.
+	if ( is_admin() ) {
+		return $output_text;
+	}
+
+	// Do not repliace any email variables with !!memberhsip and only apply this to PMPro text domain items.
+	if ( strpos( $output_text, '!!membership' ) === false && ( 'paid-memberships-pro' === $domain || strpos( $domain, 'pmpro-' ) !== false ) ) {
 		$output_text = str_replace( 'Membership Level', 'Subscription', $output_text );
 		$output_text = str_replace( 'membership level', 'subscription', $output_text );
 		$output_text = str_replace( 'membership', 'subscription', $output_text );
