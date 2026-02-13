@@ -5,8 +5,8 @@
  *
  * title: Free Shipping for Specific Membership Levels
  * layout: snippet
- * collection: woocommerce
- * category: shipping
+ * collection: add-ons
+ * category: pmpro-woocommerce, woocommerce, shipping
  * link: https://www.paidmembershipspro.com/give-members-free-shipping-at-shop-checkout/
  *
  * This snippet makes the WooCommerce Free Shipping method available
