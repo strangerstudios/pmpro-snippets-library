@@ -1,7 +1,7 @@
 <?php
 /**
  * Show Free Shipping only to specific Paid Memberships Pro levels.
- * Change level ID on line 22 to the ID(s) of the level(s) you want to receive free shipping.
+ * Change the level ID(s) in the $pmprowc_free_shipping_levels array below to the ID(s) of the level(s) you want to receive free shipping.
  *
  * title: Free Shipping for Specific Membership Levels
  * layout: snippet
