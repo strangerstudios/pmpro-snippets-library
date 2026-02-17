@@ -13,13 +13,15 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function load_my_script_for_pmpro_pages() {
+function my_pmpro_load_scripts_example() {
 	global $pmpro_pages;
 
+	// No PMPro pages found, bail
 	if ( empty( $pmpro_pages ) ) {
 		return;
 	}
 
+	// No PMPro function found, bail.
 	if ( ! function_exists( 'pmpro_is_checkout' ) ) {
 		return;
 	}
@@ -30,4 +32,4 @@ function load_my_script_for_pmpro_pages() {
 		<?php
 	}
 }
-add_action( 'wp_head', 'load_my_script_for_pmpro_pages' );
+add_action( 'wp_head', 'my_pmpro_load_scripts_example' );
