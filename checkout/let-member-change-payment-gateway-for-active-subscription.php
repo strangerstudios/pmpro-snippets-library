@@ -15,7 +15,9 @@
 /**
  * Get the next payment date for a user's level inclusive of subscriptions and expiration dates.
  *
- * If the current user has a subscription for a passed level ID, return the next payment date for that subscription.
+ * If the current user has a subscription for a passed level ID with no pending orders,
+ * return the next payment date for that subscription.
+ * If the subscription has pending orders (failed renewal), only honor the prepaid term (expiration date).
  * Otherwise, if the user has an expiration date set for the level, return that.
  * Otherwise, return null.
  *
@@ -33,11 +35,27 @@ function my_pmpro_renew_or_change_payment_method_get_next_payment_date( $level_i
 	// See if the user has a subscription or level for the passed level ID.
 	$current_subscriptions = PMPro_Subscription::get_subscriptions_for_user( $current_user->ID, $level_id );
 	$current_level = pmpro_getSpecificMembershipLevelForUser( $current_user->ID, $level_id );
+
+	$next_payment_date = null;
+
 	if ( ! empty( $current_subscriptions ) ) {
-		// Return the next payment date for the subscription.
-		$next_payment_date = $current_subscriptions[0]->get_next_payment_date();
-	} elseif ( ! empty( $current_level ) ) {
-		// Return the expiration date for the level.
+		$subscription = $current_subscriptions[0];
+
+		// Check if there are pending orders for this subscription (indicates a failed renewal).
+		$pending_orders = $subscription->get_orders( array( 'status' => 'pending', 'limit' => 1 ) );
+
+		if ( empty( $pending_orders ) ) {
+			// No pending orders - subscription is current, use the next payment date.
+			$next_payment_date = $subscription->get_next_payment_date();
+		} elseif ( ! empty( $current_level ) && ! empty( $current_level->enddate ) ) {
+			// Has pending orders (failed renewal), but still within prepaid term.
+			// Honor the expiration date instead of the (now unreliable) next payment date.
+			$next_payment_date = $current_level->enddate;
+		}
+		// If pending orders exist and no expiration date, $next_payment_date stays null.
+		// This means they need to pay now (renewal failed, no prepaid term to honor).
+	} elseif ( ! empty( $current_level ) && ! empty( $current_level->enddate ) ) {
+		// No subscription, but has an expiration date (prepaid term).
 		$next_payment_date = $current_level->enddate;
 	}
 
@@ -57,42 +75,66 @@ function my_pmpro_renew_or_change_payment_method_get_next_payment_date( $level_i
 
 /**
  * If checking out for same level with active membership, set initial payment to $0 and start subscription on next payment date OR expiration date.
+ * Legacy billing rate is honored if member has an active subscription or is within their prepaid term.
  */
 function my_pmpro_renew_or_change_payment_method_checkout_level( $level ) {
 	global $current_user;
 
-	// Return early if using a discount code
+	// Return early if using a discount code.
 	if ( ! empty( $level->discount_code ) || ! empty( $_REQUEST['discount_code'] ) ) {
 		return $level;
 	}
 
-	// Assume we do not need to adjust the checkout level.
-	$subscription_start_date = my_pmpro_renew_or_change_payment_method_get_next_payment_date( $level->id );
-
-	// If we do not have a subscription start date, return.
-	if ( empty( $subscription_start_date ) ) {
+	// Return early if no level ID.
+	if ( empty( $level->id ) ) {
 		return $level;
 	}
 
-	// Ok, we can adjust the level.
-	// Charge them nothing today.
-	$level->initial_payment = 0;
+	// Return early if not logged in.
+	if ( empty( $current_user->ID ) ) {
+		return $level;
+	}
 
-	// Set the billing start date on the checkout level.
-	$level->profile_start_date = date( 'Y-m-d H:i:s', $subscription_start_date );
+	// Get their active subscription for this level.
+	$current_subscriptions = PMPro_Subscription::get_subscriptions_for_user( $current_user->ID, $level->id );
+	$current_level = pmpro_getSpecificMembershipLevelForUser( $current_user->ID, $level->id );
 
-	// Get their active or last active subscription.
-	$last_subscription = PMPro_Subscription::get_subscription(
-		array(
-			'user_id' => $current_user->ID,
-			'membership_level_id' => $level->id
-		)
-	);
+	// Determine if we should honor the legacy billing rate.
+	// Honor legacy rate if: subscription is active OR member is within prepaid term (has expiration).
+	$honor_legacy_rate = false;
+	$last_subscription = null;
 
-	// If they have a last subscription, set the billing amount.
-	// Optionally remove this line if you want to ignore legacy subscription pricing.
-	if ( ! empty( $last_subscription ) ) {
+	if ( ! empty( $current_subscriptions ) ) {
+		$last_subscription = $current_subscriptions[0];
+		$honor_legacy_rate = true; // Has active subscription.
+	} elseif ( ! empty( $current_level ) && ! empty( $current_level->enddate ) && $current_level->enddate > current_time( 'timestamp' ) ) {
+		// No subscription, but within prepaid term.
+		$honor_legacy_rate = true;
+		// Try to get any subscription for this level to pull legacy rate from.
+		$last_subscription = PMPro_Subscription::get_subscription(
+			array(
+				'user_id' => $current_user->ID,
+				'membership_level_id' => $level->id
+			)
+		);
+	}
+
+	// Set the legacy billing amount if applicable.
+	// Optionally remove this block if you want to ignore legacy subscription pricing.
+	if ( $honor_legacy_rate && ! empty( $last_subscription ) ) {
 		$level->billing_amount = $last_subscription->get_billing_amount();
+	}
+
+	// Get the subscription start date (considers pending orders and expiration).
+	$subscription_start_date = my_pmpro_renew_or_change_payment_method_get_next_payment_date( $level->id );
+
+	// If we have a valid start date, set $0 initial payment and delay the subscription start.
+	if ( ! empty( $subscription_start_date ) ) {
+		// Charge them nothing today.
+		$level->initial_payment = 0;
+
+		// Set the billing start date on the checkout level.
+		$level->profile_start_date = date( 'Y-m-d H:i:s', $subscription_start_date );
 	}
 
 	return $level;
