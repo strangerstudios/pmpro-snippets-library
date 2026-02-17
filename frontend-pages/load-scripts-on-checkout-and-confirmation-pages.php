@@ -20,7 +20,11 @@ function load_my_script_for_pmpro_pages() {
 		return;
 	}
 
-	if ( is_page( $pmpro_pages['checkout'] ) || is_page( $pmpro_pages['confirmation'] ) ) {
+	if ( ! function_exists( 'pmpro_is_checkout' ) ) {
+		return;
+	}
+
+	if ( pmpro_is_checkout() || is_page( $pmpro_pages['confirmation'] ) ) {
 		?>
 			<!-- scripts or styles go here -->
 		<?php
