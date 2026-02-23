@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-userpages
  * category: user pages
- * link: https://www.paidmembershipspro.com/user-pages-user-page-only/
+ * link: https://www.paidmembershipspro.com/send-a-member-an-email-when-their-user-page-is-updated/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
