@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: pmpro-member-directory
  * category: directory, profile, privacy
+ * link: https://www.paidmembershipspro.com/mask-custom-fields-for-non-members-in-the-member-directory/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
