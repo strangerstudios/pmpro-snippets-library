@@ -4,7 +4,7 @@
  *
  * title: Change Admin Email Recipient and Add BCC
  * layout: snippet
- * collection: email-notifications
+ * collection: email
  * category: admin, bcc
  * link: TBD
  *
