@@ -5,7 +5,7 @@
  * title: Change Admin Email Recipient and Add BCC
  * layout: snippet-example
  * collection: email-notifications
- * category: admin-emails
+ * category: admin, bcc
  * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
