@@ -13,20 +13,18 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
-function pmpro_snippet_hide_free_levels_from_levels_array( $levels ) {
+function my_pmpro_hide_free_levels_from_levels_array( $levels ) {
+	// No levels or not an array, return early.
 	if ( empty( $levels ) || ! is_array( $levels ) ) {
 		return $levels;
 	}
-
-	$levels = array_filter(
-		$levels,
-		static function( $level ) {
-			return ! pmpro_isLevelFree( $level );
+	
+	$newlevels = array();
+	foreach ( $levels as $level ) {
+		if ( ! pmpro_isLevelFree( $level ) ) {
+			$newlevels[] = $level;
 		}
-	);
-
-	// Re-index the array (optional, but keeps output tidy).
-	return array_values( $levels );
+	}
+	return $newlevels;
 }
-add_filter( 'pmpro_levels_array', 'pmpro_snippet_hide_free_levels_from_levels_array' );
+add_filter( 'pmpro_levels_array', 'my_pmpro_hide_free_levels_from_levels_array' );
