@@ -13,7 +13,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_first_last_display_name( $user_id, $morder ) {
+function my_pmpro_first_last_display_name( $user_id, $morder ) {
 	// Get user's first and last name.
 	$first_name = get_user_meta( $user_id, 'first_name', true );
 	$last_name  = get_user_meta( $user_id, 'last_name', true );
@@ -40,4 +40,4 @@ function my_first_last_display_name( $user_id, $morder ) {
 		}
 	}
 }
-add_action( 'pmpro_after_checkout', 'my_first_last_display_name', 20, 2 );
+add_action( 'pmpro_after_checkout', 'my_pmpro_first_last_display_name', 20, 2 );
