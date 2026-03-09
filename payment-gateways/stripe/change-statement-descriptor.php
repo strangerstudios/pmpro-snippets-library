@@ -18,7 +18,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_update_pmpro_stripe_statement_descriptor( $params, $order, $customer = null ) {
+function my_pmpro_update_stripe_statement_descriptor( $params, $order, $customer = null ) {
 	// Your statement descriptor.
 	$statement_descriptor = 'Business - Product';
 
@@ -37,5 +37,5 @@ function my_update_pmpro_stripe_statement_descriptor( $params, $order, $customer
 
 	return $params;
 }
-add_filter( 'pmpro_stripe_payment_intent_params', 'my_update_pmpro_stripe_statement_descriptor', 10, 2 );
-add_filter( 'pmpro_stripe_checkout_session_parameters', 'my_update_pmpro_stripe_statement_descriptor', 10, 3 );
+add_filter( 'pmpro_stripe_payment_intent_params', 'my_pmpro_update_stripe_statement_descriptor', 10, 2 );
+add_filter( 'pmpro_stripe_checkout_session_parameters', 'my_pmpro_update_stripe_statement_descriptor', 10, 3 );
