@@ -13,7 +13,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function pmpro_registration_checks_no_email_user_login( $continue ) {
+function my_pmpro_registration_checks_no_email_user_login( $continue ) {
 	// If there are earlier problems, don't bother checking.
 	if ( ! $continue ) {
 		return $continue;
@@ -29,4 +29,4 @@ function pmpro_registration_checks_no_email_user_login( $continue ) {
 
 	return $continue;
 }
-add_filter( 'pmpro_registration_checks', 'pmpro_registration_checks_no_email_user_login' );
+add_filter( 'pmpro_registration_checks', 'my_pmpro_registration_checks_no_email_user_login' );
