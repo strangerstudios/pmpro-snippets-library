@@ -4,7 +4,7 @@
  *
  * title: Hide Free Levels in PMPro Levels Page
  * layout: snippet
- * collection: membership-levels
+ * collection: frontend-pages
  * category: levels, level-page
  * link: https://www.paidmembershipspro.com/hide-free-levels-from-the-membership-levels-page/
  *
