@@ -35,7 +35,7 @@ function my_pmpro_applydiscountcode_return_js( $discount_code, $discount_code_id
 	$html .= "<div class='pmpro-discorig-message pmpro-discount-price'>The discounted price is {$discounted_price}. </div>";
 	$html .= "<div class='pmpro-discorig-message pmpro-save-price'>You save {$discount}.</div>";
 	?>
-		jQuery( "#pmpro_level_cost" ).append( "<?php echo $html; ?>" );
+		jQuery( "#pmpro_level_cost" ).append( <?php echo wp_json_encode( $html ); ?> );
 	<?php
 }
 add_action( 'pmpro_applydiscountcode_return_js', 'my_pmpro_applydiscountcode_return_js', 10, 4 );
