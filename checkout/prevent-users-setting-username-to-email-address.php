@@ -20,7 +20,7 @@ function pmpro_registration_checks_no_email_user_login( $continue ) {
 	}
 
 	// Make sure the username passed in doesn't look like an email address (contains an @).
-	global $username;
+	$username = isset( $_REQUEST['username'] ) ? sanitize_user( wp_unslash( $_REQUEST['username'] ) ) : '';
 
 	if ( ! empty( $username ) && false !== strpos( $username, '@' ) ) {
 		$continue = false;
