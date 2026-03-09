@@ -24,7 +24,10 @@ function my_update_pmpro_stripe_statement_descriptor( $params, $order, $customer
 
 	if ( null !== $customer ) {
 		// Set the descriptor for one-time payments via Stripe Checkout.
-		if ( 'payment' === $params['mode'] ) {
+		if ( isset( $params['mode'] ) && 'payment' === $params['mode'] ) {
+			if ( ! isset( $params['payment_intent_data'] ) || ! is_array( $params['payment_intent_data'] ) ) {
+				$params['payment_intent_data'] = array();
+			}
 			$params['payment_intent_data']['statement_descriptor'] = $statement_descriptor;
 		}
 	} else {
