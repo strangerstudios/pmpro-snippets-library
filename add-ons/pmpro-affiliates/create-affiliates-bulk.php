@@ -4,8 +4,8 @@
  * To run this script, you'll need to add /wp-admin/?mypmpro_create_affiliates=true&pmpro_level_id=X to your URL
  * where X is the membership level ID.
  *
- * The commission rate will be set to 10%. You can change this on line 107.
- * The number of days a cookie will remain active before expiring is 30 days (Line 108).
+ * The commission rate will be set to 10%.
+ * The number of days a cookie will remain active before expiring is 30 days.
  *
  * title: Generate affiliate code for existing users
  * layout: snippet
