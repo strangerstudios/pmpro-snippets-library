@@ -124,7 +124,7 @@ function mypmpro_create_affiliate( $name = '', $username = '' ) {
 			'trackingcode'   => $trackingcode,
 			'cookiedays'     => $cookiedays,
 			'commissionrate' => $commissionrate,
-			'enabled'        => $enabled,
+			'enabled'        => (int) $enabled,
 		),
 		array(
 			'%s',
