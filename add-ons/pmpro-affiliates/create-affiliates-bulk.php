@@ -19,9 +19,15 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 function mypmpro_run_affiliate_creation() {
-
+	
 	if ( isset( $_REQUEST['mypmpro_create_affiliates'] ) && function_exists( 'mypmpro_create_affiliate' ) ) {
+		
+		// Make sure the person has the right capabilities to run this code.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			exit( 'You do not have permissions to run this code.' );
+		}
 
+		// Function doesn't exist, let's bail.
 		if ( ! function_exists( 'pmpro_affiliates_getNewCode' ) ) {
 			exit( 'Please activate the PMPro Affiliates Add On then run the script again.' );
 		}
