@@ -77,7 +77,7 @@ function mypmpro_run_affiliate_creation() {
 add_action( 'admin_init', 'mypmpro_run_affiliate_creation' );
 
 /**
- * Function to generate affiliate codes for elligible users.
+ * Function to generate affiliate codes for eligible users.
  *
  * @param  string $name     The member's public display name.
  * @param  string $username The member's WordPress user name.
