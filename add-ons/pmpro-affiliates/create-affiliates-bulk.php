@@ -140,6 +140,6 @@ function mypmpro_create_affiliate( $name = '', $username = '' ) {
 	if ( $wpdb->insert_id ) {
 		echo 'Affiliate Created Successfully - ' . esc_html( $username ) . '<br/>';
 	} else {
-		echo 'Affiliate Could Not Be Created  - ' . esc_html( $username ) . '<br/>';
+		echo 'Affiliate Could Not Be Created - ' . esc_html( $username ) . '<br/>';
 	}
 }
