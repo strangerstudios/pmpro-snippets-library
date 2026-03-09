@@ -3,7 +3,7 @@
  * Change the recipient and optionally add a BCC for all admin-related emails in Paid Memberships Pro.
  *
  * title: Change Admin Email Recipient and Add BCC
- * layout: snippet-example
+ * layout: snippet
  * collection: email-notifications
  * category: admin, bcc
  * link: TBD
