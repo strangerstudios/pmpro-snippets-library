@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: levels
  * category: localization
+ * link: https://www.paidmembershipspro.com/translate-your-membership-level-names-with-paid-memberships-pro/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
