@@ -16,7 +16,7 @@
 function pmpro_registration_checks_no_email_user_login( $continue ) {
 	// If there are earlier problems, don't bother checking.
 	if ( ! $continue ) {
-		return;
+		return $continue;
 	}
 
 	// Make sure the username passed in doesn't look like an email address (contains an @).
