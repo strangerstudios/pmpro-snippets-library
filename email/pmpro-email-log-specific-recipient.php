@@ -1,10 +1,10 @@
 <?php
 /**
- * Restrict PMPro email logging to a single recipient address.
- * Only emails sent to the specified address will be recorded in the log.
- * Useful for auditing or debugging a specific member's communications.
+ * Restrict PMPro email logging to specific recipient addresses.
+ * Only emails sent to the specified addresses will be recorded in the log.
+ * Useful for auditing or debugging specific members' communications.
  *
- * title: Log Emails for a Specific Recipient in the PMPro Email Log
+ * title: Log Emails for Specific Recipients in the PMPro Email Log
  * layout: snippet
  * collection: email
  * category: email-log
@@ -15,10 +15,14 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmpro_log_specific_recipient( $should_log, $email_data ) {
-	// Replace with the email address you want to audit.
-	$recipient = 'member@example.com';
+function my_pmpro_log_specific_recipients( $should_log, $email_data ) {
+	// Add all recipients you want to audit.
+	$recipients = array(
+		'member@example.com',
+		'admin@example.com',
+		'test@example.com',
+	);
 
-	return ( $email_data['email_to'] === $recipient );
+	return in_array( $email_data['email_to'], $recipients, true );
 }
-add_filter( 'pmpro_should_log_email', 'my_pmpro_log_specific_recipient', 10, 2 );
+add_filter( 'pmpro_should_log_email', 'my_pmpro_log_specific_recipients', 10, 2 );
