@@ -7,7 +7,7 @@
  * layout: snippet
  * collection: payment-gateways, stripe
  * category: action-scheduler
- * link: tbd
+ * link: https://www.paidmembershipspro.com/async-processing-stripe-webhooks/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
