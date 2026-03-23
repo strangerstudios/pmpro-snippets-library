@@ -1,6 +1,7 @@
 <?php
 /**
  * Enable async processing of Stripe webhooks via Action Scheduler
+ * Requires Paid Memberships Pro v3.7 or later.
  *
  * title: Enable Async Processing for Stripe Webhooks in Paid Memberships Pro
  * layout: snippet
