@@ -15,36 +15,39 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
+
 // Allowlist of accepted UTM parameter keys.
-define( 'MY_PMPRO_ALLOWED_UTM_KEYS', array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content' ) );
+define( 'MY_PMPRO_ALLOWED_UTM_KEYS', [ 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content' ] );
 
 /**
  * Register hidden UTM fields on the PMPro checkout page only.
  */
 function my_pmpro_add_utm_user_fields() {
-    if ( ! function_exists( 'pmpro_add_user_field' ) || ! pmpro_is_checkout() ) {
-        return;
-    }
+	if ( ! function_exists( 'pmpro_add_user_field' ) ) {
+		return;
+	}
 
-    pmpro_add_field_group( 'UTM Tracking', 'UTM Tracking', '', 1 );
+	$utm_fields = array();
 
-    foreach ( MY_PMPRO_ALLOWED_UTM_KEYS as $key ) {
-        $value = isset( $_REQUEST[ $key ] ) ? sanitize_text_field( $_REQUEST[ $key ] ) : '';
-        pmpro_add_user_field(
-            'UTM Tracking',
-            new PMPro_Field(
-                $key,
-                'hidden',
-                array(
-                    'label'          => '',
-                    'profile'        => false,
-                    'required'       => false,
-                    'memberslistcsv' => true,
-                    'value'          => $value,
-                )
-            )
-        );
-    }
+	foreach ( MY_PMPRO_ALLOWED_UTM_KEYS as $key ) {
+		$value = isset( $_REQUEST[ $key ] ) ? sanitize_text_field( $_REQUEST[ $key ] ) : '';
+
+		$utm_fields[] = new PMPro_Field(
+			$key,
+			'hidden',
+			array(
+				'label'		  => '',
+				'profile'		=> false,
+				'required'	   => false,
+				'memberslistcsv' => true,
+				'value'		  => $value,
+			)
+		);
+	}
+
+	foreach ( $utm_fields as $utm_field ) {
+		pmpro_add_user_field( 'before_submit_button', $utm_field );
+	}
 }
 add_action( 'init', 'my_pmpro_add_utm_user_fields' );
 
@@ -53,23 +56,22 @@ add_action( 'init', 'my_pmpro_add_utm_user_fields' );
  * Falls back to the default PMPro confirmation URL if no match is found.
  */
 function my_pmpro_redirect_confirmation_url( $rurl, $user_id, $pmpro_level ) {
-    $campaign = get_user_meta( $user_id, 'utm_campaign', true );
+	$campaign = get_user_meta( $user_id, 'utm_campaign', true );
 
-    if ( empty( $campaign ) ) {
-        return $rurl;
-    }
+	if ( empty( $campaign ) ) {
+		return $rurl;
+	}
 
-    // Map campaign slugs to destination URLs.
-    $campaign_redirects = array(
-        'campaign-slug-1' => 'https://example.com/landing-page-1',
-        'campaign-slug-2' => 'https://example.com/landing-page-2',
-        'campaign-slug-3' => 'https://example.com/landing-page-3',
-    );
+	$campaign_redirects = array(
+		'campaign-slug-1' => 'https://example.com/landing-page-1',
+		'campaign-slug-2' => 'https://example.com/landing-page-2',
+		'campaign-slug-3' => 'https://example.com/landing-page-3',
+	);
 
-    if ( isset( $campaign_redirects[ $campaign ] ) ) {
-        $rurl = $campaign_redirects[ $campaign ];
-    }
+	if ( isset( $campaign_redirects[ $campaign ] ) ) {
+		$rurl = $campaign_redirects[ $campaign ];
+	}
 
-    return $rurl;
+	return $rurl;
 }
 add_filter( 'pmpro_confirmation_url', 'my_pmpro_redirect_confirmation_url', 10, 3 );
