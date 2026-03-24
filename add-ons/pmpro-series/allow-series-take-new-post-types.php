@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-series
  * category: custom post types
- * link: https://www.paidmembershipspro.com/add-custom-post-types-and-pages-to-your-dripped-membership-series-content/
+ * link: https://www.paidmembershipspro.com/add-custom-post-types-to-drip-series/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
