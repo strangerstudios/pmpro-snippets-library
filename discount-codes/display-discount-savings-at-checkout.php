@@ -2,16 +2,17 @@
 /**
  * Display original, discounted, and recurring prices when a discount code is applied at checkout.
  *
- * title: Add description to discount codes
+ * title: Display Discount Savings at Checkout
  * layout: snippet
  * collection: discount-codes
- * category: description
+ * category: discount code, checkout, pricing
  * link: https://www.paidmembershipspro.com/display-the-original-and-discounted-price-when-a-discount-code-is-applied-at-checkout/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+
  */
 function my_pmpro_applydiscountcode_return_js( $discount_code, $discount_code_id, $level_id, $code_level ) {
 
@@ -53,12 +54,12 @@ function my_pmpro_applydiscountcode_return_js( $discount_code, $discount_code_id
 		$original_recurring   = floatval( $level->billing_amount );
 		$discounted_recurring = isset( $code_level->billing_amount ) ? floatval( $code_level->billing_amount ) : $original_recurring;
 
-		// Only show if different.
-		if ( $original_recurring != $discounted_recurring ) {
+		// Compare floats safely.
+		if ( abs( $original_recurring - $discounted_recurring ) > 0.001 ) {
 
 			$discounted_recurring_price = pmpro_formatPrice( $discounted_recurring );
 			$cycle_number = intval( $level->cycle_number );
-			$cycle_period = $level->cycle_period;
+			$cycle_period = esc_html( $level->cycle_period );
 
 			$html .= "<div class='pmpro-discorig-message pmpro-recurring-price'>";
 			$html .= "Then {$discounted_recurring_price} per {$cycle_number} {$cycle_period}";
@@ -76,4 +77,5 @@ function my_pmpro_applydiscountcode_return_js( $discount_code, $discount_code_id
 	// You can comment out the line below if you only want the message to appear at the top.
 	echo "jQuery('#pmpro_message_bottom').append(" . wp_json_encode( $html ) . ");";
 }
+
 add_action( 'pmpro_applydiscountcode_return_js', 'my_pmpro_applydiscountcode_return_js', 10, 4 );
