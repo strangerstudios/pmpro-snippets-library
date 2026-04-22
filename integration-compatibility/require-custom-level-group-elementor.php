@@ -60,8 +60,8 @@ function my_pmpro_elementor_has_membership_level_custom( $has_level, $user_id, $
 		return $has_level;
 	}
 
-	// Bail if our custom level group item is not in the required levels.
-	if ( ! in_array( 'my_pmpro_elementor_custom_levels', $levels ) ) {
+	// Bail if $levels is not an array or our custom level group item is not in the required levels.
+	if ( ! is_array( $levels ) || ! in_array( 'my_pmpro_elementor_custom_levels', $levels ) ) {
 		return $has_level;
 	}
 
