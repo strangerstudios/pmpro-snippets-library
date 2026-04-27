@@ -16,12 +16,19 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function pmpro_after_change_membership_level_default_level( $level_id, $user_id ) {
+function pmpro_after_change_membership_level_default_level( $level_id, $user_id, $cancel_level = null ) {
 
-	if ( $level_id == 0 ) {
-		// cancelling, give them level 1 instead
-		pmpro_changeMembershipLevel( 1, $user_id );
+	// Only act on cancellations (level_id 0) and only when we know which level was cancelled.
+	if ( $level_id != 0 || empty( $cancel_level ) ) {
+		return;
 	}
 
+	// If the user still has another active membership level (e.g. in another level group), don't downgrade them.
+	if ( pmpro_hasMembershipLevel( null, $user_id ) ) {
+		return;
+	}
+
+	// cancelling, give them level 1 instead
+	pmpro_changeMembershipLevel( 1, $user_id );
 }
-add_action( 'pmpro_after_change_membership_level', 'pmpro_after_change_membership_level_default_level', 10, 2 );
+add_action( 'pmpro_after_change_membership_level', 'pmpro_after_change_membership_level_default_level', 10, 3 );
