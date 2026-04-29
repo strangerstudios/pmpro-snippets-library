@@ -12,6 +12,7 @@
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ * Learn more at https://www.paidmembershipspro.com/custom-reports-memberships-admin/
  */
 
 /**

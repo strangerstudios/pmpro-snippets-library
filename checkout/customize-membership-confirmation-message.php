@@ -6,15 +6,16 @@
  * layout: snippet
  * collection: membership-levels
  * category: confirmation
+ * link: https://www.paidmembershipspro.com/custom-confirmation-message/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmpro_confirmation_message( $message ) {
-	$message = '<p>This is a new confirmation message.</p>';
+function my_pmpro_confirmation_message( $confirmation_message, $pmpro_invoice ) {
+	$confirmation_message = '<p>This is a new confirmation message.</p>';
 
-	return $message;
+	return $confirmation_message;
 }
-add_filter( 'pmpro_confirmation_message', 'my_pmpro_confirmation_message', 15, 1 );
+add_filter( 'pmpro_confirmation_message', 'my_pmpro_confirmation_message', 15, 2 );

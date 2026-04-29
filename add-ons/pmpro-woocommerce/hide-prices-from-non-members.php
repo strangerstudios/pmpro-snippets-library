@@ -2,7 +2,8 @@
 /**
  * This recipe hides prices + add to cart for non members in Paid Memberships Pro.
  * Requires the PMPro WooCommerce Add-On: https://www.paidmembershipspro.com/add-ons/pmpro-woocommerce/
- * 
+ * Learn more at https://www.paidmembershipspro.com/turn-your-woocommerce-store-into-a-catalog-for-non-members/
+ *
  * title: hides prices + add to cart from non-members
  * layout: snippet
  * collection: add-ons

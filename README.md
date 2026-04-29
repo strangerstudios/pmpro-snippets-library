@@ -27,10 +27,10 @@ Please include the following header format when submitting a snippet
  * Describe what the snippet does in one sentence. (i.e. Add a checkbox to the checkout page.)
  * 
  * title: Add custom field to checkout
- * layout: snippet-example
+ * layout: snippet
  * collection: frontend-pages
  * category: custom-fields
- * link: https://www.paidmembershipspro.com/link-to-post-if-available/
+ * link: https://www.paidmembershipspro.com/link-to-post-if-available/ OR TBD
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

@@ -74,7 +74,7 @@ function my_pmpro_limit_members_pmpro_registration_checks( $value ) {
 	}
 
 	// Get the count of members in this level.
-	$member_count = my_pmpro_get_active_members_in_level( $level_id );
+	$member_count = my_pmpro_get_active_members_in_level( $pmpro_level->id );
 
 	// Compare the count of members to the maximum number of members allowed in this level
 	if ( $pmpro_level_member_limit > 0 && $member_count >= $pmpro_level_member_limit ) {

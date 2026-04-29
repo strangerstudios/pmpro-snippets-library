@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: login 
- * link:https://www.paidmembershipspro.com/restrict-user-login-for-members-only/#h-code-recipe-1-restrict-user-login-to-active-members
+ * link:https://www.paidmembershipspro.com/restrict-user-login-for-members-only/#code-recipe-1-restrict-user-login-to-active-members
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

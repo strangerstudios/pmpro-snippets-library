@@ -18,12 +18,20 @@
 
 function my_pmpro_generate_username_at_checkout() {
 
-	// Make sure PMPro is installed and the function to get the level at checkout exists.
-	if ( ! function_exists( 'pmpro_getLevelAtCheckout' ) ) {
+	// Make sure PMPro is installed.
+	if ( ! function_exists( 'pmpro_is_checkout' ) || ! function_exists( 'pmpro_getLevelAtCheckout' ) ) {
 		return;
 	}
 
-	// check for level as well to make sure we're on checkout page
+	// Bail early if not on checkout page.
+	// Note: pmpro_getLevelAtCheckout() triggers discount code filters which can
+	// start PHP sessions (e.g. via the Local Pricing Add On), so we guard with
+	// pmpro_is_checkout() first to avoid starting sessions on every page load.
+	if ( ! pmpro_is_checkout() ) {
+		return;
+	}
+
+	// Check for level to confirm checkout context.
 	if ( empty( pmpro_getLevelAtCheckout() ) ) {
 		return;
 	}
@@ -31,13 +39,13 @@ function my_pmpro_generate_username_at_checkout() {
 	if ( ! empty( $_POST['bemail'] ) ) {
 		$_REQUEST['username'] = $_POST['username'] = my_pmpro_generate_username_from_email( $_POST['bemail'] );
 	}
-	
+
 	if ( ! empty( $_GET['bemail'] ) ) {
 		$_REQUEST['username'] = $_GET['username'] = my_pmpro_generate_username_from_email( $_GET['bemail'] );
 	}
 
 }
-add_action( 'init', 'my_pmpro_generate_username_at_checkout' );
+add_action( 'wp', 'my_pmpro_generate_username_at_checkout', 1 );
 
 /**
  * Hide the username field on checkout.

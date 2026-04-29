@@ -34,19 +34,17 @@
 }
 add_action( 'pmpro_discount_code_after_settings', 'mypmpro_discount_code_restrict_field', 10, 1 );
 
-function mypmpro_save_discount_code_restrict(){
+function mypmpro_save_discount_code_restrict( $edit ){
+	
+	// Run it on save.
+	if ( isset( $_REQUEST['discount_restrictions'] ) ){
 
-	if( isset( $_REQUEST['discount_restrictions'] ) ){
-
-		$save_id = intval( $_REQUEST['saveid'] );
 		$description = nl2br( $_REQUEST['discount_restrictions'] );
-
-		update_option( 'discount_code_restriction_'.$save_id, $description );
+		update_option( 'discount_code_restriction_'.$edit, $description );
 
 	}
-
 }
-add_action( 'admin_init', 'mypmpro_save_discount_code_restrict' );
+add_action( 'pmpro_save_discount_code', 'mypmpro_save_discount_code_restrict', 10, 1 );
 
 function mypmpro_discount_page_header_restrict( $codes ){
 

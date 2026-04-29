@@ -29,7 +29,7 @@ function my_pmpro_add_cc_logos_to_checkout() {
 		<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_title pmpro_font-large' ) ); ?>">Accepted Credit Cards</h2>
 		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
 			<p>We accept Visa, Mastercard, Discover, and American Express.</p>
-			<p><img alt="Credit card logos for Visa, Mastercard, Discover, and American Express" style="max-width: 300px;" src="<?php echo esc_url( plugins_url( '/images/pay-with-credit-cards.png', __FILE__ ) ); ?>"></p>
+			<p><img alt="Credit card logos for Visa, Mastercard, Discover, and American Express" style="max-width: 300px;" src="<?php echo esc_url( get_site_url( null, '/images/pay-with-credit-cards.png' ) ); ?>"></p>
 		</div> <!-- end pmpro_card_content -->
 	</div> <!-- end pmpro_card -->
 	<?php

@@ -4,12 +4,13 @@
  * This recipe ensures that only specific levels can access the WooCommerce shop
  * Requires the PMPro WooCommerce Add-On: https://www.paidmembershipspro.com/add-ons/pmpro-woocommerce/
  * 
- * Update line 26 with the membership level IDs to allow into the store.
+ * Update line 32 with the membership level IDs to allow into the store.
  * 
  * title: allow only specific membership levels to access the woocommerce shop
  * layout: snippet
  * collection: add-ons
  * category: pmpro-woocommerce
+ * link: https://www.paidmembershipspro.com/lock-entire-ecommerce-shop-members/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

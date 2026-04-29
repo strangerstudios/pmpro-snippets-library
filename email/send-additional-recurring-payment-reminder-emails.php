@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: email
  * category: cron jobs, emails
- *
+ * link: https://www.paidmembershipspro.com/recurring-payment-reminder-emails/
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.

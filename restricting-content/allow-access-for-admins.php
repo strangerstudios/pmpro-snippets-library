@@ -13,13 +13,11 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function pmmpro_allow_access_for_admins( $hasaccess, $mypost, $myuser, $post_membership_levels ) {
-
-	// If user is an admin allow access.
-	if ( current_user_can( 'manage_options' ) ) {
+function pmpro_allow_access_for_admins( $hasaccess, $mypost, $myuser, $post_membership_levels ) {
+	if ( ! empty( $myuser ) && user_can( $myuser, 'manage_options' ) ) {
 		$hasaccess = true;
 	}
 
-	return $hasaccess;
+	return array( $hasaccess, $post_membership_levels );
 }
- add_filter( 'pmpro_has_membership_access_filter', 'pmmpro_allow_access_for_admins', 30, 4 );
+add_filter( 'pmpro_has_membership_access_filter', 'pmpro_allow_access_for_admins', 30, 4 );

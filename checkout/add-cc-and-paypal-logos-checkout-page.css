@@ -25,7 +25,6 @@
 
 .pmpro-checkout .gateway_authorizenet .pmpro_form_label,
 .pmpro-checkout .gateway_braintree .pmpro_form_label,
-.pmpro-checkout .gateway_paypal .pmpro_form_label,
 .pmpro-checkout .gateway_stripe  .pmpro_form_label {
 	background-image: url(images/pay-with-credit-cards.png);
 	background-position: left bottom;
@@ -34,7 +33,8 @@
 	padding-bottom: 45px;
 }
 
-.pmpro-checkout .gateway_paypalexpress .pmpro_form_label {
+.pmpro-checkout .gateway_paypalexpress .pmpro_form_label,
+.pmpro-checkout .gateway_paypal .pmpro_form_label {
 	background-image: url(images/pay-with-paypal.png);
 	background-position: left bottom;
 	background-size: contain;

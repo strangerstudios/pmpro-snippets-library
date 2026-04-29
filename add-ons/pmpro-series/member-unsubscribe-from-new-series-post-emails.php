@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-series
  * category: email
+ * link: https://www.paidmembershipspro.com/allow-member-opt-out-email-notifications/
  *
  *
  * You can add this recipe to your site by creating a custom plugin

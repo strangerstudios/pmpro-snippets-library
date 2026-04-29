@@ -1,13 +1,12 @@
 <?php
 /**
  * Automatically apply a discount code to Paid Memberships Pro checkout.
- *
- * Learn more at https://www.paidmembershipspro.com/automatic-discount-code/
  * 
  * title: Automatically apply discount code at checkout
  * layout: snippet-example
  * collection: discount-codes
  * category: checkout
+ * link: https://www.paidmembershipspro.com/automatic-discount-code/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

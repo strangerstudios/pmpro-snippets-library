@@ -8,6 +8,7 @@
  * layout: snippet-example
  * collection: discount-codes
  * category: expiration
+ * link: https://www.paidmembershipspro.com/discount-code-expired-members/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

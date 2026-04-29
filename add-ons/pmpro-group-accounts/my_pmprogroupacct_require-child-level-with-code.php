@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-group-accounts
  * category: levels, checkout
+ * link: https://www.paidmembershipspro.com/require-group-code/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

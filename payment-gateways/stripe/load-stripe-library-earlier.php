@@ -1,5 +1,4 @@
 <?php
-
 /**
  * An updated version of the load Stripe Library version code earlier than other third-party plugins
  * This should work with PMPro Version 2.10 and above
@@ -21,4 +20,4 @@ function my_load_pmpro_stripe_library_early() {
 		require_once( PMPRO_DIR . "/includes/lib/Stripe/init.php" );
 	}
 }
-add_action( 'init', 'my_load_pmpro_stripe_library_early', 0 );
+add_action( 'plugins_loaded', 'my_load_pmpro_stripe_library_early', 0 );

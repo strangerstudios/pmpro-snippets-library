@@ -15,7 +15,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function my_pmpro_after_change_membership_level_default_level( $level_id, $user_id ) {
+function my_pmpro_after_change_membership_level_default_level( $level_id, $user_id, $cancel_level = null ) {
 	// set this to the id of the level you want to give members when they cancel
 	$cancel_level_id = 1;
 
@@ -25,17 +25,22 @@ function my_pmpro_after_change_membership_level_default_level( $level_id, $user_
 		return;
 	}
 
-	// are they cancelling?
-	if ( $level_id == 0 ) {
-		// check if they are cancelling from level $cancel_level_id
-		global $wpdb;
-		$last_level_id = $wpdb->get_var( "SELECT membership_id FROM $wpdb->pmpro_memberships_users WHERE user_id = '" . $user_id . "' ORDER BY id DESC" );
-		if ( $last_level_id == $cancel_level_id ) {
-			return; // let them cancel
-		}
-
-		// otherwise give them level $cancel_level_id instead
-		pmpro_changeMembershipLevel( $cancel_level_id, $user_id );
+	// Only act on cancellations (level_id 0) and only when we know which level was cancelled.
+	if ( $level_id != 0 || empty( $cancel_level ) ) {
+		return;
 	}
+
+	// If they are cancelling from the cancel level itself, let them cancel for real.
+	if ( $cancel_level == $cancel_level_id ) {
+		return;
+	}
+
+	// If the user still has another active membership level (e.g. in another level group), don't downgrade them.
+	if ( pmpro_hasMembershipLevel( null, $user_id ) ) {
+		return;
+	}
+
+	// otherwise give them level $cancel_level_id instead
+	pmpro_changeMembershipLevel( $cancel_level_id, $user_id );
 }
-add_action( 'pmpro_after_change_membership_level', 'my_pmpro_after_change_membership_level_default_level', 10, 2 );
+add_action( 'pmpro_after_change_membership_level', 'my_pmpro_after_change_membership_level_default_level', 10, 3 );
