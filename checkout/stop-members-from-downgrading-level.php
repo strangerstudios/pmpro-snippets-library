@@ -25,7 +25,7 @@ function my_pmpro_tiered_levels_prevent_downgrade( $okay ) {
 		return $okay;
 	}
 
-	// get user's level
+	// get user's level.
 	$member_level = pmpro_getMembershipLevelForUser();
 
 	// If the user doesn't have a membership level carry on with checkout.
@@ -33,27 +33,27 @@ function my_pmpro_tiered_levels_prevent_downgrade( $okay ) {
 		return $okay;
 	}
 
-	// member's current level ID
+	// member's current level ID.
 	$member_level_id = $member_level->id;
 
 	// Get level for checkout.
 	$checkout_level = pmpro_getLevelAtCheckout();
 	if ( empty( $checkout_level ) ) {
 		return $okay;
-	}	
+	}
 	$checkout_level_id = $checkout_level->id;
 
-	// bail if renewal 
+	// bail if renewal.
 	if ( $checkout_level_id === $member_level_id ) {
 		return $okay;
 	}
 
-	// Specify the level hierarchy, lowest to highest
+	// Specify the level hierarchy, lowest to highest.
 	$level_order = array( 1, 2, 3, 4, 5 );
 
-	// figure out where the levels rank, bail if not in level order
+	// figure out where the levels rank, bail if not in level order.
 	$checkout_level_rank = array_search( $checkout_level_id, $level_order );
-	$member_level_rank = array_search( $member_level_id, $level_order );
+	$member_level_rank   = array_search( $member_level_id, $level_order );
 	if ( false === $checkout_level_rank || false === $member_level_rank ) {
 		return $okay;
 	}
@@ -61,7 +61,7 @@ function my_pmpro_tiered_levels_prevent_downgrade( $okay ) {
 	// are they checking out for a lower level?
 	if ( $member_level_rank > $checkout_level_rank ) {
 		$okay = false;
-		// show an error message on checkout page
+		// show an error message on checkout page.
 		pmpro_setMessage( 'You are not allowed to checkout for this membership level.', 'pmpro_error' );
 	}
 
