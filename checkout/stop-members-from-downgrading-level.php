@@ -38,6 +38,9 @@ function my_pmpro_tiered_levels_prevent_downgrade( $okay ) {
 
 	// Get level for checkout.
 	$checkout_level = pmpro_getLevelAtCheckout();
+	if ( empty( $checkout_level ) ) {
+		return $okay;
+	}	
 	$checkout_level_id = $checkout_level->id;
 
 	// bail if renewal 
