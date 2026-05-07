@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Limit Shown Posts with Paid Memberships Pro Series Add On
  *
@@ -7,6 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-series
  * category: limit-posts
+ * link: https://www.paidmembershipspro.com/limit-number-posts-displayed-in-series/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
