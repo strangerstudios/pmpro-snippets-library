@@ -29,15 +29,15 @@
  */
 
  global $pmpro_reports;
- $pmpro_reports['sample'] = __('My Sample Report', 'pmpro-reports-extras');
+ $pmpro_reports['sample'] = __('My Sample Report', 'pmpro-snippets-library');
  
  // Sample Report for Metabox
  function pmpro_report_sample_widget() {	 ?>
      <span id="pmpro_report_sample" class="pmpro_report-holder">
-         <p>Hi! I'm a sample report!</p>
+         <p><?php esc_html_e( "Hi! I'm a sample report!", 'pmpro-snippets-library' ); ?></p>
          <?php if ( function_exists( 'pmpro_report_sample_page' ) ) { ?>
              <p class="pmpro_report-button">
-                 <a class="button button-primary" href="<?php echo admin_url( 'admin.php?page=pmpro-reports&report=sample' ); ?>"><?php _e('Details', 'paid-memberships-pro' );?></a>
+                 <a class="button button-primary" href="<?php echo admin_url( 'admin.php?page=pmpro-reports&report=sample' ); ?>"><?php _e( 'Details', 'pmpro-snippets-library' );?></a>
              </p>
          <?php } ?>	
      </span>
@@ -46,7 +46,7 @@
  
  // Sample Report for Individual Report Page
  function pmpro_report_sample_page() { ?>
-     <h1><?php _e( 'This is a Sample', 'pmpro-reports-extras' ); ?></h2>
-     <p>This report demonstrates how to add a custom report to PMPro. Enjoy!.</p>
+     <h1><?php _e( 'This is a Sample', 'pmpro-snippets-library' ); ?></h2>
+     <p><?php esc_html_e( 'This report demonstrates how to add a custom report to PMPro. Enjoy!.', 'pmpro-snippets-library' ); ?></p>
      <?php
  }

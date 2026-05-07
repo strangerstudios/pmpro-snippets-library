@@ -39,7 +39,7 @@ function my_pmpro_next_payment_date_pmpro_membership_expiration_text( $text, $le
 	if ( ! empty( $next_payment_date ) ) {
 		$text = esc_html( sprintf(
 			// translators: %1$s is the date and %2$s is the time.
-			__( 'Your next payment will process on %1$s at %2$s', 'pmpro-customizations' ),
+			__( 'Your next payment will process on %1$s at %2$s', 'pmpro-snippets-library' ),
 			esc_html( $next_payment_date ),
 			esc_html( $next_payment_time )
 		) );

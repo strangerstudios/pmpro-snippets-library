@@ -19,6 +19,6 @@ function show_gravatar_pmpro_account_bullets_top() {
 add_action( 'pmpro_account_bullets_top', 'show_gravatar_pmpro_account_bullets_top' );
 
 function show_gravatar_pmpro_account_bullets_bottom() {
-	echo '<li><strong>' . __( 'Avatar', 'pmpro' ) . ':</strong> <a href="http://gravatar.com/" target="_blank">' . __( 'Update at Gravatar.com', 'pmpro' ) . '</a></li>';
+	echo '<li><strong>' . __( 'Avatar', 'pmpro-snippets-library' ) . ':</strong> <a href="http://gravatar.com/" target="_blank">' . __( 'Update at Gravatar.com', 'pmpro-snippets-library' ) . '</a></li>';
 }
 add_action( 'pmpro_account_bullets_bottom', 'show_gravatar_pmpro_account_bullets_bottom' );

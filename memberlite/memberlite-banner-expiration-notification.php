@@ -84,7 +84,7 @@ function my_memberlite_show_banner_renewal_message() {
 	$renew_url = esc_url( pmpro_url( "checkout", "?pmpro_level=" . $expiring_level->id ) );
 	$message   = sprintf(
 		/* translators: %1$s is the membership name, %2$s is the renewal URL */
-		__( 'Your %1$s membership will expire soon. <a href="%2$s">Click here to renew your membership.</a>', 'textdomain' ),
+		__( 'Your %1$s membership will expire soon. <a href="%2$s">Click here to renew your membership.</a>', 'pmpro-snippets-library' ),
 		esc_html( $expiring_level->name ),
 		$renew_url
 	);

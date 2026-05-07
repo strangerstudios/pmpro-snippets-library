@@ -22,7 +22,7 @@ function my_pmpro_add_mailing_address_to_admin_view_order_view( $order ) {
 		<div class="pmpro_section_toggle">
 			<button class="pmpro_section-toggle-button" type="button" aria-expanded="true">
 				<span class="dashicons dashicons-arrow-up-alt2"></span>
-				<?php esc_html_e( 'Mailing Address', 'paid-memberships-pro' ); ?>
+				<?php esc_html_e( 'Mailing Address', 'pmpro-snippets-library' ); ?>
 			</button>
 		</div>
 

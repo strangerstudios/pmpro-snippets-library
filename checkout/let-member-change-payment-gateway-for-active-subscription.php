@@ -171,7 +171,7 @@ function my_pmpro_renew_or_change_payment_method_level_cost_text( $cost, $level 
 	}
 
 	// Ok, we can adjust the cost text.
-	$cost .= ' Your first subscription payment will be processed on ' . date_i18n( get_option( 'date_format' ), $subscription_start_date ) . '.';
+	$cost .= ' ' . sprintf( __( 'Your first subscription payment will be processed on %s.', 'pmpro-snippets-library' ), date_i18n( get_option( 'date_format' ), $subscription_start_date ) );
 
 	return $cost;
 }
@@ -201,7 +201,7 @@ function my_pmpro_renew_or_change_payment_method_member_action_links( $pmpro_mem
 			$new_pmpro_member_action_links['switch'] = sprintf(
 				'<a id="pmpro_actionlink-switch" href="%s">%s</a>',
 				esc_url( add_query_arg( 'pmpro_level', (int) $level_id, pmpro_url( 'checkout', '', 'https' ) ) ),
-				esc_html__( 'Change Payment Method', 'pmpro' )
+				esc_html__( 'Change Payment Method', 'pmpro-snippets-library' )
 			);
 		}
 	}

@@ -32,8 +32,8 @@ function my_pmprouf_init_pause_access_new() {
 		'pmpro_paused_user',
 		'checkbox',
 		array(
-			'label'   => 'Pause User',
-			'text'    => 'Deny Access to Member Content',
+			'label'   => __( 'Pause User', 'pmpro-snippets-library' ),
+			'text'    => __( 'Deny Access to Member Content', 'pmpro-snippets-library' ),
 			'profile' => 'admins',
 		)
 	);
@@ -70,7 +70,7 @@ function paused_member_pmpro_no_access_message_body( $body, $level_ids ) {
 	// Check if the current user is paused.
 	$paused_user = get_user_meta( $current_user->ID, 'pmpro_paused_user', true );
 	if ( ! empty( $paused_user ) ) {
-		$body = __( '<p>Your membership is paused. Please contact us to reinstate your membership.</p><a href="/contact/">Contact Us</a>', 'paid-memberships-pro' );
+		$body = __( '<p>Your membership is paused. Please contact us to reinstate your membership.</p><a href="/contact/">Contact Us</a>', 'pmpro-snippets-library' );
 	}
 
 	return $body;
@@ -87,7 +87,7 @@ function paused_member_pmpro_membership_account_filter( $content ) {
 		$paused_user = get_user_meta( $current_user->ID, 'pmpro_paused_user', true );
 		if ( ! empty( $paused_user ) ) {
 			// Message to show on the account page.
-			$new_content = __( '<div class="pmpro_content_message"><p>Your membership is paused. Please contact us to reinstate your membership.</p><a href="/contact/">Contact Us</a></div>', 'paid-memberships-pro' );
+			$new_content = __( '<div class="pmpro_content_message"><p>Your membership is paused. Please contact us to reinstate your membership.</p><a href="/contact/">Contact Us</a></div>', 'pmpro-snippets-library' );
 			$content = $new_content . $content;
 		}
 	}

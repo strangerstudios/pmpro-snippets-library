@@ -36,7 +36,7 @@ function link_to_author_archive_pmpro_member_profile_after( $pu ) {
 		esc_url( $author_posts_url ),
 		sprintf(
 			/* translators: %s: Author name. */
-			esc_html__( 'View all of %s\'s posts.', 'pmpro-customizations' ),
+			esc_html__( 'View all of %s\'s posts.', 'pmpro-snippets-library' ),
 			$pu->display_name
 		)
 	);

@@ -30,7 +30,7 @@ add_action( 'pmpro_after_change_membership_level', 'my_pmpro_one_time_trial_save
 // Show the user's trial meta setting for admins on the Edit Profile page.
 function my_pmpro_one_time_trial_show_trial_level_used( $user ) {
 	if ( current_user_can( 'edit_users' ) ) { ?>
-		<h3>One-Time Trial</h3>
+		<h3><?php esc_html_e( 'One-Time Trial', 'pmpro-snippets-library' ); ?></h3>
 		<table class="form-table">
 			<tbody>
 				<tr>
@@ -39,9 +39,9 @@ function my_pmpro_one_time_trial_show_trial_level_used( $user ) {
 						<?php
 							$already = get_user_meta( $user->ID, 'pmpro_trial_level_used', true );
 						if ( ! empty( $already ) && $already == '1' ) {
-							echo 'Trial period has been claimed.';
+							esc_html_e( 'Trial period has been claimed.', 'pmpro-snippets-library' );
 						} else {
-							echo 'Trial period not claimed.';
+							esc_html_e( 'Trial period not claimed.', 'pmpro-snippets-library' );
 						}
 						?>
 					</td>
@@ -99,7 +99,7 @@ function my_pmpro_one_time_trial_delay_pmpro_level_cost_text( $cost, $level ) {
 
 	// If the user already had the trial for this level, make initial payment = billing amount.
 	if ( $level->id == $already && is_page( $pmpro_pages['levels'] ) ) {
-		$cost = sprintf( __( '<strong>%1$s per %2$s</strong>.', 'paid-memberships-pro' ), 
+		$cost = sprintf( __( '<strong>%1$s per %2$s</strong>.', 'pmpro-snippets-library' ),
 		pmpro_formatPrice( $level->billing_amount ), pmpro_translate_billing_period( $level->cycle_period ) );
 	}
 

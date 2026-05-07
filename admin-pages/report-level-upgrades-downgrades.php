@@ -30,7 +30,7 @@ $pmpro_reports_level_changes = array(
  * Add the "Membership Level Changes" report to the PMPro reports array.
  */
 global $pmpro_reports;
-$pmpro_reports['changes'] = __('Membership Level Changes', 'pmpro-reports-changes');
+$pmpro_reports['changes'] = __('Membership Level Changes', 'pmpro-snippets-library');
 
 /**
  * Report Widget: Displays a summary table of level changes.
@@ -44,10 +44,10 @@ function pmpro_report_changes_widget() {
 	<table class="widefat striped">
 		<thead>
 			<tr>
-				<th><?php esc_html_e('Name', 'pmpro-reports-changes'); ?></th>
-				<th><?php esc_html_e('Initial Level', 'pmpro-reports-changes'); ?></th>
-				<th><?php esc_html_e('Current Level', 'pmpro-reports-changes'); ?></th>
-				<th><?php esc_html_e('Count', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Name', 'pmpro-snippets-library'); ?></th>
+				<th><?php esc_html_e('Initial Level', 'pmpro-snippets-library'); ?></th>
+				<th><?php esc_html_e('Current Level', 'pmpro-snippets-library'); ?></th>
+				<th><?php esc_html_e('Count', 'pmpro-snippets-library'); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -99,15 +99,15 @@ function pmpro_report_changes_widget() {
  */
 function pmpro_report_changes_page() {
 	?>
-	<h1><?php esc_html_e( 'Membership Level Changes Report', 'pmpro-reports-changes' ); ?></h1>
+	<h1><?php esc_html_e( 'Membership Level Changes Report', 'pmpro-snippets-library' ); ?></h1>
 
 	<table class="widefat striped">
 		<thead>
 			<tr>
-				<th><?php esc_html_e('Name', 'pmpro-reports-changes'); ?></th>
-				<th><?php esc_html_e('Initial&nbsp;Level', 'pmpro-reports-changes'); ?></th>
-				<th><?php esc_html_e('Current&nbsp;Level', 'pmpro-reports-changes'); ?></th>
-				<th><?php esc_html_e('Count', 'pmpro-reports-changes'); ?></th>
+				<th><?php esc_html_e('Name', 'pmpro-snippets-library'); ?></th>
+				<th><?php esc_html_e('Initial&nbsp;Level', 'pmpro-snippets-library'); ?></th>
+				<th><?php esc_html_e('Current&nbsp;Level', 'pmpro-snippets-library'); ?></th>
+				<th><?php esc_html_e('Count', 'pmpro-snippets-library'); ?></th>
 			</tr>
 		</thead>
 		<tbody>

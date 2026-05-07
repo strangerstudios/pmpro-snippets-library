@@ -16,7 +16,7 @@
 function my_pmpro_donations_change_text( $translated_text, $text, $domain ) {
     switch ( $translated_text ) {
         case 'Make a Gift' :
-            $translated_text = __( 'Your Replacement Text Here', 'pmpro-donations' ); //Replace the text in the brackets to adjust the "Make a Gift" wording shown.
+            $translated_text = __( 'Your Replacement Text Here', 'pmpro-snippets-library' ); //Replace the text in the brackets to adjust the "Make a Gift" wording shown.
             break;
     }
     return $translated_text;

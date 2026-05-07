@@ -26,7 +26,7 @@ $pmpro_elementor_group_levels = array( 1, 2, 3 );
  */
 function my_pmpro_elementor_levels_array_custom( $levels ) {
 	// Add a new selection to the Require Membership Level advanced setting in Elementor.
-	$levels['my_pmpro_elementor_custom_levels'] = __( 'My Custom Levels Group' );
+	$levels['my_pmpro_elementor_custom_levels'] = __( 'My Custom Levels Group', 'pmpro-snippets-library' );
 
 	// Return the array of items for the dropdown with our new item added.
 	return $levels;

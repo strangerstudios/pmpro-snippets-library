@@ -61,7 +61,7 @@ function show_group_account_child_pmpro_member_profile_after( $pu ) {
 	}
 
 	// Display the group members.
-	echo '<strong>' . esc_html__( 'Group Account Members' ) . '</strong>';
+	echo '<strong>' . esc_html__( 'Group Account Members', 'pmpro-snippets-library' ) . '</strong>';
 	echo '<ul>';
 	foreach ( $active_members as $active_member ) {
 		$user = get_userdata( $active_member->group_child_user_id );

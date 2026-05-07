@@ -19,8 +19,8 @@
 function add_template_pmpro_membershiplevels_templates( $level_templates ) {
 	// Adjust and uncomment this line if you want to remove an existing 
 	$level_templates['quarterly'] = array(
-		'name' => __( 'Quarterly', 'paid-memberships-pro' ),
-		'description' => __( 'Set up a level that bills every 3 months.', 'paid-memberships-pro' ),
+		'name' => __( 'Quarterly', 'pmpro-snippets-library' ),
+		'description' => __( 'Set up a level that bills every 3 months.', 'pmpro-snippets-library' ),
 	);
 	return $level_templates;
 }

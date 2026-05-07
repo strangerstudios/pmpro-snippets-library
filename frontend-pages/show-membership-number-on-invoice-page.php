@@ -32,7 +32,7 @@ function my_pmpro_member_number_invoice_bullets( $pmpro_invoice ) {
 	
 	// Show the member number.
 	if ( ! empty( $member_number ) ) { ?>
-		<li><strong><?php esc_html_e( 'Member Number', 'paid-memberships-pro' ); ?>:</strong> <?php echo $member_number; ?></li>
+		<li><strong><?php esc_html_e( 'Member Number', 'pmpro-snippets-library' ); ?>:</strong> <?php echo $member_number; ?></li>
 	<?php
 	}
 }

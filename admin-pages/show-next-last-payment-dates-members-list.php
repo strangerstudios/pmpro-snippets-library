@@ -20,8 +20,8 @@
  * @return array
  */
 function my_pmpro_add_memberslist_col_payment_dates( $columns ) {
-	$columns[ 'last_payment_date' ] = 'Last Payment';
-	$columns[ 'next_payment_date' ] = 'Next Payment';
+	$columns[ 'last_payment_date' ] = __( 'Last Payment', 'pmpro-snippets-library' );
+	$columns[ 'next_payment_date' ] = __( 'Next Payment', 'pmpro-snippets-library' );
 	return $columns;
 }
 add_filter( 'pmpro_manage_memberslist_columns', 'my_pmpro_add_memberslist_col_payment_dates' );
@@ -41,12 +41,12 @@ function my_pmpro_fill_memberslist_col_payment_dates( $colname, $user_id, $item 
 		if ( ! empty( $last_order ) && ! empty( $last_order->id ) ) {
 			echo esc_html( sprintf(
 				// translators: %1$s is the date and %2$s is the time.
-				__( '%1$s at %2$s', 'pmpro-customizations' ),
+				__( '%1$s at %2$s', 'pmpro-snippets-library' ),
 				date( get_option('date_format'), $last_order->timestamp ),
 				date( get_option('time_format'), $last_order->timestamp )
 			) );
 		} else {
-			echo 'N/A';
+			esc_html_e( 'N/A', 'pmpro-snippets-library' );
 		}
 	}
 
@@ -56,7 +56,7 @@ function my_pmpro_fill_memberslist_col_payment_dates( $colname, $user_id, $item 
 
 		// Return early if there are no subscriptions.
 		if ( empty( $subscriptions ) ) {
-			echo 'N/A';
+			esc_html_e( 'N/A', 'pmpro-snippets-library' );
 			return;
 		}
 
@@ -67,12 +67,12 @@ function my_pmpro_fill_memberslist_col_payment_dates( $colname, $user_id, $item 
 		if ( ! empty( $next_payment_date ) ) {
 			echo esc_html( sprintf(
 				// translators: %1$s is the date and %2$s is the time.
-				__( '%1$s at %2$s', 'pmpro-customizations' ),
+				__( '%1$s at %2$s', 'pmpro-snippets-library' ),
 				esc_html( $next_payment_date ),
 				esc_html( $next_payment_time )
 			) );
 		} else {
-			echo 'N/A';
+			esc_html_e( 'N/A', 'pmpro-snippets-library' );
 		}
 	}
 }

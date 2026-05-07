@@ -39,10 +39,10 @@ function my_pmpro_limit_members_pmpro_membership_level_after_other_settings() {
 	<table class="form-table">
 		<tbody>
 			<tr>
-				<th scope="row" valign="top"><label for="pmpro_level_member_limit"><?php esc_html_e( 'Maximum Number of Members', 'pmpro-customizations' ); ?></label></th>
+				<th scope="row" valign="top"><label for="pmpro_level_member_limit"><?php esc_html_e( 'Maximum Number of Members', 'pmpro-snippets-library' ); ?></label></th>
 				<td>
 					<input id="pmpro_level_member_limit" name="pmpro_level_member_limit" type="number" value="<?php echo esc_attr( $pmpro_level_member_limit );?>" />
-					<p class="description"><?php esc_html_e( 'Set the maximum number of members for this level.', 'pmpro-customizations' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Set the maximum number of members for this level.', 'pmpro-snippets-library' ); ?></p>
 				</td>
 			</tr>
 		</tbody>
@@ -79,7 +79,7 @@ function my_pmpro_limit_members_pmpro_registration_checks( $value ) {
 	// Compare the count of members to the maximum number of members allowed in this level
 	if ( $pmpro_level_member_limit > 0 && $member_count >= $pmpro_level_member_limit ) {
 		global $pmpro_msg, $pmpro_msgt;
-		$pmpro_msg = __( 'Membership limit has been reached for this level', 'pmpro-customizations' );
+		$pmpro_msg = __( 'Membership limit has been reached for this level', 'pmpro-snippets-library' );
 		$pmpro_msgt = "pmpro_error";
 		$value = false;
 	}
@@ -111,7 +111,7 @@ function my_pmpro_show_spots_available( ) {
 	echo '<p class="my-pmpro-spots-claimed">';
 	echo esc_html( sprintf(
 		// translators: %1$s is the number of members in the level and %2$s is the limit.
-		__( '%1$s of %2$s spots claimed.', 'pmpro-customizations' ),
+		__( '%1$s of %2$s spots claimed.', 'pmpro-snippets-library' ),
 		$member_count,
 		$pmpro_level_member_limit
 	) ); 
@@ -122,7 +122,7 @@ function my_pmpro_show_spots_available( ) {
 	echo '<p class="my-pmpro-spots-available">';
 	echo esc_html( sprintf(
 		// translators: %1$s is the number of spots available.
-		__( '%s spots available.', 'pmpro-customizations' ),
+		__( '%s spots available.', 'pmpro-snippets-library' ),
 		$pmpro_level_member_limit - $member_count
 	) ); 
 	echo '</p>';
@@ -199,7 +199,7 @@ add_filter( 'pmpro_levels_array', 'my_pmpro_levels_array_hide_full_levels' );
  * Show the number of members in a level on the Membership Levels Settings page.
  */
 function my_pmpro_membership_levels_table_extra_cols_header_spots( $reordered_levels ) { ?>
-	<th><?php esc_html_e( 'Spots Claimed', 'pmpro-customizations' ); ?></th>
+	<th><?php esc_html_e( 'Spots Claimed', 'pmpro-snippets-library' ); ?></th>
 	<?php
 }
 add_action( 'pmpro_membership_levels_table_extra_cols_header', 'my_pmpro_membership_levels_table_extra_cols_header_spots' );
@@ -210,7 +210,7 @@ function my_pmpro_membership_levels_table_extra_cols_body_spots( $level ) {
 
 	// Show empty if the limit is not set.
 	if ( empty( $pmpro_level_member_limit ) ) {
-		echo '<td>' . __( '&#8212;', 'paid-memberships-pro' ) . '</td>';
+		echo '<td>' . __( '&#8212;', 'pmpro-snippets-library' ) . '</td>';
 		return;
 	}
 
@@ -221,7 +221,7 @@ function my_pmpro_membership_levels_table_extra_cols_body_spots( $level ) {
 	echo '<td>';
 	echo esc_html( sprintf(
 		// translators: %1$s is the number of members in the level and %2$s is the limit.
-		__( '%1$s of %2$s', 'pmpro-customizations' ),
+		__( '%1$s of %2$s', 'pmpro-snippets-library' ),
 		$member_count,
 		$pmpro_level_member_limit
 	) ); 
