@@ -10,7 +10,7 @@
  * layout: snippet
  * collection: restricting-content
  * category: content, categories
- * link: TBD
+ * link: https://www.paidmembershipspro.com/allow-public-access-to-post-in-protected-category/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
