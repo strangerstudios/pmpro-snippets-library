@@ -15,7 +15,7 @@
 
 function pmpro_currencies_ruble( $currencies ) {
 
-	$currencies['RUB'] = __( 'Russian Ruble (RUB)', 'pmpro' );
+	$currencies['RUB'] = __( 'Russian Ruble (RUB)', 'pmpro-snippets-library' );
 
 	return $currencies;
 

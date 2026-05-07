@@ -47,7 +47,7 @@ function my_pmprogroupacct_enforce_same_email_domain( $continue ) {
 
 	// If the email domain of the user is not the same as the email domain of the parent user, return false.
 	if ( $parent_email_domain !== $user_email_domain ) {
-		pmpro_setMessage( __( 'Please use a valid email domain for your group account.', 'pmpro-group-accounts' ), 'pmpro_error' );
+		pmpro_setMessage( __( 'Please use a valid email domain for your group account.', 'pmpro-snippets-library' ), 'pmpro_error' );
 		return false;
 	}
 

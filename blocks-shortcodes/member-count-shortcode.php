@@ -51,7 +51,7 @@ function pmpro_member_count_shortcode( $attrs = null ) {
 	
 	// There was an error getting data from the database.
 	if ( is_wp_error( $member_count ) ) {
-		return sprintf( esc_html__( "Error while processing request: %s", "pmpromsc" ), $wpdb->print_error() );	
+		return sprintf( esc_html__( "Error while processing request: %s", 'pmpro-snippets-library' ), $wpdb->print_error() );	
 	}
 	
 	// Display only the number of members if we want the integer value.
@@ -61,9 +61,9 @@ function pmpro_member_count_shortcode( $attrs = null ) {
 
 	// Change the text if we are outputting for specific levels, or the overall member count.
 	if ( ! empty( $level ) ) {
-		return sprintf( esc_html__( "This site has %d members in the selected levels", "pmpromsc" ), $member_count );
+		return sprintf( esc_html__( "This site has %d members in the selected levels", 'pmpro-snippets-library' ), $member_count );
 	} else {
-		return sprintf( esc_html__( "This site has %d members", "pmpromsc" ), $member_count );
+		return sprintf( esc_html__( "This site has %d members", 'pmpro-snippets-library' ), $member_count );
 	}
 }
 add_shortcode( 'pmpro_member_count', 'pmpro_member_count_shortcode' );

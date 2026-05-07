@@ -29,7 +29,7 @@ function my_pmpro_member_action_links_add_paypal( $pmpro_member_action_links, $l
 			$pmpro_member_action_links['paypal'] = sprintf(
 				'<a id="pmpro_actionlink-paypal" href="%s" target="_blank">%s</a>',
 				esc_url( 'https://www.paypal.com/myaccount/autopay/' ),
-				esc_html__( 'Manage Subscription at PayPal', 'my-text-domain' )
+				esc_html__( 'Manage Subscription at PayPal', 'pmpro-snippets-library' )
 			);
 		}
 	}

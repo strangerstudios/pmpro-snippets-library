@@ -18,7 +18,7 @@
  * Register the report.
  */
 global $pmpro_reports;
-$pmpro_reports['refunds'] = __( 'Refund Rate', 'paid-memberships-pro' );
+$pmpro_reports['refunds'] = __( 'Refund Rate', 'pmpro-snippets-library' );
 
 /**
  * Refund Rate widget on Memberships > Reports.
@@ -32,17 +32,17 @@ if ( ! function_exists( 'pmpro_report_refunds_widget' ) ) {
 				<thead>
 					<tr>
 						<th>&nbsp;</th>
-						<th><?php esc_html_e( 'Sales', 'paid-memberships-pro' ); ?></th>
-						<th><?php esc_html_e( 'Refunds', 'paid-memberships-pro' ); ?></th>
-						<th><?php esc_html_e( 'Refund Rate', 'paid-memberships-pro' ); ?></th>
+						<th><?php esc_html_e( 'Sales', 'pmpro-snippets-library' ); ?></th>
+						<th><?php esc_html_e( 'Refunds', 'pmpro-snippets-library' ); ?></th>
+						<th><?php esc_html_e( 'Refund Rate', 'pmpro-snippets-library' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$periods = array(
-						'this month' => esc_html__( 'This Month', 'paid-memberships-pro' ),
-						'this year'  => esc_html__( 'This Year', 'paid-memberships-pro' ),
-						'all time'   => esc_html__( 'All Time', 'paid-memberships-pro' ),
+						'this month' => esc_html__( 'This Month', 'pmpro-snippets-library' ),
+						'this year'  => esc_html__( 'This Year', 'pmpro-snippets-library' ),
+						'all time'   => esc_html__( 'All Time', 'pmpro-snippets-library' ),
 					);
 
 					foreach ( $periods as $period => $label ) :
@@ -58,7 +58,7 @@ if ( ! function_exists( 'pmpro_report_refunds_widget' ) ) {
 								if ( $sales > 0 ) {
 									echo esc_html( sprintf( '%.2f%%', ( $refunds / $sales ) * 100 ) );
 								} else {
-									esc_html_e( 'N/A', 'paid-memberships-pro' );
+									esc_html_e( 'N/A', 'pmpro-snippets-library' );
 								}
 								?>
 							</td>
@@ -71,7 +71,7 @@ if ( ! function_exists( 'pmpro_report_refunds_widget' ) ) {
 				<p class="pmpro_report-button">
 					<a class="button button-primary"
 					   href="<?php echo esc_url( admin_url( 'admin.php?page=pmpro-reports&report=refunds' ) ); ?>">
-						<?php esc_html_e( 'Details', 'paid-memberships-pro' ); ?>
+						<?php esc_html_e( 'Details', 'pmpro-snippets-library' ); ?>
 					</a>
 				</p>
 			<?php } ?>
@@ -88,23 +88,23 @@ if ( ! function_exists( 'pmpro_report_refunds_page' ) ) {
 	function pmpro_report_refunds_page() {
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Refund Rate', 'paid-memberships-pro' ); ?></h1>
+			<h1><?php esc_html_e( 'Refund Rate', 'pmpro-snippets-library' ); ?></h1>
 
 			<table class="wp-list-table widefat fixed striped">
 				<thead>
 					<tr>
 						<th>&nbsp;</th>
-						<th><?php esc_html_e( 'Sales', 'paid-memberships-pro' ); ?></th>
-						<th><?php esc_html_e( 'Refunds', 'paid-memberships-pro' ); ?></th>
-						<th><?php esc_html_e( 'Refund Rate', 'paid-memberships-pro' ); ?></th>
+						<th><?php esc_html_e( 'Sales', 'pmpro-snippets-library' ); ?></th>
+						<th><?php esc_html_e( 'Refunds', 'pmpro-snippets-library' ); ?></th>
+						<th><?php esc_html_e( 'Refund Rate', 'pmpro-snippets-library' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$periods = array(
-						'this month' => esc_html__( 'This Month', 'paid-memberships-pro' ),
-						'this year'  => esc_html__( 'This Year', 'paid-memberships-pro' ),
-						'all time'   => esc_html__( 'All Time', 'paid-memberships-pro' ),
+						'this month' => esc_html__( 'This Month', 'pmpro-snippets-library' ),
+						'this year'  => esc_html__( 'This Year', 'pmpro-snippets-library' ),
+						'all time'   => esc_html__( 'All Time', 'pmpro-snippets-library' ),
 					);
 
 					foreach ( $periods as $period => $label ) :
@@ -120,7 +120,7 @@ if ( ! function_exists( 'pmpro_report_refunds_page' ) ) {
 								if ( $sales > 0 ) {
 									echo esc_html( sprintf( '%.2f%%', ( $refunds / $sales ) * 100 ) );
 								} else {
-									esc_html_e( 'N/A', 'paid-memberships-pro' );
+									esc_html_e( 'N/A', 'pmpro-snippets-library' );
 								}
 								?>
 							</td>

@@ -38,7 +38,7 @@ function my_pmpro_hide_bp_fields( $field_value ) {
 
 	// If a user is logged-out we can also hide this information.
 	if ( ! is_user_logged_in() ) {
-		return 'Please login to view content.';
+		return __( 'Please login to view content.', 'pmpro-snippets-library' );
 	}
 
 		// Let's not fatal error if PMPro Approvals is deactivated.
@@ -52,7 +52,7 @@ function my_pmpro_hide_bp_fields( $field_value ) {
 
 	// Hide field if the viewer is not approved
 	if ( ! $approved ) {
-		return __( 'Restricted to Approved Members', 'paid-memberships-pro' );
+		return __( 'Restricted to Approved Members', 'pmpro-snippets-library' );
 	}
 
 	return $field_value;

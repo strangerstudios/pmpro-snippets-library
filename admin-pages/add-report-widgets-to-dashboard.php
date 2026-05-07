@@ -18,7 +18,7 @@ function my_pmpro_add_report_widgets_to_dashboard() {
 	}
 	wp_add_dashboard_widget(
 		'pmpro_membership_dashboard',
-		__( 'Paid Membership Pro Reports' , 'paid-memberships-pro' ),
+		__( 'Paid Membership Pro Reports' , 'pmpro-snippets-library' ),
 		'my_pmpro_add_report_widgets_to_dashboard_callback'
 	);
 }
@@ -31,14 +31,14 @@ function my_pmpro_add_report_widgets_to_dashboard_callback() {
 	require_once( PMPRO_DIR . '/adminpages/reports/sales.php' );
 
 	// Show Visits/Views/Logins report.
-	echo '<h3>' . __( 'Visit, Views and Logins', 'paid-memberships-pro' ) . '</h3>';
+	echo '<h3>' . __( 'Visit, Views and Logins', 'pmpro-snippets-library' ) . '</h3>';
 	pmpro_report_login_widget();
 	// Show Membership report.
-	echo '<br /><h3>' . __( 'Membership Stats', 'paid-memberships-pro' ) . '</h3>';
+	echo '<br /><h3>' . __( 'Membership Stats', 'pmpro-snippets-library' ) . '</h3>';
 	pmpro_report_memberships_widget();
 	// Show Sales and Revenue report.
-	echo '<br /><h3>' . __( 'Sales and Revenue', 'paid-memberships-pro' ) . '</h3>';
+	echo '<br /><h3>' . __( 'Sales and Revenue', 'pmpro-snippets-library' ) . '</h3>';
 	pmpro_report_sales_widget();
 	//show link to all PMPro reports.
-	echo '<p style="text-align: center;"><a class="button-primary" href="' . admin_url( 'admin.php?page=pmpro-reports' ) . '">' . __( 'View All Reports', 'paid-memberships-pro' ) . '</a></p>';
+	echo '<p style="text-align: center;"><a class="button-primary" href="' . admin_url( 'admin.php?page=pmpro-reports' ) . '">' . __( 'View All Reports', 'pmpro-snippets-library' ) . '</a></p>';
 }

@@ -15,7 +15,7 @@
  */
 
 function my_pmpro_next_payment_date_orders_column_header( $columns ) {
-	$columns['next_payment_date'] = 'Next Payment Date';
+	$columns['next_payment_date'] = __( 'Next Payment Date', 'pmpro-snippets-library' );
 
     return $columns;
 }
@@ -36,7 +36,7 @@ function my_pmpro_next_payment_date_orders_column_body( $column_name, $item ) {
 
 		// Return early if there are no subscriptions.
 		if ( empty( $subscription ) ) {
-			echo 'N/A';
+			esc_html_e( 'N/A', 'pmpro-snippets-library' );
 			return;
 		}
 
@@ -46,12 +46,12 @@ function my_pmpro_next_payment_date_orders_column_body( $column_name, $item ) {
 		if ( ! empty( $next_payment_date ) ) {
 			echo esc_html( sprintf(
 				// translators: %1$s is the date and %2$s is the time.
-				__( '%1$s at %2$s', 'pmpro-customizations' ),
+				__( '%1$s at %2$s', 'pmpro-snippets-library' ),
 				esc_html( $next_payment_date ),
 				esc_html( $next_payment_time )
 			) );
 		} else {
-			echo 'N/A';
+			esc_html_e( 'N/A', 'pmpro-snippets-library' );
 		}
 	}
 }

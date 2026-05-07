@@ -24,15 +24,15 @@
 	// $my_logout_url          = home_url( 'my-logout-page-slug' );
 
 	if ( ! empty( $my_edit_profile_url ) ) {
-		$pmpro_profile_action_links['edit-profile'] = sprintf( '<a id="pmpro_actionlink-profile" href="%s">%s</a>', esc_url( $my_edit_profile_url ), esc_html__( 'Edit Profile', 'paid-memberships-pro' ) );
+		$pmpro_profile_action_links['edit-profile'] = sprintf( '<a id="pmpro_actionlink-profile" href="%s">%s</a>', esc_url( $my_edit_profile_url ), esc_html__( 'Edit Profile', 'pmpro-snippets-library' ) );
 	}
 
 	if ( ! empty( $my_change_password_url ) ) {
-		$pmpro_profile_action_links['change-password'] = sprintf( '<a id="pmpro_actionlink-change-password" href="%s">%s</a>', esc_url( $my_change_password_url ), esc_html__( 'Change Password', 'paid-memberships-pro' ) );
+		$pmpro_profile_action_links['change-password'] = sprintf( '<a id="pmpro_actionlink-change-password" href="%s">%s</a>', esc_url( $my_change_password_url ), esc_html__( 'Change Password', 'pmpro-snippets-library' ) );
 	}
 
 	if ( ! empty( $my_logout_url ) ) {
-		$pmpro_profile_action_links['logout'] = sprintf( '<a id="pmpro_actionlink-logout" href="%s">%s</a>', esc_url( $my_logout_url ), esc_html__( 'Log Out', 'paid-memberships-pro' ) );
+		$pmpro_profile_action_links['logout'] = sprintf( '<a id="pmpro_actionlink-logout" href="%s">%s</a>', esc_url( $my_logout_url ), esc_html__( 'Log Out', 'pmpro-snippets-library' ) );
 	}
 
 	return $pmpro_profile_action_links;

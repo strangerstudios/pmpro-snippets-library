@@ -34,8 +34,8 @@
 function pmprogroupacct_add_sponsored_members_migration_settings() {
 	add_submenu_page(
 		'pmpro-dashboard',
-		__( 'Sponsored Members Migration', 'pmpro-group-accounts' ),
-		__( 'Sponsored Members Migration', 'pmpro-group-accounts' ),
+		__( 'Sponsored Members Migration', 'pmpro-snippets-library' ),
+		__( 'Sponsored Members Migration', 'pmpro-snippets-library' ),
 		'manage_options',
 		'pmprogroupacct-sponsored-members-migration',
 		'pmprogroupacct_sponsored_members_migration_page'
@@ -51,12 +51,12 @@ function pmprogroupacct_sponsored_members_migration_page() {
 
 	// Check if the user has the capability to manage options.
 	if ( ! current_user_can( 'manage_options' ) ) {
-		wp_die( __( 'You do not have sufficient permissions to access this page.', 'pmpro-group-accounts' ) );
+		wp_die( __( 'You do not have sufficient permissions to access this page.', 'pmpro-snippets-library' ) );
 	}
 
 	// Make sure that Group Accounts is enabled.
 	if ( ! function_exists( 'pmprogroupacct_get_settings_for_level' ) ) {
-		wp_die( __( 'Group Accounts Add On is not enabled.', 'pmpro-group-accounts' ) );
+		wp_die( __( 'Group Accounts Add On is not enabled.', 'pmpro-snippets-library' ) );
 	}
 
 	// Run migration steps.
@@ -66,7 +66,7 @@ function pmprogroupacct_sponsored_members_migration_page() {
 
 		// Migrate the Sponsored Members level setup.
 		if ( empty( $pmprosm_sponsored_account_levels ) ) {
-			wp_die( __( 'Cannot find $pmprosm_sponsored_account_levels global. Please enable Sponsored Members setup code to migrate.', 'pmpro-group-accounts' ) );
+			wp_die( __( 'Cannot find $pmprosm_sponsored_account_levels global. Please enable Sponsored Members setup code to migrate.', 'pmpro-snippets-library' ) );
 		}
 
 		foreach ( $pmprosm_sponsored_account_levels as $level_id => $level_setup ) {
@@ -107,7 +107,7 @@ function pmprogroupacct_sponsored_members_migration_page() {
 		// Migrate the Sponsored Members groups.
 		$code_user_ids = get_option( 'pmpro_code_user_ids' );
 		if ( empty( $code_user_ids ) ) {
-			wp_die( __( 'No parent users found in Sponsored Members.', 'pmpro-group-accounts' ) );
+			wp_die( __( 'No parent users found in Sponsored Members.', 'pmpro-snippets-library' ) );
 		}
 
 		foreach ( $code_user_ids as $code_id => $user_id ) {
@@ -155,7 +155,7 @@ function pmprogroupacct_sponsored_members_migration_page() {
 		// Migrate the Sponsored Members members.
 		$code_user_ids = get_option( 'pmpro_code_user_ids' );
 		if ( empty( $code_user_ids ) ) {
-			wp_die( __( 'No parent users found in Sponsored Members.', 'pmpro-group-accounts' ) );
+			wp_die( __( 'No parent users found in Sponsored Members.', 'pmpro-snippets-library' ) );
 		}
 
 		foreach ( $code_user_ids as $code_id => $user_id ) {
@@ -241,10 +241,10 @@ function pmprogroupacct_sponsored_members_migration_page() {
 
 	?>
 	<div class="wrap">
-		<h2><?php esc_html_e( 'Sponsored Members Migration', 'pmpro-group-accounts' ); ?></h2>
+		<h2><?php esc_html_e( 'Sponsored Members Migration', 'pmpro-snippets-library' ); ?></h2>
 		<div>
-			<h3><?php esc_html_e( 'Migrate Level Setup', 'pmpro-group-accounts' ); ?></h3>
-			<p><?php esc_html_e( 'Migrate the level setup from Sponsored Members to Group Accounts.', 'pmpro-group-accounts' ); ?></p>
+			<h3><?php esc_html_e( 'Migrate Level Setup', 'pmpro-snippets-library' ); ?></h3>
+			<p><?php esc_html_e( 'Migrate the level setup from Sponsored Members to Group Accounts.', 'pmpro-snippets-library' ); ?></p>
 			<form method="post">
 				<?php
 				wp_nonce_field( 'pmprosm_migrate_level_setup', 'pmprosm_migrate_nonce' );
@@ -257,7 +257,7 @@ function pmprogroupacct_sponsored_members_migration_page() {
 				);
 				if ( ! empty( $group_account_levels ) ) {
 					?>
-					<p><strong><?php esc_html_e( 'The following levels have already been set up in Group Accounts:', 'pmpro-group-accounts' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'The following levels have already been set up in Group Accounts:', 'pmpro-snippets-library' ); ?></strong></p>
 					<ul>
 						<?php
 						foreach ( $group_account_levels as $group_account_level ) {
@@ -275,14 +275,14 @@ function pmprogroupacct_sponsored_members_migration_page() {
 					<?php
 				} else {
 					?>
-					<p><strong><?php esc_html_e( 'No levels have been set up in Group Accounts yet.', 'pmpro-group-accounts' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'No levels have been set up in Group Accounts yet.', 'pmpro-snippets-library' ); ?></strong></p>
 					<?php
 				}
 
 				// Get the level information and group account settings of all levels that have been set up in Sponsored Members.
 				if ( empty( $pmprosm_sponsored_account_levels ) ) {
 					?>
-					<p><strong><?php esc_html_e( 'Cannot find $pmprosm_sponsored_account_levels global. Please enable Sponsored Members setup code to migrate.', 'pmpro-group-accounts' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'Cannot find $pmprosm_sponsored_account_levels global. Please enable Sponsored Members setup code to migrate.', 'pmpro-snippets-library' ); ?></strong></p>
 					<?php
 				} else {
 					// Unset any levels that have already been set up in Group Accounts.
@@ -291,17 +291,17 @@ function pmprogroupacct_sponsored_members_migration_page() {
 					}
 					if ( empty( $pmprosm_sponsored_account_levels ) ) {
 						?>
-						<p><strong><?php esc_html_e( 'All levels have been migrated from Sponsored Members.', 'pmpro-group-accounts' ); ?></strong></p>
+						<p><strong><?php esc_html_e( 'All levels have been migrated from Sponsored Members.', 'pmpro-snippets-library' ); ?></strong></p>
 						<?php
 					} else {
 						?>
-						<p><strong><?php esc_html_e( 'The following levels have not yet been migrated from Sponsored Members:', 'pmpro-group-accounts' ); ?></strong></p>
+						<p><strong><?php esc_html_e( 'The following levels have not yet been migrated from Sponsored Members:', 'pmpro-snippets-library' ); ?></strong></p>
 						<ul>
 							<?php
 							foreach ( $pmprosm_sponsored_account_levels as $level_id => $level_setup ) {
 								// Get the level name for the key.
 								$level = pmpro_getLevel( $level_id );
-								$level_name = empty( $level ) ? '[' . sprintf( __( 'Deleted Level %d', 'pmpro_group_accounts' ), (int)$level_id ) . ']' : $level->name;
+								$level_name = empty( $level ) ? '[' . sprintf( __( 'Deleted Level %d', 'pmpro-snippets-library' ), (int)$level_id ) . ']' : $level->name;
 								?>
 								<h4><?php echo esc_html( $level_name ); ?></h4>
 								<li>child_level_ids: <?php echo esc_html( is_array( $level_setup['sponsored_level_id'] ) ? implode( ', ', $level_setup['sponsored_level_id'] ) : $level_setup['sponsored_level_id'] ); ?></li>
@@ -334,13 +334,13 @@ function pmprogroupacct_sponsored_members_migration_page() {
 
 				}
 				?>
-				<input type="submit" name="pmprosm_migrate_level_setup" class="button button-primary" value="<?php esc_attr_e( 'Migrate Level Setup', 'pmpro-group-accounts' ); ?>" <?php if ( empty( $pmprosm_sponsored_account_levels ) ) { echo 'disabled'; } ?>>
+				<input type="submit" name="pmprosm_migrate_level_setup" class="button button-primary" value="<?php esc_attr_e( 'Migrate Level Setup', 'pmpro-snippets-library' ); ?>" <?php if ( empty( $pmprosm_sponsored_account_levels ) ) { echo 'disabled'; } ?>>
 			</form>
 		</div>
 
 		<div>
-			<h3><?php esc_html_e( 'Migrate Groups', 'pmpro-group-accounts' ); ?></h3>
-			<p><?php esc_html_e( 'Migrate the groups from Sponsored Members to Group Accounts.', 'pmpro-group-accounts' ); ?></p>
+			<h3><?php esc_html_e( 'Migrate Groups', 'pmpro-snippets-library' ); ?></h3>
+			<p><?php esc_html_e( 'Migrate the groups from Sponsored Members to Group Accounts.', 'pmpro-snippets-library' ); ?></p>
 			<form method="post">
 				<?php
 				wp_nonce_field( 'pmprosm_migrate_groups', 'pmprosm_migrate_nonce' );
@@ -349,7 +349,7 @@ function pmprogroupacct_sponsored_members_migration_page() {
 				$code_user_ids = get_option( 'pmpro_code_user_ids' );
 				if ( empty( $code_user_ids ) ) {
 					?>
-					<p><strong><?php esc_html_e( 'No parent users found in Sponsored Members.', 'pmpro-group-accounts' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'No parent users found in Sponsored Members.', 'pmpro-snippets-library' ); ?></strong></p>
 					<?php
 				} else {
 					// Remove any parent users that already have a group set up in Group Accounts.
@@ -366,11 +366,11 @@ function pmprogroupacct_sponsored_members_migration_page() {
 					}
 					if ( empty( $code_user_ids ) ) {
 						?>
-						<p><strong><?php esc_html_e( 'All parent users have been migrated to groups in Group Accounts.', 'pmpro-group-accounts' ); ?></strong></p>
+						<p><strong><?php esc_html_e( 'All parent users have been migrated to groups in Group Accounts.', 'pmpro-snippets-library' ); ?></strong></p>
 						<?php
 					} else {
 						?>
-						<p><strong><?php esc_html_e( 'The following parent users have not yet been migrated to groups in Group Accounts:', 'pmpro-group-accounts' ); ?></strong></p>
+						<p><strong><?php esc_html_e( 'The following parent users have not yet been migrated to groups in Group Accounts:', 'pmpro-snippets-library' ); ?></strong></p>
 						<ul>
 							<?php
 							foreach ( $code_user_ids as $code_id => $user_id ) {
@@ -385,13 +385,13 @@ function pmprogroupacct_sponsored_members_migration_page() {
 					}
 				}
 				?>
-				<input type="submit" name="pmprosm_migrate_groups" class="button button-primary" value="<?php esc_attr_e( 'Migrate Groups', 'pmpro-group-accounts' ); ?>" <?php if ( empty( $code_user_ids ) ) { echo 'disabled'; } ?>>
+				<input type="submit" name="pmprosm_migrate_groups" class="button button-primary" value="<?php esc_attr_e( 'Migrate Groups', 'pmpro-snippets-library' ); ?>" <?php if ( empty( $code_user_ids ) ) { echo 'disabled'; } ?>>
 			</form>
 		</div>
 
 		<div>
-			<h3><?php esc_html_e( 'Migrate Members', 'pmpro-group-accounts' ); ?></h3>
-			<p><?php esc_html_e( 'Migrate the members from Sponsored Members to Group Accounts.', 'pmpro-group-accounts' ); ?></p>
+			<h3><?php esc_html_e( 'Migrate Members', 'pmpro-snippets-library' ); ?></h3>
+			<p><?php esc_html_e( 'Migrate the members from Sponsored Members to Group Accounts.', 'pmpro-snippets-library' ); ?></p>
 			<form method="post">
 				<?php
 				wp_nonce_field( 'pmprosm_migrate_members', 'pmprosm_migrate_nonce' );
@@ -400,7 +400,7 @@ function pmprogroupacct_sponsored_members_migration_page() {
 				$code_user_ids = get_option( 'pmpro_code_user_ids' );
 				if ( empty( $code_user_ids ) ) {
 					?>
-					<p><strong><?php esc_html_e( 'No parent users found in Sponsored Members.', 'pmpro-group-accounts' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'No parent users found in Sponsored Members.', 'pmpro-snippets-library' ); ?></strong></p>
 					<?php
 				} else {
 					// For each parent user, list the child users that have not yet been migrated to a group in Group Accounts.
@@ -436,11 +436,11 @@ function pmprogroupacct_sponsored_members_migration_page() {
 
 					if ( empty( $children_to_migrate ) ) {
 						?>
-						<p><strong><?php esc_html_e( 'All members have been migrated to groups in Group Accounts.', 'pmpro-group-accounts' ); ?></strong></p>
+						<p><strong><?php esc_html_e( 'All members have been migrated to groups in Group Accounts.', 'pmpro-snippets-library' ); ?></strong></p>
 						<?php
 					} else {
 						?>
-						<p><strong><?php esc_html_e( 'The following members have not yet been migrated to groups in Group Accounts:', 'pmpro-group-accounts' ); ?></strong></p>
+						<p><strong><?php esc_html_e( 'The following members have not yet been migrated to groups in Group Accounts:', 'pmpro-snippets-library' ); ?></strong></p>
 						<ul>
 							<?php
 							foreach ( $children_to_migrate as $parent_user_id => $child_user_ids ) {
@@ -465,13 +465,13 @@ function pmprogroupacct_sponsored_members_migration_page() {
 					}
 				}
 				?>
-				<input type="submit" name="pmprosm_migrate_members" class="button button-primary" value="<?php esc_attr_e( 'Migrate Members', 'pmpro-group-accounts' ); ?>" <?php if ( empty( $children_to_migrate ) ) { echo 'disabled'; } ?>>
+				<input type="submit" name="pmprosm_migrate_members" class="button button-primary" value="<?php esc_attr_e( 'Migrate Members', 'pmpro-snippets-library' ); ?>" <?php if ( empty( $children_to_migrate ) ) { echo 'disabled'; } ?>>
 			</form>
 		</div>
 
 		<div>
-			<h3><?php esc_html_e( 'Delete Data', 'pmpro-group-accounts' ); ?></h3>
-			<p><?php esc_html_e( 'Delete the Sponsored Members data.', 'pmpro-group-accounts' ); ?></p>
+			<h3><?php esc_html_e( 'Delete Data', 'pmpro-snippets-library' ); ?></h3>
+			<p><?php esc_html_e( 'Delete the Sponsored Members data.', 'pmpro-snippets-library' ); ?></p>
 			<form method="post" onsubmit="return confirm('This will permanently delete data from your database. Ensure that you have a backup of your data before proceeding. Continue?');">
 				<?php
 				$seats_user_meta_exists = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->usermeta WHERE meta_key = 'pmprosm_seats'" );
@@ -479,21 +479,21 @@ function pmprogroupacct_sponsored_members_migration_page() {
 
 				if ( ! $seats_user_meta_exists && ! $pmpro_code_user_ids_option_exists ) {
 					?>
-					<p><strong><?php esc_html_e( 'No Sponsored Members data found.', 'pmpro-group-accounts' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'No Sponsored Members data found.', 'pmpro-snippets-library' ); ?></strong></p>
 					<?php
 				} else {
 					?>
-					<p><strong><?php esc_html_e( 'The following data will be deleted:', 'pmpro-group-accounts' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'The following data will be deleted:', 'pmpro-snippets-library' ); ?></strong></p>
 					<ul>
 						<?php
 						if ( $seats_user_meta_exists ) {
 							?>
-							<li><?php esc_html_e( 'User meta: pmprosm_seats', 'pmpro-group-accounts' ); ?></li>
+							<li><?php esc_html_e( 'User meta: pmprosm_seats', 'pmpro-snippets-library' ); ?></li>
 							<?php
 						}
 						if ( $pmpro_code_user_ids_option_exists ) {
 							?>
-							<li><?php esc_html_e( 'WP Option: pmpro_code_user_ids', 'pmpro-group-accounts' ); ?></li>
+							<li><?php esc_html_e( 'WP Option: pmpro_code_user_ids', 'pmpro-snippets-library' ); ?></li>
 							<?php
 						}
 						?>
@@ -502,24 +502,24 @@ function pmprogroupacct_sponsored_members_migration_page() {
 				}
 				wp_nonce_field( 'pmprosm_delete_data', 'pmprosm_migrate_nonce' );
 				?>
-				<input type="submit" name="pmprosm_delete_data" class="button button-primary" value="<?php esc_attr_e( 'Delete Data', 'pmpro-group-accounts' ); ?>" <?php if ( ! $seats_user_meta_exists && ! $pmpro_code_user_ids_option_exists ) { echo 'disabled'; } ?>>
+				<input type="submit" name="pmprosm_delete_data" class="button button-primary" value="<?php esc_attr_e( 'Delete Data', 'pmpro-snippets-library' ); ?>" <?php if ( ! $seats_user_meta_exists && ! $pmpro_code_user_ids_option_exists ) { echo 'disabled'; } ?>>
 			</form>
 		</div>
 
 		<div>
-			<h3><?php esc_html_e( 'Delete Discount Codes', 'pmpro-group-accounts' ); ?></h3>
-			<p><?php esc_html_e( 'Delete the Sponsored Members discount codes.', 'pmpro-group-accounts' ); ?></p>
+			<h3><?php esc_html_e( 'Delete Discount Codes', 'pmpro-snippets-library' ); ?></h3>
+			<p><?php esc_html_e( 'Delete the Sponsored Members discount codes.', 'pmpro-snippets-library' ); ?></p>
 			<form method="post" onsubmit="return confirm('This will permanently delete discount code data. Ensure that you have a backup of your data before proceeding. Continue?');">
 				<?php
 				// Check that the code begins with upper case "S" and has 11 characters.
 				$discount_codes = $wpdb->get_col( "SELECT code FROM $wpdb->pmpro_discount_codes WHERE code REGEXP '^[S]{1}[A-Z0-9]{10}$'" );
 				if ( empty( $discount_codes ) ) {
 					?>
-					<p><strong><?php esc_html_e( 'No Sponsored Members discount codes found.', 'pmpro-group-accounts' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'No Sponsored Members discount codes found.', 'pmpro-snippets-library' ); ?></strong></p>
 					<?php
 				} else {
 					?>
-					<p><strong><?php esc_html_e( 'The following discount codes will be deleted:', 'pmpro-group-accounts' ); ?></strong></p>
+					<p><strong><?php esc_html_e( 'The following discount codes will be deleted:', 'pmpro-snippets-library' ); ?></strong></p>
 					<ul>
 						<?php
 						foreach ( $discount_codes as $discount_code ) {
@@ -533,7 +533,7 @@ function pmprogroupacct_sponsored_members_migration_page() {
 				}
 				wp_nonce_field( 'pmprosm_delete_discount_codes', 'pmprosm_migrate_nonce' );
 				?>
-				<input type="submit" name="pmprosm_delete_discount_codes" class="button button-primary" value="<?php esc_attr_e( 'Delete Discount Codes', 'pmpro-group-accounts' ); ?>" <?php if ( empty( $discount_codes ) ) { echo 'disabled'; } ?>>
+				<input type="submit" name="pmprosm_delete_discount_codes" class="button button-primary" value="<?php esc_attr_e( 'Delete Discount Codes', 'pmpro-snippets-library' ); ?>" <?php if ( empty( $discount_codes ) ) { echo 'disabled'; } ?>>
 			</form>
 	</div>
 	<?php

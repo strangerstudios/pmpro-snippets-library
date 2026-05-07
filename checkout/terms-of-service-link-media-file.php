@@ -17,8 +17,8 @@ function my_pmpro_replace_tos_field_with_post_id( $settings ) {
 	$settings['tospage'] = array(
 		'field_name'  => 'tospage',
 		'field_type'  => 'text', // replaces callback with basic text input
-		'label'       => __( 'Terms of Service Post ID', 'paid-memberships-pro' ),
-		'description' => __( 'Enter the ID of the WordPress content to use as the Terms of Service agreement.', 'paid-memberships-pro' ),
+		'label'       => __( 'Terms of Service Post ID', 'pmpro-snippets-library' ),
+		'description' => __( 'Enter the ID of the WordPress content to use as the Terms of Service agreement.', 'pmpro-snippets-library' ),
 	);
 	return $settings;
 }

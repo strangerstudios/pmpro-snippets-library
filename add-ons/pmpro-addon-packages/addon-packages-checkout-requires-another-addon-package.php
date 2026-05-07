@@ -38,7 +38,7 @@ function my_pmpro_require_ap_for_ap_checkout( $continue ) {
 		$required_ap_permalink = get_permalink( $ap_required[ $checkout_ap ] );
 
 		// set error message with link to checkout ap with pmpro_setMessage
-		$pmpro_msg  = sprintf( __( 'To be able to purchase access to this post you first need to purchase access to <a href="%s">this</a>.', 'paid-memberships-pro' ), $required_ap_permalink );
+		$pmpro_msg  = sprintf( __( 'To be able to purchase access to this post you first need to purchase access to <a href="%s">this</a>.', 'pmpro-snippets-library' ), $required_ap_permalink );
 		$pmpro_msgt = 'pmpro_error';
 		return false;
 	}
