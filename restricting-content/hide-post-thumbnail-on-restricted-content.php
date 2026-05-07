@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: restricting-content
  * category: content, restriction, non-member
- * link: https://www.paidmembershipspro.com/hide-a-blog-posts-featured-image-from-non-members/
+ * link: https://www.paidmembershipspro.com/hide-featured-image-non-members/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
