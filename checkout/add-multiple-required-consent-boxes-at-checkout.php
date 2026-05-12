@@ -52,7 +52,7 @@ function pmpro_show_multiple_tos_at_checkout() {
 		echo '<div class="' . esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-checkbox pmpro_form_field-required' ) ) . '">';
 		echo '<label class="' . esc_attr( pmpro_get_element_class( 'pmpro_form_label pmpro_clickable', 'tos_' . $page_id ) ) . '">';
 		echo '<input type="checkbox" name="tos_' . esc_attr( $page_id ) . '" value="1" id="tos_' . esc_attr( $page_id ) . '" ' . checked( 1, $tos_checked, false ) . '>';
-		echo sprintf( __( 'I agree to the <a href="%1$s" target="_blank">%2$s</a>', 'paid-memberships-pro' ), esc_url( get_permalink( $page->ID ) ), esc_html( $page->post_title ) );
+		echo sprintf( __( 'I agree to the <a href="%1$s" target="_blank">%2$s</a>', 'pmpro-snippets-library' ), esc_url( get_permalink( $page->ID ) ), esc_html( $page->post_title ) );
 		echo '</label></div>';
 	}
 
@@ -77,7 +77,7 @@ function pmpro_validate_multiple_tos_at_checkout( $pmpro_continue_registration )
 			$pmpro_continue_registration = false;
 			$pmpro_error_fields[]        = 'tos_' . $page_id;
 			$page                        = get_post( $page_id );
-			pmpro_setMessage( sprintf( __( "Please check the box to agree to the %s.", 'paid-memberships-pro' ), esc_html( $page->post_title ) ), "pmpro_error" );
+			pmpro_setMessage( sprintf( __( "Please check the box to agree to the %s.", 'pmpro-snippets-library' ), esc_html( $page->post_title ) ), "pmpro_error" );
 		}
 	}
 

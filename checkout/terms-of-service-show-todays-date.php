@@ -19,7 +19,7 @@ function add_todays_date_to_pmpro_tos_label( $tos_label, $tospage ) {
 
     // Modify the label to include today's date.
     $tos_label = sprintf(
-        __( '%1$s on %2$s', 'paid-memberships-pro' ),
+        __( '%1$s on %2$s', 'pmpro-snippets-library' ),
         $tos_label,
         esc_html( $todays_date )
     );

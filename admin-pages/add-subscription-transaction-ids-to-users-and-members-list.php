@@ -18,7 +18,7 @@
  * Add Transaction IDs column to Members List.
  */
 function tids_pmpro_memberslist_extra_cols_header( $columns ) {
-	$columns['transaction_ids'] = esc_html__( 'Transaction IDs', 'paid-memberships-pro' );
+	$columns['transaction_ids'] = esc_html__( 'Transaction IDs', 'pmpro-snippets-library' );
 	return $columns;
 }
 add_action( 'pmpro_manage_memberslist_columns', 'tids_pmpro_memberslist_extra_cols_header' );
@@ -31,18 +31,18 @@ function tids_pmpro_memberslist_extra_cols_body( $column_name, $user_id, $item )
 		$order = new MemberOrder();
 		$order->getLastMemberOrder( $user_id, 'success', $item['membership_id'] );
 
-		echo esc_html__( 'Payment', 'paid-memberships-pro' ) . ': <br />';
+		echo esc_html__( 'Payment', 'pmpro-snippets-library' ) . ': <br />';
 		if ( ! empty( $order->payment_transaction_id ) ) {
 			echo '<a href="' . esc_html( admin_url( 'admin.php?page=pmpro-orders&order=' . $order->id ) ) . '">' . esc_html( $order->payment_transaction_id ) . '</a>';
 		} else {
-			esc_html_e( 'N/A', 'paid-memberships-pro' );
+			esc_html_e( 'N/A', 'pmpro-snippets-library' );
 		}
 		echo '<br />';
-		echo esc_html__( 'Subscription', 'paid-memberships-pro' ) . ': <br />';
+		echo esc_html__( 'Subscription', 'pmpro-snippets-library' ) . ': <br />';
 		if ( ! empty( $order->subscription_transaction_id ) ) {
 			echo '<a href="' . esc_html( admin_url( 'admin.php?page=pmpro-orders&order=' . $order->id ) ) . '">' . esc_html( $order->subscription_transaction_id ) . '</a>';
 		} else {
-			esc_html_e( 'N/A', 'paid-memberships-pro' );
+			esc_html_e( 'N/A', 'pmpro-snippets-library' );
 		}
 	}
 }
@@ -140,7 +140,7 @@ add_filter( 'pmpro_members_list_sql', 'tids_pmpro_members_list_sql' );
  * Add Transaction Ids column to WordPress Users list.
  */
 function tids_manage_users_columns( $columns ) {
-	$columns['tids_transaction_ids'] = __( 'Transaction IDs', 'paid-memberships-pro' );
+	$columns['tids_transaction_ids'] = __( 'Transaction IDs', 'pmpro-snippets-library' );
 	return $columns;
 }
 add_filter( 'manage_users_columns', 'tids_manage_users_columns' );
@@ -158,17 +158,17 @@ function tids_manage_users_custom_column( $column_data, $column_name, $user_id )
 		$order = new MemberOrder();
 		$order->getLastMemberOrder( $user_id, '' );
 
-		$column_data = esc_html__( 'Payment', 'paid-memberships-pro' ) . ': ';
+		$column_data = esc_html__( 'Payment', 'pmpro-snippets-library' ) . ': ';
 		if ( ! empty( $order ) && ! empty( $order->payment_transaction_id ) ) {
 			$column_data .= '<a href="' . esc_html( admin_url( 'admin.php?page=pmpro-orders&order=' . $order->id ) ) . '">' . esc_html( $order->payment_transaction_id ) . '</a>';
 		} else {
-			$column_data .= esc_html__( 'N/A', 'paid-memberships-pro' );
+			$column_data .= esc_html__( 'N/A', 'pmpro-snippets-library' );
 		}
-		$column_data .= '<br />' . esc_html__( 'Subscription', 'paid-memberships-pro' ) . ': ';
+		$column_data .= '<br />' . esc_html__( 'Subscription', 'pmpro-snippets-library' ) . ': ';
 		if ( ! empty( $order ) && ! empty( $order->subscription_transaction_id ) ) {
 			$column_data .= '<a href="' . esc_html( admin_url( 'admin.php?page=pmpro-orders&order=' . $order->id ) ) . '">' . esc_html( $order->subscription_transaction_id ) . '</a>';
 		} else {
-			$column_data .= esc_html__( 'N/A', 'paid-memberships-pro' );
+			$column_data .= esc_html__( 'N/A', 'pmpro-snippets-library' );
 		}
 	}
 	return $column_data;
@@ -212,24 +212,24 @@ function tids_profile_fields( $user ) {
 	$order->getLastMemberOrder( $user->ID );
 	?>
 		<h3>
-			<?php esc_html_e( 'Transaction IDs', 'paid-memberships-pro' ); ?>
+			<?php esc_html_e( 'Transaction IDs', 'pmpro-snippets-library' ); ?>
 		</h3>
 		<p>
-			<?php esc_html_e( 'Payment', 'paid-memberships-pro' ); ?>: 
+			<?php esc_html_e( 'Payment', 'pmpro-snippets-library' ); ?>: 
 			<?php
 			if ( ! empty( $order->payment_transaction_id ) ) {
 				echo '<a href="' . esc_html( admin_url( 'admin.php?page=pmpro-orders&order=' . $order->id ) ) . '">' . esc_html( $order->payment_transaction_id ) . '</a>';
 			} else {
-				esc_html_e( 'N/A', 'paid-memberships-pro' );
+				esc_html_e( 'N/A', 'pmpro-snippets-library' );
 			}
 			?>
 			<br />
-			<?php esc_html_e( 'Subscription', 'paid-memberships-pro' ); ?>: 
+			<?php esc_html_e( 'Subscription', 'pmpro-snippets-library' ); ?>: 
 			<?php
 			if ( ! empty( $order->subscription_transaction_id ) ) {
 				echo '<a href="' . esc_html( admin_url( 'admin.php?page=pmpro-orders&order=' . $order->id ) ) . '">' . esc_html( $order->subscription_transaction_id ) . '</a>';
 			} else {
-				esc_html_e( 'N/A', 'paid-memberships-pro' );
+				esc_html_e( 'N/A', 'pmpro-snippets-library' );
 			}
 			?>
 		</p>

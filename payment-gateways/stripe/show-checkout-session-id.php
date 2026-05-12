@@ -28,7 +28,7 @@ function pmpro_after_order_settings_stripe_checkout_session_id( $order ) {
 	?>
 	<tr class="pmpro_checkout_session_id">
 		<th scope="row" valign="top">
-			<label for="stripe_checkout_session_id"><?php esc_html_e( 'Stripe Checkout Session ID', 'paid-memberships-pro' ); ?></label>
+			<label for="stripe_checkout_session_id"><?php esc_html_e( 'Stripe Checkout Session ID', 'pmpro-snippets-library' ); ?></label>
 		</th>
 		<td>
 			<input type="text" id="stripe_checkout_session_id" name="stripe_checkout_session_id" value="<?php echo esc_attr( $stripe_checkout_session_id ); ?>" size="75"  readonly />

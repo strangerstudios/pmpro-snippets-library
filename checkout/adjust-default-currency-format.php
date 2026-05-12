@@ -24,7 +24,7 @@
 function pmpro_eu_dkk_format( $pmpro_currencies ) {
 
 	$pmpro_currencies['DKK'] = array(
-		'name'                => __( 'Danish Krone', 'paid-memberships-pro' ),
+		'name'                => __( 'Danish Krone', 'pmpro-snippets-library' ),
 		'decimals'            => '2',
 		'thousands_separator' => '&nbsp;',
 		'decimal_separator'   => ',',

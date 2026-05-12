@@ -26,11 +26,11 @@ add_action( 'pmpro_save_membership_level','pmpro_hide_level_from_levels_page_sav
 //Display the setting for the pmpro_show_level_ID field on the Edit Membership Level page
 function pmpro_hide_level_from_levels_page_settings() {
 	?>
-	<h3 class='topborder'><?php esc_html_e( 'Membership Level Visibility', 'pmpro' ); ?></h3>
+	<h3 class='topborder'><?php esc_html_e( 'Membership Level Visibility', 'pmpro-snippets-library' ); ?></h3>
 	<table class='form-table'>
 		<tbody>
 			<tr>
-				<th scope='row' valign='top'><label for='pmpro_show_level'><?php esc_html_e( 'Show Level', 'pmpro' );?>:</label></th>
+				<th scope='row' valign='top'><label for='pmpro_show_level'><?php esc_html_e( 'Show Level', 'pmpro-snippets-library' );?>:</label></th>
 				<td>
 					<?php		
 						if ( isset( $_REQUEST['edit'] ) ) {
@@ -44,9 +44,9 @@ function pmpro_hide_level_from_levels_page_settings() {
 						}
 					?>
 					<select id='pmpro_show_level' name='pmpro_show_level'>
-						<option value='1' <?php if ( $pmpro_show_level == 1 ) { ?>selected='selected'<?php } ?>><?php esc_html_e( 'Yes, show this level in the [pmpro_levels] display.', 'pmpro' );?></option>
+						<option value='1' <?php if ( $pmpro_show_level == 1 ) { ?>selected='selected'<?php } ?>><?php esc_html_e( 'Yes, show this level in the [pmpro_levels] display.', 'pmpro-snippets-library' );?></option>
 
-						<option value='0' <?php if ( ! $pmpro_show_level ) { ?>selected='selected'<?php } ?>><?php _e( 'No, hide this level in the [pmpro_levels] display.', 'pmpro' );?></option>
+						<option value='0' <?php if ( ! $pmpro_show_level ) { ?>selected='selected'<?php } ?>><?php _e( 'No, hide this level in the [pmpro_levels] display.', 'pmpro-snippets-library' );?></option>
 					</select>
 				</td>
 			</tr>

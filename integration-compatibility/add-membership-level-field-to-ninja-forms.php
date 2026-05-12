@@ -48,7 +48,7 @@ function my_pmpro_add_membership_level_class_for_nf() {
 		);
 		public function __construct() {
 			parent::__construct();
-			$this->_nicename = esc_html__( 'Membership Level', 'ninja-forms' );
+			$this->_nicename = esc_html__( 'Membership Level', 'pmpro-snippets-library' );
 			$this->_settings['label']['width'] = 'full';
 		}
 	}

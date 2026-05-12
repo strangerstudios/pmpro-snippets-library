@@ -31,7 +31,7 @@ function agst_pmpro_tax( $tax, $values, $order ) {
 //add tax info to cost text.
 function agst_pmpro_level_cost_text( $cost, $level ) {
 	//only applicable for levels > 1
-	$cost .= __( ' Customers in Australia will be charged a 10% GST.', 'pmpro-australia-gst' );
+	$cost .= __( ' Customers in Australia will be charged a 10% GST.', 'pmpro-snippets-library' );
 	return $cost;
 }
 add_filter( 'pmpro_level_cost_text', 'agst_pmpro_level_cost_text', 10, 2 );
@@ -49,7 +49,7 @@ function agst_pmpro_checkout_boxes() {
 		<div class='pmpro_card_content'>
 			<legend class='pmpro_form_legend'>
 				<h2 class='pmpro_form_heading pmpro_font-large'>
-					<?php _e( 'Australian Residents', 'pmpro-australia-gst' );?>
+					<?php _e( 'Australian Residents', 'pmpro-snippets-library' );?>
 				</h2>
 			</legend>
 			<div id='pmpro_pricing_fields'>
@@ -57,7 +57,7 @@ function agst_pmpro_checkout_boxes() {
 				<?php if( !empty( $_REQUEST['taxregion'] ) || !empty( $_SESSION['taxregion'] ) ) { ?>
 				checked='checked'<?php } ?> />
 				<label for='taxregion' class='pmpro_normal pmpro_label-inline pmpro_clickable'>
-					<?php _e( 'Check this box if your billing address is in Australia.', 'pmpro-australia-gst' );?>
+					<?php _e( 'Check this box if your billing address is in Australia.', 'pmpro-snippets-library' );?>
 				</label>
 			</div>
 		</div>

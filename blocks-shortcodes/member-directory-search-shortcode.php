@@ -35,11 +35,11 @@ function mypmpro_member_search() {
 
 	$ret      .= '<form role="search" method="post" class="pmpro_member_directory_search search-form" action="' . $url . '">';
 	 $ret     .= '<label>';
-		 $ret .= '<span class="screen-reader-text">' . __( 'Search for:', 'pmpromd' ) . '</span>';
-		 $ret .= '<input type="search" class="search-field" placeholder="' . __( 'Search Members', 'pmpromd' ) . '" name="ps" value="' . $ps . '" title="' . __( 'Search Members', 'pmpromd' ) . '" />';
+		 $ret .= '<span class="screen-reader-text">' . __( 'Search for:', 'pmpro-snippets-library' ) . '</span>';
+		 $ret .= '<input type="search" class="search-field" placeholder="' . __( 'Search Members', 'pmpro-snippets-library' ) . '" name="ps" value="' . $ps . '" title="' . __( 'Search Members', 'pmpro-snippets-library' ) . '" />';
 		 $ret .= '<input type="hidden" name="limit" value="' . esc_attr( $limit ) . '" />';
 	 $ret     .= '</label>';
-	 $ret     .= '<input type="submit" class="search-submit" value="' . __( 'Search Members', 'pmpromd' ) . '">';
+	 $ret     .= '<input type="submit" class="search-submit" value="' . __( 'Search Members', 'pmpro-snippets-library' ) . '">';
 	$ret      .= '</form>';
 
 	return $ret;

@@ -24,16 +24,16 @@ function my_pmpro_refund_reason_after_order_settings( $order ) {
 	$this_refund_reason = get_pmpro_membership_order_meta( $order->id, 'pmpro_refund_reason', true );
 	?>
 	<tr>
-		<th scope="row"><?php esc_html_e( 'Reason for Refund', 'pmpro-site-customizations' ); ?></th>
+		<th scope="row"><?php esc_html_e( 'Reason for Refund', 'pmpro-snippets-library' ); ?></th>
 		<td>
 			<?php
 				$refund_reasons = array(
-					'0' => '-- Select -- ',
-					'changed-mind' => 'Changed Their Mind',
-					'not-interested' => 'No Longer Interested',
-					'no-reason' => 'No Reason',
-					'complicated' => 'Too Complicated',
-					'expensive' => 'Too Expensive',
+					'0' => __( '-- Select -- ', 'pmpro-snippets-library' ),
+					'changed-mind' => __( 'Changed Their Mind', 'pmpro-snippets-library' ),
+					'not-interested' => __( 'No Longer Interested', 'pmpro-snippets-library' ),
+					'no-reason' => __( 'No Reason', 'pmpro-snippets-library' ),
+					'complicated' => __( 'Too Complicated', 'pmpro-snippets-library' ),
+					'expensive' => __( 'Too Expensive', 'pmpro-snippets-library' ),
 				);
 			?>
 				<select id="pmpro_refund_reason" name="pmpro_refund_reason">

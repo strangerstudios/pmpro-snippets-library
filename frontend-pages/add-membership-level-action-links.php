@@ -18,12 +18,12 @@ function my_pmpro_member_action_links( $links, $level_id ) {
     // Check if the member is on Level 2.
     if ( $level_id == 2 ) {
         // Add an Upgrade link to checkout for Level 3.
-        $links['upgrade'] = '<a id="pmpro_actionlink-upgrade" href="' . esc_url( add_query_arg( 'pmpro_level', 3, pmpro_url( 'checkout' ) ) ) . '">' . esc_html__( 'Upgrade to Pro Membership', 'my-text-domain' ) . '</a>';
+        $links['upgrade'] = '<a id="pmpro_actionlink-upgrade" href="' . esc_url( add_query_arg( 'pmpro_level', 3, pmpro_url( 'checkout' ) ) ) . '">' . esc_html__( 'Upgrade to Pro Membership', 'pmpro-snippets-library' ) . '</a>';
     }
 
     // Example: Add a bonus link for Level ID 3.
     if ( $level_id == 3 ) {
-        $links['bonuses'] = '<a id="pmpro_actionlink-bonuses" href="https://yoursite.com/bonuses">' . esc_html__( 'View Your Exclusive Bonuses', 'my-text-domain' ) . '</a>';
+        $links['bonuses'] = '<a id="pmpro_actionlink-bonuses" href="https://yoursite.com/bonuses">' . esc_html__( 'View Your Exclusive Bonuses', 'pmpro-snippets-library' ) . '</a>';
     }
 
     return $links;

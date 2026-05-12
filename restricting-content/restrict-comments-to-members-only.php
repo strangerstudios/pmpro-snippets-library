@@ -39,7 +39,7 @@ add_filter( 'comments_array', 'my_pmpro_hide_comments_on_open_posts' );
  */
 function pmpro_non_member_text_before_comment_form() {
 	$pmpro_comments_non_member_text = pmpro_get_no_access_message( null, null, null );
-	$pmpro_comments_non_member_text = str_replace( __( 'This content is', 'pmpro-comments' ), __( 'Comments are', 'pmpro-comments' ), $pmpro_comments_non_member_text );
+	$pmpro_comments_non_member_text = str_replace( __( 'This content is', 'pmpro-snippets-library' ), __( 'Comments are', 'pmpro-snippets-library' ), $pmpro_comments_non_member_text );
 
 	echo wp_kses_post( $pmpro_comments_non_member_text );
 }
