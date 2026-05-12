@@ -59,7 +59,7 @@ function one_time_trial_delay_pmpro_registration_checks() {
 	global $current_user;
 
 	//set this to the id of your trial level
-	$trial_level_id = 9; // Membership Level ID
+	$trial_level_id = 1; // Membership Level ID
 	$level_at_checkout = pmpro_getLevelAtCheckout();
 	//Bail if no level is selected.
 	if ( empty( $level_at_checkout ) ) {
@@ -83,7 +83,7 @@ function one_time_trial_delay_pmpro_registration_checks() {
 		}
 	}
 }
-add_filter( 'init', 'one_time_trial_delay_pmpro_registration_checks' );
+add_action( 'init', 'one_time_trial_delay_pmpro_registration_checks' );
 
 // Filter the price on the levels page to remove one-time trial.
 function my_pmpro_one_time_trial_delay_pmpro_level_cost_text( $cost, $level ) {
