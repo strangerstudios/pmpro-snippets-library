@@ -15,7 +15,8 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
- // Record when users gain the trial level.
+
+// Record when users gain the trial level.
 function my_pmpro_one_time_trial_save_trial_level_used( $level_id, $user_id ) {
 	// Set this to the ID of your trial level.
 	$trial_level_id = 1; // Membership Level ID
@@ -55,7 +56,7 @@ add_action( 'show_user_profile', 'my_pmpro_one_time_trial_show_trial_level_used'
 add_action( 'edit_user_profile', 'my_pmpro_one_time_trial_show_trial_level_used' );
 
 // Check if the user has received their one-time trial at checkout.
-function one_time_trial_delay_pmpro_registration_checks() {
+function my_pmpro_one_time_trial_remove_delay_hooks() {
 	global $current_user;
 
 	//set this to the id of your trial level
@@ -83,7 +84,7 @@ function one_time_trial_delay_pmpro_registration_checks() {
 		}
 	}
 }
-add_action( 'init', 'one_time_trial_delay_pmpro_registration_checks' );
+add_action( 'init', 'my_pmpro_one_time_trial_remove_delay_hooks' );
 
 // Filter the price on the levels page to remove one-time trial.
 function my_pmpro_one_time_trial_delay_pmpro_level_cost_text( $cost, $level ) {
