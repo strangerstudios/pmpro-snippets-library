@@ -2,12 +2,14 @@
 /**
  * Adjust Your Membership Site’s Default Currency Format
  *
- * This recipe will change the format from DKK 1,495.00 to DKK 1 495,00
+ * This example changes the default Danish Krone currency format from DKK 1,495.00 to DKK 1 495,00.
+ * You can adjust the settings for any currency supported by PMPro using this same method.
  *
  * title: Adjust Your Membership Site’s Default Currency Format
  * layout: snippet
  * collection: checkout
- * category: payment-plans
+ * category: currency
+ * link: https://www.paidmembershipspro.com/how-to-adjust-your-membership-sites-default-currency-format/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -16,10 +18,10 @@
  */
 
 /**
- * pmpro_eu_dkk_format  This function changes the values of a specific keys for a currency in the `$pmpro_currencies` array.
+ * Change the Danish Krone currency format settings.
  *
- * @param  array $pmpro_currencies The currency array created by PMPro
- * @return array                   The adjusted currency array
+ * @param array $pmpro_currencies The currency array created by PMPro.
+ * @return array The adjusted currency array.
  */
 function pmpro_eu_dkk_format( $pmpro_currencies ) {
 
@@ -33,6 +35,5 @@ function pmpro_eu_dkk_format( $pmpro_currencies ) {
 	);
 
 	return $pmpro_currencies;
-
 }
 add_filter( 'pmpro_currencies', 'pmpro_eu_dkk_format' );
