@@ -34,11 +34,13 @@ function my_block_rest_api_users_endpoint( $result, $server, $request ) {
 	}
 
 	// Block /wp/v2/users and /wp/v2/users/<id>.
+	// 403 (Forbidden) is the right status here: logged-in non-admins hit this
+	// path too, and 401 would incorrectly suggest authentication would help.
 	if ( strpos( $request->get_route(), '/wp/v2/users' ) === 0 ) {
 		return new WP_Error(
 			'rest_user_cannot_view',
 			'Sorry, you are not allowed to list users.',
-			array( 'status' => 401 )
+			array( 'status' => 403 )
 		);
 	}
 

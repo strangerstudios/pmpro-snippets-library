@@ -14,6 +14,19 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 function my_rate_limit_password_resets( $errors ) {
+	/**
+	 * Identify the visitor by IP. REMOTE_ADDR is correct when WordPress is
+	 * reached directly. If your site sits behind Cloudflare or another reverse
+	 * proxy, REMOTE_ADDR will be the proxy's IP and every visitor will share a
+	 * single rate-limit bucket — three failed resets will block resets site-wide
+	 * for an hour. In that case swap in the appropriate forwarded-IP header:
+	 *
+	 *   Cloudflare:    $_SERVER['HTTP_CF_CONNECTING_IP']
+	 *   Generic proxy: $_SERVER['HTTP_X_FORWARDED_FOR'] (validate and take the first IP)
+	 *
+	 * Only trust these headers when you actually have a proxy in front of the
+	 * site; on a direct-hit site they can be spoofed by the client.
+	 */
 	$ip    = $_SERVER['REMOTE_ADDR'];
 	$key   = 'my_pwreset_' . md5( $ip );
 	$count = (int) get_transient( $key );
@@ -24,6 +37,11 @@ function my_rate_limit_password_resets( $errors ) {
 	 * legitimate users who occasionally need a reset.
 	 *
 	 * Adjust the limit or window by changing the 3 and HOUR_IN_SECONDS values below.
+	 *
+	 * Note: this is best-effort throttling. Two concurrent requests can both read
+	 * the same transient value before either writes, letting a few extra attempts
+	 * through under load. For hard enforcement, pair this with server-level rate
+	 * limiting (Nginx limit_req, Cloudflare rate rules, etc.).
 	 */
 	if ( $count >= 3 ) {
 		$errors->add( 'too_many_requests', 'Too many password reset requests. Please try again later.' );

@@ -34,8 +34,9 @@ function my_coming_soon_redirect() {
 	}
 
 	// Allow the login and admin pages so admins can log in.
-	if ( strpos( $_SERVER['REQUEST_URI'], 'wp-login' ) !== false
-		|| strpos( $_SERVER['REQUEST_URI'], 'wp-admin' ) !== false ) {
+	// Match the path prefix exactly so a URL like /wp-administrators/ doesn't slip through.
+	if ( strpos( $_SERVER['REQUEST_URI'], '/wp-admin/' ) === 0
+		|| strpos( $_SERVER['REQUEST_URI'], '/wp-login.php' ) === 0 ) {
 		return;
 	}
 

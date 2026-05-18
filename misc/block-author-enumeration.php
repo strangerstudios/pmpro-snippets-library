@@ -17,11 +17,15 @@
 /**
  * By default, WordPress will resolve a URL like /?author=1 to the author's
  * archive, which exposes the user's login slug in the redirect URL. This
- * snippet redirects those requests to the home page for logged-out users
- * before WordPress resolves the slug.
+ * snippet redirects those requests to the home page for anyone without
+ * the edit_posts capability — so admins, editors, and authors can still
+ * view author archives while subscribers and logged-out visitors can't.
+ *
+ * If you want author enumeration available to all logged-in users (subscribers
+ * included), swap ! current_user_can( 'edit_posts' ) for ! is_user_logged_in().
  */
 function my_block_author_enumeration() {
-	if ( ! is_user_logged_in() && isset( $_GET['author'] ) ) {
+	if ( ! current_user_can( 'edit_posts' ) && isset( $_GET['author'] ) ) {
 		wp_safe_redirect( home_url() );
 		exit;
 	}
