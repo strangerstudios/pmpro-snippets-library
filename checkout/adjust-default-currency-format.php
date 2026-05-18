@@ -2,7 +2,8 @@
 /**
  * Adjust Your Membership Site’s Default Currency Format
  *
- * Change the default Danish Krone currency format from DKK 1,495.00 to DKK 1 495,00.
+ * This example changes the default Danish Krone currency format from DKK 1,495.00 to DKK 1 495,00.
+ * You can adjust the settings for any currency supported by PMPro using this same method.
  *
  * title: Adjust Your Membership Site’s Default Currency Format
  * layout: snippet
