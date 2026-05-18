@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: currency
+ * link: https://www.paidmembershipspro.com/add-new-default-currency/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
