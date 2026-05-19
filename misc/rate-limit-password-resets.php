@@ -26,6 +26,8 @@ function my_rate_limit_password_resets( $errors ) {
 	 *
 	 * Only trust these headers when you actually have a proxy in front of the
 	 * site; on a direct-hit site they can be spoofed by the client.
+	 * 
+	 * If you are using the latest version of PMPro, you may use `pmpro_get_ip()` instead, which handles proxy headers for you.
 	 */
 	$ip    = $_SERVER['REMOTE_ADDR'];
 	$key   = 'my_pwreset_' . md5( $ip );
