@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: frontend-pages
  * category: content-protection
- * link: TBD
+ * link: https://www.paidmembershipspro.com/show-excerpts-only-for-the-post-types-you-specify/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
