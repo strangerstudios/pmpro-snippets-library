@@ -75,10 +75,8 @@ function my_haspaid_shortcode( $atts, $content = null, $code = "" ) {
 		$paid = true;
 	}
 	
-	global $current_user;
-	
 	// To show or not to show
-	if ( my_hasPaid( $current_user->ID, $level ) ) {
+	if ( my_hasPaid( null, $level ) ) {
 		// Return content if paid
 		if ( $paid ) {
 			return do_shortcode( $content );	// show content
