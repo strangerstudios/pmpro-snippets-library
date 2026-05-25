@@ -19,7 +19,7 @@ function my_hasPaid( $user_id = null, $level_id = null ) {
 	global $current_user, $wpdb;
 	
 	// Make sure PMPro is active
-	if ( ! isset( $wpdb->pmpro_membership_orders ) ) {
+	if ( ! function_exists( 'pmpro_getOption' ) ) {
 		return false;
 	}
 	
