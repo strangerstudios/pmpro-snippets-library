@@ -37,13 +37,16 @@ function my_hasPaid( $user_id = null, $level_id = null ) {
 	$environment = pmpro_getOption( 'gateway_environment' );
 	
 	// Query to check
-	$sqlQuery = "SELECT COUNT(*) FROM $wpdb->pmpro_membership_orders WHERE user_id = '" . esc_sql( $user_id ) . "' AND gateway_environment = '" . esc_sql( $environment ) . "' AND total > 0 AND status NOT IN('error', 'refund', 'token', 'review') ";
+	$sql  = "SELECT COUNT(*) FROM $wpdb->pmpro_membership_orders WHERE user_id = %d AND gateway_environment = %s AND total > 0 AND status NOT IN('error', 'refund', 'token', 'review')";
+	$args = array( $user_id, $environment );
+
 	if ( ! empty( $level_id ) ) {
-		$sqlQuery .= "AND membership_id = '" . esc_sql( $level_id ) . "' LIMIT 1";
+		$sql   .= " AND membership_id = %d";
+		$args[] = $level_id;
 	}
-		
+
 	// Get val
-	$paid = $wpdb->get_var( $sqlQuery );
+	$paid = $wpdb->get_var( $wpdb->prepare( $sql, $args ) );
 	
 	// Force true/false
 	return (bool) $paid;
