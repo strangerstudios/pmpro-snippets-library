@@ -16,16 +16,16 @@
  */
 // Check if a user ever paid
 function my_hasPaid( $user_id = null, $level_id = null ) {
-	global $current_user, $wpdb;
-	
+	global $wpdb;
+
 	// Make sure PMPro is active
 	if ( ! function_exists( 'pmpro_getOption' ) ) {
 		return false;
 	}
-	
+
 	// No user passed? Default to the current user
 	if ( empty( $user_id ) ) {
-		$user_id = $current_user->ID;
+		$user_id = get_current_user_id();
 	}
 	
 	// No user?
