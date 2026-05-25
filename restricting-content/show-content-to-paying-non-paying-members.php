@@ -14,7 +14,14 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-// Check if a user ever paid
+
+/**
+ * Check whether a user has any successful paid PMPro order.
+ *
+ * @param  int|null $user_id  WordPress user ID. Defaults to the current user when null/empty.
+ * @param  int|null $level_id Optional PMPro membership level ID to restrict the check to.
+ * @return bool     True if the user has at least one matching paid order, false otherwise.
+ */
 function my_hasPaid( $user_id = null, $level_id = null ) {
 	global $wpdb;
 
@@ -52,18 +59,21 @@ function my_hasPaid( $user_id = null, $level_id = null ) {
 	return (bool) $paid;
 }
 
-/*
-	Shortcode attributes using the my_hasPaid function.
-	[haspaid]This will show up if the user has paid for any level.[/haspaid]
-	[haspaid paid='0']This will show up if the user has NOT paid for any level.[/haspaid]
-	[haspaid paid='1' level='1']This will show up if the user has paid for level 1 specifically.[/haspaid]
-	[haspaid paid='0' level='1']This will show up if the user has not paid for level 1 specifically.[/haspaid]
-*/
+/**
+ * Add [haspaid] shortcode to conditionally render content based on the user's payment history.
+ *
+ * Examples:
+ * [haspaid]This will show up if the user has paid for any level.[/haspaid]
+ * [haspaid paid='0']This will show up if the user has NOT paid for any level.[/haspaid]
+ * [haspaid paid='1' level='1']This will show up if the user has paid for level 1 specifically.[/haspaid]
+ * [haspaid paid='0' level='1']This will show up if the user has not paid for level 1 specifically.[/haspaid]
+ *
+ * @param  array       $atts    Shortcode attributes: 'paid' (true by default; '0'/'false' inverts) and 'level' (PMPro level ID, optional).
+ * @param  string|null $content Enclosed shortcode content to render conditionally.
+ * @param  string      $code    The shortcode tag. Unused.
+ * @return string      Rendered content, or an empty string when the condition is not met.
+ */
 function my_haspaid_shortcode( $atts, $content = null, $code = "" ) {
-	// $atts    ::= array of attributes
-	// $content ::= text within enclosing form of shortcode element
-	// $code    ::= the shortcode found, when == callback name
-	// examples: [haspaid level="3"]...[/haspaid]
 	$atts = shortcode_atts( array(
 		'paid'  => true,
 		'level' => null,
