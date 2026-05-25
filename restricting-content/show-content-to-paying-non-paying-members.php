@@ -61,10 +61,12 @@ function my_haspaid_shortcode( $atts, $content = null, $code = "" ) {
 	// $content ::= text within enclosing form of shortcode element
 	// $code    ::= the shortcode found, when == callback name
 	// examples: [haspaid level="3"]...[/haspaid]
-	extract( shortcode_atts( array(
+	$atts = shortcode_atts( array(
 		'paid'  => true,
 		'level' => null,
-	), $atts ) );
+	), $atts );
+	$paid  = $atts['paid'];
+	$level = $atts['level'];
 		
 	// Convert paid attribute to bool
 	if ( $paid === '0' || $paid === 'false' ) {
