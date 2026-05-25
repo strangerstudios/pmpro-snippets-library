@@ -81,7 +81,7 @@ function my_haspaid_shortcode( $atts, $content = null, $code = "" ) {
 		if ( $paid ) {
 			return do_shortcode( $content );	// show content
 		} else {
-			return false;
+			return '';
 		}
 	} else {
 		// Return content if NOT paid
