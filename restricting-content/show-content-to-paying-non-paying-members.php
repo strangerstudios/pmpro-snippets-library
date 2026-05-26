@@ -25,37 +25,37 @@
 function my_hasPaid( $user_id = null, $level_id = null ) {
 	global $wpdb;
 
-	// Make sure PMPro is active
+	// Make sure PMPro is active.
 	if ( ! function_exists( 'pmpro_getOption' ) ) {
 		return false;
 	}
 
-	// No user passed? Default to the current user
+	// No user passed? Default to the current user.
 	if ( empty( $user_id ) ) {
 		$user_id = get_current_user_id();
 	}
-	
+
 	// No user?
 	if ( empty( $user_id ) ) {
 		return false;
 	}
-	
-	// Figure out if we are in a live or test gateway environment
+
+	// Figure out if we are in a live or test gateway environment.
 	$environment = pmpro_getOption( 'gateway_environment' );
-	
-	// Query to check
+
+	// Query to check.
 	$sql  = "SELECT COUNT(*) FROM $wpdb->pmpro_membership_orders WHERE user_id = %d AND gateway_environment = %s AND total > 0 AND status NOT IN('error', 'refunded', 'token', 'review')";
 	$args = array( $user_id, $environment );
 
 	if ( ! empty( $level_id ) ) {
-		$sql   .= " AND membership_id = %d";
+		$sql   .= ' AND membership_id = %d';
 		$args[] = $level_id;
 	}
 
-	// Get val
+	// Get val.
 	$paid = $wpdb->get_var( $wpdb->prepare( $sql, $args ) );
-	
-	// Force true/false
+
+	// Force true/false.
 	return (bool) $paid;
 }
 
@@ -73,36 +73,37 @@ function my_hasPaid( $user_id = null, $level_id = null ) {
  * @param  string      $code    The shortcode tag. Unused.
  * @return string      Rendered content, or an empty string when the condition is not met.
  */
-function my_haspaid_shortcode( $atts, $content = null, $code = "" ) {
-	$atts = shortcode_atts( array(
-		'paid'  => true,
-		'level' => null,
-	), $atts );
+function my_haspaid_shortcode( $atts, $content = null, $code = '' ) {
+	$atts  = shortcode_atts(
+		array(
+			'paid'  => true,
+			'level' => null,
+		),
+		$atts
+	);
 	$paid  = $atts['paid'];
 	$level = $atts['level'];
-		
-	// Convert paid attribute to bool
-	if ( $paid === '0' || $paid === 'false' ) {
+
+	// Convert paid attribute to bool.
+	if ( '0' === $paid || 'false' === $paid ) {
 		$paid = false;
 	} else {
 		$paid = true;
 	}
-	
-	// To show or not to show
+
+	// To show or not to show.
 	if ( my_hasPaid( null, $level ) ) {
-		// Return content if paid
+		// Return content if paid.
 		if ( $paid ) {
-			return do_shortcode( $content );	// show content
+			return do_shortcode( $content ); // show content.
 		} else {
 			return '';
 		}
+	} elseif ( ! $paid ) {
+		// Return content if NOT paid.
+		return do_shortcode( $content ); // show content.
 	} else {
-		// Return content if NOT paid
-		if ( ! $paid ) {
-			return do_shortcode( $content );	// show content
-		} else {
-			return "";	// just hide it
-		}
+		return ''; // just hide it.
 	}
 }
 add_shortcode( 'haspaid', 'my_haspaid_shortcode' );
