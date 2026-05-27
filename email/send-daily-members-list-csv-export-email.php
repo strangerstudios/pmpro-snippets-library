@@ -134,13 +134,15 @@ function my_pmpro_generate_and_email_csv( $level_id, $email_to ) {
 	fclose( $handle );
 
 	// Send via PMPro's email class so from/fromname settings are respected.
-	$pmpro_email              = new PMProEmail();
-	$pmpro_email->email       = $email_to;
-	$pmpro_email->subject     = sprintf( 'Daily PMPro Members Export - %s (%s)', $level->name, date( 'Y-m-d' ) );
-	$pmpro_email->body        = sprintf(
-		'<p>Please find attached the daily members export for the <strong>%s</strong> membership level (%d active members).</p>',
-		esc_html( $level->name ),
-		count( $members )
+	$pmpro_email          = new PMProEmail();
+	$pmpro_email->email   = $email_to;
+	$pmpro_email->subject = sprintf( 'Daily PMPro Members Export - %s (%s)', $level->name, date( 'Y-m-d' ) );
+	$pmpro_email->data    = array(
+		'body' => sprintf(
+			'<p>Please find attached the daily members export for the <strong>%s</strong> membership level (%d active members).</p>',
+			esc_html( $level->name ),
+			count( $members )
+		),
 	);
 	$pmpro_email->attachments = array( $temp_path );
 	$pmpro_email->sendEmail();
