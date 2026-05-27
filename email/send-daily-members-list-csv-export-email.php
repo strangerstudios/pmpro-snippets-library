@@ -95,7 +95,7 @@ function my_pmpro_generate_and_email_csv( $level_id, $email_to ) {
 	}
 
 	// Write header row.
-	fputcsv( $handle, $columns );
+	fputcsv( $handle, $columns, ',', '"', '' );
 
 	// Write one row per member.
 	foreach ( $members as $member ) {
@@ -135,7 +135,7 @@ function my_pmpro_generate_and_email_csv( $level_id, $email_to ) {
 		// Filter to match any custom column additions.
 		$row = apply_filters( 'my_pmpro_daily_csv_row', $row, $member, $level_id );
 
-		fputcsv( $handle, array_values( $row ) );
+		fputcsv( $handle, array_values( $row ), ',', '"', '' );
 	}
 
 	fclose( $handle );
