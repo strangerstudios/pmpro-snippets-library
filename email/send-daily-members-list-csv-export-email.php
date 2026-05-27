@@ -4,10 +4,17 @@
  *
  * Hooks into PMPro's built-in Action Scheduler (pmpro_schedule_daily) to
  * generate a CSV export per membership level and email it to the site admin.
+ * 
+ * title: Generate a Members CSV export for a Given Level and Email it as an Attachment.
+ * layout: snippet
+ * collection: email
+ * category: export, action-scheduler
+ * link: TBD
  *
- * Configure the level IDs and recipient email below.
- *
- * @link https://www.paidmembershipspro.com/
+ * You can add this recipe to your site by creating a custom plugin
+ * or using the Code Snippets plugin available for free in the WordPress repository.
+ * Read this companion article for step-by-step directions on either method.
+ * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
 // Level IDs to export. Replace 1 and 2 with real level IDs.
