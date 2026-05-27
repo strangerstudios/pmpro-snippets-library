@@ -144,8 +144,19 @@ function my_pmpro_generate_and_email_csv( $level_id, $email_to ) {
 			count( $members )
 		),
 	);
-	$pmpro_email->attachments = array( $temp_path );
+
+	// sendEmail() resets $this->attachments, so inject the file via filter instead.
+	$attach_filter = function( $attachments ) use ( $temp_path ) {
+		$attachments[] = $temp_path;
+		return $attachments;
+	};
+	add_filter( 'pmpro_email_attachments', $attach_filter );
+
+	// Send the email.
 	$pmpro_email->sendEmail();
+
+	// Remove the email attachment filter.
+	remove_filter( 'pmpro_email_attachments', $attach_filter );
 
 	// Clean up the temp file.
 	wp_delete_file( $temp_path );
