@@ -64,10 +64,20 @@ function my_pmpro_kit_user_field_subscriber_tag_ids( $new_tag_ids, $user ) {
 		return $new_tag_ids;
 	}
 
-	foreach ( my_pmpro_kit_user_field_tag_maps() as $field_slug => $tag_map ) {
+	$field_tag_maps = my_pmpro_kit_user_field_tag_maps();
+
+	foreach ( $field_tag_maps as $field_slug => $tag_map ) {
 		$field_value = get_user_meta( $user->ID, $field_slug, true );
 
-		if ( ! empty( $field_value ) && isset( $tag_map[ $field_value ] ) ) {
+		if ( is_array( $field_value ) ) {
+			// Multi-value field (e.g. checkboxes): add a tag for each selected value.
+			foreach ( $field_value as $value ) {
+				if ( isset( $tag_map[ $value ] ) ) {
+					$new_tag_ids[] = $tag_map[ $value ];
+				}
+			}
+		} elseif ( isset( $tag_map[ $field_value ] ) ) {
+			// Single-value field: add the tag for the chosen value.
 			$new_tag_ids[] = $tag_map[ $field_value ];
 		}
 	}
@@ -83,7 +93,9 @@ add_filter( 'pmprokit_subscriber_tag_ids', 'my_pmpro_kit_user_field_subscriber_t
  * @return array
  */
 function my_pmpro_kit_user_field_controlled_tag_ids( $controlled_tag_ids ) {
-	foreach ( my_pmpro_kit_user_field_tag_maps() as $tag_map ) {
+	$field_tag_maps = my_pmpro_kit_user_field_tag_maps();
+
+	foreach ( $field_tag_maps as $tag_map ) {
 		$controlled_tag_ids = array_merge( $controlled_tag_ids, array_values( $tag_map ) );
 	}
 
