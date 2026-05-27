@@ -4,7 +4,7 @@
  *
  * Hooks into PMPro's built-in Action Scheduler (pmpro_schedule_daily) to
  * generate a CSV export per membership level and email it to the site admin.
- * 
+ *
  * title: Generate a Members CSV export for a Given Level and Email it as an Attachment.
  * layout: snippet
  * collection: email
@@ -104,10 +104,10 @@ function my_pmpro_generate_and_email_csv( $level_id, $email_to ) {
 		$last_name  = get_user_meta( $member->ID, 'last_name', true );
 
 		// Pull subscription data via PMPro's built-in class.
-		$subscriptions   = PMPro_Subscription::get_subscriptions_for_user( $member->ID, $level_id );
-		$billing_amount  = '';
-		$cycle_period    = '';
-		$next_payment    = '';
+		$subscriptions  = PMPro_Subscription::get_subscriptions_for_user( $member->ID, $level_id );
+		$billing_amount = '';
+		$cycle_period   = '';
+		$next_payment   = '';
 
 		if ( ! empty( $subscriptions ) ) {
 			$sub            = reset( $subscriptions );
@@ -125,8 +125,8 @@ function my_pmpro_generate_and_email_csv( $level_id, $email_to ) {
 			'registered'        => date( $date_format, strtotime( $member->user_registered ) ),
 			'startdate'         => date( $date_format, strtotime( $member->startdate ) ),
 			'enddate'           => ! empty( $member->enddate ) && '0000-00-00 00:00:00' !== $member->enddate
-								   ? date( $date_format, strtotime( $member->enddate ) )
-								   : '',
+									? date( $date_format, strtotime( $member->enddate ) )
+									: '',
 			'billing_amount'    => $billing_amount,
 			'cycle_period'      => $cycle_period,
 			'next_payment_date' => $next_payment,
@@ -153,7 +153,7 @@ function my_pmpro_generate_and_email_csv( $level_id, $email_to ) {
 	);
 
 	// sendEmail() resets $this->attachments, so inject the file via filter instead.
-	$attach_filter = function( $attachments ) use ( $temp_path ) {
+	$attach_filter = function ( $attachments ) use ( $temp_path ) {
 		$attachments[] = $temp_path;
 		return $attachments;
 	};
