@@ -6,7 +6,7 @@
  * layout: snippet-example
  * collection: add-ons
  * category: pmpro-member-directory, search
- * link: https://www.paidmembershipspro.com/add-ons/member-directory/
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
