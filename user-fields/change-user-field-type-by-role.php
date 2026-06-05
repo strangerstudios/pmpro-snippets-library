@@ -5,6 +5,7 @@
  * title: Change user field type based on the role of the user.
  * collection: user-fields
  * category: custom-fields
+ * link: https://www.paidmembershipspro.com/change-field-types-based-on-user-role/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
