@@ -23,11 +23,6 @@
 
 /**
  * Filter the membership expiration text for child group members.
- *
- * @param string   $text  The default expiration text.
- * @param stdClass $level The membership level object.
- * @param WP_User  $user  The current user object.
- * @return string The group leader's expiration or renewal text.
  */
 function my_pmprogroupacct_membership_expiration_text( $text, $level, $user ) {
 	// Bail if Group Accounts is not active.
