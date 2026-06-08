@@ -1,7 +1,7 @@
 <?php
 /**
- * Add a "Members by Chapter" report (Memberships > Reports) that shows a member
- * count per chapter and a list of members for the selected chapter.
+ * Add a "Members by Chapter" report (Memberships > Reports) that shows an active
+ * member count per chapter and a list of the active members for the selected chapter.
  *
  * title: Add a Members by Chapter Report
  * layout: snippet
@@ -41,7 +41,10 @@ function my_pmpro_report_members_by_chapter_allowed_ids() {
 	return null;
 }
 
-// Member counts per chapter. Pass an array of term IDs to limit results, or null for all.
+// Count of ACTIVE members per chapter. Pass an array of term IDs to limit results,
+// or null for all. The LEFT JOIN to pmpro_memberships_users (status = 'active')
+// means chapters with no active members still appear with a count of 0, and
+// COUNT( DISTINCT ) keeps users with more than one active level from inflating it.
 function my_pmpro_get_member_counts_by_chapter( $allowed_ids = null ) {
 	global $wpdb;
 
@@ -55,10 +58,11 @@ function my_pmpro_get_member_counts_by_chapter( $allowed_ids = null ) {
 	}
 
 	$sql = $wpdb->prepare(
-		"SELECT t.term_id, t.name, COUNT( tr.object_id ) AS num_members
+		"SELECT t.term_id, t.name, COUNT( DISTINCT mu.user_id ) AS num_members
 		 FROM {$wpdb->term_taxonomy} tt
 		 INNER JOIN {$wpdb->terms} t ON t.term_id = tt.term_id
 		 LEFT JOIN {$wpdb->term_relationships} tr ON tr.term_taxonomy_id = tt.term_taxonomy_id
+		 LEFT JOIN {$wpdb->pmpro_memberships_users} mu ON mu.user_id = tr.object_id AND mu.status = 'active'
 		 WHERE tt.taxonomy = %s{$where_in}
 		 GROUP BY t.term_id, t.name
 		 ORDER BY t.name ASC",
@@ -68,7 +72,10 @@ function my_pmpro_get_member_counts_by_chapter( $allowed_ids = null ) {
 	return $wpdb->get_results( $sql );
 }
 
-// The users assigned to a given chapter term.
+// The ACTIVE members assigned to a given chapter term. The INNER JOIN to
+// pmpro_memberships_users (status = 'active') excludes users who hold the chapter
+// term but have no active membership; GROUP BY collapses users with more than one
+// active level to a single row. Stays in sync with the counts query above.
 function my_pmpro_get_members_in_chapter( $term_id ) {
 	global $wpdb;
 
@@ -77,7 +84,9 @@ function my_pmpro_get_members_in_chapter( $term_id ) {
 		 FROM {$wpdb->users} u
 		 INNER JOIN {$wpdb->term_relationships} tr ON tr.object_id = u.ID
 		 INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_taxonomy_id = tr.term_taxonomy_id
+		 INNER JOIN {$wpdb->pmpro_memberships_users} mu ON mu.user_id = u.ID AND mu.status = 'active'
 		 WHERE tt.taxonomy = %s AND tt.term_id = %d
+		 GROUP BY u.ID, u.user_login, u.display_name, u.user_email, u.user_registered
 		 ORDER BY u.display_name ASC",
 		my_pmpro_chapters_taxonomy(),
 		(int) $term_id
@@ -205,7 +214,7 @@ function pmpro_report_members_by_chapter_page() {
 						</tr>
 					<?php } ?>
 				<?php } else { ?>
-					<tr><td colspan="5"><?php esc_html_e( 'No members are assigned to this chapter yet.', 'pmpro-snippets-library' ); ?></td></tr>
+					<tr><td colspan="5"><?php esc_html_e( 'No active members in this chapter.', 'pmpro-snippets-library' ); ?></td></tr>
 				<?php } ?>
 			</tbody>
 		</table>

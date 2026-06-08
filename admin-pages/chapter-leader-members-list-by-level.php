@@ -67,6 +67,8 @@ function my_chapter_leader_scope_memberslist_sql( $sql ) {
 	// A leader with no level(s) sees nothing rather than everything.
 	$in = ! empty( $level_ids ) ? implode( ',', array_map( 'absint', $level_ids ) ) : '0';
 
+	// Matched as a substring: core wraps this clause in spaces (" WHERE ... 0 "),
+	// so we deliberately omit them here and inject around the bare clause below.
 	$anchor = 'WHERE mu.membership_id > 0';
 
 	// Fail closed: if PMPro ever changes this clause our injection point is gone,

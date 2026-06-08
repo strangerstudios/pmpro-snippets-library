@@ -23,9 +23,12 @@ if ( ! function_exists( 'my_pmpro_chapters_taxonomy' ) ) {
 	}
 }
 
-// The capability that grants chapter-scoped access to the report.
-function my_pmpro_chapter_leadership_cap() {
-	return 'chapter_leadership'; // Adjust this if you are using a different capability for your chapter leaders.
+// The capability that grants chapter-scoped access to the report. Guarded so it
+// can be pre-defined to use a different capability for your chapter leaders.
+if ( ! function_exists( 'my_pmpro_chapter_leadership_cap' ) ) {
+	function my_pmpro_chapter_leadership_cap() {
+		return 'chapter_leadership';
+	}
 }
 
 // True when the current user is a chapter leader who should be scoped - i.e. has
