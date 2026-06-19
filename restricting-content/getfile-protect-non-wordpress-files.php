@@ -37,8 +37,20 @@ function my_pmpro_getfile() {
 		return;
 	}
 
+	// Membership check first, before any filesystem work. Checking here (rather
+	// than after resolving the path) means non-members always get a 403 whether or
+	// not the requested file exists, so the response can't be used to probe for it.
+	// With no arguments this allows any active member. To limit to specific levels,
+	// pass their IDs, e.g.: if ( ! pmpro_hasMembershipLevel( array( 3, 7, 10 ) ) ).
+	if ( ! pmpro_hasMembershipLevel() ) {
+		wp_die( esc_html__( 'This file is available to members only.', 'your-text-domain' ), '', array( 'response' => 403 ) );
+	}
+
 	// Where the real files live. This can be anywhere your server can read,
 	// including outside the web root. Here we use a folder in wp-content/uploads.
+	// Only let trusted admins write to this folder: a malicious file placed here
+	// (e.g. an SVG containing <script>) would be served to members and could run
+	// JavaScript in their browser.
 	$base_dir  = trailingslashit( wp_upload_dir()['basedir'] ) . 'protected-tools';
 	$real_base = realpath( $base_dir );
 
@@ -53,13 +65,6 @@ function my_pmpro_getfile() {
 		|| strpos( $file_path, $real_base . DIRECTORY_SEPARATOR ) !== 0
 		|| ! is_file( $file_path ) ) {
 		wp_die( esc_html__( 'File not found.', 'your-text-domain' ), '', array( 'response' => 404 ) );
-	}
-
-	// Membership check. With no arguments this allows any active member.
-	// To limit to specific levels, pass their IDs, e.g.:
-	//   if ( ! pmpro_hasMembershipLevel( array( 3, 7, 10 ) ) ) { ... }
-	if ( ! pmpro_hasMembershipLevel() ) {
-		wp_die( esc_html__( 'This file is available to members only.', 'your-text-domain' ), '', array( 'response' => 403 ) );
 	}
 
 	// Figure out the MIME type so the browser handles the file correctly.
@@ -78,9 +83,15 @@ function my_pmpro_getfile() {
 	if ( isset( $known[ $ext ] ) ) {
 		$content_type = $known[ $ext ];
 	} else {
-		$finfo        = finfo_open( FILEINFO_MIME_TYPE );
-		$content_type = finfo_file( $finfo, $file_path );
-		finfo_close( $finfo );
+		// finfo_open() returns false if the fileinfo extension is unavailable;
+		// guard against it so we don't fatal by passing false to finfo_file().
+		$finfo = finfo_open( FILEINFO_MIME_TYPE );
+		if ( false === $finfo ) {
+			$content_type = 'application/octet-stream';
+		} else {
+			$content_type = finfo_file( $finfo, $file_path );
+			finfo_close( $finfo );
+		}
 	}
 
 	// Serve INLINE so HTML/CSS/JS/JSON render in the browser (and inside an
