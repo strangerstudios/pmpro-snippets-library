@@ -32,45 +32,35 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 function my_pmpro_getfile() {
-	// Only act on protected-folder requests.
 	if ( empty( $_REQUEST['pmpro_getfile'] ) ) {
 		return;
 	}
 
-	// Membership check first, before any filesystem work. Checking here (rather
-	// than after resolving the path) means non-members always get a 403 whether or
-	// not the requested file exists, so the response can't be used to probe for it.
-	// With no arguments this allows any active member. To limit to specific levels,
-	// pass their IDs, e.g.: if ( ! pmpro_hasMembershipLevel( array( 3, 7, 10 ) ) ).
+	// Members only. No args allows any active member; pass level IDs to restrict,
+	// e.g. pmpro_hasMembershipLevel( array( 3, 7, 10 ) ).
 	if ( ! pmpro_hasMembershipLevel() ) {
 		wp_die( esc_html__( 'This file is available to members only.', 'your-text-domain' ), '', array( 'response' => 403 ) );
 	}
 
-	// Where the real files live. This can be anywhere your server can read,
-	// including outside the web root. Here we use a folder in wp-content/uploads.
-	// Only let trusted admins write to this folder: a malicious file placed here
-	// (e.g. an SVG containing <script>) would be served to members and could run
-	// JavaScript in their browser.
+	// Real files live here (anywhere readable, even outside the web root). Only let
+	// trusted admins write here — a planted file (e.g. a <script> SVG) runs in members' browsers.
 	$base_dir  = trailingslashit( wp_upload_dir()['basedir'] ) . 'protected-tools';
 	$real_base = realpath( $base_dir );
 
-	// Strip any "../" style sequences so visitors can't climb out of the folder.
+	// Strip "../" style sequences so visitors can't climb out of the folder.
 	$requested = preg_replace( '#[./\\\\]{2,}#', '', wp_unslash( $_REQUEST['pmpro_getfile'] ) );
 	$file_path = realpath( $base_dir . '/' . ltrim( $requested, '/' ) );
 
-	// Confirm the resolved path is a real file still inside the protected folder.
-	// The trailing slash on $real_base matters: without it, a sibling folder whose
-	// name merely starts with "protected-tools" would pass this check.
+	// Confirm the path is a real file still inside the folder. The DIRECTORY_SEPARATOR
+	// stops a sibling like "protected-tools-evil" from matching the prefix.
 	if ( false === $real_base || false === $file_path
 		|| strpos( $file_path, $real_base . DIRECTORY_SEPARATOR ) !== 0
 		|| ! is_file( $file_path ) ) {
 		wp_die( esc_html__( 'File not found.', 'your-text-domain' ), '', array( 'response' => 404 ) );
 	}
 
-	// Figure out the MIME type so the browser handles the file correctly.
-	// Map the common web types by extension first: finfo detects .css and .js as
-	// "text/plain", and browsers won't apply a stylesheet or run a script served
-	// that way. Fall back to finfo for everything else (images, PDFs, fonts, etc.).
+	// finfo reports .css/.js as "text/plain", which browsers won't apply, so map
+	// common web types by extension first and fall back to finfo for the rest.
 	$ext   = strtolower( pathinfo( $file_path, PATHINFO_EXTENSION ) );
 	$known = array(
 		'html' => 'text/html',
@@ -83,8 +73,7 @@ function my_pmpro_getfile() {
 	if ( isset( $known[ $ext ] ) ) {
 		$content_type = $known[ $ext ];
 	} else {
-		// finfo_open() returns false if the fileinfo extension is unavailable;
-		// guard against it so we don't fatal by passing false to finfo_file().
+		// finfo_open() returns false if the fileinfo extension is missing.
 		$finfo = finfo_open( FILEINFO_MIME_TYPE );
 		if ( false === $finfo ) {
 			$content_type = 'application/octet-stream';
@@ -94,8 +83,7 @@ function my_pmpro_getfile() {
 		}
 	}
 
-	// Serve INLINE so HTML/CSS/JS/JSON render in the browser (and inside an
-	// iframe) instead of downloading. Change to "attachment" to force a download.
+	// Serve inline so files render in the browser; use "attachment" to force a download.
 	nocache_headers();
 	header( 'Content-Type: ' . $content_type );
 	header( 'Content-Disposition: inline; filename="' . basename( $file_path ) . '"' );
