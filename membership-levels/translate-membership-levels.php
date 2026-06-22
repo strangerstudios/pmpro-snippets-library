@@ -89,7 +89,7 @@ function my_pmpro_levels_array( $levels ) {
 add_filter( 'pmpro_levels_array', 'my_pmpro_levels_array' );					// filter all levels
 add_filter( 'pmpro_get_membership_levels_for_user', 'my_pmpro_levels_array' );	// filter user levels
 
-// Filter checkout level
+// Filter checkout level.
 function my_pmpro_checkout_level_translate( $level ) {
 	global $pmpro_translated_levels;
 
@@ -111,3 +111,29 @@ function my_pmpro_checkout_level_translate( $level ) {
 	return $level;
 }
 add_filter( 'pmpro_checkout_level', 'my_pmpro_checkout_level_translate' );
+
+// Filter confirmation page to use translated level name.
+function my_pmpro_confirmation_page_translate( $content ) {
+	global $pmpro_translated_levels, $pmpro_invoice;
+
+	if ( empty( $pmpro_translated_levels ) || empty( $pmpro_invoice->membership_level ) ) {
+		return $content;
+	}
+
+	$site_locale = get_locale();
+
+	foreach ( $pmpro_translated_levels as $locale => $localized_levels ) {
+		if ( $locale !== $site_locale ) {
+			continue;
+		}
+		$level_id = $pmpro_invoice->membership_level->id;
+		if ( ! empty( $localized_levels[ $level_id ]['name'] ) ) {
+			$original_name   = $pmpro_invoice->membership_level->name;
+			$translated_name = $localized_levels[ $level_id ]['name'];
+			$content         = str_replace( $original_name, $translated_name, $content );
+		}
+	}
+
+	return $content;
+}
+add_filter( 'pmpro_pages_shortcode_confirmation', 'my_pmpro_confirmation_page_translate' );
