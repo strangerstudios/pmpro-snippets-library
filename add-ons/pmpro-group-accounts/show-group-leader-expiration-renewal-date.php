@@ -58,14 +58,9 @@ function my_pmprogroupacct_membership_expiration_text( $text, $level, $user ) {
 	$group_leader_id = $group->group_parent_user_id;
 
 	// Check for a fixed expiration date on the group leader's membership.
-	$expiration_text = pmpro_get_membership_expiration_text(
-		$group->group_parent_level_id,
-		$group_leader_id,
-		''
-	);
-
-	if ( ! empty( $expiration_text ) && strpos( $expiration_text, 'No Expiration' ) === false ) {
-		return $expiration_text;
+	$leader_level = pmpro_getSpecificMembershipLevelForUser( $group_leader_id, $group->group_parent_level_id );
+	if ( ! empty( $leader_level->enddate ) ) {
+		return date_i18n( get_option( 'date_format' ), $leader_level->enddate );
 	}
 
 	// No fixed expiration date. Look for the next subscription renewal date.
