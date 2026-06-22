@@ -112,13 +112,12 @@ function my_pmpro_checkout_level_translate( $level ) {
 }
 add_filter( 'pmpro_checkout_level', 'my_pmpro_checkout_level_translate' );
 
-// Filter confirmation page message to use translated level name.
-// Runs at priority 5, before core's wpautop (priority 10), so str_replace matches the raw name.
-function my_pmpro_confirmation_message_translate( $message, $pmpro_invoice ) {
-	global $pmpro_translated_levels;
+// Filter confirmation page to use translated level name.
+function my_pmpro_confirmation_page_translate( $content ) {
+	global $pmpro_translated_levels, $pmpro_invoice;
 
 	if ( empty( $pmpro_translated_levels ) || empty( $pmpro_invoice->membership_level ) ) {
-		return $message;
+		return $content;
 	}
 
 	$site_locale = get_locale();
@@ -131,10 +130,10 @@ function my_pmpro_confirmation_message_translate( $message, $pmpro_invoice ) {
 		if ( ! empty( $localized_levels[ $level_id ]['name'] ) ) {
 			$original_name   = $pmpro_invoice->membership_level->name;
 			$translated_name = $localized_levels[ $level_id ]['name'];
-			$message         = str_replace( $original_name, $translated_name, $message );
+			$content         = str_replace( $original_name, $translated_name, $content );
 		}
 	}
 
-	return $message;
+	return $content;
 }
-add_filter( 'pmpro_confirmation_message', 'my_pmpro_confirmation_message_translate', 5, 2 );
+add_filter( 'pmpro_pages_shortcode_confirmation', 'my_pmpro_confirmation_page_translate' );
