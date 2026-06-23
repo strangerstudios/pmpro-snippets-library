@@ -25,11 +25,11 @@
  *    the existing cancel link to "Verträge hier kündigen".
  */
 function my_pmpro_widerruf_action_links( $links, $level_id ) {
-	$widerruf_url = pmpro_url( 'cancel', 'levelstocancel=' . $level_id . '&widerruf=1' );
+	$widerruf_url = pmpro_url( 'cancel', 'levelstocancel=' . intval( $level_id ) . '&widerruf=1' );
 	$links['widerruf'] = '<a id="pmpro_actionlink-widerruf" href="' . esc_url( $widerruf_url ) . '">' . esc_html( 'Vertrag widerrufen' ) . '</a>';
 
 	if ( isset( $links['cancel'] ) ) {
-		$cancel_url      = pmpro_url( 'cancel', 'levelstocancel=' . $level_id );
+		$cancel_url      = pmpro_url( 'cancel', 'levelstocancel=' . intval( $level_id ) );
 		$links['cancel'] = '<a id="pmpro_actionlink-cancel" href="' . esc_url( $cancel_url ) . '">' . esc_html( 'Verträge hier kündigen' ) . '</a>';
 	}
 
@@ -58,6 +58,9 @@ function my_pmpro_confirm_button_label( $translation, $single, $plural, $number,
 	}
 
 	// Singular forms of the confirm button for specific levels and for all levels.
+	// These must match the _n() singular strings in paid-memberships-pro/pages/cancel.php
+	// (the "Yes, cancel this membership" and "Yes, cancel my membership" calls). If PMPro
+	// renames them, this filter silently stops matching — re-verify against core on upgrade.
 	$confirm_singulars = array(
 		'Yes, cancel this membership',
 		'Yes, cancel my membership',
@@ -131,12 +134,13 @@ add_action( 'pmpro_cancel_before_submit', 'my_pmpro_widerruf_confirmation_email_
 function my_pmpro_widerruf_confirmation_email_recipient( $recipient, $email ) {
 	$member_templates = array( 'cancel', 'cancel_on_next_payment_date' );
 
+	$confirmation_email = isset( $_REQUEST['widerruf_confirmation_email'] ) ? sanitize_email( wp_unslash( $_REQUEST['widerruf_confirmation_email'] ) ) : '';
+
 	if ( ! empty( $_REQUEST['widerruf'] )
 		&& ! empty( $email->template )
 		&& in_array( $email->template, $member_templates, true )
-		&& ! empty( $_REQUEST['widerruf_confirmation_email'] )
-		&& is_email( $_REQUEST['widerruf_confirmation_email'] ) ) {
-		$recipient = sanitize_email( wp_unslash( $_REQUEST['widerruf_confirmation_email'] ) );
+		&& is_email( $confirmation_email ) ) {
+		$recipient = $confirmation_email;
 	}
 
 	return $recipient;
