@@ -4,8 +4,8 @@
  * layout: snippet
  * collection: profile
  * category: integration
- * link: https://www.paidmembershipspro.com/add-ons/buddypress-integration/
- *
+ * link: TBD
+ * 
  * Change the "Edit Profile" and "Change Password" action links on the
  * Paid Memberships Pro Membership Account page to use the logged-in
  * member's BuddyPress profile and settings screens.
