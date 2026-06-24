@@ -48,7 +48,7 @@ function my_pmpro_limit_post_editing_to_specific_users( $allcaps, $caps, $args )
 	}
 
 	// If the current user isn't in the allowlist for this post, deny the capability.
-	if ( ! in_array( $user_id, $allowed_editors_by_post_id[ $post_id ], true ) ) {
+	if ( ! in_array( $user_id, $allowed_editors_by_post_id[ $post_id ], true ) && isset( $caps[0] ) ) {
 		$allcaps[ $caps[0] ] = false;
 	}
 
