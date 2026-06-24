@@ -19,7 +19,7 @@ function my_pmpro_change_level_if_approved( $user_id, $level_id ) {
 	$new_level_id      = 2; // Level to change to after approval.
 
 	// Only run if the approved level is the targeted Approval level.
-	if ( $level_id === $approval_level_id ) {
+	if ( (int) $level_id === $approval_level_id ) {
 		$current_level = pmpro_getSpecificMembershipLevelForUser( $user_id, $approval_level_id );
 
 		if ( ! empty( $current_level ) ) {
@@ -40,8 +40,12 @@ function my_pmpro_change_level_if_approved( $user_id, $level_id ) {
 
 			// Don't cancel the approval level subscription, if one exists, when changing the level.
 			add_filter( 'pmpro_cancel_previous_subscriptions', '__return_false' );
-			pmpro_changeMembershipLevel( $custom_level, $user_id );
+			$changed = pmpro_changeMembershipLevel( $custom_level, $user_id );
 			remove_filter( 'pmpro_cancel_previous_subscriptions', '__return_false' );
+
+			if ( ! $changed ) {
+				return;
+			}
 
 			// Check for an active subscription for the previous level.
 			$previous_subscription = PMPro_Subscription::get_subscription(
@@ -55,7 +59,9 @@ function my_pmpro_change_level_if_approved( $user_id, $level_id ) {
 			// If found, point the subscription from the previous level to the new level.
 			if ( ! empty( $previous_subscription ) ) {
 				$previous_subscription->set( 'membership_level_id', $new_level_id );
-				$previous_subscription->save();
+				if ( ! $previous_subscription->save() ) {
+					error_log( sprintf( 'PMPro: Failed to update subscription %d to level %d for user %d.', $previous_subscription->get( 'id' ), $new_level_id, $user_id ) );
+				}
 			}
 		}
 	}
