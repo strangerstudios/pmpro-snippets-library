@@ -26,7 +26,7 @@ function my_hasPaid( $user_id = null, $level_id = null ) {
 	global $wpdb;
 
 	// Make sure PMPro is active.
-	if ( ! function_exists( 'pmpro_getOption' ) ) {
+	if ( ! defined( 'PMPRO_VERSION' ) ) {
 		return false;
 	}
 
@@ -35,13 +35,13 @@ function my_hasPaid( $user_id = null, $level_id = null ) {
 		$user_id = get_current_user_id();
 	}
 
-	// No user?
+	// Still no user?
 	if ( empty( $user_id ) ) {
 		return false;
 	}
 
 	// Figure out if we are in a live or test gateway environment.
-	$environment = pmpro_getOption( 'gateway_environment' );
+	$environment = get_option( 'pmpro_gateway_environment' );
 
 	// Query to check.
 	$sql  = "SELECT COUNT(*) FROM $wpdb->pmpro_membership_orders WHERE user_id = %d AND gateway_environment = %s AND total > 0 AND status NOT IN('error', 'refunded', 'token', 'review')";
