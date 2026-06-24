@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: memberlite
  * category: design
- *
+ * link: https://www.paidmembershipspro.com/register-a-custom-font-family-for-memberlite/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
