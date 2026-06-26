@@ -11,14 +11,13 @@
  * layout: snippet
  * collection: memberlite
  * category: design
- *
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
 function my_memberlite_add_cpt_to_customizer( $cpts ) {
 	// Replace 'event' with your custom post type slug.
 	$cpts[] = 'event';
