@@ -15,10 +15,14 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 // Level to assign when payment fails. Use 0 to cancel membership.
-define( 'MY_PMPRO_FALLBACK_LEVEL_ID', 1 );
+if ( ! defined( 'MY_PMPRO_FALLBACK_LEVEL_ID' ) ) {
+	define( 'MY_PMPRO_FALLBACK_LEVEL_ID', 1 );
+}
 
 // Stores the member's original level ID.
-define( 'MY_PMPRO_ORIGINAL_LEVEL_META_KEY', 'my_pmpro_pre_failure_level_id' );
+if ( ! defined( 'MY_PMPRO_ORIGINAL_LEVEL_META_KEY' ) ) {
+	define( 'MY_PMPRO_ORIGINAL_LEVEL_META_KEY', 'my_pmpro_pre_failure_level_id' );
+}
 
 function my_pmpro_downgrade_on_payment_failure( $order ) {
 
@@ -34,6 +38,9 @@ function my_pmpro_downgrade_on_payment_failure( $order ) {
 
 	// Avoid repeatedly downgrading.
 	if ( ! empty( $current_level ) && (int) $current_level->id === $fallback_id ) {
+		return;
+	}
+	if ( 0 === $fallback_id && empty( $current_level ) ) {
 		return;
 	}
 
@@ -73,8 +80,10 @@ function my_pmpro_restore_on_payment_success( $order ) {
 		return;
 	}
 
-	pmpro_changeMembershipLevel( $original_id, $user_id );
+	$changed = pmpro_changeMembershipLevel( $original_id, $user_id );
 
-	delete_user_meta( $user_id, MY_PMPRO_ORIGINAL_LEVEL_META_KEY );
+	if ( false !== $changed ) {
+		delete_user_meta( $user_id, MY_PMPRO_ORIGINAL_LEVEL_META_KEY );
+	}
 }
 add_action( 'pmpro_subscription_payment_completed', 'my_pmpro_restore_on_payment_success' );
