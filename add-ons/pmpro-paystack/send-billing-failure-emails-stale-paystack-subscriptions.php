@@ -19,8 +19,12 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-define( 'MY_PMPRO_PAYSTACK_BATCH_SIZE', 25 );
-define( 'MY_PMPRO_PAYSTACK_OFFSET_KEY', 'my_pmpro_paystack_stale_check_offset' );
+if ( ! defined( 'MY_PMPRO_PAYSTACK_BATCH_SIZE' ) ) {
+	define( 'MY_PMPRO_PAYSTACK_BATCH_SIZE', 25 );
+}
+if ( ! defined( 'MY_PMPRO_PAYSTACK_OFFSET_KEY' ) ) {
+	define( 'MY_PMPRO_PAYSTACK_OFFSET_KEY', 'my_pmpro_paystack_stale_check_offset' );
+}
 
 add_action( 'pmpro_schedule_hourly', 'my_pmpro_paystack_check_stale_subscriptions' );
 add_action( 'pmpro_updated_order', 'my_pmpro_paystack_clear_stale_flag' );
@@ -32,37 +36,6 @@ add_action( 'pmpro_updated_order', 'my_pmpro_paystack_clear_stale_flag' );
  * confirms failure via the Paystack API, and sends billing failure emails once
  * per subscription. Advances a stored offset so each run processes the next batch.
  */
-/**
- * Clear the stale-notification flag when a successful subscription payment comes in.
- *
- * Fires on pmpro_updated_order so the next billing-failure cycle
- * can send a fresh notification if the subscription goes stale again later.
- *
- * @param MemberOrder $order The updated order.
- */
-function my_pmpro_paystack_clear_stale_flag( $order ) {
-	if ( empty( $order->user_id ) || empty( $order->subscription_transaction_id ) ) {
-		return;
-	}
-
-	if ( 'success' !== $order->status ) {
-		return;
-	}
-
-	$subscription = PMPro_Subscription::get_subscription_from_subscription_transaction_id(
-		$order->subscription_transaction_id,
-		$order->gateway,
-		$order->gateway_environment
-	);
-
-	if ( empty( $subscription ) ) {
-		return;
-	}
-
-	$flag_key = '_pmpro_paystack_stale_notified_' . $subscription->get_id();
-	delete_user_meta( $order->user_id, $flag_key );
-}
-
 function my_pmpro_paystack_check_stale_subscriptions() {
 	if ( ! function_exists( 'pmpro_changeMembershipLevel' ) || ! class_exists( 'PMPro_Subscription' ) ) {
 		return;
@@ -90,7 +63,7 @@ function my_pmpro_paystack_check_stale_subscriptions() {
 		return;
 	}
 
-	$now = current_time( 'timestamp', true );
+	$now = time();
 
 	foreach ( $subscriptions as $subscription ) {
 		$next_payment_date = $subscription->get_next_payment_date();
@@ -130,7 +103,7 @@ function my_pmpro_paystack_check_stale_subscriptions() {
 		$body            = json_decode( wp_remote_retrieve_body( $response ), true );
 		$paystack_status = isset( $body['data']['status'] ) ? $body['data']['status'] : '';
 
-		if ( ! in_array( $paystack_status, array( 'attention' ), true ) ) {
+		if ( ! in_array( $paystack_status, array( 'attention', 'cancelled' ), true ) ) {
 			continue;
 		}
 
@@ -148,10 +121,10 @@ function my_pmpro_paystack_check_stale_subscriptions() {
 
 			$admin_email = new PMProEmail();
 			$admin_email->sendBillingFailureAdminEmail( get_bloginfo( 'admin_email' ), $order );
-		}
 
-		// Flag this subscription so the notification is never sent again.
-		update_user_meta( $subscription->get_user_id(), $flag_key, current_time( 'mysql' ) );
+			// Flag this subscription so the notification is never sent again.
+			update_user_meta( $subscription->get_user_id(), $flag_key, current_time( 'mysql' ) );
+		}
 	}
 
 	// Fewer results than the batch size means we've reached the end — reset the offset.
@@ -160,4 +133,35 @@ function my_pmpro_paystack_check_stale_subscriptions() {
 	} else {
 		update_option( MY_PMPRO_PAYSTACK_OFFSET_KEY, $offset + MY_PMPRO_PAYSTACK_BATCH_SIZE );
 	}
+}
+
+/**
+ * Clear the stale-notification flag when a successful subscription payment comes in.
+ *
+ * Fires on pmpro_updated_order so the next billing-failure cycle
+ * can send a fresh notification if the subscription goes stale again later.
+ *
+ * @param MemberOrder $order The updated order.
+ */
+function my_pmpro_paystack_clear_stale_flag( $order ) {
+	if ( empty( $order->user_id ) || empty( $order->subscription_transaction_id ) ) {
+		return;
+	}
+
+	if ( 'success' !== $order->status ) {
+		return;
+	}
+
+	$subscription = PMPro_Subscription::get_subscription_from_subscription_transaction_id(
+		$order->subscription_transaction_id,
+		$order->gateway,
+		$order->gateway_environment
+	);
+
+	if ( empty( $subscription ) ) {
+		return;
+	}
+
+	$flag_key = '_pmpro_paystack_stale_notified_' . $subscription->get_id();
+	delete_user_meta( $order->user_id, $flag_key );
 }
