@@ -162,6 +162,11 @@ add_action( 'pmpro_checkout_boxes', 'my_pmpro_group_parent_existing_seats_notice
 
 /**
  * Ajax handler: return the formatted level cost text for the given level + seat count.
+ *
+ * pmpro_getLevelAtCheckout() runs the pmpro_checkout_level filter chain (including our
+ * prorate filter), and reads $_REQUEST['pmprogroupacct_seats'] — which the JS sends.
+ * The prorate filter detects this AJAX action name and skips all user meta writes so
+ * that a read-only price preview never mutates persistent billing state.
  */
 function my_pmpro_seats_cost_text_ajax() {
 	check_ajax_referer( 'my_pmpro_seats_cost_text' );
@@ -186,14 +191,21 @@ add_action( 'wp_ajax_nopriv_my_pmpro_seats_cost_text', 'my_pmpro_seats_cost_text
 /**
  * Prorate a group account parent level checkout when an existing parent adds or removes seats.
  *
- * Runs after pmprogroupacct_pmpro_checkout_level_parent (priority 10).
+ * Runs after pmprogroupacct_pmpro_checkout_level_parent (priority 10) which has already
+ * added $new_total_seats × $price_per_seat to initial_payment and/or billing_amount.
  *
- * Upgrade: charges a prorated initial payment for additional seats only, preserving the
- * existing billing anchor date.
+ * Upgrade: removes the full Group Accounts seat surcharge from initial_payment and
+ * replaces it with a prorated charge for the additional seats only, preserving any base
+ * signup fee the level has and preserving the existing billing anchor date.
  *
- * Downgrade: charges $0 today, preserves the billing anchor date, and stores a pending
- * seat reduction in user meta so the seat count only drops at the next renewal — not
- * immediately. The member already paid for the current cycle's seats.
+ * Downgrade: sets initial_payment to 0, preserves the billing anchor date, and stores
+ * a pending seat reduction in user meta (scoped per level) so the seat count only drops
+ * at the next renewal — not immediately. The member already paid for the current
+ * cycle's seats.
+ *
+ * Note: user meta is never written during AJAX price preview calls — only on real
+ * checkout submissions. This prevents a keystroke in the seats field from silently
+ * mutating pending billing state.
  */
 function my_pmpro_prorate_parent_seat_upgrade( $level ) {
 	if ( ! function_exists( 'pmprogroupacct_get_settings_for_level' ) || ! class_exists( 'PMProGroupAcct_Group' ) ) {
@@ -258,9 +270,21 @@ function my_pmpro_prorate_parent_seat_upgrade( $level ) {
 	switch ( $settings['price_application'] ) {
 		case 'both':
 		case 'initial':
-			$level->initial_payment = $additional_seats * $price_per_seat * $proration_ratio;
-			if ( $level->initial_payment > 0 && $level->initial_payment < 0.5 ) {
-				$level->initial_payment = 1;
+			if ( $is_downgrade ) {
+				// Downgrade: no charge today. Group Accounts added $new_total_seats *
+				// $price_per_seat to initial_payment at priority 10 — zero it out.
+				$level->initial_payment = 0;
+			} else {
+				// Upgrade: Group Accounts added $new_total_seats * $price_per_seat to
+				// initial_payment at priority 10 on top of any base signup fee. Remove
+				// that full seat surcharge and replace with only the prorated cost of
+				// the additional seats, preserving the base signup fee.
+				$ga_surcharge           = $new_total_seats * $price_per_seat;
+				$prorated_charge        = $additional_seats * $price_per_seat * $proration_ratio;
+				$level->initial_payment = round( $level->initial_payment - $ga_surcharge + $prorated_charge, 2 );
+				if ( $level->initial_payment > 0 && $level->initial_payment < 0.5 ) {
+					$level->initial_payment = 1.00;
+				}
 			}
 			break;
 	}
@@ -270,18 +294,29 @@ function my_pmpro_prorate_parent_seat_upgrade( $level ) {
 		$level->profile_start_date = date( 'Y-m-d H:i:s', $existing_next_payment_ts );
 	}
 
-	// For downgrades: store a pending reduction so we can defer the seat count
-	// drop until the next renewal. The member paid for the current cycle's seats
-	// and should keep access to them until the billing date.
-	if ( $is_downgrade ) {
-		update_user_meta( $user_id, '_my_pmpro_pending_seat_reduction', array(
-			'level_id'       => $level->id,
-			'new_seats'      => $new_total_seats,
-			'existing_seats' => $existing_seats,
-		) );
-	} else {
-		// Upgrade or same-seat checkout: clear any stale pending reduction.
-		delete_user_meta( $user_id, '_my_pmpro_pending_seat_reduction' );
+	// Only write persistent meta on actual checkout submissions. The AJAX price preview
+	// also triggers pmpro_checkout_level via pmpro_getLevelAtCheckout() — we must not
+	// let a read-only preview write or delete a real pending downgrade record.
+	$is_preview = isset( $_REQUEST['action'] ) && $_REQUEST['action'] === 'my_pmpro_seats_cost_text';
+	if ( ! $is_preview ) {
+		// Meta key is scoped per level so a parent managing two parent levels concurrently
+		// does not have one pending downgrade clobber the other.
+		$meta_key = '_my_pmpro_pending_seat_reduction_' . $level->id;
+
+		if ( $is_downgrade ) {
+			// Store a pending reduction so my_pmpro_defer_seat_reduction_after_checkout()
+			// can revert the immediate DB write and my_pmpro_apply_pending_seat_reduction()
+			// can apply the drop at next renewal.
+			update_user_meta( $user_id, $meta_key, array(
+				'level_id'       => $level->id,
+				'new_seats'      => $new_total_seats,
+				'existing_seats' => $existing_seats,
+			) );
+		} else {
+			// Upgrade or same-seat checkout: clear any stale pending reduction for
+			// this level so it does not fire incorrectly at next renewal.
+			delete_user_meta( $user_id, $meta_key );
+		}
 	}
 
 	return $level;
@@ -295,8 +330,7 @@ add_filter( 'pmpro_checkout_level', 'my_pmpro_prorate_parent_seat_upgrade', 20 )
  * priority 999 to revert it back — the member paid for the current cycle's seats, so they
  * should keep them until the next billing date.
  *
- * The pending meta stored in my_pmpro_prorate_parent_seat_upgrade() is used to identify
- * the correct group and seat counts to restore.
+ * my_pmpro_apply_pending_seat_reduction() applies the drop at next renewal.
  */
 function my_pmpro_defer_seat_reduction_after_checkout( $user_id, $morder ) {
 	global $wpdb;
@@ -305,17 +339,18 @@ function my_pmpro_defer_seat_reduction_after_checkout( $user_id, $morder ) {
 		return;
 	}
 
-	$pending = get_user_meta( $user_id, '_my_pmpro_pending_seat_reduction', true );
+	$level_id = ! empty( $morder->membership_id ) ? (int) $morder->membership_id : 0;
+	if ( ! $level_id ) {
+		return;
+	}
+
+	$meta_key = '_my_pmpro_pending_seat_reduction_' . $level_id;
+	$pending  = get_user_meta( $user_id, $meta_key, true );
 	if ( empty( $pending ) || empty( $pending['level_id'] ) || ! isset( $pending['existing_seats'] ) ) {
 		return;
 	}
 
-	// Only act if this order is for the same level as the pending reduction.
-	if ( ! empty( $morder->membership_id ) && (int) $morder->membership_id !== (int) $pending['level_id'] ) {
-		return;
-	}
-
-	$existing_group = PMProGroupAcct_Group::get_group_by_parent_user_id_and_parent_level_id( $user_id, $pending['level_id'] );
+	$existing_group = PMProGroupAcct_Group::get_group_by_parent_user_id_and_parent_level_id( $user_id, $level_id );
 	if ( empty( $existing_group ) ) {
 		return;
 	}
@@ -324,7 +359,7 @@ function my_pmpro_defer_seat_reduction_after_checkout( $user_id, $morder ) {
 	// their current cycle's seats. my_pmpro_apply_pending_seat_reduction() will
 	// drop it to the new count at next renewal.
 	$wpdb->update(
-		$wpdb->prefix . 'pmprogroupacct_groups',
+		$wpdb->pmprogroupacct_groups,
 		array( 'group_total_seats' => intval( $pending['existing_seats'] ) ),
 		array( 'id' => intval( $existing_group->id ) ),
 		array( '%d' ),
@@ -336,40 +371,49 @@ add_action( 'pmpro_after_checkout', 'my_pmpro_defer_seat_reduction_after_checkou
 /**
  * At renewal, apply any pending seat reduction for the renewed level.
  *
- * Fires when a subscription payment completes. If the user has a pending seat
- * reduction for the renewed level, group_total_seats is updated to the new (lower)
- * count and the pending meta is cleared.
+ * pmpro_subscription_payment_completed passes a MemberOrder object. User ID and level ID
+ * are derived from the order. If a pending seat reduction meta exists for that user + level,
+ * group_total_seats is updated to the new (lower) count and the meta is cleared.
  */
-function my_pmpro_apply_pending_seat_reduction( $subscription ) {
+function my_pmpro_apply_pending_seat_reduction( $order ) {
 	global $wpdb;
 
-	if ( ! class_exists( 'PMProGroupAcct_Group' ) || ! is_a( $subscription, 'PMPro_Subscription' ) ) {
+	if ( ! class_exists( 'PMProGroupAcct_Group' ) ) {
 		return;
 	}
 
-	$user_id  = (int) $subscription->get_user_id();
-	$level_id = (int) $subscription->get_membership_level_id();
+	// pmpro_subscription_payment_completed passes a MemberOrder object, not PMPro_Subscription.
+	if ( ! is_a( $order, 'MemberOrder' ) ) {
+		return;
+	}
 
-	$pending = get_user_meta( $user_id, '_my_pmpro_pending_seat_reduction', true );
+	$user_id  = (int) $order->user_id;
+	$level_id = (int) $order->membership_id;
+
+	if ( ! $user_id || ! $level_id ) {
+		return;
+	}
+
+	$meta_key = '_my_pmpro_pending_seat_reduction_' . $level_id;
+	$pending  = get_user_meta( $user_id, $meta_key, true );
 	if ( empty( $pending ) || (int) $pending['level_id'] !== $level_id ) {
 		return;
 	}
 
 	$existing_group = PMProGroupAcct_Group::get_group_by_parent_user_id_and_parent_level_id( $user_id, $level_id );
 	if ( empty( $existing_group ) ) {
-		delete_user_meta( $user_id, '_my_pmpro_pending_seat_reduction' );
+		delete_user_meta( $user_id, $meta_key );
 		return;
 	}
 
 	$wpdb->update(
-		$wpdb->prefix . 'pmprogroupacct_groups',
+		$wpdb->pmprogroupacct_groups,
 		array( 'group_total_seats' => intval( $pending['new_seats'] ) ),
 		array( 'id' => intval( $existing_group->id ) ),
 		array( '%d' ),
 		array( '%d' )
 	);
 
-	delete_user_meta( $user_id, '_my_pmpro_pending_seat_reduction' );
+	delete_user_meta( $user_id, $meta_key );
 }
 add_action( 'pmpro_subscription_payment_completed', 'my_pmpro_apply_pending_seat_reduction' );
-
