@@ -7,6 +7,10 @@
  * members with a saved map location and overrides the marker data before Google Maps
  * initializes, so every member appears as a pin regardless of pagination.
  *
+ * This snippet is suitable for directories with a moderate number of members. 
+ * For sites with hundreds of active members, consider restricting levels via the 
+ * level shortcode attribute and testing page load size.
+ *
  * title: Show All Member Markers on the Directory Map When No Search Is Active
  * layout: snippet
  * collection: pmpro-member-directory
@@ -38,7 +42,7 @@ function custom_pmpromd_all_markers_no_search() {
 	}
 
 	// Leave the default behaviour in place when the visitor has searched.
-	if ( ! empty( $_REQUEST['ps'] ) ) {
+	if ( ! empty( $_GET['ps'] ) ) {
 		return;
 	}
 
@@ -63,18 +67,12 @@ function custom_pmpromd_all_markers_no_search() {
 	$sql = "SELECT
 			u.ID,
 			u.user_nicename,
-			umf.meta_value   AS first_name,
-			uml.meta_value   AS last_name,
 			ummap.meta_value AS maplocation
 		FROM {$wpdb->users} u
 		LEFT JOIN {$wpdb->pmpro_memberships_users} mu
 			ON u.ID = mu.user_id
 		LEFT JOIN {$wpdb->usermeta} umh
 			ON umh.meta_key = 'pmpromd_hide_directory' AND u.ID = umh.user_id
-		LEFT JOIN {$wpdb->usermeta} umf
-			ON umf.meta_key = 'first_name' AND u.ID = umf.user_id
-		LEFT JOIN {$wpdb->usermeta} uml
-			ON uml.meta_key = 'last_name' AND u.ID = uml.user_id
 		LEFT JOIN {$wpdb->usermeta} ummap
 			ON ummap.meta_key = 'pmpromd_pin_location' AND u.ID = ummap.user_id
 		WHERE mu.status = 'active'
@@ -107,8 +105,11 @@ function custom_pmpromd_all_markers_no_search() {
 
 	// Inject after map.js but before the async Google Maps callback fires,
 	// so pmpromd_init_map() picks up the full unpaginated marker set.
-	$js = 'if ( typeof pmpromd_vars !== "undefined" ) { pmpromd_vars.marker_data = '
-		. wp_json_encode( $all_marker_data ) . '; }';
+	$encoded = wp_json_encode( $all_marker_data );
+	if ( empty( $encoded ) ) {
+	    return;
+	}
+	$js = 'if ( typeof pmpromd_vars !== "undefined" ) { pmpromd_vars.marker_data = ' . $encoded . '; }';
 
 	wp_add_inline_script( 'pmpromd-google-maps-javascript', $js );
 }
