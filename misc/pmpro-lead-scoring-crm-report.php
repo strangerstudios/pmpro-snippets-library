@@ -14,9 +14,11 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-/* ===========================================================================
+/*
+ * ===========================================================================
  * CONFIG — the only things you'd change for your own site.
- * ======================================================================== */
+ * ===========================================================================
+ */
 
 // The meta keys of the two fields you created in the GUI.
 define( 'PMPROCRM_PHONE_META', 'phone' );
@@ -29,11 +31,26 @@ define( 'PMPROCRM_STAGE_META', 'dog_stage' );
  */
 function pmprocrm_stages() {
 	return array(
-		'ready-1on1'       => array( 'label' => 'Ready for one-on-one help',              'score' => 12 ),
-		'behavior-problem' => array( 'label' => 'Working through a specific problem',      'score' => 10 ),
-		'new-dog'          => array( 'label' => 'Just brought home a new dog or puppy',    'score' => 8 ),
-		'ongoing'          => array( 'label' => 'Wants ongoing training and guidance',     'score' => 7 ),
-		'browsing'         => array( 'label' => 'Just curious, looking around',            'score' => 3 ),
+		'ready-1on1'       => array(
+			'label' => 'Ready for one-on-one help',
+			'score' => 12,
+		),
+		'behavior-problem' => array(
+			'label' => 'Working through a specific problem',
+			'score' => 10,
+		),
+		'new-dog'          => array(
+			'label' => 'Just brought home a new dog or puppy',
+			'score' => 8,
+		),
+		'ongoing'          => array(
+			'label' => 'Wants ongoing training and guidance',
+			'score' => 7,
+		),
+		'browsing'         => array(
+			'label' => 'Just curious, looking around',
+			'score' => 3,
+		),
 	);
 }
 
@@ -44,9 +61,9 @@ function pmprocrm_stages() {
  */
 function pmprocrm_tracked_pages() {
 	return array(
-		'membership-levels' => 3, // the join / pricing page
-		'membership-checkout'   => 5, // landed on checkout = strong intent
-		'about' => 8, // looking at the premium 1:1 offer = hottest
+		'membership-levels'   => 3, // The join / pricing page.
+		'membership-checkout' => 5, // Landed on checkout = strong intent.
+		'about'               => 8, // Looking at the premium 1:1 offer = hottest.
 	);
 }
 
@@ -62,9 +79,11 @@ function pmprocrm_statuses() {
 	);
 }
 
-/* ===========================================================================
+/*
+ * ===========================================================================
  * 1. TRACK high-intent page views onto the member record.
- * ======================================================================== */
+ * ===========================================================================
+ */
 
 function pmprocrm_track_page_views() {
 	if ( ! is_user_logged_in() ) {
@@ -96,18 +115,26 @@ function pmprocrm_track_page_views() {
 		$data = array();
 	}
 	if ( ! isset( $data[ $current ] ) ) {
-		$data[ $current ] = array( 'count' => 0, 'last' => '' );
+		$data[ $current ] = array(
+			'count' => 0,
+			'last'  => '',
+		);
 	}
-	$data[ $current ]['count']++;
+	++$data[ $current ]['count'];
 	$data[ $current ]['last'] = current_time( 'mysql' );
 
 	update_user_meta( $user_id, 'pmprocrm_page_views', $data );
+
+	// Keep the stored score (and its ranking) fresh as behavior changes.
+	pmprocrm_calculate_lead_score( $user_id );
 }
 add_action( 'template_redirect', 'pmprocrm_track_page_views' );
 
-/* ===========================================================================
+/*
+ * ===========================================================================
  * 2. SCORE the member: stage answer + behavior + phone + paid.
- * ======================================================================== */
+ * ===========================================================================
+ */
 
 function pmprocrm_calculate_lead_score( $user_id = null ) {
 	if ( empty( $user_id ) ) {
@@ -119,7 +146,7 @@ function pmprocrm_calculate_lead_score( $user_id = null ) {
 
 	$score = 0;
 
-	// Where are they at? (the one GUI field that does the most work)
+	// Where are they at? This is the one GUI field that does the most work.
 	$stage  = get_user_meta( $user_id, PMPROCRM_STAGE_META, true );
 	$stages = pmprocrm_stages();
 	if ( ! empty( $stage ) && isset( $stages[ $stage ] ) ) {
@@ -147,7 +174,7 @@ function pmprocrm_calculate_lead_score( $user_id = null ) {
 		$score += 10;
 	}
 
-	update_user_meta( $user_id, 'lead_score', $score );
+	update_user_meta( $user_id, 'pmprocrm_lead_score', $score );
 
 	return $score;
 }
@@ -155,11 +182,13 @@ function pmprocrm_calculate_lead_score( $user_id = null ) {
 add_action( 'pmpro_after_checkout', 'pmprocrm_calculate_lead_score', 30 );
 add_action( 'profile_update', 'pmprocrm_calculate_lead_score', 30 );
 
-/* ===========================================================================
+/*
+ * ===========================================================================
  * 3. PIPELINE — the "CRM view" under Memberships > Reports.
- * ======================================================================== */
+ * ===========================================================================
+ */
 
-/** First active membership level for a user (good enough for a demo). */
+// First active membership level for a user (good enough for a demo).
 function pmprocrm_get_main_level_for_user( $user_id ) {
 	if ( empty( $user_id ) || ! function_exists( 'pmpro_getMembershipLevelsForUser' ) ) {
 		return null;
@@ -188,14 +217,14 @@ function pmprocrm_handle_status_action() {
 	if ( empty( $_GET['pmprocrm_action'] ) || 'update_status' !== $_GET['pmprocrm_action'] ) {
 		return;
 	}
-	if ( empty( $_GET['user_id'] ) || empty( $_GET['_wpnonce'] ) || ! isset( $_GET['status'] ) ) {
+	if ( empty( $_GET['user_id'] ) || empty( $_GET['_wpnonce'] ) || ! isset( $_GET['new_status'] ) ) {
 		return;
 	}
 
 	$user_id = intval( $_GET['user_id'] );
-	$status  = sanitize_text_field( wp_unslash( $_GET['status'] ) );
+	$status  = sanitize_text_field( wp_unslash( $_GET['new_status'] ) );
 
-	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'pmprocrm_status_' . $user_id ) ) {
+	if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'pmprocrm_status_' . $user_id ) ) {
 		wp_die( 'Security check failed.' );
 	}
 	if ( ! current_user_can( 'edit_user', $user_id ) ) {
@@ -214,7 +243,8 @@ function pmpro_report_pmprocrm_page() {
 	$statuses = pmprocrm_statuses();
 	$stages   = pmprocrm_stages();
 
-	$status = ! empty( $_REQUEST['status'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) : 'all';
+	// Read-only report tab filter; no state change, so no nonce is required.
+	$status = ! empty( $_REQUEST['status'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['status'] ) ) : 'all'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$base   = admin_url( 'admin.php?page=pmpro-reports&report=pmprocrm' );
 	?>
 	<div class="metabox-holder">
@@ -226,10 +256,10 @@ function pmpro_report_pmprocrm_page() {
 			$tabs = array_merge( array( 'all' => 'All' ), $statuses );
 			$i    = 0;
 			foreach ( $tabs as $key => $label ) {
-				$i++;
-				$url     = add_query_arg( array( 'status' => $key ), $base );
-				$current = ( $status === $key ) ? ' class="current"' : '';
-				echo '<li><a href="' . esc_url( $url ) . '"' . $current . '>' . esc_html( $label ) . '</a>';
+				++$i;
+				$url        = add_query_arg( array( 'status' => $key ), $base );
+				$is_current = ( $status === $key );
+				echo '<li><a href="' . esc_url( $url ) . '"' . ( $is_current ? ' class="current"' : '' ) . '>' . esc_html( $label ) . '</a>';
 				echo ( $i < count( $tabs ) ) ? ' <span class="sep">|</span> ' : '';
 				echo '</li>';
 			}
@@ -253,7 +283,7 @@ function pmpro_report_pmprocrm_page() {
 				SELECT u.ID
 				FROM {$wpdb->users} u
 				JOIN {$wpdb->pmpro_memberships_users} mu ON u.ID = mu.user_id AND mu.status = 'active'
-				LEFT JOIN {$wpdb->usermeta} um_score ON u.ID = um_score.user_id AND um_score.meta_key = 'lead_score'
+				LEFT JOIN {$wpdb->usermeta} um_score ON u.ID = um_score.user_id AND um_score.meta_key = 'pmprocrm_lead_score'
 			";
 			if ( 'all' !== $status ) {
 				$sql .= " LEFT JOIN {$wpdb->usermeta} um_status ON u.ID = um_status.user_id AND um_status.meta_key = 'pmprocrm_status' ";
@@ -265,15 +295,19 @@ function pmpro_report_pmprocrm_page() {
 			}
 			$sql .= ' GROUP BY u.ID ORDER BY CAST(um_score.meta_value AS SIGNED) DESC LIMIT 200 ';
 
-			$user_ids = $wpdb->get_col( $sql );
+			// Custom admin report JOIN with no core API equivalent. Interpolated
+			// values are $wpdb table names or already run through $wpdb->prepare().
+			$user_ids = $wpdb->get_col( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 
 			if ( empty( $user_ids ) ) {
 				echo '<tr><td colspan="5">No members in this status yet.</td></tr>';
 			}
 
 			foreach ( $user_ids as $user_id ) {
-				$user           = get_userdata( $user_id );
-				$score          = pmprocrm_calculate_lead_score( $user_id );
+				$user = get_userdata( $user_id );
+				// Use the stored score (also the ORDER BY key) so viewing the report
+				// doesn't recalculate and write meta for every member on every load.
+				$score          = intval( get_user_meta( $user_id, 'pmprocrm_lead_score', true ) );
 				$current_status = get_user_meta( $user_id, 'pmprocrm_status', true );
 				if ( empty( $current_status ) ) {
 					$current_status = 'new';
@@ -289,8 +323,9 @@ function pmpro_report_pmprocrm_page() {
 							<input type="hidden" name="report" value="pmprocrm" />
 							<input type="hidden" name="pmprocrm_action" value="update_status" />
 							<input type="hidden" name="user_id" value="<?php echo esc_attr( $user_id ); ?>" />
+							<input type="hidden" name="status" value="<?php echo esc_attr( $status ); ?>" />
 							<?php wp_nonce_field( 'pmprocrm_status_' . $user_id ); ?>
-							<select name="status" onchange="this.form.submit();">
+							<select name="new_status" onchange="this.form.submit();">
 								<?php foreach ( $statuses as $key => $label ) : ?>
 									<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $current_status, $key ); ?>><?php echo esc_html( $label ); ?></option>
 								<?php endforeach; ?>
@@ -298,10 +333,25 @@ function pmpro_report_pmprocrm_page() {
 						</form>
 					</td>
 					<td>
-						<strong><a href="<?php echo esc_url( add_query_arg( array( 'page' => 'pmpro-member', 'user_id' => $user_id ), admin_url( 'admin.php' ) ) ); ?>"><?php echo esc_html( $user->display_name ); ?></a></strong><br />
+						<strong><a href="
+						<?php
+						echo esc_url(
+							add_query_arg(
+								array(
+									'page'    => 'pmpro-member',
+									'user_id' => $user_id,
+								),
+								admin_url( 'admin.php' )
+							)
+						);
+						?>
+											"><?php echo esc_html( $user->display_name ); ?></a></strong><br />
 						<?php echo esc_html( $user->user_email ); ?><br />
 						<?php echo ! empty( $level ) ? 'Level: ' . esc_html( $level->name ) : 'No level'; ?>
-						<?php if ( ! empty( $phone ) ) { echo '<br />Phone: ' . esc_html( $phone ); } ?>
+						<?php
+						if ( ! empty( $phone ) ) {
+							echo '<br />Phone: ' . esc_html( $phone ); }
+						?>
 					</td>
 					<td>
 						<?php
