@@ -332,20 +332,17 @@ function pmpro_report_pmprocrm_page() {
 							</select>
 						</form>
 					</td>
+					<?php
+					$member_url = add_query_arg(
+						array(
+							'page'    => 'pmpro-member',
+							'user_id' => $user_id,
+						),
+						admin_url( 'admin.php' )
+					);
+					?>
 					<td>
-						<strong><a href="
-						<?php
-						echo esc_url(
-							add_query_arg(
-								array(
-									'page'    => 'pmpro-member',
-									'user_id' => $user_id,
-								),
-								admin_url( 'admin.php' )
-							)
-						);
-						?>
-											"><?php echo esc_html( $user->display_name ); ?></a></strong><br />
+						<strong><a href="<?php echo esc_url( $member_url ); ?>"><?php echo esc_html( $user->display_name ); ?></a></strong><br />
 						<?php echo esc_html( $user->user_email ); ?><br />
 						<?php echo ! empty( $level ) ? 'Level: ' . esc_html( $level->name ) : 'No level'; ?>
 						<?php
