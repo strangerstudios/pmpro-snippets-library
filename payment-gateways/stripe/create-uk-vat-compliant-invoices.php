@@ -5,8 +5,9 @@
  *
  * - Fetches the member's own VAT registration number from their Stripe customer record
  *   and caches it in user meta (pmpro_stripe_tax_ids).
- * - Injects company VAT details and a net/VAT/total breakdown into all payment-related
- *   PMPro emails using template variables ({{ vat_net }}, {{ vat_amount }}, etc.).
+ * - Injects the member's own VAT number, a VAT invoice number, and company VAT details
+ *   into payment-related PMPro emails using template variables (!!vat_info!!,
+ *   !!vat_invoice_number!!, !!company_name!!, etc.).
  * - Renders the VAT invoice block on the frontend invoice page and admin order views.
  *
  * title: How to Add UK VAT-Compliant Invoicing to PMPro with Stripe
