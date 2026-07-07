@@ -172,7 +172,7 @@ function my_pmpro_invoice_show_tax_ids( $morder ) {
 	$vat_invoice_number = (int) $morder->id;
 
 	echo '<div class="pmpro_vat_invoice" style="margin-top:1.5em;border-top:1px solid #ddd;padding-top:1em;">';
-	echo '<p><strong>' . esc_html__( 'VAT Invoice', 'paid-memberships-pro' ) . ' #' . esc_html( $vat_invoice_number ) . '</strong><br>';
+	echo '<p><strong>' . esc_html__( 'VAT Invoice', 'pmpro-snippets-library' ) . ' #' . esc_html( $vat_invoice_number ) . '</strong><br>';
 	echo 'Your Company Name<br>';
 	echo '123 Example Street, Anytown, AB1 2CD<br>';
 	echo 'VAT Number: GB123456789<br>';
