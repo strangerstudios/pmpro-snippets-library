@@ -210,7 +210,8 @@ function my_pmpro_admin_order_show_tax_ids( $column_name, $order_id ) {
 		return;
 	}
 
-	$morder = new MemberOrder( $order_id );
+	$morder = new MemberOrder();
+	$morder->getMemberOrderByID( (int) $order_id );
 	if ( empty( $morder->user_id ) ) {
 		return;
 	}
