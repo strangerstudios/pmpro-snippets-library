@@ -130,26 +130,35 @@ add_action( 'pmpro_updated_order', 'my_pmpro_updated_order_fetch_tax_ids', 5 );
  */
 function my_pmpro_inject_tax_ids_into_email( $data, $email ) {
 	// Member's own VAT registration number — available in all emails.
-	if ( ! empty( $data['user_id'] ) ) {
-		$user_id  = (int) $data['user_id'];
-		$vat_info = get_user_meta( $user_id, 'pmpro_stripe_tax_ids', true );
+	if ( ! empty( $data['user_login'] ) ) {
+		$user = get_user_by( 'login', $data['user_login'] );
 
-		// If no VAT info stored yet, try to pull it from the user's last non-free order.
-		if ( empty( $vat_info ) || $vat_info === 'none' ) {
-			$morder = MemberOrder::getLastMemberOrder( $user_id, 'success', null, null, null, false );
-			if ( ! empty( $morder ) && ! empty( $morder->id ) ) {
-				my_pmpro_fetch_stripe_tax_ids( $user_id, $morder );
-				$vat_info = get_user_meta( $user_id, 'pmpro_stripe_tax_ids', true );
+		if ( ! empty( $user ) ) {
+			$user_id  = (int) $user->ID;
+			$vat_info = get_user_meta( $user_id, 'pmpro_stripe_tax_ids', true );
+
+			// If no VAT info stored yet, try to pull it from the user's last non-free order.
+			if ( empty( $vat_info ) || $vat_info === 'none' ) {
+				$order_lookup = new MemberOrder();
+				$morder       = $order_lookup->getLastMemberOrder( $user_id, 'success' );
+				if ( ! empty( $morder ) && ! empty( $morder->id ) ) {
+					my_pmpro_fetch_stripe_tax_ids( $user_id, $morder );
+					$vat_info = get_user_meta( $user_id, 'pmpro_stripe_tax_ids', true );
+				}
 			}
-		}
 
-		$data['vat_info'] = ( ! empty( $vat_info ) && $vat_info !== 'none' ) ? esc_html( $vat_info ) : '';
+			$data['vat_info'] = ( ! empty( $vat_info ) && $vat_info !== 'none' ) ? esc_html( $vat_info ) : '';
+		}
 	}
 
-	// VAT invoice number derived from the order ID in the email data.
-	$data['vat_invoice_number'] = ! empty( $data['invoice_id'] )
-		? (string) (int) $data['invoice_id']
-		: '';
+	// VAT invoice number derived from the order behind this email, if any.
+	$data['vat_invoice_number'] = '';
+	if ( ! empty( $data['order_id'] ) ) {
+		$morder = new MemberOrder( $data['order_id'] );
+		if ( ! empty( $morder->id ) ) {
+			$data['vat_invoice_number'] = (string) (int) $morder->id;
+		}
+	}
 
 	$data['company_name']       = 'Your Company Name';
 	$data['company_address']    = '123 Example Street, Anytown, AB1 2CD';
