@@ -22,6 +22,15 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
+// Company details used throughout this snippet's VAT invoicing output.
+if ( ! defined( 'MY_PMPRO_VAT_COMPANY_NAME' ) ) {
+	define( 'MY_PMPRO_VAT_COMPANY_NAME', 'Your Company Name' );
+	define( 'MY_PMPRO_VAT_COMPANY_ADDRESS', '123 Example Street, Anytown, AB1 2CD' );
+	define( 'MY_PMPRO_VAT_COMPANY_NUMBER', 'GB123456789' );
+	define( 'MY_PMPRO_VAT_COMPANY_EMAIL', 'billing@example.com' );
+	define( 'MY_PMPRO_VAT_COMPANY_URL', 'https://example.com' );
+}
+
 /**
  * Fetch tax IDs from Stripe and cache them in user meta.
  * Returns the cached value immediately if one already exists.
@@ -38,7 +47,7 @@ function my_pmpro_fetch_stripe_tax_ids( $user_id, $order ) {
 	// Return cached value if already fetched. 'none' means the user had no tax IDs at fetch time.
 	$vat_info = get_user_meta( $user_id, 'pmpro_stripe_tax_ids', true );
 	if ( ! empty( $vat_info ) ) {
-		return $vat_info === 'none' ? '' : $vat_info;
+		return 'none' === $vat_info ? '' : $vat_info;
 	}
 
 	try {
@@ -51,16 +60,20 @@ function my_pmpro_fetch_stripe_tax_ids( $user_id, $order ) {
 			: get_user_meta( $user_id, 'pmpro_stripe_customerid', true );
 
 		if ( ! empty( $customer_id ) ) {
-			$customer = \Stripe\Customer::retrieve( array(
-				'id'     => $customer_id,
-				'expand' => array( 'tax_ids' ),
-			) );
+			$customer = \Stripe\Customer::retrieve(
+				array(
+					'id'     => $customer_id,
+					'expand' => array( 'tax_ids' ),
+				)
+			);
 		} elseif ( ! empty( $order->subscription_transaction_id ) ) {
-			$subscription = \Stripe\Subscription::retrieve( array(
-				'id'     => $order->subscription_transaction_id,
-				'expand' => array( 'customer', 'customer.tax_ids' ),
-			) );
-			$customer = $subscription->customer;
+			$subscription = \Stripe\Subscription::retrieve(
+				array(
+					'id'     => $order->subscription_transaction_id,
+					'expand' => array( 'customer', 'customer.tax_ids' ),
+				)
+			);
+			$customer     = $subscription->customer;
 		} else {
 			return '';
 		}
@@ -139,7 +152,7 @@ function my_pmpro_inject_tax_ids_into_email( $data, $email ) {
 			$vat_info = get_user_meta( $user_id, 'pmpro_stripe_tax_ids', true );
 
 			// If no VAT info stored yet, try to pull it from the user's last non-free order.
-			if ( empty( $vat_info ) || $vat_info === 'none' ) {
+			if ( empty( $vat_info ) || 'none' === $vat_info ) {
 				$order_lookup = new MemberOrder();
 				$morder       = $order_lookup->getLastMemberOrder( $user_id, 'success' );
 				if ( ! empty( $morder ) && ! empty( $morder->id ) ) {
@@ -148,7 +161,7 @@ function my_pmpro_inject_tax_ids_into_email( $data, $email ) {
 				}
 			}
 
-			$data['vat_info'] = ( ! empty( $vat_info ) && $vat_info !== 'none' ) ? esc_html( $vat_info ) : '';
+			$data['vat_info'] = ( ! empty( $vat_info ) && 'none' !== $vat_info ) ? esc_html( $vat_info ) : '';
 		}
 	}
 
@@ -161,11 +174,11 @@ function my_pmpro_inject_tax_ids_into_email( $data, $email ) {
 		}
 	}
 
-	$data['company_name']       = 'Your Company Name';
-	$data['company_address']    = '123 Example Street, Anytown, AB1 2CD';
-	$data['company_vat_number'] = 'GB123456789';
-	$data['company_email']      = 'billing@example.com';
-	$data['company_url']        = 'https://example.com';
+	$data['company_name']       = MY_PMPRO_VAT_COMPANY_NAME;
+	$data['company_address']    = MY_PMPRO_VAT_COMPANY_ADDRESS;
+	$data['company_vat_number'] = MY_PMPRO_VAT_COMPANY_NUMBER;
+	$data['company_email']      = MY_PMPRO_VAT_COMPANY_EMAIL;
+	$data['company_url']        = MY_PMPRO_VAT_COMPANY_URL;
 
 	return $data;
 }
@@ -181,14 +194,16 @@ function my_pmpro_invoice_show_tax_ids( $morder ) {
 
 	$vat_invoice_number = (int) $morder->id;
 
+	echo '<li>';
 	echo '<div class="pmpro_vat_invoice" style="margin-top:1.5em;border-top:1px solid #ddd;padding-top:1em;">';
 	echo '<p><strong>' . esc_html__( 'VAT Invoice', 'pmpro-snippets-library' ) . ' #' . esc_html( $vat_invoice_number ) . '</strong><br>';
-	echo 'Your Company Name<br>';
-	echo '123 Example Street, Anytown, AB1 2CD<br>';
-	echo 'VAT Number: GB123456789<br>';
-	echo '<a href="https://example.com">https://example.com</a>';
-	echo ' &bull; <a href="mailto:billing@example.com">billing@example.com</a></p>';
+	echo esc_html( MY_PMPRO_VAT_COMPANY_NAME ) . '<br>';
+	echo esc_html( MY_PMPRO_VAT_COMPANY_ADDRESS ) . '<br>';
+	echo 'VAT Number: ' . esc_html( MY_PMPRO_VAT_COMPANY_NUMBER ) . '<br>';
+	echo '<a href="' . esc_url( MY_PMPRO_VAT_COMPANY_URL ) . '">' . esc_html( MY_PMPRO_VAT_COMPANY_URL ) . '</a>';
+	echo ' &bull; <a href="mailto:' . esc_attr( MY_PMPRO_VAT_COMPANY_EMAIL ) . '">' . esc_html( MY_PMPRO_VAT_COMPANY_EMAIL ) . '</a></p>';
 	echo '</div>';
+	echo '</li>';
 }
 add_action( 'pmpro_invoice_bullets_bottom', 'my_pmpro_invoice_show_tax_ids' );
 
@@ -206,7 +221,7 @@ add_filter( 'pmpro_manage_orderslist_columns', 'my_pmpro_admin_orderlist_add_tax
  * Add VAT breakdown rows to the admin orders list table.
  */
 function my_pmpro_admin_order_show_tax_ids( $column_name, $order_id ) {
-    if ( $column_name !== 'tax_ids' ) {
+	if ( 'tax_ids' !== $column_name ) {
 		return;
 	}
 
@@ -217,7 +232,7 @@ function my_pmpro_admin_order_show_tax_ids( $column_name, $order_id ) {
 	}
 
 	$vat_info = get_user_meta( (int) $morder->user_id, 'pmpro_stripe_tax_ids', true );
-	if ( ! empty( $vat_info ) && $vat_info !== 'none' ) {
+	if ( ! empty( $vat_info ) && 'none' !== $vat_info ) {
 		echo esc_html( $vat_info );
 	}
 }
@@ -238,21 +253,21 @@ function my_pmpro_order_single_meta_tax_ids( $meta, $order ) {
 
 	// Append the customer's VAT registration number to the Bill to section.
 	$vat_info = get_user_meta( (int) $order->user_id, 'pmpro_stripe_tax_ids', true );
-	if ( ! empty( $vat_info ) && $vat_info !== 'none' && isset( $meta['bill_to'] ) ) {
-		$sep = ! empty( trim( strip_tags( $meta['bill_to']['value'] ) ) ) ? '<br>' : '';
+	if ( ! empty( $vat_info ) && 'none' !== $vat_info && isset( $meta['bill_to'] ) ) {
+		$sep                       = ! empty( trim( wp_strip_all_tags( $meta['bill_to']['value'] ) ) ) ? '<br>' : '';
 		$meta['bill_to']['value'] .= $sep . 'VAT Number: ' . esc_html( $vat_info );
 	}
 
 	// Add a dedicated VAT Invoice section in the admin only (frontend uses pmpro_invoice_bullets_bottom).
 	if ( is_admin() ) {
-		$vat_invoice_number = (int) $order->id;
+		$vat_invoice_number  = (int) $order->id;
 		$meta['vat_invoice'] = array(
 			'label' => 'VAT Invoice #' . $vat_invoice_number,
-			'value' => 'Your Company Name<br>'
-				. '123 Example Street, Anytown, AB1 2CD<br>'
-				. 'VAT Number: GB123456789<br>'
-				. 'https://example.com<br>'
-				. 'billing@example.com',
+			'value' => esc_html( MY_PMPRO_VAT_COMPANY_NAME ) . '<br>'
+				. esc_html( MY_PMPRO_VAT_COMPANY_ADDRESS ) . '<br>'
+				. 'VAT Number: ' . esc_html( MY_PMPRO_VAT_COMPANY_NUMBER ) . '<br>'
+				. '<a href="' . esc_url( MY_PMPRO_VAT_COMPANY_URL ) . '">' . esc_html( MY_PMPRO_VAT_COMPANY_URL ) . '</a><br>'
+				. '<a href="mailto:' . esc_attr( MY_PMPRO_VAT_COMPANY_EMAIL ) . '">' . esc_html( MY_PMPRO_VAT_COMPANY_EMAIL ) . '</a>',
 		);
 	}
 
