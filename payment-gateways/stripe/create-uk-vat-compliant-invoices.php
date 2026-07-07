@@ -28,7 +28,7 @@
  *
  * @param int         $user_id
  * @param MemberOrder $order
- * @return string Formatted tax IDs e.g. "EU_VAT: DE123456789, AU_ABN: 12345678901", or empty string.
+ * @return string The customer's first tax ID value on file, e.g. "GB987654321", or empty string.
  */
 function my_pmpro_fetch_stripe_tax_ids( $user_id, $order ) {
 	if ( empty( $order->gateway ) || strpos( $order->gateway, 'stripe' ) === false ) {
