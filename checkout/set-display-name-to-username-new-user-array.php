@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: username, user
+ * link: https://www.paidmembershipspro.com/set-the-members-display-name-to-username-at-membership-checkout/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
