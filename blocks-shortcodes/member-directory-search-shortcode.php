@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: block-shortcodes
  * category: member-directory, search
+ * link: TBD
  *
  *
  * You can add this recipe to your site by creating a custom plugin

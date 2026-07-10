@@ -10,6 +10,7 @@
  * layout: snippet
  * collection: checkout
  * category: logo
+ * link: TBD
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

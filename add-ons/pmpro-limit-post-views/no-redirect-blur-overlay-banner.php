@@ -5,6 +5,7 @@
  * title: Display a banner and blur the page when post access is denied for the Limit Post Views Add On.
  * layout: snippet
  * category: limit post views, banner
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

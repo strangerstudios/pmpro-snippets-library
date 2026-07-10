@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: restricting-content
  * category: content, restriction
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: add-ons, import-user-from-csv
  * category: members, import, email
+ * link: TBD
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
