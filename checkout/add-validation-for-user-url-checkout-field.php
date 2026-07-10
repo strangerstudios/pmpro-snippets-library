@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: user fields
- * link: TBD
+ * link: https://www.paidmembershipspro.com/validate-urls-checkout/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: user fields
+ * link: https://www.paidmembershipspro.com/reduce-form-fields-at-checkout/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

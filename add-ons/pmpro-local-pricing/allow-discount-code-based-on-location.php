@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-local-pricing
  * category: currencies, checkout, discount codes
+ * link: https://www.paidmembershipspro.com/link-discount-codes-to-countries/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

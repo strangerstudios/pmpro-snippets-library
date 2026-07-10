@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: email
  * category: admin, bcc
+ * link: https://www.paidmembershipspro.com/bcc-additional-email-addresses-on-member-or-admin-notifications/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

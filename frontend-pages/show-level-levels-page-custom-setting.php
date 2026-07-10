@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: frontend-pages
  * category: levels, level-page, level-settings
+ * link: https://www.paidmembershipspro.com/memberships-levels-page-order-hide-display-skip-mega-post/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

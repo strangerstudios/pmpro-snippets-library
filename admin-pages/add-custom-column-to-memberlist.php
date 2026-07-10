@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: admin-pages
  * category: admin
+ * link: https://www.paidmembershipspro.com/add-custom-column-members-list-users-admin-pages/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

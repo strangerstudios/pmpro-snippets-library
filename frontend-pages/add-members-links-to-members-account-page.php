@@ -1,13 +1,12 @@
 <?php
 /**
  * Example of how to add links to the Member Links list on the Membership Account page.
- *
- * Learn More at: https://www.paidmembershipspro.com/add-links-membership-level-membership-account-page-links-section/
  * 
  * title: Add Links to Members links on Members Account Page 
  * layout: snippet
  * collection: frontend-pages
  * category: members-links
+ * link: https://www.paidmembershipspro.com/add-links-membership-level-membership-account-page-links-section/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

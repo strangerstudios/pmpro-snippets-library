@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: frontend-pages
  * category: author-post
+ * link: https://www.paidmembershipspro.com/show-a-link-to-the-profile-users-author-post-archive-on-the-member-profile-page/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

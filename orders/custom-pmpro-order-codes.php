@@ -8,6 +8,7 @@
  * layout: snippet
  * collection: orders
  * category: invoice, invoice-id
+ * link: https://www.paidmembershipspro.com/how-to-use-sequential-order-numbers-for-member-invoices/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: analytics
+ * link: https://www.paidmembershipspro.com/membership-site-analytics-for-gtm-and-ga4/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

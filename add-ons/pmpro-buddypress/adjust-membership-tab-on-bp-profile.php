@@ -11,6 +11,7 @@
  * layout: snippet-example
  * collection: pmpro-buddypress
  * category: pmpro account, buddypress, buddyboss
+ * link: https://www.paidmembershipspro.com/customize-buddypress-membership-tab/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

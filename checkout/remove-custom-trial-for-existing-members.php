@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: membership-levels, trial
+ * link: https://www.paidmembershipspro.com/remove-trial-period-for-existing-members/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

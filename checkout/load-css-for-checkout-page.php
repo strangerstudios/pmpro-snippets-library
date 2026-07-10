@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: css
+ * link: https://www.paidmembershipspro.com/enhance-appearance-membership-checkout-page-css/
  *
  * Change the level value to the relevant level ID you want to apply this CSS code to.
  *

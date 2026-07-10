@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: memberlite
  * category: shortcodes
+ * link: https://www.paidmembershipspro.com/documentation/memberlite/memberlite-shortcodes/column-shortcodes/
  *
  */
 ?>

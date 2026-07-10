@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: stats, reporting
+ * link: https://www.paidmembershipspro.com/disable-visits-views-and-logins-report-stats-for-a-specific-user-role/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

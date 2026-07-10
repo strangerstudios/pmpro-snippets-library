@@ -5,6 +5,7 @@
  * title: Add user fields using code.
  * collection: user-fields
  * category: custom-fields
+ * https://www.paidmembershipspro.com/documentation/user-fields/code-examples/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: confirmation
+ * link: https://www.paidmembershipspro.com/set-up-unique-membership-confirmation-pages-based-on-level/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

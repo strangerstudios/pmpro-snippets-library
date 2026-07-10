@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: membership-levels
  * category: cpt
+ * link: https://www.paidmembershipspro.com/restrict-access-by-membership-level-for-custom-post-type-cpt-categories/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

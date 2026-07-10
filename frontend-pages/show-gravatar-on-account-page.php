@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: frontend-pages
  * category: avatar, gravatar, account-page
+ * link: https://www.paidmembershipspro.com/user-avatar-management-wordpress/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

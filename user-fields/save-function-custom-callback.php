@@ -6,6 +6,7 @@
  * layout: snippet-example
  * collection: user-fields
  * category: custom-fields
+ * link: https://www.paidmembershipspro.com/custom-callback-function-save-user-registration-profile-fields/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

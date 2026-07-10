@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-roles
  * category: capabilities
+ * link: https://www.paidmembershipspro.com/update-role-capabilities/
  * license: GPLv3
  *
  * You can add this recipe to your site by creating a custom plugin

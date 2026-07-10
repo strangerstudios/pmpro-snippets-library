@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: add-ons
  * category: pmpro-mailchimp
+ * link: https://www.paidmembershipspro.com/send-additional-user-information-fields-mailchimp/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

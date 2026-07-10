@@ -5,6 +5,7 @@
  * title: Remove user fields automatically added to admin checkout emails.
  * collection: email
  * category: custom-fields
+ * link: https://www.paidmembershipspro.com/admin-checkout-email-meta-fields/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

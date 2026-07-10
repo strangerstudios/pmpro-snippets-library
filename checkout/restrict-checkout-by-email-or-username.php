@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: registration-check
+ * link: https://www.paidmembershipspro.com/restrict-membership-signup-by-email-or-username/
  *
  * This code snippet replaces the functionality from the Register Helper add on.
  * Make sure you are running PMPro 2.9+ and have the RH add on deactivated.

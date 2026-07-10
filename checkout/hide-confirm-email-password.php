@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: ui
+ * link: https://www.paidmembershipspro.com/dont-show-the-confirm-email-or-confirm-password-fields-on-membership-checkout/
  *
  * Hide the Confirm Email and Confirm Password Fields on the checkout page.
  * 

@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: payment-gateways, authorize.net
  * category: IP, anti-fraud
+ * link: https://www.paidmembershipspro.com/send-user-ip-address-authorize-net-fraud-detection/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
