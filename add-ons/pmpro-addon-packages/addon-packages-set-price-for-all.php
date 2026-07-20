@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: addons
  * category: pmpro-addon-packages
- * link: TBD
+ * link: https://www.paidmembershipspro.com/automatically-set-price-for-addon-packages/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

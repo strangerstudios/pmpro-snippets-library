@@ -9,7 +9,7 @@
  * layout: snippet
  * collection: frontend-pages
  * category: membership-number
- * link: TBD
+ * link: https://www.paidmembershipspro.com/generate-a-unique-member-number/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

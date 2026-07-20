@@ -7,7 +7,7 @@
  * layout: snippet
  * collection: memberlite
  * category: shortcodes
- * link: TBD
+ * link: https://www.paidmembershipspro.com/documentation/memberlite/memberlite-shortcodes/buttons/
  *
  */
 ?>

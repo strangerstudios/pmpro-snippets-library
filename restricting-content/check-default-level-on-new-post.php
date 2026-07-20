@@ -2,8 +2,6 @@
 /**
  * Check to require level 1 by default.
  *
- * On this Post: https://www.paidmembershipspro.com/default-new-posts-to-require-level-1-membership/
- *
  * title: Check to require level 1 by default.
  * layout: snippet
  * collection: restricting-content

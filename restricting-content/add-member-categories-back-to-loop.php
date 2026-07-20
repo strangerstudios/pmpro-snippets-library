@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: restricting-content
  * category: content, categories
- * link: https://paidmembershipspro.com/include-specific-member-only-categories/
+ * link: https://www.paidmembershipspro.com/include-specific-member-only-categories/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
