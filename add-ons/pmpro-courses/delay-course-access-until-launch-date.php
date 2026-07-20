@@ -18,13 +18,22 @@
  */
 
 /**
+ * Single source of truth for the course launch date (YYYY-MM-DD).
+ * Update the returned date to your course launch date. Both the access filter
+ * and the countdown card below read from this function, so there is only one
+ * place to update if the launch date changes.
+ * Remove this snippet once the course has launched.
+ */
+function my_pmpro_get_course_launch_date() {
+	return '2026-08-01';
+}
+
+/**
  * Block access to course and lesson content until the launch date.
- * Update $launch_date to your course launch date.
  * Remove this snippet once the course has launched.
  */
 function my_pmpro_delay_course_access_until_launch( $hasaccess, $post, $user, $levels ) {
-	// Set your course launch date (YYYY-MM-DD).
-	$launch_date = '2026-07-01';
+	$launch_date = my_pmpro_get_course_launch_date();
 
 	// Only act before the launch date.
 	if ( current_time( 'Y-m-d' ) >= $launch_date ) {
@@ -41,14 +50,13 @@ function my_pmpro_delay_course_access_until_launch( $hasaccess, $post, $user, $l
 add_filter( 'pmpro_has_membership_access_filter', 'my_pmpro_delay_course_access_until_launch', 10, 4 );
 
 /**
- * Show a countdown card above the restricted content message for members who have
- * purchased but cannot access the course yet due to the launch date.
- * Update $launch_date to match the date set in the access filter above.
+ * Show a countdown card above the restricted content message, but only for members
+ * whose level(s) actually grant access to this specific course/lesson (i.e. the
+ * access they'd have if the launch-date block weren't in effect).
  * Remove this snippet once the course has launched.
  */
 function my_pmpro_course_launch_countdown_content( $content ) {
-	// Set your course launch date (YYYY-MM-DD) — must match the date in the filter above.
-	$launch_date = '2026-07-01';
+	$launch_date = my_pmpro_get_course_launch_date();
 
 	// Only act before the launch date.
 	if ( current_time( 'Y-m-d' ) >= $launch_date ) {
@@ -60,12 +68,24 @@ function my_pmpro_course_launch_countdown_content( $content ) {
 		return $content;
 	}
 
-	// Only for logged-in members with a qualifying membership level.
-	if ( ! is_user_logged_in() || ! pmpro_hasMembershipLevel() ) {
+	if ( ! is_user_logged_in() ) {
 		return $content;
 	}
 
-	$launch_timestamp = $launch_date . 'T00:00:00';
+	global $post;
+
+	// Temporarily remove our own access-blocking filter so we can ask PMPro what
+	// this user's *real* access to this post would be, without our launch-date
+	// block forcing the answer to false and recursing into the same wrong result.
+	remove_filter( 'pmpro_has_membership_access_filter', 'my_pmpro_delay_course_access_until_launch', 10 );
+	$user_has_real_access = pmpro_has_membership_access( $post->ID );
+	add_filter( 'pmpro_has_membership_access_filter', 'my_pmpro_delay_course_access_until_launch', 10, 4 );
+
+	// Only show the countdown to members who actually qualify for this course.
+	if ( ! $user_has_real_access ) {
+		return $content;
+	}
+
 	$launch_formatted = date_i18n( get_option( 'date_format' ), strtotime( $launch_date ) );
 
 	ob_start();
@@ -85,7 +105,9 @@ function my_pmpro_course_launch_countdown_content( $content ) {
 	</div>
 	<script>
 	(function() {
-		var launchDate = new Date( '<?php echo esc_js( $launch_timestamp ); ?>' );
+		// The "Z" treats the launch date as UTC so every visitor's browser computes
+		// the same absolute countdown target, matching the server-side UTC-based check.
+		var launchDate = new Date( '<?php echo esc_js( $launch_date ); ?>T00:00:00Z' );
 		function updateCountdown() {
 			var diff = launchDate - new Date();
 			if ( diff <= 0 ) {
