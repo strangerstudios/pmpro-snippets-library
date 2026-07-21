@@ -13,7 +13,7 @@
  * Read this companion article for step-by-step directions on either method.
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-function pmpro_custom_directory_sql_parts( $parts ) {
+function pmpro_sort_member_directory_by_user_field( $parts ) {
 	// Set your custom user field name here.
 	$user_meta_key_name = 'company_name';
 
@@ -38,4 +38,4 @@ function pmpro_custom_directory_sql_parts( $parts ) {
 
 	return $parts;
 }
-add_filter( 'pmpro_member_directory_sql_parts', 'pmpro_custom_directory_sql_parts', 10, 1 );
+add_filter( 'pmpro_member_directory_sql_parts', 'pmpro_sort_member_directory_by_user_field', 10, 1 );
