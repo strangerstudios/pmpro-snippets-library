@@ -16,11 +16,18 @@
 function pmpro_sort_member_directory_by_user_field( $parts ) {
 	global $wpdb;
 
+	// Change 'company' to the name of your user field.
 	$user_meta_key_name = 'company';
-	$order = 'ASC';
+	// The default is Ascending (A-Z), set to true to change to a Descending sort order.
+	$switch_sort_order = false;
 
-	$parts['JOIN']  .= " LEFT JOIN $wpdb->usermeta umk ON umk.meta_key = '" . esc_sql( $user_meta_key_name ) . "' AND u.ID = umk.user_id ";
-	$parts['ORDER']  = " ORDER BY umk.meta_value " . esc_sql( $order ) . " ";
+	/* --- That's it, no further editing required --- */
+
+	$order              = $switch_sort_order ? 'DESC' : 'ASC';
+	$user_meta_key_name = esc_sql( $user_meta_key_name );
+
+	$parts['JOIN']  .= " LEFT JOIN $wpdb->usermeta umk ON umk.meta_key = '" . $user_meta_key_name . "' AND u.ID = umk.user_id ";
+	$parts['ORDER']  = " ORDER BY umk.meta_value " . $order . " ";
 
 	return $parts;
 }
