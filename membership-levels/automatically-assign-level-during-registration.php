@@ -11,6 +11,7 @@
  * layout: snippet
  * collection: membership-levels
  * category: registration
+ * link: https://www.paidmembershipspro.com/give-users-a-default-membership-level-at-registration/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

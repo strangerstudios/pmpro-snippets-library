@@ -8,6 +8,7 @@
  * layout: snippet
  * collection: memberlite
  * category: design
+ * link: TBD
  *
  * 
  * You can add this recipe to your site by creating a custom plugin

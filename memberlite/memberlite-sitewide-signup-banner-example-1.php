@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: memberlite
  * category: banner
+ * link: https://www.paidmembershipspro.com/memberlite-sitewide-membership-signup-banners/
  *
  * 
  * You can add this recipe to your site by creating a custom plugin

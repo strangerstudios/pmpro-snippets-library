@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: registration-check
+ * link: https://www.paidmembershipspro.com/restrict-membership-signup-country/
  *
  * This code snippet allow to restrict level signups by country.
  *

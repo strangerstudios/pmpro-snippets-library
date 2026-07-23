@@ -9,6 +9,7 @@
  * layout: snippet
  * collection: restricting-content
  * category: content, restriction, tags, terms, taxonomies
+ * link: https://www.paidmembershipspro.com/restrict-by-taxonomy/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

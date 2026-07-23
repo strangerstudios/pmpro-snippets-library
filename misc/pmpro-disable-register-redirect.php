@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: register, redirect
+ * link: TBD
  *
  *
  * You can add this recipe to your site by creating a custom plugin

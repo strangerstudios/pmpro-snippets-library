@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: check
+ * link: https://www.paidmembershipspro.com/let-users-select-offline-payment-methods-using-the-pay-by-check-gateway/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

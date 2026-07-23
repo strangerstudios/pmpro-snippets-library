@@ -3,12 +3,11 @@
  * This recipe will stop non-members from purchasing products by category
  * Can purchase if they have an active Paid Memberships Pro Level
  * 
- * Learn more at https://www.paidmembershipspro.com/require-membership-to-purchase-specific-categories-of-products-in-woocommerce/
- *
  * title: Remove Add to Cart for specific product categories
  * layout: snippet
  * collection: add-ons
  * category: pmpro-woocommerce
+ * link: https://www.paidmembershipspro.com/require-membership-to-purchase-specific-categories-of-products-in-woocommerce/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

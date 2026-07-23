@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: checkout, ssl
+ * link: https://www.paidmembershipspro.com/debugging-https-ssl-issues/
  *
  * 
  * You can add this recipe to your site by creating a custom plugin

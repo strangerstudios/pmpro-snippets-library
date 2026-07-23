@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: memberlite
  * category: design
+ * link: https://www.paidmembershipspro.com/add-remove-css-selector/
  *
  * 
  * You can add this recipe to your site by creating a custom plugin

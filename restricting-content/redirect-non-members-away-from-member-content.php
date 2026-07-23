@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: restricting-content
  * category: content, restriction, redirect
+ * link: https://www.paidmembershipspro.com/redirect-non-members-away-from-member-content/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

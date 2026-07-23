@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: frontend-pages
  * category: profile, account
+ * link: https://www.paidmembershipspro.com/edit-profile-action-links-account-page/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

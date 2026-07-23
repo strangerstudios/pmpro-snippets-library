@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: memberlite
  * category: expiration
+ * link: https://www.paidmembershipspro.com/notification-banner-upcoming-membership-expiration/
  *
  * 
  * You can add this recipe to your site by creating a custom plugin

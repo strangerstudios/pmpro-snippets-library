@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: fields
+ * link: https://www.paidmembershipspro.com/prepay-discount-select-membership-duration/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

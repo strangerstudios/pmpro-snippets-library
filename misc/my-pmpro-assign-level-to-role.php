@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: assign-level, user-role, change-level
+ * link: https://www.paidmembershipspro.com/assign-a-membership-level-to-a-wordpress-user-role/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

@@ -10,6 +10,7 @@
  * layout: snippet
  * collection: checkout
  * category: registration-check
+ * link: https://www.paidmembershipspro.com/show-link-terms-of-service-membership-checkout/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

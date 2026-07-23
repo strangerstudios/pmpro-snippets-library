@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: checkout
  * category: fields, restrictions, categories
+ * link: https://www.paidmembershipspro.com/sell-access-to-helper-fields/
  *
  * Require specific category user meta to view posts in designated categories.
  * Custom price-adjusting fields are added via user fields.

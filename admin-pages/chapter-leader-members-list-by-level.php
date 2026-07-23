@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: admin-pages
  * category: admin
+ * link: https://www.paidmembershipspro.com/how-to-manage-association-chapters/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

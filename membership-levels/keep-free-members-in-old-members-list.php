@@ -13,6 +13,7 @@
  * layout: snippet
  * collection: membership-levels
  * category: membership list
+ * link: TBD
  *
  * IMPORTANT: Change the $free_level_ids value below. Use a comma-separated list of ids.
  * After activating this code, members who previously had a paid level,

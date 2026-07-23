@@ -10,6 +10,7 @@
  * layout: snippet
  * collection: add-ons
  * category: pmpro-woocommerce
+ * link: https://www.paidmembershipspro.com/remove-member-discount-if-product-on-sale/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

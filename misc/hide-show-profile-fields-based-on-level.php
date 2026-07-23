@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: profile
+ * link: https://www.paidmembershipspro.com/hide-or-show-fields-on-member-profiles-based-on-membership-level/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

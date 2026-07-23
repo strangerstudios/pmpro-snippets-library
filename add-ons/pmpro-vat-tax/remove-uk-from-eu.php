@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-vat-tax
  * category: UK, EU
+ * link: https://www.paidmembershipspro.com/uk-leaves-eu-vat-add-on-pmpro-update/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

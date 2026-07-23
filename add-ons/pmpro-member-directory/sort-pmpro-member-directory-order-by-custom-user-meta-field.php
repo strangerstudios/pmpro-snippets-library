@@ -5,7 +5,7 @@
  * title: Order PMPro Member Directory by custom user meta field.
  * layout: snippet
  * collection: add-ons, pmpro-membership-directory
- * category: directory, sort, SQL, custom fields
+ * category: directory
  * link: https://www.paidmembershipspro.com/order-pmpro-member-directory/
  *
  * You can add this recipe to your site by creating a custom plugin

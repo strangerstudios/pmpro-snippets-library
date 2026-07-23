@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: admin-pages
  * category: membership-levels
+ * link: https://www.paidmembershipspro.com/create-level-template/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

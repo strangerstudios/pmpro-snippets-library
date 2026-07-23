@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: add-ons, member-homepage
  * category: members, redirect
+ * link: https://www.paidmembershipspro.com/redirect-members-to-a-custom-post-type-with-the-member-homepages-add-on/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

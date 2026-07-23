@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-zapier
  * category: discount-code
+ * link: TBD
  *
  * This runs on the "After Checkout" trigger. 
  * Requires Sponsored/Group Members Add On - https://www.paidmembershipspro.com/add-ons/pmpro-sponsored-members/

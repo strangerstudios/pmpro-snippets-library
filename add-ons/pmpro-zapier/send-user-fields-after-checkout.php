@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-zapier
  * category: custom-fields
+ * link: https://www.paidmembershipspro.com/send-user-fields-zapier-after-membership-checkout/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

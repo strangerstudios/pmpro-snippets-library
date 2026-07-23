@@ -8,6 +8,7 @@
  * layout: snippet
  * collection: add-ons, register-helper
  * category: user-avatars
+ * link: TBD
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

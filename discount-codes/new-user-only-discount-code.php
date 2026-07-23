@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: discount-codes
  * category: discount-codes,new-members
+ * link: TBD
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

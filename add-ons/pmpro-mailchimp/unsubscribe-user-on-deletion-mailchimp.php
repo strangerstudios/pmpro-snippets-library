@@ -6,6 +6,7 @@
  * layout: snippet
  * collection: pmpro-mailchimp
  * category: email, mailchimp
+ * link: https://www.paidmembershipspro.com/unsubscribe-mailchimp-deleted-wordpress-account/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

@@ -7,6 +7,7 @@
  * layout: snippet
  * collection: add-ons, pmpro-vat-tax
  * category: level-cost-text
+ * link: https://www.paidmembershipspro.com/update-level-cost-checkout-based-vat/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

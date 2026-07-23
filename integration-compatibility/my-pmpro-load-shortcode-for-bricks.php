@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: integration-compatibility
  * category: content, bricks builder
- * link: TBD
+ * link: https://www.paidmembershipspro.com/documentation/compatibility/page-builders/bricks-builder/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

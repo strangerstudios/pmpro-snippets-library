@@ -8,7 +8,7 @@
  * layout: snippet
  * collection: add-ons
  * category: pmpro-woocommerce, account-page, woocommerce
- * link: TBD
+ * link: https://www.paidmembershipspro.com/add-membership-tab-woocommerce/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.

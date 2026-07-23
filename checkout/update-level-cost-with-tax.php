@@ -7,6 +7,7 @@
  * title: Update the Level Cost Text Based on Country and State
  * collection: checkout
  * category: tax
+ * link: https://www.paidmembershipspro.com/update-level-cost-text-country-state/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
