@@ -56,16 +56,19 @@ add_action( 'init', 'my_pmpro_add_utm_user_fields' );
  * Falls back to the default PMPro confirmation URL if no match is found.
  */
 function my_pmpro_redirect_confirmation_url( $rurl, $user_id, $pmpro_level ) {
-	$campaign = get_user_meta( $user_id, 'utm_campaign', true );
+	$campaign = get_user_meta( $user_id, 'utm_campaign', true ); // or change to your utm variable of choice (utm_source, utm_medium, etc.)
 
 	if ( empty( $campaign ) ) {
 		return $rurl;
 	}
-
+/**
+ * Change the key "your-campaign-slug" and the url "https://example.com/thank-you-page" to match 
+ * your campaigns and the pages you want to redirect to.
+*/
 	$campaign_redirects = array(
-		'campaign-slug-1' => 'https://example.com/landing-page-1',
-		'campaign-slug-2' => 'https://example.com/landing-page-2',
-		'campaign-slug-3' => 'https://example.com/landing-page-3',
+		'your-campaign-slug' => 'https://example.com/thank-you-page',
+		'your-campaign-slug-2' => 'https://example.com/thank-you-page-2',
+		'your-campaign-slug-3' => 'https://example.com/thank-you-page-3',
 	);
 
 	if ( isset( $campaign_redirects[ $campaign ] ) ) {
