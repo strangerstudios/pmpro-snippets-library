@@ -16,7 +16,7 @@
 function my_pmpro_automatically_approve_admin_added_user( $level_id, $user_id, $cancelled_level ) {
 
     // Bail if not an admin or if Approvals Add On is not active or level doesn't require approval.
-	if ( ! ( current_user_can( 'manage_options' ) || ! class_exists( 'PMPro_Approvals' ) || ! PMPro_Approvals::requiresApproval( $level_id ) ) ) {
+	if ( ! current_user_can( 'manage_options' ) || ! class_exists( 'PMPro_Approvals' ) || ! PMPro_Approvals::requiresApproval( $level_id ) ) {
 		return;
 	}
 
