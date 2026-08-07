@@ -2,7 +2,7 @@
 /**
  * Exclude Certain Email Domains from Membership Signup
  * use this code recipe to prevent registration for specific email domains. 
- * edit the line 62 $invalid_domains array to include the domains you want to block.
+ * edit the line 58 $invalid_domains array to include the domains you want to block.
  * 
  * title: Exclude Certain Email Domains from Membership Signup
  * layout: snippet
@@ -53,10 +53,6 @@ function my_checkForInvalidDomain( $email ) {
     }
 
     $domain_part = strtolower( trim( end( $parts ) ) );
-
-    // Remove any "+alias" portion from the username part.
-    $user_part = preg_replace( '/\+.*/', '', $parts[0] );
-    $normalized_email = $user_part . '@' . $domain_part;
 
     // Define domains to block.
     $invalid_domains = array( 'aol.com', 'yopmail.com' );
