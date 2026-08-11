@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: membership-levels
  * category: free-membership
- * link: https://www.paidmembershipspro.com/how-to-set-up-a-membership-site-for-free-members-only/
+ * link: https://www.paidmembershipspro.com/remove-or-change-the-price-for-membership-is-0-00-now-for-free-membership-levels/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
