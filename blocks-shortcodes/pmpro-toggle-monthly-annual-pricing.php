@@ -1,6 +1,10 @@
 <?php
 /**
  * Add a monthly/annual pricing toggle to the PMPro Levels Page and Advanced Levels Page shortcodes/blocks.
+ * 
+ * Style the toggle with CSS using the following classes: .pmpro-pricing-toggle (wrapper),
+ * .pmpro-pricing-toggle-btn (buttons), .pmpro-pricing-toggle-btn.is-active (active button),
+ * .pmpro-pricing-toggle-btn:not(.is-active) (inactive button).
  *
  * title: Add a Monthly/Annual Pricing Toggle to the PMPro Levels Page
  * layout: snippet-example
