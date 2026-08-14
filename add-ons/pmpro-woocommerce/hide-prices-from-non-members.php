@@ -46,7 +46,7 @@ function hide_prices_for_non_pmpro_members(){
 
 	//hide add to cart button *ALL INSTANCES*
 	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart');
-	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart');
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
 	remove_action( 'woocommerce_simple_add_to_cart', 'woocommerce_simple_add_to_cart', 30 );
 	remove_action( 'woocommerce_grouped_add_to_cart', 'woocommerce_grouped_add_to_cart', 30 );
 	remove_action( 'woocommerce_variable_add_to_cart', 'woocommerce_variable_add_to_cart', 30 );
