@@ -14,7 +14,7 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function pmpro_after_checkout_send_invoice_email( $user_id, $order ) {
+function my_pmpro_after_checkout_send_invoice_email( $user_id, $order ) {
 
 	$user = get_user_by( 'id', $user_id );
 
@@ -25,4 +25,4 @@ function pmpro_after_checkout_send_invoice_email( $user_id, $order ) {
 	$email = new PMProEmail();
 	$email->sendInvoiceEmail( $user, $order );
 }
-add_action( 'pmpro_after_checkout', 'pmpro_after_checkout_send_invoice_email', 10, 2 );
+add_action( 'pmpro_after_checkout', 'my_pmpro_after_checkout_send_invoice_email', 10, 2 );
