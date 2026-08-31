@@ -7,7 +7,7 @@
  * layout: snippet
  * collection: misc
  * category: migration
- * link: https://www.paidmembershipspro.com/link-to-post-if-available/ OR TBD
+ * link: https://www.paidmembershipspro.com/migrate-profilepress-avatars/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
