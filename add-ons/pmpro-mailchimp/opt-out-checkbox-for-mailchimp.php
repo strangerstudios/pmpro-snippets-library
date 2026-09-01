@@ -5,7 +5,7 @@
  * 
  * title: Opt-out Checkbox for Mailchimp
  * layout: snippet
- * collection: mailchimp
+ * collection: pmpro-mailchimp
  * category: snippet
  * link: TBD
  * 
