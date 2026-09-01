@@ -2,16 +2,18 @@
 /**
  * Auto-subscribe members to their level's Mailchimp audience, with an
  * opt-out checkbox at checkout instead of the plugin's default opt-in.
- * Only applies to levels with a Mailchimp audience configured
- * (Membership Levels and Audiences settings) -- does not touch the
- * separate "Opt-in Audiences" checkbox, which keeps working as-is.
- *
- * When opted out, the member is never sent to Mailchimp at all for that
- * audience -- no contact record is created or updated. This does NOT
- * retroactively unsubscribe someone who was already on the list from an
- * earlier, non-opted-out checkout/level; it only prevents new adds.
+ * 
+ * title: Opt-out Checkbox for Mailchimp
+ * layout: snippet
+ * collection: mailchimp
+ * category: snippet
+ * link: TBD
+ * 
+ * You can add this recipe to your site by creating a custom plugin
+ * or using the Code Snippets plugin available for free in the WordPress repository.
+ * Read this companion article for step-by-step directions on either method.
+ * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
 define( 'PMPROMC_OPTOUT_FIELD', 'pmpromc_opt_out' );
 define( 'PMPROMC_OPTOUT_META_KEY', 'pmpromc_opt_out' );
 
