@@ -37,14 +37,14 @@ add_filter( 'pmpro_registered_reports', 'my_pmpro_register_sample_report' );
  * @return void
  */
 function pmpro_report_sample_widget() { ?>
-	<span id="pmpro_report_sample" class="pmpro_report-holder">
+	<div class="pmpro_report-holder">
 		<p><?php esc_html_e( 'Hi! I am a sample report.', 'pmpro-snippets-library' ); ?></p>
 		<?php if ( function_exists( 'pmpro_report_sample_page' ) ) { ?>
 			<p class="pmpro_report-button">
 				<a class="button button-primary" href="<?php echo esc_url( admin_url( 'admin.php?page=pmpro-reports&report=sample' ) ); ?>"><?php esc_html_e( 'Details', 'pmpro-snippets-library' ); ?></a>
 			</p>
 		<?php } ?>
-	</span>
+	</div>
 	<?php
 }
 
