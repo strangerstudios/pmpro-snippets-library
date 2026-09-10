@@ -52,15 +52,21 @@ function pmpromc_optout_checkout_box() {
 
 	$checked = ! empty( $_REQUEST[ PMPROMC_OPTOUT_FIELD ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	?>
-	<div class="pmpro_checkout-box" id="pmpromc_optout_box">
-		<h3><?php esc_html_e( 'Email Updates', 'your-textdomain' ); ?></h3>
-		<div class="pmpro_checkout-fields">
-			<div class="pmpro_checkout-field pmpro_checkout-field-checkbox">
-				<input type="checkbox" name="<?php echo esc_attr( PMPROMC_OPTOUT_FIELD ); ?>" id="<?php echo esc_attr( PMPROMC_OPTOUT_FIELD ); ?>" value="1" <?php checked( $checked ); ?> />
-				<label for="<?php echo esc_attr( PMPROMC_OPTOUT_FIELD ); ?>">I do not want to receive email updates related to my membership.</label>
+	<fieldset id="pmpromc_optout_box" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fieldset', 'pmpromc_optout_box' ) ); ?>" aria-labelledby="pmpromc_optout_box-title">
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card' ) ); ?>">
+			<h2 id="pmpromc_optout_box-title" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_title pmpro_font-large' ) ); ?>"><?php esc_html_e( 'Email Updates', 'your-textdomain' ); ?></h2>
+			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
+				<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields' ) ); ?>">
+					<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-checkbox', 'pmpro_form_field-' . PMPROMC_OPTOUT_FIELD ) ); ?>">
+						<label for="<?php echo esc_attr( PMPROMC_OPTOUT_FIELD ); ?>" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label pmpro_form_label-inline pmpro_clickable' ) ); ?>">
+							<input type="checkbox" name="<?php echo esc_attr( PMPROMC_OPTOUT_FIELD ); ?>" id="<?php echo esc_attr( PMPROMC_OPTOUT_FIELD ); ?>" value="1" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-checkbox', PMPROMC_OPTOUT_FIELD ) ); ?>" <?php checked( $checked ); ?> />
+							<?php esc_html_e( 'I do not want to receive email updates related to my membership.', 'your-textdomain' ); ?>
+						</label>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
+	</fieldset>
 	<?php
 }
 add_action( 'pmpro_checkout_boxes', 'pmpromc_optout_checkout_box', 20 );
