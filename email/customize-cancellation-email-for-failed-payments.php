@@ -3,6 +3,7 @@
  * Add a {{ cancelled_due_to_payment_failure }} email template variable to the
  * PMPro Cancel emails so you can vary the wording with Liquid syntax when a
  * membership was cancelled because a recurring payment failed.
+ * Requires Paid Memberships Pro v3.7+ for Liquid syntax in email templates.
  *
  * Usage in Memberships > Settings > Email Templates > Cancel:
  *
@@ -11,6 +12,10 @@
  *   {% else %}
  *   Content for members who initiated cancellation.
  *   {% endif %}
+ *
+ * Gateway support: needs a gateway that uses PMPro's built-in handling for
+ * failed recurring payments, such as Stripe and PayPal. Members on gateways
+ * that handle failed payments their own way always get the {% else %} content.
  *
  * title: Customize the Cancellation Email for Memberships Cancelled Due to Failed Payments
  * layout: snippet
@@ -58,6 +63,7 @@ function my_pmpro_cancelled_due_to_payment_failure( $user_id, $level_id ) {
 
 	foreach ( $failed_orders as $order ) {
 		// Only the failure handler writes this meta.
+		// A retry reuses the order, so one still incomplete is assumed unresolved.
 		if ( get_pmpro_membership_order_meta( $order->id, 'last_failure_email_sent', true ) ) {
 			return true;
 		}
