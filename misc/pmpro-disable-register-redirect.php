@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: register, redirect
- * link: TBD
+ * link: https://www.paidmembershipspro.com/disable-redirect-membership-levels-page
  *
  *
  * You can add this recipe to your site by creating a custom plugin
