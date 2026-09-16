@@ -11,12 +11,10 @@
  * This example checks whether the current user already has a specific membership level,
  * and if they are checking out for a different level, it modifies the price shown at checkout.
  *
- * You can add this recipe to your site by creating a custom plugin
- * or using the Code Snippets plugin available for free in the WordPress repository.
- * Read this companion article for step-by-step directions on either method.
+ * You can add this recipe to your site by creating a custom plugin.
+ * Read this companion article for step-by-step directions:
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
-
 function pmpro_adjust_price_for_members_upgrading( $level ) {
 
 	// If the user currently has level 1 and is upgrading to level 2...
@@ -32,8 +30,27 @@ function pmpro_adjust_price_for_members_upgrading( $level ) {
 		// $level->billing_amount = 50.00;
 		// $level->cycle_number   = 1;
 		// $level->cycle_period   = 'Month';
+
+		// Flag the level so the cost text below can explain the adjusted price.
+		$level->pmpro_upgrade_price_applied = true;
 	}
 
 	return $level;
 }
-add_filter( 'pmpro_checkout_level', 'pmpro_adjust_price_for_members_upgrading' );`
+add_filter( 'pmpro_checkout_level', 'pmpro_adjust_price_for_members_upgrading' );
+
+/**
+ * Show why the checkout price differs from the levels page.
+ *
+ * The pmpro_level_cost_text filter runs everywhere level pricing is displayed (levels page,
+ * account page, emails, etc.), so we only add the note when the level object was actually
+ * adjusted by the pmpro_checkout_level filter above.
+ */
+function pmpro_adjust_price_for_members_upgrading_cost_text( $text, $level ) {
+	if ( ! empty( $level->pmpro_upgrade_price_applied ) ) {
+		$text .= '<br><em>(' . esc_html__( 'Member upgrade price applied', 'paid-memberships-pro' ) . ')</em>';
+	}
+
+	return $text;
+}
+add_filter( 'pmpro_level_cost_text', 'pmpro_adjust_price_for_members_upgrading_cost_text', 10, 2 );
