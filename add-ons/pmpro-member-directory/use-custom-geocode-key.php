@@ -7,7 +7,7 @@
  * layout: snippet-example
  * collection: pmpro-member-directory
  * category: geocoding, google-maps
- * link: https://www.paidmembershipspro.com/override-geocoding-api-key/
+ * link: https://www.paidmembershipspro.com/secure-member-map-geocoding-key/
  * 
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
