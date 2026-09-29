@@ -7,7 +7,7 @@
  * layout: snippet
  * collection: misc
  * category: content
- * link: TBD
+ * link: https://www.paidmembershipspro.com/hide-the-pmpro-require-membership-meta-box-from-non-admins-on-addedit-post-screen/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -32,4 +32,4 @@ function my_pmpro_maybe_dequeue_sidebar_panel() {
 		wp_deregister_script( 'pmpro-sidebar-editor-script' );
 	}
 }
-add_action( 'enqueue_block_editor_assets', 'my_pmpro_maybe_dequeue_sidebar_panel', 20 );
+add_action( 'enqueue_block_assets', 'my_pmpro_maybe_dequeue_sidebar_panel', 20 );
