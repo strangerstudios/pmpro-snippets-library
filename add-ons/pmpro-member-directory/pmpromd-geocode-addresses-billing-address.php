@@ -12,6 +12,7 @@
  * collection: pmpro-member-directory
  * category: geocoding, maps
  * link: https://www.paidmembershipspro.com/batch-geocode-existing-members-for-the-membership-maps-add-on/
+ * status: Retired. Maps Add On merged with Directory Add On v2.1 2025-08-05
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
