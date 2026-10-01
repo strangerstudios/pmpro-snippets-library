@@ -21,7 +21,5 @@ function my_pmpro_set_default_level_only_when_expiring( $user_id, $level_id ) {
 	if ( empty( $pmpro_next_payment_timestamp ) ) {
 		pmpro_changeMembershipLevel( 1, $user_id ); // Change this to the level ID you want to give expired members.
 	}
-
-	
 }
 add_action( 'pmpro_membership_post_membership_expiry', 'my_pmpro_set_default_level_only_when_expiring', 10, 2 );
