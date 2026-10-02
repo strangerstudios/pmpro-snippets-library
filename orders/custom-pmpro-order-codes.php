@@ -32,7 +32,7 @@ function pmpro_custom_order_codes( $code ) {
 
 	// If the code already exists or is only a number, just generate a random order code with 10 digits.
 	if ( $check || is_numeric( $code ) ) {
-		$code = wp_generate_password( 10, false, false );
+		$code = bin2hex( random_bytes( 5 ) );
 
 	}
 
