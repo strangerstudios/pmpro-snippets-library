@@ -65,11 +65,14 @@ function my_pmpro_generate_username_from_email( $email ) {
 
 	$parts = explode( '@', $email );
 
-	while ( username_exists( $parts[0] ) ) {
-		$parts[0] .= random_int( 0, 9999 );
+	// Strip characters WordPress doesn't allow in usernames, like + and '.
+	$username = sanitize_user( $parts[0], true );
+
+	while ( username_exists( $username ) ) {
+		$username .= random_int( 0, 9999 );
 	}
 
-	return sanitize_text_field( $parts[0] );
+	return $username;
 }
 
 /**
