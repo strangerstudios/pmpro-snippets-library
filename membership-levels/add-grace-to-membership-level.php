@@ -31,3 +31,15 @@ function my_pmpro_membership_post_membership_expiry( $user_id, $level_id ) {
 	}
 }
 add_action( 'pmpro_membership_post_membership_expiry', 'my_pmpro_membership_post_membership_expiry', 10, 2 );
+
+/**
+ * Clear the grace period flag when the member is given the level again (renewal at checkout, admin change, import, etc.).
+ * Otherwise the stale flag keeps the member marked as in a grace period and skips the grace period at the next expiration.
+ * Expirations run this hook with a $level_id of 0, so the flag is left alone there.
+ */
+function my_pmpro_clear_grace_period_flag( $level_id, $user_id ) {
+	if ( ! empty( $level_id ) ) {
+		delete_user_meta( $user_id, 'pmpro_grace_period_level_' . $level_id );
+	}
+}
+add_action( 'pmpro_after_change_membership_level', 'my_pmpro_clear_grace_period_flag', 10, 2 );
