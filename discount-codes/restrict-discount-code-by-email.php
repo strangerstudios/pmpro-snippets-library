@@ -88,6 +88,9 @@ function mypmpro_validate_discount_code_use_restrict( $okay, $dbcode, $level_id,
 
 	$emails = array_filter( array_map( 'trim', explode( ",", $restrictions ) ) );
 	$emails = array_map( 'strtolower', $emails );
+	if ( empty( $emails ) ) {
+		return $okay;
+	}
 
 	// Use the logged in user's email, or the email submitted on the checkout form for guests.
 	$user = wp_get_current_user();
@@ -95,6 +98,10 @@ function mypmpro_validate_discount_code_use_restrict( $okay, $dbcode, $level_id,
 		$email = $user->user_email;
 	} elseif ( ! empty( $_REQUEST['bemail'] ) ) {
 		$email = sanitize_email( wp_unslash( $_REQUEST['bemail'] ) );
+		// Invalid email: let core's own email validation report it.
+		if ( $email === '' ) {
+			return $okay;
+		}
 	} else {
 		// No email to check yet (e.g. code applied before the form is submitted). Checked again on submit.
 		return $okay;
