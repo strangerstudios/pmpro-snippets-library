@@ -2,7 +2,11 @@
 /**
  * Restrict discount code usage based on the logged in user's email address (or the email entered at checkout for guests)
  *
- * title: Restrict discount code usage based on the logged in user's email address
+ * Guests are checked against the email they enter on the checkout form, so the "Apply" button
+ * accepts the code and the rejection shows when they submit checkout. Anyone who knows a listed
+ * email can enter it, so this limits who a code is meant for; it does not stop code sharing.
+ *
+ * title: Restrict discount code usage by email address
  * layout: snippet
  * collection: discount-codes
  * category: checkout
@@ -24,7 +28,7 @@
 					<label for="uses">Restrict By Email</label>
 				</th>
 				<td>
-					<textarea name='discount_restrictions' style='width: 30%;' rows='4'><?php echo str_replace( "<br />", "", get_option( 'discount_code_restriction_'.$edit ) ); ?></textarea><br/>
+					<textarea name='discount_restrictions' style='width: 30%;' rows='4'><?php echo esc_textarea( str_replace( "<br />", "", get_option( 'discount_code_restriction_'.$edit ) ) ); ?></textarea><br/>
 					<small>One email address per line.</small>
 				</td>
 			</tr>
@@ -96,9 +100,9 @@ function mypmpro_validate_discount_code_use_restrict( $okay, $dbcode, $level_id,
 		return $okay;
 	}
 
+	// Returning a string tells core to show it as the error message.
 	if ( ! in_array( strtolower( $email ), $emails, true ) ) {
-		pmpro_setMessage( "This discount code cannot be used with the email address associated with your account.", "pmpro_error" );
-		$okay = false;
+		return "This discount code cannot be used with this email address.";
 	}
 
 	return $okay;
