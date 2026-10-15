@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: memberlite
  * category: design
- * link: TBD
+ * link: https://www.paidmembershipspro.com/add-custom-colors-block-editor-palette/
  *
  * Edit the $new_colors array below to add your own colors. Each color needs a
  * name (shown in the editor), a unique slug, and a hex color value.
