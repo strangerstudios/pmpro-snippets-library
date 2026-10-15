@@ -1,6 +1,6 @@
 <?php
 /**
- * Restrict discount code usage based on the logged in user's email address
+ * Restrict discount code usage based on the logged in user's email address (or the email entered at checkout for guests)
  *
  * title: Restrict discount code usage based on the logged in user's email address
  * layout: snippet
@@ -40,7 +40,7 @@ function mypmpro_save_discount_code_restrict( $edit ){
 	// Run it on save.
 	if ( isset( $_REQUEST['discount_restrictions'] ) ){
 
-		$description = nl2br( $_REQUEST['discount_restrictions'] );
+		$description = nl2br( sanitize_textarea_field( wp_unslash( $_REQUEST['discount_restrictions'] ) ) );
 		update_option( 'discount_code_restriction_'.$edit, $description );
 
 	}
@@ -67,31 +67,38 @@ add_action( 'pmpro_discountcodes_extra_cols_body', 'mypmpro_discount_page_column
 
 function mypmpro_validate_discount_code_use_restrict( $okay, $dbcode, $level_id, $code ){
 
-	$discount = new PMPro_Discount_Code( $code );
-	
-	$restrict = get_option( 'discount_code_restriction_'.$discount->id );	
+	// Bail if core already rejected the code or did not find a code row.
+	if ( ! $okay || empty( $dbcode ) || empty( $dbcode->id ) ) {
+		return $okay;
+	}
+
+	$restrict = get_option( 'discount_code_restriction_' . $dbcode->id );
 
 	$restrictions = strip_tags( $restrict );
 
 	$restrictions = str_replace( "\n", ",", $restrictions );
 
-	if( $restrictions !== "" ){
-		$emails = explode( ",", $restrictions );
-        
-		$user = wp_get_current_user();
-    
-		if( $user->ID > 0 ){
-			if( in_array( $user->data->user_email, $emails ) ){
-				$okay = true;
-			} else {
-                pmpro_setMessage( "This discount code cannot be used with the email address associated with your account.", "pmpro_error" );
-				$okay = false;
-			}
-		} 
-            
-        return $okay;
-        
-		
+	if ( $restrictions === "" ) {
+		return $okay;
+	}
+
+	$emails = array_filter( array_map( 'trim', explode( ",", $restrictions ) ) );
+	$emails = array_map( 'strtolower', $emails );
+
+	// Use the logged in user's email, or the email submitted on the checkout form for guests.
+	$user = wp_get_current_user();
+	if ( $user->ID > 0 ) {
+		$email = $user->user_email;
+	} elseif ( ! empty( $_REQUEST['bemail'] ) ) {
+		$email = sanitize_email( wp_unslash( $_REQUEST['bemail'] ) );
+	} else {
+		// No email to check yet (e.g. code applied before the form is submitted). Checked again on submit.
+		return $okay;
+	}
+
+	if ( ! in_array( strtolower( $email ), $emails, true ) ) {
+		pmpro_setMessage( "This discount code cannot be used with the email address associated with your account.", "pmpro_error" );
+		$okay = false;
 	}
 
 	return $okay;
