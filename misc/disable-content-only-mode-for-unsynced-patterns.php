@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: misc
  * category: block editor, patterns
- * link: TBD
+ * link: https://www.paidmembershipspro.com/disable-content-only-mode-unsynced-patterns/
  *
  * Starting in WordPress 7.0, blocks inserted from an unsynced pattern open in
  * content-only mode, where you can only edit text and images. This snippet lets
