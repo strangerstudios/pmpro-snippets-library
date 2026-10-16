@@ -10,7 +10,7 @@
  * layout: snippet
  * collection: email
  * category: export, action-scheduler, csv
- * link: TBD
+ * link: https://www.paidmembershipspro.com/email-daily-csv-export-members-membership-level/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
