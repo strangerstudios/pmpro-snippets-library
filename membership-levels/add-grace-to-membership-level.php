@@ -20,10 +20,16 @@ function my_pmpro_membership_post_membership_expiry( $user_id, $level_id ) {
 	$grace_level_flag      = get_user_meta( $user_id, $grace_period_meta_key, true );
 
 	if ( empty( $grace_level_flag ) ) {
-		$grace_level                  = array();
-		$grace_level['user_id']       = $user_id;
-		$grace_level['membership_id'] = $level_id;
-		$grace_level['enddate']       = date( 'Y-m-d H:i:s', strtotime( '+15 days', current_time( 'timestamp' ) ) ); // change +15 days with the number of days you would like to give for the grace period.
+		global $wpdb;
+
+		// Copy the membership that just expired so the grace period keeps the original start date and billing details.
+		// Otherwise the start date is blank, or the member shows up as a new signup in reports.
+		$grace_level = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->pmpro_memberships_users} WHERE user_id = %d AND membership_id = %d AND status = 'expired' ORDER BY id DESC LIMIT 1", $user_id, $level_id ), ARRAY_A );
+		if ( empty( $grace_level ) ) {
+			return;
+		}
+		unset( $grace_level['id'], $grace_level['status'], $grace_level['modified'] );
+		$grace_level['enddate'] = date( 'Y-m-d H:i:s', strtotime( '+15 days', current_time( 'timestamp' ) ) ); // change +15 days with the number of days you would like to give for the grace period.
 		$changed = pmpro_changeMembershipLevel( $grace_level, $user_id );
 		update_user_meta( $user_id, $grace_period_meta_key, 1 );
 	} else {
