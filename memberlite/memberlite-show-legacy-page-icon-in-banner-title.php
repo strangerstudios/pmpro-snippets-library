@@ -36,6 +36,13 @@ function my_memberlite_show_page_icon( $title_html ) {
 
 	$icon_html = do_shortcode( '[fa icon="' . esc_attr( $icon ) . '"]' );
 
-	return preg_replace( '/(<h1[^>]*>)/', '$1' . $icon_html . ' ', $title_html, 1 );
+	return preg_replace_callback(
+		'/<h1[^>]*>/',
+		function ( $matches ) use ( $icon_html ) {
+			return $matches[0] . $icon_html . ' ';
+		},
+		$title_html,
+		1
+	);
 }
 add_filter( 'memberlite_get_page_title', 'my_memberlite_show_page_icon' );

@@ -26,6 +26,7 @@
  * @return object|false The level, or false if the page has no landing page level.
  */
 function my_memberlite_get_landing_page_level() {
+	// Only single pages, not the posts page: the Landing Page template never applied there.
 	if ( ! is_page() || ! function_exists( 'pmpro_getLevel' ) ) {
 		return false;
 	}

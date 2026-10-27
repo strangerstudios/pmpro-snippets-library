@@ -23,6 +23,10 @@
  * @return array
  */
 function my_memberlite_banner_extra_padding_class( $classes ) {
+	if ( ! function_exists( 'memberlite_get_banner_post_id' ) ) {
+		return $classes;
+	}
+
 	$post_id = memberlite_get_banner_post_id();
 	if ( ! empty( $post_id ) && 'page' === get_post_type( $post_id ) && get_post_meta( $post_id, 'memberlite_banner_extra_padding', true ) ) {
 		$classes[] = 'memberlite-banner-extra-padding';
