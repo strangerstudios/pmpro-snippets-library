@@ -3,6 +3,7 @@
  * Require Membership to View Certain Taxonomy Terms
  * Adds the "Require Membership" level checkboxes to the terms of a custom taxonomy, the same as Paid Memberships Pro offers for post categories and tags.
  * E.g., the example code here makes terms in the custom taxonomy 'dietary_requirement' restrictable. Edit a term like 'Keto' and check the levels that can view its posts.
+ * If the taxonomy is used by a custom post type, add that post type with the pmpro_search_filter_post_types filter to hide its restricted posts from searches and archives.
  * Requires Paid Memberships Pro v3.8.1 or higher.
  * Learn more at https://www.paidmembershipspro.com/restrict-by-taxonomy/
  *

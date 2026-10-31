@@ -2,6 +2,7 @@
 /**
  * Restrict The Events Calendar event categories by membership level.
  * Adds the "Require Membership" level checkboxes to Events > Event Categories. Every event in a restricted category requires one of the checked levels.
+ * To also hide these events from calendar views and searches, use the Events for Members-Only Add On with "Filter searches and archives?" set to Yes.
  * Requires Paid Memberships Pro v3.8.1 or higher.
  *
  * title: Restrict The Events Calendar Event Categories by Membership Level
