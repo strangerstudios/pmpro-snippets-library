@@ -17,26 +17,35 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-function pmpro_allow_temp_access_for_non_members($hasaccess, $mypost, $myuser, $post_membership_levels){
+/**
+ * Grant non-members access to restricted content until a set date.
+ *
+ * @param bool    $hasaccess              Whether the current user has access to the post.
+ * @param WP_Post $mypost                 The post being checked.
+ * @param WP_User $myuser                 The user being checked.
+ * @param array   $post_membership_levels The membership levels required for the post.
+ * @return bool Whether the current user has access to the post.
+ */
+function my_pmpro_allow_temp_access_for_non_members( $hasaccess, $mypost, $myuser, $post_membership_levels ) {
 
 	// Do not affect existing memberships access to posts.
-	if( pmpro_hasMembershipLevel() ){
+	if ( pmpro_hasMembershipLevel() ) {
 		return $hasaccess;
 	}
 
-	$end_date = strtotime( date( '2026-12-31' ) ); //change this date value. Format ( Y-m-d ).
-	$today = strtotime( date( 'Y-m-d' ) );
+	$end_date = strtotime( '2026-12-31' ); // Change this date value. Format ( Y-m-d ).
+	$today    = strtotime( date( 'Y-m-d' ) );
 
-	//get the difference in date.
+	// Get the difference in date.
 	$diff = $end_date - $today;
-	
+
 	// If end date is today or earlier, grant access - if today > end date, return false.
-	if( $diff >= 0 ){
+	if ( $diff >= 0 ) {
 		$hasaccess = true;
-	}else{
+	} else {
 		$hasaccess = false;
 	}
 
 	return $hasaccess;
 }
-add_filter( 'pmpro_has_membership_access_filter', 'pmpro_allow_temp_access_for_non_members', 30, 4 );
+add_filter( 'pmpro_has_membership_access_filter', 'my_pmpro_allow_temp_access_for_non_members', 10, 4 );

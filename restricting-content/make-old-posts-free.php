@@ -5,7 +5,7 @@
  * after a certain amount of time has passed. Adjust the timeframe in the code
  * as needed (default: 18 months). (change line 32)
  *
- * title: title: Make Old Posts Free After a Set Time
+ * title: Make Old Posts Free After a Set Time
  * layout: snippet
  * collection: restricting-content
  * category: content, restriction
@@ -16,14 +16,15 @@
  * Read this companion article for step-by-step directions on either method:
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
- function my_pmpro_make_old_posts_free($hasaccess, $post, $user, $post_membership_levels) {
+
+function my_pmpro_make_old_posts_free( $hasaccess, $post, $user, $post_membership_levels ) {
 	// If they already have access, respect that and return.
 	if ( $hasaccess ) {
 		return $hasaccess;
 	}
 
 	// Only make posts (not pages or custom post types) free.
-	if ( $post->post_type != 'post' ) {
+	if ( $post->post_type !== 'post' ) {
 		return $hasaccess;
 	}
 
