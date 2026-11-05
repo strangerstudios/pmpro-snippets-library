@@ -6,7 +6,7 @@
  * layout: snippet
  * collection: payment-gateways, stripe
  * category: fee
- * link: TBD
+ * link: https://www.paidmembershipspro.com/gateway/stripe/switch-legacy-to-connect/
  *
  * Adds a Tools > Stripe Application Fees page for administrators. Click "Find Fees" to list open
  * subscriptions and draft invoices in your Stripe account that still carry an application fee.
