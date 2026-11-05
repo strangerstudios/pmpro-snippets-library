@@ -17,15 +17,6 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-/**
- * Grant non-members access to restricted content until a set date.
- *
- * @param bool    $hasaccess              Whether the current user has access to the post.
- * @param WP_Post $mypost                 The post being checked.
- * @param WP_User $myuser                 The user being checked.
- * @param array   $post_membership_levels The membership levels required for the post.
- * @return bool Whether the current user has access to the post.
- */
 function my_pmpro_allow_temp_access_for_non_members( $hasaccess, $mypost, $myuser, $post_membership_levels ) {
 
 	// Do not affect existing memberships access to posts.
