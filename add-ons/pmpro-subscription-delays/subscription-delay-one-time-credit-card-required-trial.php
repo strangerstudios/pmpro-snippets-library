@@ -9,6 +9,9 @@
  * Requires Paid Memberships Pro 3.9 or later. Set the trial level's First
  * Recurring Payment to "After a number of days" under Memberships > Settings > Levels.
  *
+ * The trial is not skipped for checkouts that use a discount code, or when the
+ * trial level has a Billing Cycle Limit or a Custom Trial.
+ *
  * title: One time credit card required trial
  * layout: snippet
  * collection: add-ons, pmpro-subscription-delays
@@ -85,6 +88,11 @@ function my_pmpro_one_time_trial_skip_trial( $level ) {
 		return false;
 	}
 
+	// A full initial payment would add a paid cycle to a billing limit or a custom trial.
+	if ( ! empty( $level->billing_limit ) || ! empty( $level->trial_limit ) ) {
+		return false;
+	}
+
 	return true;
 }
 
@@ -99,25 +107,71 @@ function my_pmpro_one_time_trial_checkout_level( $level ) {
 	// PMPro sets this from the level's First Recurring Payment setting. Without it, billing starts one cycle after checkout.
 	unset( $level->profile_start_date );
 
+	// Read when the checkout completes, including offsite checkouts.
+	$level->one_time_trial_skipped = 1;
+
 	return $level;
 }
 add_filter( 'pmpro_checkout_level', 'my_pmpro_one_time_trial_checkout_level', 5 );
 
 // Show the regular price on the levels page and at checkout.
-function my_pmpro_one_time_trial_level_cost_text( $cost, $level ) {
+function my_pmpro_one_time_trial_level_cost_text( $cost, $level, $tags = true, $short = false ) {
 	// Leave existing memberships on the Membership Account page alone.
 	if ( property_exists( $level, 'startdate' ) || ! my_pmpro_one_time_trial_skip_trial( $level ) ) {
 		return $cost;
 	}
 
-	if ( 1 === (int) $level->cycle_number ) {
-		/* translators: 1: billing amount, 2: billing period */
-		$cost = sprintf( __( 'The price for membership is <strong>%1$s per %2$s</strong>.', 'pmpro-snippets-library' ), pmpro_formatPrice( $level->billing_amount ), pmpro_translate_billing_period( $level->cycle_period ) );
-	} else {
-		/* translators: 1: billing amount, 2: cycle number, 3: billing period */
-		$cost = sprintf( __( 'The price for membership is <strong>%1$s every %2$d %3$s</strong>.', 'pmpro-snippets-library' ), pmpro_formatPrice( $level->billing_amount ), $level->cycle_number, pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) );
-	}
+	$regular_level                  = clone $level;
+	$regular_level->initial_payment = $regular_level->billing_amount;
+	unset( $regular_level->profile_start_date );
+
+	// Rebuild the text with PMPro's own wording, minus the First Recurring Payment sentence.
+	$delay_option = 'pre_option_pmpro_subscription_delay_' . (int) $level->id;
+	remove_filter( 'pmpro_level_cost_text', 'my_pmpro_one_time_trial_level_cost_text', 15 );
+	add_filter( $delay_option, '__return_empty_string' );
+
+	$cost = pmpro_getLevelCost( $regular_level, $tags, $short );
+
+	remove_filter( $delay_option, '__return_empty_string' );
+	add_filter( 'pmpro_level_cost_text', 'my_pmpro_one_time_trial_level_cost_text', 15, 4 );
 
 	return $cost;
 }
-add_filter( 'pmpro_level_cost_text', 'my_pmpro_one_time_trial_level_cost_text', 15, 2 );
+add_filter( 'pmpro_level_cost_text', 'my_pmpro_one_time_trial_level_cost_text', 15, 4 );
+
+// Flag the order when a returning member skipped the trial. Runs before the trial meta is saved.
+function my_pmpro_one_time_trial_flag_order( $user_id, $order ) {
+	global $pmpro_level;
+
+	if ( ! empty( $pmpro_level->one_time_trial_skipped ) && ! empty( $order->id ) ) {
+		update_pmpro_membership_order_meta( $order->id, 'one_time_trial_skipped', 1 );
+	}
+}
+add_action( 'pmpro_checkout_before_change_membership_level', 'my_pmpro_one_time_trial_flag_order', 10, 2 );
+
+// Remove the trial's first payment date from the checkout emails for flagged orders.
+function my_pmpro_one_time_trial_email_data( $data, $email ) {
+	$templates = array( 'checkout_paid', 'checkout_paid_admin', 'checkout_check', 'checkout_check_admin' );
+	if ( empty( $email->template ) || ! in_array( $email->template, $templates, true ) || empty( $data['order_id'] ) ) {
+		return $data;
+	}
+
+	$order = new MemberOrder();
+	$order->getMemberOrderByCode( $data['order_id'] );
+	if ( empty( $order->id ) || ! get_pmpro_membership_order_meta( $order->id, 'one_time_trial_skipped', true ) ) {
+		return $data;
+	}
+
+	$level = pmpro_getSpecificMembershipLevelForUser( $order->user_id, $order->membership_id );
+	if ( empty( $level ) ) {
+		return $data;
+	}
+
+	// Without profile_start_date, PMPro leaves the first payment date out of an existing membership's cost text.
+	$level = clone $level;
+	unset( $level->profile_start_date );
+	$data['membership_cost'] = pmpro_getLevelCost( $level );
+
+	return $data;
+}
+add_filter( 'pmpro_email_data', 'my_pmpro_one_time_trial_email_data', 10, 2 );
