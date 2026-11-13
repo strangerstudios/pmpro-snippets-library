@@ -8,7 +8,7 @@
  * layout: snippet
  * collection: user-fields
  * category: custom-fields
- * link: https://www.paidmembershipspro.com/add-user-taxonomy-field/
+ * link: https://www.paidmembershipspro.com/how-to-manage-association-chapters/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
@@ -119,3 +119,18 @@ function my_pmpro_memberslist_chapter_column_content( $column_name, $user_id, $i
 	echo $names ? esc_html( $names ) : '&#8212;';
 }
 add_action( 'pmpro_manage_memberslist_custom_column', 'my_pmpro_memberslist_chapter_column_content', 10, 3 );
+
+// 4. Show chapter names, not term IDs, in the Members List CSV export.
+function my_pmpro_memberslist_csv_chapter_column( $columns ) {
+	if ( isset( $columns[ my_pmpro_chapters_field_name() ] ) ) {
+		$columns[ my_pmpro_chapters_field_name() ] = 'my_pmpro_memberslist_csv_chapter_value';
+	}
+
+	return $columns;
+}
+// Priority 20 so this replaces the default user field column PMPro adds at 10.
+add_filter( 'pmpro_members_list_csv_extra_columns', 'my_pmpro_memberslist_csv_chapter_column', 20 );
+
+function my_pmpro_memberslist_csv_chapter_value( $user, $column ) {
+	return my_pmpro_get_user_chapter_names( $user->ID );
+}

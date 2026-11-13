@@ -29,19 +29,47 @@ function my_chapter_leader_is_scoped() {
 	return current_user_can( my_chapter_leadership_cap() ) && ! current_user_can( 'manage_options' );
 }
 
+// The ID of the Level Group that holds your chapter levels. Find it in the URL
+// (edit_group=ID) when you edit the group at Memberships > Settings > Levels.
+if ( ! function_exists( 'my_chapter_leader_chapters_group_id' ) ) {
+	function my_chapter_leader_chapters_group_id() {
+		return 0; // Replace 0 with your chapters Level Group ID.
+	}
+}
+
 /**
- * The membership level IDs a chapter leader may see (only their own).
+ * The chapter level IDs a chapter leader may see (only their own).
+ *
+ * Only levels in the chapters Level Group count. Leadership levels like a shared
+ * "Chapter President" level are skipped so a leader can't see every member who
+ * holds that level in other chapters. Returns an empty array (the leader sees
+ * nothing) until the chapters group ID is set above.
  *
  * @return int[] Level IDs the leader may view.
  */
 function my_chapter_leader_level_ids() {
-	if ( ! function_exists( 'pmpro_getMembershipLevelsForUser' ) ) {
+	if ( ! function_exists( 'pmpro_getMembershipLevelsForUser' ) || ! function_exists( 'pmpro_get_group_id_for_level' ) ) {
+		return array();
+	}
+
+	$group_id = absint( my_chapter_leader_chapters_group_id() );
+	if ( empty( $group_id ) ) {
 		return array();
 	}
 
 	$levels = pmpro_getMembershipLevelsForUser( get_current_user_id() );
+	if ( empty( $levels ) ) {
+		return array();
+	}
 
-	return $levels ? array_map( 'absint', wp_list_pluck( $levels, 'id' ) ) : array();
+	$level_ids = array();
+	foreach ( $levels as $level ) {
+		if ( absint( pmpro_get_group_id_for_level( $level->id ) ) === $group_id ) {
+			$level_ids[] = absint( $level->id );
+		}
+	}
+
+	return $level_ids;
 }
 
 // 1. Let chapter leaders open the Members List by granting pmpro_memberslist
