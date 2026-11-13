@@ -4,16 +4,16 @@
  * If that user tries to check out for the same level, the Subscription Delay is removed. 
  * The user is instead charged for their first subscription payment at checkout.
  *
+ * Written for the Subscription Delays Add On, which is retired and merged into
+ * PMPro 3.9. Do not use on PMPro 3.9+: core still delays the first recurring
+ * payment, so returning members would be charged at checkout and again when the delay ends.
+ *
  * title: Subscription Delay that can only be used once.
  * layout: snippet
  * collection: add-ons, pmpro-subscription-delays
  * category: custom-fields
- * link: https://www.paidmembershipspro.com/remove-trial-period-for-existing-members/
- *
- * You can add this recipe to your site by creating a custom plugin
- * or using the Code Snippets plugin available for free in the WordPress repository.
- * Read this companion article for step-by-step directions on either method.
- * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
+ * link: https://www.paidmembershipspro.com/subscription-delay-one-time-credit-card-required-trial/
+ * Status: Retired — does not work with PMPro 3.9+; use the One-Time Free Trial That Requires a Credit Card recipe instead.
  */
 function my_pmpro_one_time_sub_delay( $checkout_level ) {
 
