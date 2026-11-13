@@ -14,7 +14,7 @@
  *
  * title: One time credit card required trial
  * layout: snippet
- * collection: add-ons, pmpro-subscription-delays
+ * collection: checkout
  * category: subscriptions, trials
  * link: https://www.paidmembershipspro.com/subscription-delay-one-time-credit-card-required-trial/
  *
