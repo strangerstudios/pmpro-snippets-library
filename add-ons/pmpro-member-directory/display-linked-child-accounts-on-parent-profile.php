@@ -21,6 +21,7 @@
  * @param $pu WP_User The user whose profile is being shown.
  * 
  */
+
 function show_group_account_child_pmpro_member_profile_after( $pu ) {
 	// Bail if pmpro groups account Add On isn't active.
 	if ( ! class_exists( 'PMProGroupAcct_Group' ) ) {
@@ -60,14 +61,50 @@ function show_group_account_child_pmpro_member_profile_after( $pu ) {
 		return;
 	}
 
-	// Display the group members.
-	echo '<strong>' . esc_html__( 'Group Account Members', 'pmpro-snippets-library' ) . '</strong>';
-	echo '<ul>';
-	foreach ( $active_members as $active_member ) {
-		$user = get_userdata( $active_member->group_child_user_id );
-		echo '<li>' . esc_html( $user->display_name ) . '</li>';
-	}
-	echo '</ul>';
-
+	// Display the group members using the same field markup as the other profile fields so it stacks in line with the rest of the card.
+	?>
+	<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_member_profile_field pmpro_member_profile_field-group_account_members', 'pmpro_member_profile_field-group_account_members' ) ); ?>">
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_member_profile_field_label' ) ); ?>">
+			<?php esc_html_e( 'Group Account Members', 'pmpro-snippets-library' ); ?>
+		</div>
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_member_profile_field_data' ) ); ?>">
+			<ul class="pmpro_member_profile_group_account_members_list">
+				<?php foreach ( $active_members as $active_member ) :
+					$user = get_userdata( $active_member->group_child_user_id );
+					if ( empty( $user ) ) {
+						continue;
+					}
+					?>
+					<li><?php echo esc_html( $user->display_name ); ?></li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	</div>
+	<?php
 }
 add_action( 'pmpro_member_profile_after', 'show_group_account_child_pmpro_member_profile_after' );
+
+/**
+ * Make the Group Account Members field stack full-width, like the display name and description fields,
+ * so the list of child accounts lays out cleanly instead of being squeezed into the 2-column field grid.
+ */
+function show_group_account_child_pmpro_member_profile_css() {
+	if ( ! class_exists( 'PMProGroupAcct_Group' ) ) {
+		return;
+	}
+	?>
+	<style>
+		.pmpro_member_profile_field-group_account_members {
+			flex: 1 1 100% !important;
+		}
+		.pmpro_member_profile_group_account_members_list {
+			margin: 0;
+			padding-left: 1.2em;
+		}
+		.pmpro_member_profile_group_account_members_list li {
+			margin: 0 0 .25em 0;
+		}
+	</style>
+	<?php
+}
+add_action( 'wp_head', 'show_group_account_child_pmpro_member_profile_css' );
