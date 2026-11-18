@@ -107,4 +107,4 @@ function show_group_account_child_pmpro_member_profile_css() {
 	</style>
 	<?php
 }
-add_action( 'wp_head', 'show_group_account_child_pmpro_member_profile_css' );
+add_action( 'wp_footer', 'show_group_account_child_pmpro_member_profile_css' );
