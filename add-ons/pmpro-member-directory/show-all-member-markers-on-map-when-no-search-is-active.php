@@ -7,9 +7,9 @@
  * members with a saved map location and overrides the marker data before Google Maps
  * initializes, so every member appears as a pin regardless of pagination.
  *
- * This snippet is suitable for directories with a moderate number of members. 
- * For sites with hundreds of active members, consider restricting levels via the 
- * level shortcode attribute and testing page load size.
+ * This snippet is suitable for directories with a moderate number of members.
+ * For sites with hundreds of active members, consider restricting levels via the
+ * levels shortcode attribute (or the block's levels setting) and testing page load size.
  *
  * title: Show All Member Markers on the Directory Map When No Search Is Active
  * layout: snippet
@@ -23,14 +23,12 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
-// Capture the exact shortcode attributes used when the map renders,
-// so we build marker info-windows with the same fields/links as the live map.
-function custom_pmpromd_capture_map_attributes( $map_id, $attributes ) {
+// Capture the directory's shortcode attributes so markers match the live map (skips the profile page map).
+function custom_pmpromd_capture_map_attributes( $sql, $shortcode_atts ) {
 	global $custom_pmpromd_map_attributes;
-	$custom_pmpromd_map_attributes = $attributes;
-	return $map_id;
+	$custom_pmpromd_map_attributes = $shortcode_atts;
 }
-add_filter( 'pmpromd_map_id', 'custom_pmpromd_capture_map_attributes', 10, 2 );
+add_action( 'pmpro_member_directory_before', 'custom_pmpromd_capture_map_attributes', 10, 2 );
 
 // Before footer scripts are printed, replace the paginated marker set with all members.
 function custom_pmpromd_all_markers_no_search() {
@@ -41,8 +39,13 @@ function custom_pmpromd_all_markers_no_search() {
 		return;
 	}
 
-	// Leave the default behaviour in place when the visitor has searched.
-	if ( ! empty( $_GET['ps'] ) ) {
+	// Only act when the directory rendered.
+	if ( empty( $custom_pmpromd_map_attributes ) ) {
+		return;
+	}
+
+	// Leave the default behaviour in place when the visitor has searched (form POST or paginated GET).
+	if ( ! empty( $_REQUEST['ps'] ) ) {
 		return;
 	}
 
@@ -51,12 +54,12 @@ function custom_pmpromd_all_markers_no_search() {
 		return;
 	}
 
-	$attributes = ! empty( $custom_pmpromd_map_attributes ) ? $custom_pmpromd_map_attributes : array();
+	$attributes = $custom_pmpromd_map_attributes;
 
-	// Optional: carry level restrictions from the directory shortcode into this query.
+	// Carry level restrictions from the directory shortcode into this query.
 	$level_sql = '';
-	if ( ! empty( $attributes['level'] ) ) {
-		$levels = is_array( $attributes['level'] ) ? implode( ',', $attributes['level'] ) : $attributes['level'];
+	if ( ! empty( $attributes['levels'] ) ) {
+		$levels = is_array( $attributes['levels'] ) ? implode( ',', $attributes['levels'] ) : $attributes['levels'];
 		$levels = preg_replace( '/[^0-9,]/', '', $levels );
 		if ( ! empty( $levels ) ) {
 			$level_sql = "AND mu.membership_id IN ($levels)";
