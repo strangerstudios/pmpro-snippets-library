@@ -7,9 +7,9 @@
  * members with a saved map location and overrides the marker data before Google Maps
  * initializes, so every member appears as a pin regardless of pagination.
  *
- * This snippet is suitable for directories with a moderate number of members. 
- * For sites with hundreds of active members, consider restricting levels via the 
- * level shortcode attribute and testing page load size.
+ * This snippet is suitable for directories with a moderate number of members.
+ * For sites with hundreds of active members, consider restricting levels via the
+ * levels shortcode attribute (or the block's levels setting) and testing page load size.
  *
  * title: Show All Member Markers on the Directory Map When No Search Is Active
  * layout: snippet
