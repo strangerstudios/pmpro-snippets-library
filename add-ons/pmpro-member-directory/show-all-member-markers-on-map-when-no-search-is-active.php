@@ -15,7 +15,7 @@
  * layout: snippet
  * collection: pmpro-member-directory
  * category: maps, markers
- * link: TBD
+ * link: https://www.paidmembershipspro.com/show-all-member-markers-on-the-directory-map/
  *
  * You can add this recipe to your site by creating a custom plugin
  * or using the Code Snippets plugin available for free in the WordPress repository.
