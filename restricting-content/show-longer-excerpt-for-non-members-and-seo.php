@@ -1,6 +1,6 @@
 <?php
 /**
- * Change the excerpt length using PHP for non-members
+ * Change the excerpt length using PHP for non-members.
  *
  * title: How to Show a Longer Post Excerpt for Non-Members and SEO
  * layout: snippet
@@ -14,13 +14,11 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
+function my_pmpro_non_member_excerpt_length( $length ) {
+	if ( ! pmpro_hasMembershipLevel() ) {
+		$length = 200; // Change the number of words for non-members.
+	}
 
-function pmpro_non_member_excerpt_length( $length ) {
-
-  if ( ! pmpro_hasMembershipLevel() ) {
-  $length = 200; // Change the number of words for non-members.
-  }
- 
-  return $length;
+	return $length;
 }
-add_filter( 'excerpt_length', 'pmpro_non_member_excerpt_length', 20 );
+add_filter( 'excerpt_length', 'my_pmpro_non_member_excerpt_length', 20 );
