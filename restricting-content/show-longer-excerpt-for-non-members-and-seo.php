@@ -14,6 +14,12 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 
+/**
+ * To use this customization, be sure "Show Excerpts to Non-Members?"
+ * is set to "Yes, show excerpts" in Memberships -> Settings -> Advanced Settings -> Content Settings.
+ * Will only affect auto generated excerpts. Manually created excerpts will remain unchanged.
+ */
+
 function my_pmpro_non_member_excerpt_length( $length ) {
 	if ( ! pmpro_hasMembershipLevel() ) {
 		$length = 200; // Change the number of words for non-members.
