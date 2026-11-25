@@ -18,7 +18,7 @@
 function pmpro_non_member_excerpt_length( $length ) {
 
   if ( ! pmpro_hasMembershipLevel() ) {
-    $length = 200; // Change the number of characters for non-members.
+  $length = 200; // Change the number of words for non-members.
   }
  
   return $length;
