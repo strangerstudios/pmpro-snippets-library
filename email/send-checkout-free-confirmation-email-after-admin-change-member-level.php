@@ -14,8 +14,8 @@
  * https://www.paidmembershipspro.com/create-a-plugin-for-pmpro-customizations/
  */
 function my_send_pmpro_confirmation_emails_from_dashboard( $level_id, $user_id, $cancel_level_id ) {
-	// If we're not in the dashboard, this is probably a checkout on the frontend.
-	if ( ! is_admin() ) {
+	// Skip frontend checkouts and AJAX requests (including gateway webhooks).
+	if ( ! is_admin() || wp_doing_ajax() ) {
 		return;
 	}
 
